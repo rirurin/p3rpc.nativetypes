@@ -1,0 +1,21 @@
+{
+  "ModId": "p3rpc.nativetypes",
+  "ModName": "P3RE Native Types",
+  "ModAuthor": "Rirurin",
+  "ModVersion": "1.0.0",
+  "ModDescription": "Struct defintions for Persona 3 Reload code mods",
+  "ModDll": "p3rpc.nativetypes.dll",
+  "ModIcon": "Preview.png",
+  "ModR2RManagedDll32": "x86/p3rpc.nativetypes.dll",
+  "ModR2RManagedDll64": "x64/p3rpc.nativetypes.dll",
+  "ModNativeDll32": "",
+  "ModNativeDll64": "",
+  "IsLibrary": true,
+  "ReleaseMetadataFileName": "p3rpc.nativetypes.ReleaseMetadata.json",
+  "PluginData": {},
+  "IsUniversalMod": false,
+  "ModDependencies": [ "reloaded.sharedlib.hooks" ],
+  "OptionalDependencies": [],
+  "SupportedAppId": ["p3r.exe"],
+  "ProjectUrl": ""
+}
