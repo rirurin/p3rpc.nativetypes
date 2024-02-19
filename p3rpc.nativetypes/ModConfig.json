@@ -10,12 +10,26 @@
   "ModR2RManagedDll64": "x64/p3rpc.nativetypes.dll",
   "ModNativeDll32": "",
   "ModNativeDll64": "",
+  "Tags": [],
+  "CanUnload": false,
+  "HasExports": false,
   "IsLibrary": true,
   "ReleaseMetadataFileName": "p3rpc.nativetypes.ReleaseMetadata.json",
-  "PluginData": {},
+  "PluginData": {
+    "GitHubRelease": {
+      "UserName": "Rirurin",
+      "RepositoryName": "p3rpc.nativetypes",
+      "UseReleaseTag": true,
+      "AssetFileName": "Mod.zip"
+    }
+  },
   "IsUniversalMod": false,
-  "ModDependencies": [ "reloaded.sharedlib.hooks" ],
+  "ModDependencies": [
+    "reloaded.sharedlib.hooks"
+  ],
   "OptionalDependencies": [],
-  "SupportedAppId": ["p3r.exe"],
+  "SupportedAppId": [
+    "p3r.exe"
+  ],
   "ProjectUrl": ""
 }
