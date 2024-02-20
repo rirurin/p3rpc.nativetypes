@@ -77,7 +77,7 @@ jobs:
         }
         
     - name: Build
-      run: ./PublishAll.ps1
+      run: ./Publish.ps1 -ChangelogPath "$env:PUBLISH_CHANGELOG_PATH"
       
     - name: Upload GitHub Release Artifact
       uses: actions/upload-artifact@v2.2.4
