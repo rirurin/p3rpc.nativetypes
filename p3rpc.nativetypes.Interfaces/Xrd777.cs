@@ -105,7 +105,7 @@ public unsafe struct UUIGenericSelectCharacter //: public UObject
 public unsafe struct AUIGenericSelect //: public AUIBaseActor
 {
     [FieldOffset(0x02F8)] public UGenericSelectSystemBase* System_;
-    [FieldOffset(0x0300)] public UObjectBase* pAssetLoader; // UAssetLoader*
+    [FieldOffset(0x0300)] public UObject* pAssetLoader; // UAssetLoader*
     [FieldOffset(0x0308)] public AUIGenericSelectDraw* pDrawClass;
     [FieldOffset(0x0310)] public AUIGenericSelectDraw* pDrawActor;
     [FieldOffset(0x0318)] public UDataTable* LayoutData;
@@ -2272,7 +2272,7 @@ public unsafe struct UCmpSystem // : UCmpMenuBase
 [StructLayout(LayoutKind.Explicit, Size = 0x1408)]
 public unsafe struct UCmpSystemDraw // : UObject
 {
-    [FieldOffset(0x0000)] public UObjectBase baseObj;
+    [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0048)] public TArray<nint> SubMenuMateDynamicAry;
     [FieldOffset(0x13F8)] public ACmpMainActor* pMainActor;
     [FieldOffset(0x1400)] public UCmpSystem* pParent;
@@ -2281,7 +2281,7 @@ public unsafe struct UCmpSystemDraw // : UObject
 [StructLayout(LayoutKind.Explicit, Size = 0x58)]
 public unsafe struct UCmpSystemSystem // : UObject
 {
-    [FieldOffset(0x0000)] public UObjectBase baseObj;
+    [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0040)] public ACmpMainActor* pCmpMainActor;
     //[FieldOffset(0x0048)] public AUISaveLoad* pSaveMenu;
     //[FieldOffset(0x0050)] public AUIRestore* pRestoreMenu;
@@ -2298,14 +2298,14 @@ public unsafe struct UCmpSkill // : UCmpMenuBase
 [StructLayout(LayoutKind.Explicit, Size = 0x548)]
 public unsafe struct UCmpSkillDraw // : UObject
 {
-    [FieldOffset(0x0000)] public UObjectBase baseObj;
+    [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0038)] public ACmpMainActor* pMainActor;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x58)]
 public unsafe struct UCmpSkillSystem // : UObject
 {
-    [FieldOffset(0x0000)] public UObjectBase baseObj;
+    [FieldOffset(0x0000)] public UObject baseObj;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x240)]
@@ -2320,7 +2320,7 @@ public unsafe struct UCmpItem // : UCmpMenuBase
 [StructLayout(LayoutKind.Explicit, Size = 0x608)]
 public unsafe struct UCmpItemDraw // : UObject
 {
-    [FieldOffset(0x0000)] public UObjectBase baseObj;
+    [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0038)] public ACmpMainActor* pMainActor;
 }
 
@@ -2332,7 +2332,7 @@ public struct FItemListItem
 [StructLayout(LayoutKind.Explicit, Size = 0x798)]
 public unsafe struct UCmpItemSystem // : UObject
 {
-    [FieldOffset(0x0000)] public UObjectBase baseObj;
+    [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0768)] public TArray<short> PartyMemberList;
     [FieldOffset(0x0778)] public TArray<int> PersonaStockIDList;
     [FieldOffset(0x0788)] public TArray<FItemListItem> ItemList;
@@ -2355,7 +2355,7 @@ public unsafe struct UCmpStatusCharacterList // : UUIScene
 [StructLayout(LayoutKind.Explicit, Size = 0x870)]
 public unsafe struct UCmpStatusCharacterListDraw // : UObject
 {
-    [FieldOffset(0x0000)] public UObjectBase baseObj;
+    [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0028)] public UUICmpStatus* pParent;
     [FieldOffset(0x0030)] public ACmpMainActor* pMainActor;
 }
@@ -2363,7 +2363,7 @@ public unsafe struct UCmpStatusCharacterListDraw // : UObject
 [StructLayout(LayoutKind.Explicit, Size = 0x348)]
 public unsafe struct UUICmpStatus // : UObject
 {
-    [FieldOffset(0x0000)] public UObjectBase baseObj;
+    [FieldOffset(0x0000)] public UObject baseObj;
     //[FieldOffset(0x02B0)] public UUISceneFSM* SceneFSM_;
     //[FieldOffset(0x02B8)] public TMap<int, UUIScene*> Scenes_;
     //[FieldOffset(0x0308)] public APersonaStatus* PSStatusActor_;
@@ -2385,11 +2385,11 @@ public unsafe struct UUIResources // : UGameInstanceSubsystem
     //[FieldOffset(0x00D8)] public UFontStyleAsset* FontStyleAsset_;
     //[FieldOffset(0x00E0)] public UFont* SystemFont_;
 
-    public UObjectBase* GetAssetEntry(byte index)
+    public UObject* GetAssetEntry(byte index)
     {
-        UObjectBase* asset = null;
+        UObject* asset = null;
         if ((bIsReady & 1) != 0 && index < Assets_.arr_num)
-            asset = (UObjectBase*)Assets_.allocator_instance[index];
+            asset = (UObject*)Assets_.allocator_instance[index];
         return asset;
     }
 }

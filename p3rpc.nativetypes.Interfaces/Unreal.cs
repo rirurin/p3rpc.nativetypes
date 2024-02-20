@@ -89,23 +89,23 @@ public enum EInternalObjectFlags : uint
 	    Unreachable = 1 << 28, ///< Object is not reachable on the object graph.
 	    PendingKill = 1 << 29, ///< Objects that are pending destruction (invalid for gameplay but valid objects). This flag is mirrored in EObjectFlags as RF_PendingKill for performance
 	    RootSet = 1 << 30, ///< Object will not be garbage collected, even if unreferenced.
-	    PendingConstruction = (uint)1 << 31, ///< Object didn't have its class constructor called yet (only the UObjectBase one to initialize its most basic member
+	    PendingConstruction = (uint)1 << 31, ///< Object didn't have its class constructor called yet (only the UObject one to initialize its most basic member
 };
 [StructLayout(LayoutKind.Sequential, Size = 0x28)]
-public unsafe struct UObjectBase
+public unsafe struct UObject
 {
     public IntPtr _vtable; // @ 0x0
     public EObjectFlags ObjectFlags; // @ 0x8
     public uint InternalIndex; // @ 0xc
     public UClass* ClassPrivate; // @ 0x10 Type of this object. Used for reflection
     public FName NamePrivate; // @ 0x18
-    public UObjectBase* OuterPrivate; // @ 0x20 Object that is containing this object
+    public UObject* OuterPrivate; // @ 0x20 Object that is containing this object
 }
 // Class data
 [StructLayout(LayoutKind.Explicit, Size = 0x30)]
 public unsafe struct UField
 {
-    [FieldOffset(0x0)] public UObjectBase _super;
+    [FieldOffset(0x0)] public UObject _super;
     [FieldOffset(0x28)] public UField* next;
 }
 [StructLayout(LayoutKind.Explicit, Size = 0xb0)]
@@ -337,10 +337,10 @@ public unsafe struct UClass
     [FieldOffset(0xcc)] public EClassFlags class_flags;
     [FieldOffset(0xd0)] public EClassCastFlags class_cast_flags;
     [FieldOffset(0xd8)] public UClass* class_within; // type of object containing the current object
-    [FieldOffset(0xe0)] public UObjectBase* class_gen_by;
+    [FieldOffset(0xe0)] public UObject* class_gen_by;
     [FieldOffset(0xe8)] public FName class_conf_name;
     [FieldOffset(0x100)] public TArray<UField> net_fields;
-    [FieldOffset(0x118)] public UObjectBase* class_default_obj; // Default object of type described in UClass instance
+    [FieldOffset(0x118)] public UObject* class_default_obj; // Default object of type described in UClass instance
     [FieldOffset(0x130)] public TMap func_map;
     [FieldOffset(0x180)] public TMap super_func_map;
     [FieldOffset(0x1d8)] public TArray<IntPtr> interfaces;
@@ -354,7 +354,7 @@ public unsafe struct FNativeFunctionLookup
     [FieldOffset(0x8)] /*FNativeFuncPtr*/ nint Pointer;
 }
 
-public unsafe delegate void FNativeFuncPtr(UObjectBase* context, nuint stack, nuint returnValue);
+public unsafe delegate void FNativeFuncPtr(UObject* context, nuint stack, nuint returnValue);
 
 public unsafe struct UEnumEntry // TTuple<FName, long>
 {
@@ -604,20 +604,20 @@ public unsafe struct FUObjectArray
 [StructLayout(LayoutKind.Sequential, Size = 0x18)]
 public unsafe struct FUObjectItem
 {
-    public UObjectBase* Object;
+    public UObject* Object;
 }
 // For StaticConstructObject_Internal
 [StructLayout(LayoutKind.Explicit, Size = 0x40)]
 public unsafe struct FStaticConstructObjectParameters
 {
     [FieldOffset(0x0)] public UClass* Class; // Type Info
-    [FieldOffset(0x8)] public UObjectBase* Outer; // The created object will be a child of this object
+    [FieldOffset(0x8)] public UObject* Outer; // The created object will be a child of this object
     [FieldOffset(0x10)] public FName Name;
     [FieldOffset(0x18)] public EObjectFlags SetFlags;
     [FieldOffset(0x1c)] public EInternalObjectFlags InternalSetFlags;
     [FieldOffset(0x20)] public byte bCopyTransientsFromClassDefaults;
     [FieldOffset(0x21)] public byte bAssumeTemplateIsArchetype;
-    [FieldOffset(0x28)] public UObjectBase* Template;
+    [FieldOffset(0x28)] public UObject* Template;
     [FieldOffset(0x30)] public IntPtr InstanceGraph;
     [FieldOffset(0x38)] public IntPtr ExternalPackage;
 }
