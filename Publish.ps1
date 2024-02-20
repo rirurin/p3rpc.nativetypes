@@ -408,7 +408,7 @@ if ($UseScriptDirectory) {
 }
 
 # Publish interface
-$InterfaceProjectPath = "p3rpc.nativetypes/p3rpc.nativetypes.Interfaces.csproj"
+$InterfaceProjectPath = "p3rpc.nativetypes.Interfaces/p3rpc.nativetypes.Interfaces.csproj"
 $InterfacePublishBuildDirectory = "Publish/Interface"
 
 Remove-Item $InterfacePublishBuildDirectory -Recurse -ErrorAction SilentlyContinue
