@@ -55,7 +55,12 @@ jobs:
         fetch-depth: 0
         submodules: 'recursive'
 
-    - name: Setup .NET Core SDK (8.0)
+    - name: Setup .NET Core SDK (5.0) # for Reloaded publisher
+      uses: actions/setup-dotnet@v1.8.2
+      with:
+        dotnet-version: 5.0.x
+
+    - name: Setup .NET Core SDK (8.0) # for mod projects
       uses: actions/setup-dotnet@v1.8.2
       with:
         dotnet-version: 8.0.x
