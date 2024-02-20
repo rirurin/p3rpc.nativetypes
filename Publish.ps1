@@ -169,7 +169,7 @@ param (
     ## => User: Delta Config
     # Pick one and configure settings below.
     $MetadataFileName = "Sewer56.Update.ReleaseMetadata.json",
-    $UseGitHubDelta = $False, # GitHub Releases
+    $UseGitHubDelta = $True, # GitHub Releases
     $UseGameBananaDelta = $False,
     $UseNuGetDelta = $False,
 
