@@ -135,6 +135,7 @@ jobs:
     - name: Push to NuGet (on Tag)
       env: 
         NUGET_KEY: ${{ secrets.RELOADED_NUGET_KEY }}
+        INTERFACE_NUGET_KEY: ${{ secrets.NUGET_KEY }}
       if: env.IS_RELEASE == 'true'
       run: |
         if ([string]::IsNullOrEmpty("$env:NUGET_KEY"))
@@ -154,5 +155,5 @@ jobs:
         Foreach ($item in $items)
         {
             Write-Host "Pushing $item"
-            dotnet nuget push "$item" -k "$env:NUGET_KEY" -s "$env:NUGET_URL" --skip-duplicate
+            dotnet nuget push "$item" -k "$env:INTERFACE_NUGET_KEY" -s "$env:NUGET_URL" --skip-duplicate
         }

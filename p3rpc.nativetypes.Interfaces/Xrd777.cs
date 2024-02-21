@@ -1591,19 +1591,19 @@ public unsafe struct UGlobalWork //: public UGameInstance
     //[FieldOffset(0x248E0)] public UDatSystemText* mSystemTextTable;
     //[FieldOffset(0x248E8)] public UDatUIUseText* mUIUseTextTable;
     //[FieldOffset(0x248F0)] public UDatUICalendarText* mUICalendarTextTable;
-    //[FieldOffset(0x248F8)] public UXrd777SaveManager* mSaveManager_;
+    [FieldOffset(0x248F8)] public UXrd777SaveManager* mSaveManager_;
     //[FieldOffset(0x24900)] public UAddContent* mAddContent_;
     //[FieldOffset(0x24F78)] public ULoading* pLoadingInst;
-    //[FieldOffset(0x24F80)] public ACmpMainActor* mCmpMainActor_;
+    [FieldOffset(0x24F80)] public ACmpMainActor* mCmpMainActor_;
     //[FieldOffset(0x24F88)] public ABtlGuiResourcesBase* mBtlGuiResourcesActor_;
     //[FieldOffset(0x24F90)] public UBtlEncountWipeLoader* mBtlEncountWipeLoader_;
     //[FieldOffset(0x24F98)] public ABtlEncountWipeCore* mBtlEncountWipeCore_;
     //[FieldOffset(0x24FA0)] public AFldLevelPoolManager* mLevelPoolManager_;
-    //[FieldOffset(0x24FA8)] public bool mPoolSetting_;
+    [FieldOffset(0x24FA8)] public bool mPoolSetting_;
     //[FieldOffset(0x24FE8)] public FSaveGameHeadder mTempSaveHeader_;
-    //[FieldOffset(0x250B8)] public bool bTempSaveHeaderUsed_;
+    [FieldOffset(0x250B8)] public bool bTempSaveHeaderUsed_;
     //[FieldOffset(0x250C0)] public UGlobalGameData* mGameDataProc_;
-    //[FieldOffset(0x250C8)]  public AAppActor* mSystemMonitor_;
+    [FieldOffset(0x250C8)] public AAppActor* mSystemMonitor_;
 };
 
 [StructLayout(LayoutKind.Explicit, Size = 0x64)]
@@ -1715,11 +1715,11 @@ public unsafe struct UMsgProcWindowBase //: public UObject
 [StructLayout(LayoutKind.Explicit, Size = 0xB0)]
 public unsafe struct UMsgItem //: public UObject
 {
-    [FieldOffset(0x30)] public nint CurrentSpeaker;
+    [FieldOffset(0x28)] public FCurrentBmdPage* CurrentPage;
+    [FieldOffset(0x30)] public FCurrentBmdPage* CurrentSpeaker;
     [FieldOffset(0x0068)] public TArray<FMsgItemInfo> MssageList;
     [FieldOffset(0x0078)] public TArray<FMsgItemInfo> SpeakerList;
     [FieldOffset(0x0088)] public UMsgProcWindowBase* mpMsgProcWindow;
-
 };
 
 [StructLayout(LayoutKind.Explicit, Size = 0xB0)]
@@ -1960,6 +1960,32 @@ public unsafe struct UMsgProcWindow_Assist //: public UMsgProcWindowBase
     [FieldOffset(0x0118)] public TArray<FVector> SupportPos;
 }; // Size: 0x1D8
 
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct BmdDataLetter
+{
+    // 0x0: utf8Character
+    [FieldOffset(0x14)] public FSprColor color;
+    [FieldOffset(0x20)] public BmdDataLetter* prev;
+    [FieldOffset(0x28)] public BmdDataLetter* next;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x60)]
+public unsafe struct FCurrentBmdCharacterOverview
+{
+    [FieldOffset(0x28)] public BmdDataLetter* FirstCharacter;
+    [FieldOffset(0x30)] public BmdDataLetter* LastCharacter;
+    [FieldOffset(0x48)] public nint Field48;
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x98)]
+public unsafe struct FCurrentBmdPage
+{
+    [FieldOffset(0x4)] public int LineCount;
+    [FieldOffset(0x18)] public nint BmdBufferStart;
+    [FieldOffset(0x20)] public nint BmdBufferPage;
+    [FieldOffset(0x30)] public uint cursorPos;
+    [FieldOffset(0x3c)] public FSprColor baseColor;
+}
+
 [StructLayout(LayoutKind.Explicit, Size = 0x228)]
 public unsafe struct UMsgProcWindow_Mind //: public UMsgProcWindowBase
 {
@@ -1972,6 +1998,7 @@ public unsafe struct UMsgProcWindow_Mind //: public UMsgProcWindowBase
     [FieldOffset(0x0138)] public UMaterialInstanceDynamic* ReadblurMatInst_;
     [FieldOffset(0x0140)] public USprAsset* _readSpr;
     [FieldOffset(0x0148)] public UPlgAsset* MsgPlg_;
+    [FieldOffset(0x150)] public UMsgProcWindow_Simple_NextPageParams NextPage;
     [FieldOffset(0x1ec)] public FLinearColor OuterBorderColor;
     [FieldOffset(0x1fc)] public FLinearColor InnerContentsColor;
     [FieldOffset(0x20c)] public FLinearColor OutsideMistColor;
