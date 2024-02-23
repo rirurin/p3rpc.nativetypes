@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 namespace p3rpc.nativetypes.Interfaces;
+#pragma warning disable CS1591
 
 // GENERATED FROM UE4SS CXX HEADER DUMP
 [StructLayout(LayoutKind.Explicit, Size = 0x40)]

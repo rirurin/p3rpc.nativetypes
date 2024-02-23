@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 namespace p3rpc.nativetypes.Interfaces;
+#pragma warning disable CS1591
 
 [StructLayout(LayoutKind.Explicit, Size = 0x18)]
 struct FUIColor //: public FTableRowBase

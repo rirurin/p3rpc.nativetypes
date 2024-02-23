@@ -1,6 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 namespace p3rpc.nativetypes.Interfaces;
 
+#pragma warning disable CS1591
+
 // ===================================
 // GENERATED FROM UE4SS CXX HEADER DUMP
 // Also thanks Ryn!
@@ -1982,6 +1984,7 @@ public unsafe struct FCurrentBmdPage
     [FieldOffset(0x4)] public int LineCount;
     [FieldOffset(0x18)] public nint BmdBufferStart;
     [FieldOffset(0x20)] public nint BmdBufferPage;
+    [FieldOffset(0x28)] public FCurrentBmdCharacterOverview* CharacterData;
     [FieldOffset(0x30)] public uint cursorPos;
     [FieldOffset(0x3c)] public FSprColor baseColor;
 }
@@ -2082,7 +2085,7 @@ public unsafe struct UMsgProcWindow_Simple //: public UMsgProcWindowBase
     }
     public unsafe bool HasSpeakerName()
     {
-        fixed (UMsgProcWindow_Simple* self = &this) { return ((UMsgProcWindowBase*)self)->pMsgWork->CurrentSpeaker != nint.Zero; }
+        fixed (UMsgProcWindow_Simple* self = &this) { return ((UMsgProcWindowBase*)self)->pMsgWork->CurrentSpeaker != null; }
     }
 
 }; // Size: 0x1B8
