@@ -3127,3 +3127,93 @@ public unsafe struct UGlobalGameData
     [FieldOffset(0x00A8)] public TArray<ushort> mDlcItems_ALWAYS_;
     [FieldOffset(0x00B8)] public TArray<ushort> mNotInheritanceItems_;
 }
+
+[StructLayout(LayoutKind.Explicit, Size = 0x410)]
+public unsafe struct UUICmpCalendarDraw
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x28)] public BPDrawSpr DrawSpr;
+    [FieldOffset(0x6c)] public int PartJobBgInAnimDelay;
+    [FieldOffset(0x70)] public int Field70;
+    [FieldOffset(0x98)] public int PartJobBgInAnimDstFrame;
+    [FieldOffset(0x9C)] public int PartJobBgOutAnimDelay;
+    [FieldOffset(0xA0)] public int PartJobBgOutAnimDstFrame;
+    [FieldOffset(0x178)] public int CalendarDrawQueue;
+    [FieldOffset(0x1e0)] public TArray<nint> PartTimeJobs;
+    [FieldOffset(0x214)] public float TimePartTimeJobOpen;
+    [FieldOffset(0x218)] public float TimePartTimeJobClosed;
+    [FieldOffset(0x248)] public float Field248;
+    [FieldOffset(0x03C8)] public UMaterialInstance* pBackgroundMaterialInstance;
+    [FieldOffset(0x03D0)] public UMaterialInstanceDynamic* pBackgroundMaterialDaynamic;
+    [FieldOffset(0x03D8)] public UDataTable* pEditParameterDataTable;
+    [FieldOffset(0x03E0)] public UDataTable* pMonthTable;
+    [FieldOffset(0x03E8)] public UDataTable* pDayTable;
+    [FieldOffset(0x03F0)] public UDataTable* pWeekTable;
+    [FieldOffset(0x03F8)] public UAssetLoader* pAssetLoader;
+    [FieldOffset(0x0400)] public ACmpMainActor* pMainActor;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x14)]
+public unsafe struct FCldDateMessage
+{
+    [FieldOffset(0x0000)] public int Key;
+    [FieldOffset(0x0004)] public ushort TotalDay;
+    [FieldOffset(0x0006)] public byte Month;
+    [FieldOffset(0x0007)] public byte Day;
+    [FieldOffset(0x0008)] public ECldDateMsgPeriod Period;
+    [FieldOffset(0x000C)] public uint MsgLabel;
+    [FieldOffset(0x0010)] public uint VisibleFlag;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FCldDateMessageMonth
+{
+    [FieldOffset(0x0000)] public TArray<FCldDateMessage> Data;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UCldDateMessageDataAsset
+{
+    //[FieldOffset(0x0000)] public UAppDataAsset baseObj;
+    [FieldOffset(0x0030)] public TArray<FCldDateMessageMonth> Data;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct BPDrawSpr
+{
+    [FieldOffset(0x0)] public nint vtable;
+    [FieldOffset(0x8)] public byte Flags;
+    [FieldOffset(0xc)] public uint Flags2;
+
+    public void Flag2Set_141301af0(byte flag)
+    {
+        Flags2 &= 0xfffffffe;
+        Flags2 |= flag;
+    }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public unsafe struct FAppCalculaterComponentWork
+{
+    [FieldOffset(0x0000)] public float Timer;
+    [FieldOffset(0x0008)] public TArray<FAppCalculationItem> List;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x14)]
+public unsafe struct FAppCalculationItem
+{
+    [FieldOffset(0x0000)] public float SrcValue;
+    [FieldOffset(0x0004)] public float DstValue;
+    [FieldOffset(0x0008)] public int Delay;
+    [FieldOffset(0x000C)] public int DstFrame;
+    [FieldOffset(0x0010)] public appCalculationType Type;
+
+    public FAppCalculationItem(float SrcValue, float DstValue, int Delay, int DstFrame, appCalculationType Type)
+    {
+        this.SrcValue = SrcValue;
+        this.DstValue = DstValue;
+        this.Delay = Delay;
+        this.DstFrame = DstFrame;
+        this.Type = Type;
+    }
+}

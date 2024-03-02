@@ -119,3 +119,41 @@ public enum EDungeonAnimID : uint
     TurnL = 210,
     TurnR = 211,
 };
+
+public enum ECldDateMsgPeriod : byte
+{
+    Single = 0,
+    Start = 1,
+    Mid = 2,
+    End = 3,
+};
+
+public enum appCalculationType
+{
+    Default_value = 0,
+    LINEAR = 0,
+    DEC = 1,
+    ACC = 2,
+    COS2 = 3,
+    H_DEC = 4,
+    H_ACC = 5,
+    ACC_DEC = 6,
+    SIN_2 = 7,
+    AD_SIN = 8,
+    LOOP = 9,
+    //appCalculationType_MAX = 10,
+};
+
+public enum EUI_DRAW_POINT
+{
+    UI_DRAW_LEFT_TOP = 0,
+    UI_DRAW_LEFT_CENTER = 1,
+    UI_DRAW_LEFT_BOTTOM = 2,
+    UI_DRAW_CENTER_TOP = 3,
+    UI_DRAW_CENTER_CENTER = 4,
+    UI_DRAW_CENTER_BOTTOM = 5,
+    UI_DRAW_RIGHT_TOP = 6,
+    UI_DRAW_RIGHT_CENTER = 7,
+    UI_DRAW_RIGHT_BOTTOM = 8,
+    //UI_DRAW_MAX = 9,
+};
