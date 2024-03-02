@@ -1,0 +1,121 @@
+﻿using System.Runtime.InteropServices;
+namespace p3rpc.nativetypes.Interfaces;
+
+#pragma warning disable CS1591
+
+public enum EUIOTPRESET_BLEND_TYPE : uint
+{
+    EUI_Defult_Value = 0,
+    UI_OT_PRESET_BLEND_OPAQUE = 0,
+    UI_OT_PRESET_BLEND_SEMITRANS = 1,
+    UI_OT_PRESET_BLEND_ADDTRANS = 2,
+    UI_OT_PRESET_BLEND_SUBTRANS = 3,
+    UI_OT_PRESET_BLEND_MULTRANS = 4,
+    UI_OT_PRESET_BLEND_MUL2TRANS = 5,
+    UI_OT_PRESET_BLEND_ADVANCED = 6,
+    UI_OT_PRESET_BLEND_MAKE_MASK = 7,
+    UI_OT_PRESET_BLEND_MAKE_MASK_MUL = 8,
+    UI_OT_PRESET_BLEND_DRAW_ONLY_MASK = 9,
+};
+
+public enum EUIBlendOperation : byte
+{
+    EUI_Defult_Value = 0,
+    UI_BO_Add = 0,
+    UI_BO_Subtract = 1,
+    UI_BO_Min = 2,
+    UI_BO_Max = 3,
+    UI_BO_ReverseSubtract = 4,
+    UI_EBlendOperation_Num = 5,
+    //UI_EBlendOperation_NumBits = 3,
+};
+
+public enum EUIBlendFactor : byte
+{
+    EUI_Defult_Value = 0,
+    UI_BF_Zero = 0,
+    UI_BF_One = 1,
+    UI_BF_SourceColor = 2,
+    UI_BF_InverseSourceColor = 3,
+    UI_BF_SourceAlpha = 4,
+    UI_BF_InverseSourceAlpha = 5,
+    UI_BF_DestAlpha = 6,
+    UI_BF_InverseDestAlpha = 7,
+    UI_BF_DestColor = 8,
+    UI_BF_InverseDestColor = 9,
+    UI_BF_ConstantBlendFactor = 10,
+    UI_BF_InverseConstantBlendFactor = 11,
+    UI_BF_Source1Color = 12,
+    UI_BF_InverseSource1Color = 13,
+    UI_BF_Source1Alpha = 14,
+    UI_BF_InverseSource1Alpha = 15,
+    UI_EBlendFactor_Num = 16,
+    //UI_EBlendFactor_NumBits = 4,
+};
+
+public enum ECldSceneChangeType : byte
+{
+    None = 0,
+    TimeChange = 1,
+    DayChange = 2,
+};
+
+public enum ECldDateColor : byte
+{
+    Normal = 0,
+    Red = 1,
+};
+
+public enum EFldCharKeyType : byte
+{
+    Triangle = 1,
+    Ok_Cross = 2,
+    Square = 3,
+    Cancel_Circle = 4,
+    Up = 5,
+    Down = 6,
+    Right = 7,
+    Left = 8,
+    L1 = 9,
+    L2 = 10,
+    L3 = 11,
+    R1 = 12,
+    R2 = 13,
+    R3 = 14,
+    OPTION = 15,
+    TOUCH = 16,
+};
+
+public enum EDungeonAnimID : uint
+{
+    BLANK = 0,
+    Idel = 1,
+    Walk = 2,
+    Talk = 3,
+    SatMain = 4,
+    SatTalk = 5,
+    SatA = 6,
+    SatB = 7,
+    SatN = 8,
+    TurnL90 = 9,
+    TurnR90 = 10,
+    TurnL180 = 11,
+    TurnR180 = 12,
+    Run = 13,
+    Dash = 14,
+    AttackA = 50,
+    AttackB = 51,
+    AttackAssault = 52,
+    DashStop = 53,
+    DashStopTurn = 54,
+    AttackDashA = 55,
+    DoorOpen00 = 115,
+    PersonalAction1 = 200,
+    PersonalAction2 = 201,
+    PersonalAction3 = 202,
+    PersonalAction4 = 203,
+    PersonalAction5 = 204,
+    PersonalAction6 = 205,
+    TurnL = 210,
+    TurnR = 211,
+};

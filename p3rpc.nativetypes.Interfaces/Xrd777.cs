@@ -117,8 +117,23 @@ public unsafe struct AUIGenericSelect //: public AUIBaseActor
 public unsafe struct UUILayoutDataTable //: public UObject
 {
     [FieldOffset(0x28)] public UDataTable* LayoutTable;
-    [FieldOffset(0x30)] public TArray<nint> Entries;
+    [FieldOffset(0x30)] public TArray<UUILayoutDataTableEntry> Entries;
+
+    public UUILayoutDataTableEntry* GetLayoutDataTableEntry(int idx)
+    {
+        if (idx >= 0 && idx < Entries.arr_num) return &Entries.allocator_instance[idx];
+        return null;
+    }
 };
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct UUILayoutDataTableEntry
+{
+    [FieldOffset(0x0)] public FVector2D position;
+    [FieldOffset(0x8)] public float angle;
+    [FieldOffset(0xc)] public float scale;
+}
+
 [StructLayout(LayoutKind.Explicit, Size = 0x490)]
 public unsafe struct AUIMailIconDraw //: public AUIBaseActor
 {
@@ -1567,27 +1582,191 @@ public unsafe struct UXrd777SaveManager //: public UObject
     [FieldOffset(0x0070)] public UXRD777SaveGame* NetworkSaveInstance;
 };
 
+
+[StructLayout(LayoutKind.Explicit, Size = 0x20)]
+public unsafe struct FDatUnitStatus
+{
+    [FieldOffset(0x0000)] public int Hp;
+    [FieldOffset(0x0004)] public int Sp;
+    [FieldOffset(0x0008)] public int tp;
+    [FieldOffset(0x000C)] public uint bad;
+    [FieldOffset(0x0010)] public short Level;
+    [FieldOffset(0x0014)] public uint Exp;
+    [FieldOffset(0x0018)] public ushort affinity;
+    [FieldOffset(0x001C)] public uint personalSkill;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1C)]
+public unsafe struct FDatUnitSupport
+{
+    [FieldOffset(0x0000)] public uint valid;
+    [FieldOffset(0x0004)] public uint appointment;
+    //[FieldOffset(0x0008)] public sbyte Point;
+    //[FieldOffset(0x0012)] public sbyte Turn;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct FDatUnitPersonaEntry
+{
+    [FieldOffset(0x0)] short Flags;
+    [FieldOffset(0x2)] ushort Id;
+    [FieldOffset(0x4)] ushort Level;
+    [FieldOffset(0x6)] ushort Field08;
+    [FieldOffset(0x8)] uint Experience;
+    //uint16 Skills[8];
+    [FieldOffset(0x1c)] byte Strength;
+    [FieldOffset(0x1d)] byte Magic;
+    [FieldOffset(0x1e)] byte Endurance;
+    [FieldOffset(0x1f)] byte Agility;
+    [FieldOffset(0x20)] byte Luck;
+    // statsEx, statsExpTemp
+
+    public ushort GetSkill(int i)
+    {
+        fixed (FDatUnitPersonaEntry* self = &this) { return ((ushort*)((nint)self + 0xc))[i]; }
+    }
+};
+
+[StructLayout(LayoutKind.Explicit, Size = 0x244)]
+public unsafe struct FDatUnitPersona
+{
+    [FieldOffset(0x0000)] public ushort equip;
+
+    public FDatUnitPersonaEntry* GetPersona(int i)
+    {
+        fixed (FDatUnitPersona* self = &this) { return &((FDatUnitPersonaEntry*)((nint)self + 0x4))[i]; }
+    }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xA)]
+public unsafe struct FDatUnitItem
+{
+    [FieldOffset(0x0000)] public ushort equip;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x14)]
+public unsafe struct FDatUnitSpecialSkill
+{
+    [FieldOffset(0x0000)] public ushort skillId;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2B4)]
+public unsafe struct FDatUnitWork
+{
+    [FieldOffset(0x0000)] public uint flags;
+    [FieldOffset(0x0004)] public ushort genus;
+    [FieldOffset(0x0008)] public uint ID;
+    [FieldOffset(0x000C)] public FDatUnitStatus Status;
+    [FieldOffset(0x002C)] public FDatUnitSupport support;
+    [FieldOffset(0x0048)] public FDatUnitPersona persona;
+    [FieldOffset(0x028C)] public FDatUnitItem Item;
+    [FieldOffset(0x0296)] public ushort Operation;
+    [FieldOffset(0x0298)] public ushort Message;
+    [FieldOffset(0x029A)] public short maxHpUp;
+    [FieldOffset(0x029C)] public short maxSpUp;
+    [FieldOffset(0x029E)] public FDatUnitSpecialSkill specialSkill;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1d78)]
+public unsafe struct ItemBag
+{
+    public byte GetWeaponCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self))[i]; } } // 1024 entries
+    public byte GetArmorCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x400)[i]; } } // 1024 entries
+    public byte GetArmorFootwearCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x800)[i]; } } // 1024 entries
+    public byte GetAccessoryCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0xc00)[i]; } } // 512 entries
+    public byte GetConsumableCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0xe00)[i]; } } // 1024 entries
+    public byte GetMiscItemCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x1200)[i]; } } // 256 entries
+    public byte GetMaterialCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x1300)[i]; } } // 1024 entries
+    public byte GetSkillCardCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x1700)[i]; } } // 1024 entries
+    public byte GetOutfitCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x1b00)[i]; } } // 512 entries
+    public uint GetItemFlag(int i) { fixed (ItemBag* self = &this) { return ((uint*)((nint)self) + 0x1d00)[i]; } } // 30 entries
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct CmmEntry
+{
+    [FieldOffset(0x0)] public ushort Rank;
+    [FieldOffset(0x2)] public ushort Points;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xc8)]
+public unsafe struct CmmData
+{
+    public CmmEntry* GetCounter(uint i) { fixed (CmmData* self = &this) { return &((CmmEntry*)self)[i]; } }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct Calendar
+{
+    [FieldOffset(0x0)] public uint DaysSinceApril1;
+    [FieldOffset(0x4)] public ECldTimeZone TimeOfDay;
+    [FieldOffset(0x8)] public uint NextTimeskipDay;
+    [FieldOffset(0xc)] public ECldTimeZone NextTimeskipTime;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct MailInner
+{
+    [FieldOffset(0x0)] public ushort MailIncomingKey;
+    [FieldOffset(0x2)] public byte Read;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x184)]
+public unsafe struct Mail
+{
+    [FieldOffset(0xa0)] public int MailCount;
+
+    public MailInner* GetMailEntry(uint i) { fixed (Mail* self = &this) { return &((MailInner*)self)[i]; } }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x15c)]
+public unsafe struct CharacterName
+{
+    public string GetFirstName() { fixed (CharacterName* self = &this) { return Marshal.PtrToStringAnsi((nint)self + 0x58); } }
+    public string GetLastName() { fixed (CharacterName* self = &this) { return Marshal.PtrToStringAnsi((nint)self + 0x98); } }
+    public string GetFullName() { fixed (CharacterName* self = &this) { return Marshal.PtrToStringAnsi((nint)self + 0xd8); } }
+}
+
 [StructLayout(LayoutKind.Explicit, Size = 0x250E0)]
 public unsafe struct UGlobalWork //: public UGameInstance
 {
-    //[FieldOffset(0x24778)] public USequence* mSequenceInstance_;
-    //[FieldOffset(0x24780)] public UCalendar* mCalendarInstance_;
-    //[FieldOffset(0x24788)] public UCldCommonData* mCldCommonData_;
-    //[FieldOffset(0x24790)] public UFileNameManager* mFileNameData_;
-    //[FieldOffset(0x24798)] public UFldCommonData* mFldCommonData_;
-    //[FieldOffset(0x247A0)] public UDatItem* mItemData_;
-    //[FieldOffset(0x247A8)] public UTrophyManager* mTrophy_;
-    //[FieldOffset(0x247B0)] public ULeaderBoardManager* mLeaderBoard_;
-    //[FieldOffset(0x247B8)] public USignedInDialog* mSignedInDialog_;
-    //[FieldOffset(0x247C0)] public UErrorDialog* mErrorDialog_;
-    //[FieldOffset(0x247C8)] public UMessageDialog* mMessageDialog_;
-    //[FieldOffset(0x247D0)] public UBustupController* pBustupController;
-    //[FieldOffset(0x247D8)] public UCommunityWork* pCommunityWork;
-    //[FieldOffset(0x247E0)] public UMsgWork* pMsgWork;
-    //[FieldOffset(0x247E8)] public UEvtDataLoad* pEvtDataLoad;
+    //[FieldOffset(0x0)] public UGameInstance Super;
+    //[FieldOffset(0x1b0)] public FDatUnitWork PlayerCharacters[11]; // 10100_3 to 10109_3
+    //[FieldOffset(0x1f6c)] public ushort ActiveCharacters[10]; // 10050_1
+    [FieldOffset(0x1f80)] public ItemBag Items; // 10051_1
+    [FieldOffset(0x3cf8)] public uint Money; // 10052_1
+    //[FieldOffset(0x3cfc)] public byte Section0[384]; // 10000_1
+    //[FieldOffset(0x3e7c)] public byte Section1[384]; // 10001_2
+    //[FieldOffset(0x3ffc)] public byte Section2[640]; // 10002_1
+    //[FieldOffset(0x427c)] public byte Section3[64]; // 10003_1
+    //[FieldOffset(0x42bc)] public byte Section4[64]; // 10004_1
+    //[FieldOffset(0x42fc)] public byte Section5[64]; // 10005_1
+    //[FieldOffset(0x433c)] public int Counters[384]; // 10010_1
+    //[FieldOffset(0x439c)] public FDatUnitPersona Personas[464]; // 10053_1
+    //[FieldOffset(0xa03c)] public byte Analysis[828]; // 10054_1
+    [FieldOffset(0xa378)] public Calendar Calendar; // 10030_1
+    //[FieldOffset(0xa388)] public byte Shop[7424];
+    [FieldOffset(0xc168)] public CharacterName Name; // 10061_4
+    [FieldOffset(0xc2c4)] public Mail Mail; // 10081_2
+
+    [FieldOffset(0x24778)] public USequence* mSequenceInstance_;
+    [FieldOffset(0x24780)] public UCalendar* mCalendarInstance_;
+    [FieldOffset(0x24788)] public UCldCommonData* mCldCommonData_;
+    [FieldOffset(0x24790)] public UFileNameManager* mFileNameData_;
+    [FieldOffset(0x24798)] public UFldCommonData* mFldCommonData_;
+    [FieldOffset(0x247A0)] public UDatItem* mItemData_;
+    [FieldOffset(0x247A8)] public UTrophyManager* mTrophy_;
+    [FieldOffset(0x247B0)] public ULeaderBoardManager* mLeaderBoard_;
+    [FieldOffset(0x247B8)] public USignedInDialog* mSignedInDialog_;
+    [FieldOffset(0x247C0)] public UErrorDialog* mErrorDialog_;
+    [FieldOffset(0x247C8)] public UMessageDialog* mMessageDialog_;
+    [FieldOffset(0x247D0)] public UBustupController* pBustupController;
+    [FieldOffset(0x247D8)] public UCommunityWork* pCommunityWork;
+    [FieldOffset(0x247E0)] public UMsgWork* pMsgWork;
+    [FieldOffset(0x247E8)] public UEvtDataLoad* pEvtDataLoad;
     //[FieldOffset(0x247F0)] public UFrameBufferCapture* pFrameBufferCapture;
-    //[FieldOffset(0x247F8)] public UPadRumble* pPadRumble;
-    //[FieldOffset(0x248C8)] public UFldCharParamTable* mFldCharParamTable_;
+    [FieldOffset(0x247F8)] public UPadRumble* pPadRumble;
+    [FieldOffset(0x248C8)] public UFldCharParamTable* mFldCharParamTable_;
     //[FieldOffset(0x248D0)] public UAppCharFootstepsTable* mFootstepsTable_;
     //[FieldOffset(0x248D8)] public UAppCharacterPoolManager* mCharacterPoolManager_;
     //[FieldOffset(0x248E0)] public UDatSystemText* mSystemTextTable;
@@ -1602,10 +1781,53 @@ public unsafe struct UGlobalWork //: public UGameInstance
     //[FieldOffset(0x24F98)] public ABtlEncountWipeCore* mBtlEncountWipeCore_;
     //[FieldOffset(0x24FA0)] public AFldLevelPoolManager* mLevelPoolManager_;
     [FieldOffset(0x24FA8)] public bool mPoolSetting_;
-    //[FieldOffset(0x24FE8)] public FSaveGameHeadder mTempSaveHeader_;
+    [FieldOffset(0x24FE8)] public FSaveGameHeadder mTempSaveHeader_;
     [FieldOffset(0x250B8)] public bool bTempSaveHeaderUsed_;
-    //[FieldOffset(0x250C0)] public UGlobalGameData* mGameDataProc_;
+    [FieldOffset(0x250C0)] public UGlobalGameData* mGameDataProc_;
     [FieldOffset(0x250C8)] public AAppActor* mSystemMonitor_;
+
+    public FDatUnitWork* GetUnit(int i) { fixed (UGlobalWork* self = &this) { return &((FDatUnitWork*)((nint)self + 0x1b0))[i]; } }
+
+    public List<short> GetActiveCharacters()
+    {
+        List<short> ids = new();
+        fixed (UGlobalWork* self = &this)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var curr_mem = ((short*)((nint)self + 0x1f6c))[i];
+                if (curr_mem == 0) break;
+                ids.Add(curr_mem);
+            }
+        }
+        return ids;
+    }
+
+    public bool GetBitflag(uint id)
+    {
+        uint section = id >> 0x1c;
+        uint flag_int = (id >> 5 & 0x7fffff);
+        uint flag_bit = (uint)(1 << ((int)id & 0x1f));
+        fixed (UGlobalWork* self = &this)
+        {
+            switch (section)
+            {
+                case 0: return ((int*)((nint)self + 0x3cfc))[flag_int] % flag_bit == 1 ? true : false;
+                case 1: return ((int*)((nint)self + 0x3e7c))[flag_int] % flag_bit == 1 ? true : false;
+                case 2: return ((int*)((nint)self + 0x3ffc))[flag_int] % flag_bit == 1 ? true : false;
+                case 3: return ((int*)((nint)self + 0x427c))[flag_int] % flag_bit == 1 ? true : false;
+                case 4: return ((int*)((nint)self + 0x42bc))[flag_int] % flag_bit == 1 ? true : false;
+                case 5: return ((int*)((nint)self + 0x42fc))[flag_int] % flag_bit == 1 ? true : false;
+                default: return false;
+            }
+        }
+    }
+
+    public int GetCounter(uint i) { fixed (UGlobalWork* self = &this) { return ((int*)((nint)self + 0x433c))[i]; } }
+
+    public FDatUnitPersonaEntry* GetPersona(uint i) { fixed (UGlobalWork* self = &this) { return &((FDatUnitPersonaEntry*)((nint)self + 0x439c))[i]; } }
+
+    // public bool HasAnalysisDataForPersonaElement(uint persona, uint element)
 };
 
 [StructLayout(LayoutKind.Explicit, Size = 0x64)]
@@ -1960,6 +2182,7 @@ public unsafe struct UMsgProcWindow_Assist //: public UMsgProcWindowBase
     [FieldOffset(0x0108)] public UAssetLoader* Loader_;
     [FieldOffset(0x0110)] public USprAsset* MsgSpr_;
     [FieldOffset(0x0118)] public TArray<FVector> SupportPos;
+    [FieldOffset(0x18c)] public float Opacity;
 }; // Size: 0x1D8
 
 [StructLayout(LayoutKind.Explicit, Size = 0x30)]
@@ -2422,4 +2645,485 @@ public unsafe struct UUIResources // : UGameInstanceSubsystem
             asset = (UObject*)Assets_.allocator_instance[index];
         return asset;
     }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x4138)]
+public unsafe struct UCmpHeroHumanStatusDraw
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x38)] public uint MenuState;
+    [FieldOffset(0x4048)] public ACmpMainActor* pMainActor;
+    [FieldOffset(0x4050)] public UUICmpStatus* pParent;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x68)]
+public unsafe struct USequence
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xB8)]
+public unsafe struct UCalendar
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    //[FieldOffset(0x0090)] public ACldBindingEventActor* mEventActor_;
+    [FieldOffset(0x0098)] public uint mChangeFlag_;
+    [FieldOffset(0x009C)] public ECldSceneChangeType mChangeType_;
+    [FieldOffset(0x009D)] public ECldSceneChangeType mChangeSetted_;
+    [FieldOffset(0x00A0)] public int mChangePrevDay_;
+    [FieldOffset(0x00A4)] public ECldTimeZone mChangePrevTimeZone_;
+    [FieldOffset(0x00A8)] public int mChangeNextDay_;
+    [FieldOffset(0x00AC)] public ECldTimeZone mChangeNextTimeZone_;
+    [FieldOffset(0x00B0)] public int cursorDay;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x298)]
+public unsafe struct ACldCmnDataActor
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+    [FieldOffset(0x0288)] public UAssetLoader* mAssetLoader_;
+    [FieldOffset(0x0290)] public UArcAsset* mArcAsset_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x60)]
+public unsafe struct UCldCommonData
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0030)] public ACldCmnDataActor* mActor_;
+    [FieldOffset(0x0048)] public UCldDateDataAsset* mDatesData_;
+    [FieldOffset(0x0050)] public UClass* mBpClass_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UCldDateDataAsset
+{
+    //[FieldOffset(0x0000)] public UAppDataAsset baseObj;
+    [FieldOffset(0x0030)] public TArray<FCldDateTableItem> Data;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x6)]
+public unsafe struct FCldDateTableItem
+{
+    [FieldOffset(0x0000)] public byte Month;
+    [FieldOffset(0x0001)] public byte Day;
+    [FieldOffset(0x0002)] public byte MoonAge;
+    [FieldOffset(0x0003)] public bool IsHoliday;
+    [FieldOffset(0x0004)] public bool IsPublicHoliday;
+    [FieldOffset(0x0005)] public ECldDateColor NumColorType;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x290)]
+public unsafe struct AUFileNameManagerrActor
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+    [FieldOffset(0x0280)] public UAssetLoader* mAssetLoader_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x48)]
+public unsafe struct UFileNameManager
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public UAssetLoader* Loader;
+    //[FieldOffset(0x0030)] public UDataAsset* TableFileName;
+    [FieldOffset(0x0040)] public AUFileNameManagerrActor* mActor_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x290)]
+public unsafe struct ADatItemActor
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+    [FieldOffset(0x0280)] public UAssetLoader* mAssetLoader_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xD0)]
+public unsafe struct UDatItem
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public UAssetLoader* Loader;
+    //[FieldOffset(0x0030)] public UDataAsset* TableAccs;
+    //[FieldOffset(0x0038)] public UDataAsset* TableArmor;
+    //[FieldOffset(0x0040)] public UDataAsset* TableCommon;
+    //[FieldOffset(0x0048)] public UDataAsset* TableCostume;
+    //[FieldOffset(0x0050)] public UDataAsset* TableEvitem;
+    //[FieldOffset(0x0058)] public UDataAsset* TableMaterial;
+    //[FieldOffset(0x0060)] public UDataAsset* TableShoes;
+    //[FieldOffset(0x0068)] public UDataAsset* TableSkillcard;
+    //[FieldOffset(0x0070)] public UDataAsset* TableWeapon;
+    //[FieldOffset(0x0078)] public UDataAsset* TableAccsName;
+    //[FieldOffset(0x0080)] public UDataAsset* TableArmorName;
+    //[FieldOffset(0x0088)] public UDataAsset* TableCommonName;
+    //[FieldOffset(0x0090)] public UDataAsset* TableCostumeName;
+    //[FieldOffset(0x0098)] public UDataAsset* TableEvitemName;
+    //[FieldOffset(0x00A0)] public UDataAsset* TableMaterialName;
+    //[FieldOffset(0x00A8)] public UDataAsset* TableShoesName;
+    //[FieldOffset(0x00B0)] public UDataAsset* TableSkillcardName;
+    //[FieldOffset(0x00B8)] public UDataAsset* TableWeaponName;
+    [FieldOffset(0x00C8)] public ADatItemActor* mActor_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2A0)]
+public unsafe struct AFldCmnDataActor
+{
+    //[FieldOffset(0x0000)] public AFldLocalActor baseObj;
+    [FieldOffset(0x0288)] public UFldCommonData* mParent_;
+    [FieldOffset(0x0290)] public UAssetLoader* mAssetLoader_;
+    [FieldOffset(0x0298)] public UArcAsset* mArcAsset_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x280)]
+public unsafe struct AFldLocalActor
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2B0)]
+public unsafe struct AFldScriptManagerCore
+{
+    [FieldOffset(0x0000)] public AFldLocalActor baseObj;
+    [FieldOffset(0x0290)] public UAssetLoader* mAssetLoader_;
+    [FieldOffset(0x0298)] public UBfAsset* mBfAsset_;
+    [FieldOffset(0x02A0)] public UBmdAsset* mBmdAsset_;
+    [FieldOffset(0x02A8)] public AFldScriptActor* mScriptActor_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2A0)]
+public unsafe struct AFldScriptActor
+{
+    [FieldOffset(0x0000)] public AFldLocalActor baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2B0)]
+public unsafe struct AFldTvProgramScript
+{
+    [FieldOffset(0x0000)] public AFldScriptManagerCore baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2B0)]
+public unsafe struct AFldMailOrderScript
+{
+    [FieldOffset(0x0000)] public AFldScriptManagerCore baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2B0)]
+public unsafe struct AFldBossBattleScript
+{
+    [FieldOffset(0x0000)] public AFldScriptManagerCore baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x230)]
+public unsafe struct UFldCommonData
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0030)] public AFldCmnDataActor* mActor_;
+    [FieldOffset(0x00B8)] public AFldTvProgramScript* mTvProgramActor_;
+    [FieldOffset(0x00C0)] public AFldMailOrderScript* mMailOrderActor_;
+    [FieldOffset(0x00C8)] public AFldBossBattleScript* mBossBattleActor_;
+    [FieldOffset(0x00D0)] public UDataTable* mTableDat_;
+    [FieldOffset(0x0188)] public UClass* mBpClass_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1B0)]
+public unsafe struct UTrophyManager
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1F8)]
+public unsafe struct ULeaderBoardManager
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x58)]
+public unsafe struct USignedInDialog
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UErrorDialog
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x48)]
+public unsafe struct UMessageDialog
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UBustupController
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0030)] public UBustupModel* pModel;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x48)]
+public unsafe struct UBustupModel
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0040)] public UBustupDraw* pBustupDraw;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x148)]
+public unsafe struct UCommunityHandler
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    //[FieldOffset(0x00F0)] public UCommunityEventDataAsset* pEventDataAsset;
+    //[FieldOffset(0x00F8)] public UHolidayEventDataAsset* pHolidayEventDataAsset;
+    //[FieldOffset(0x0100)] public UHolidayScheduleDataAsset* pHolidayScheduleDataAsset;
+    [FieldOffset(0x0108)] public UDataTable* pMemberFormatTable;
+    [FieldOffset(0x0110)] public UDataTable* pNameFormatTable;
+    //[FieldOffset(0x0118)] public UCoefficientDataAsset* pCoefficientDataAsset;
+    //[FieldOffset(0x0120)] public UCommunityPresentDataAsset* pPresentDataAsset;
+    //[FieldOffset(0x0128)] public UMoviesEventDataAsset* pMoviesEventDataAsset;
+    //[FieldOffset(0x0130)] public USummerFestivalEventDataAsset* pSummerFestivalEventDataAsset;
+    //[FieldOffset(0x0138)] public UChristmasEventDataAsset* pChristmasEventDataAsset;
+    //[FieldOffset(0x0140)] public ACommunityEventManager* pEventManager;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FHeroParameterTable
+{
+    [FieldOffset(0x0000)] public TArray<int> Points;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UHeroParameterDataAsset
+{
+    //[FieldOffset(0x0000)] public UAppMultiDataAsset baseObj;
+    [FieldOffset(0x0030)] public TArray<FHeroParameterTable> Tables;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UHeroParameterHandle
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0030)] public UHeroParameterDataAsset* pDataAsset;
+    [FieldOffset(0x0038)] public UDataTable* pParameterNameTable;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x48)]
+public unsafe struct UCommunityWork
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public UAssetLoader* pAssetLoader;
+    [FieldOffset(0x0030)] public UCommunityHandler* pCommunityHandle;
+    //[FieldOffset(0x0038)] public UVeveWork* pVeveWork;
+    [FieldOffset(0x0040)] public UHeroParameterHandle* pHeroParameterHandle;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xD8)]
+public unsafe struct UMsgManager
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0038)] public TArray<IntPtr> ProcList;
+    [FieldOffset(0x0050)] public TArray<IntPtr> MsgReleaseList;
+    [FieldOffset(0x0070)] public UDataTable* Simple_LayoutData;
+    [FieldOffset(0x0078)] public UDataTable* SelectSimple_LayoutData;
+    [FieldOffset(0x0080)] public UDataTable* CS_A_LayoutData;
+    [FieldOffset(0x0088)] public UUILayoutDataTable* CS_A_LayoutDataTable;
+    [FieldOffset(0x0090)] public UDataTable* AssistLayoutDataTextCol;
+    [FieldOffset(0x0098)] public UDataTable* AssistLayoutData;
+    [FieldOffset(0x00A0)] public UDataTable* BacklogLayoutDataTextCol;
+    [FieldOffset(0x00A8)] public UUILayoutDataTable* AssistTextColLayoutDataTable;
+    [FieldOffset(0x00B0)] public UUILayoutDataTable* AssistLayoutDataTable;
+    [FieldOffset(0x00B8)] public UUILayoutDataTable* BacklogTextColLayoutDataTable;
+    [FieldOffset(0x00C0)] public UDataTable* Mind_LayoutData;
+    [FieldOffset(0x00C8)] public UAssetLoader* pAssetLoader;
+    [FieldOffset(0x00D0)] public UAssetLoader* pCSAssetLoader;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x48)]
+public unsafe struct UMsgWork
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0038)] public UMsgManager* pMsgManager;
+    [FieldOffset(0x0040)] public UTutorialManager* pTutorialManager;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x70)]
+public unsafe struct UEvtDataLoad
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public UAssetLoader* pAssetLoader;
+    //[FieldOffset(0x0030)] public UDataAsset* pDataOffTable;
+    //[FieldOffset(0x0038)] public UDataAsset* pFadeOutTable;
+    //[FieldOffset(0x0040)] public UDataAsset* pAssetOverWriteTable;
+    //[FieldOffset(0x0048)] public UDataAsset* pAssetOverWriteEventTable;
+    //[FieldOffset(0x0050)] public UDataAsset* pBagEnableTable;
+    //[FieldOffset(0x0058)] public UDataAsset* pEvtPreDataTable;
+    //[FieldOffset(0x0060)] public UDataAsset* pPersonaCombineAdjustTable;
+    //[FieldOffset(0x0068)] public UDataAsset* pObjectVisibleTable;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x80)]
+public unsafe struct UPadRumble
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public UForceFeedbackEffect* haveRumble;
+    [FieldOffset(0x0030)] public UForceFeedbackEffect* haveRumble2;
+    [FieldOffset(0x0038)] public UForceFeedbackEffect* ProgramEffect;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FFldCharSpeed
+{
+    [FieldOffset(0x0000)] public float Walk;
+    [FieldOffset(0x0004)] public float Run;
+    [FieldOffset(0x0008)] public float Dash;
+    [FieldOffset(0x000C)] public float Assault;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x14)]
+public unsafe struct FFldPlayerInputInterpolationData
+{
+    [FieldOffset(0x0000)] public float MinAgnle;
+    [FieldOffset(0x0004)] public int MinFrame;
+    [FieldOffset(0x0008)] public float MaxAgnle;
+    [FieldOffset(0x000C)] public int MaxFrame;
+    [FieldOffset(0x0010)] public float Border;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct FFldPlayerAttackData
+{
+    [FieldOffset(0x0000)] public EDungeonAnimID AnimId;
+    [FieldOffset(0x0004)] public float AnimBlendTime;
+    [FieldOffset(0x0008)] public int WeaponAnimId;
+    [FieldOffset(0x000C)] public float BeginReceivingInputTime;
+    [FieldOffset(0x0010)] public float EndReceivingInputTime;
+    [FieldOffset(0x0014)] public float SwitchNextAttackTime;
+    [FieldOffset(0x0018)] public float SwitchFreeStateTime;
+    [FieldOffset(0x001C)] public float SlideRot;
+    [FieldOffset(0x0020)] public float SlideScaleTime;
+    [FieldOffset(0x0024)] public float SlideScale;
+    [FieldOffset(0x0028)] public int VoiceId;
+    [FieldOffset(0x002C)] public int NextAttackId;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xC)]
+public unsafe struct FFldPlayerAttackGuideData
+{
+    [FieldOffset(0x0000)] public float Range;
+    [FieldOffset(0x0004)] public float Angle;
+    [FieldOffset(0x0008)] public float GuideAngle;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x14)]
+public unsafe struct FRumbleParam
+{
+    [FieldOffset(0x0000)] public int power;
+    [FieldOffset(0x0004)] public int Frame;
+    [FieldOffset(0x0008)] public int WaitFrame;
+    [FieldOffset(0x000C)] public int Num;
+    [FieldOffset(0x0010)] public int TotalFram;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x3C)]
+public unsafe struct FRumbleData
+{
+    [FieldOffset(0x0000)] public FRumbleParam Encount;
+    [FieldOffset(0x0014)] public FRumbleParam PinchEncount;
+    [FieldOffset(0x0028)] public FRumbleParam Broken;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x118)]
+public unsafe struct FFldPlayerData
+{
+    [FieldOffset(0x0000)] public float InputDeadZone;
+    [FieldOffset(0x0004)] public float InputWalkZone;
+    [FieldOffset(0x0008)] public FFldPlayerInputInterpolationData InputInterpolation;
+    [FieldOffset(0x001C)] public float Acceleration;
+    [FieldOffset(0x0020)] public float Deceleration;
+    [FieldOffset(0x0024)] public float RotSpeed;
+    [FieldOffset(0x0028)] public float RotSpeed_Walk;
+    [FieldOffset(0x002C)] public float TurnSpeed;
+    [FieldOffset(0x0030)] public float TurnMoveRot;
+    [FieldOffset(0x0034)] public float BrakingTime;
+    [FieldOffset(0x0038)] public float BrakingSlideTime;
+    [FieldOffset(0x003C)] public float ReverseBrakingTime;
+    [FieldOffset(0x0040)] public float ReverseBrakingSlideTime;
+    [FieldOffset(0x0044)] public float EncoutRadius;
+    [FieldOffset(0x0048)] public float SwitchingTimeToAssault;
+    [FieldOffset(0x004C)] public float SwitchingTimeToAssaultLv2;
+    [FieldOffset(0x0050)] public float AssaultGetTpLv1;
+    [FieldOffset(0x0054)] public float AssaultGetTpLv2;
+    [FieldOffset(0x0058)] public int AssaultUpsetRateLv1;
+    [FieldOffset(0x005C)] public int AssaultUpsetRateLv2;
+    [FieldOffset(0x0060)] public int IdleAttackId;
+    [FieldOffset(0x0064)] public int WalkAttackId;
+    [FieldOffset(0x0068)] public int RunAttackId;
+    [FieldOffset(0x006C)] public int DashAttackId;
+    [FieldOffset(0x0070)] public int AssaultAttackId;
+    [FieldOffset(0x0074)] public float AttackToMoveBlendTime;
+    //[FieldOffset(0x0078)] public TMap<int, FFldPlayerAttackData> attack;
+    [FieldOffset(0x00C8)] public TArray<FFldPlayerAttackGuideData> AttackGuide;
+    [FieldOffset(0x00D8)] public FRumbleData Rumble;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FFldPartnerData
+{
+    [FieldOffset(0x0000)] public float TrackingBeginDistance;
+    [FieldOffset(0x0004)] public float TrackingNearDistance;
+    [FieldOffset(0x0008)] public float TrackingUpdateDistance;
+    [FieldOffset(0x000C)] public float AvoidPlayerDistance;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x28)]
+public unsafe struct FFldCharKeyParam
+{
+    [FieldOffset(0x0000)] public EFldCharKeyType Save;
+    [FieldOffset(0x0001)] public EFldCharKeyType AutoRecover;
+    [FieldOffset(0x0002)] public EFldCharKeyType DailyMenu;
+    [FieldOffset(0x0003)] public EFldCharKeyType DungeonMenu;
+    [FieldOffset(0x0004)] public EFldCharKeyType Camp;
+    [FieldOffset(0x0005)] public EFldCharKeyType LargeMap;
+    [FieldOffset(0x0006)] public EFldCharKeyType BackLog;
+    [FieldOffset(0x0007)] public EFldCharKeyType VoiceActionDisp;
+    [FieldOffset(0x0008)] public EFldCharKeyType Check;
+    [FieldOffset(0x0009)] public EFldCharKeyType attack;
+    [FieldOffset(0x000A)] public EFldCharKeyType CameraZoomIn;
+    [FieldOffset(0x000B)] public EFldCharKeyType CameraZoomOut;
+    [FieldOffset(0x0010)] public TArray<EFldCharKeyType> CameraDefault;
+    [FieldOffset(0x0020)] public EFldCharKeyType DebugCamera;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1F0)]
+public unsafe struct UFldCharDataAsset
+{
+    //[FieldOffset(0x0000)] public UDataAsset baseObj;
+    [FieldOffset(0x0030)] public FFldCharSpeed DailySpeed;
+    [FieldOffset(0x0040)] public FFldCharSpeed DungeonSpeed;
+    //[FieldOffset(0x0050)] public TMap<int, FFldCharMajorBgData> MajorBg;
+    [FieldOffset(0x00A0)] public FFldPlayerData Player;
+    [FieldOffset(0x01B8)] public FFldPartnerData Partner;
+    [FieldOffset(0x01C8)] public FFldCharKeyParam Key;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x148)]
+public unsafe struct UFldCharParamTable
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    //[FieldOffset(0x0028)] public TSoftObjectPtr<UFldCharDataAsset> Path;
+    [FieldOffset(0x0050)] public UFldCharDataAsset* Data;
+    [FieldOffset(0x0058)] public bool bLoaded;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xC8)]
+public unsafe struct UGlobalGameData
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public TArray<int> mFlags_ALWAYS_;
+    [FieldOffset(0x0038)] public TArray<int> mFlags_ANY_;
+    [FieldOffset(0x0048)] public TArray<int> mCounters_ALWAYS_;
+    [FieldOffset(0x0058)] public TArray<int> mCounters_ANY_;
+    [FieldOffset(0x0068)] public TArray<ushort> mComItems_ALWAYS_;
+    [FieldOffset(0x0078)] public TArray<ushort> mComItems_ANY_;
+    [FieldOffset(0x0088)] public TArray<ushort> mEvtItems_ALWAYS_;
+    [FieldOffset(0x0098)] public TArray<ushort> mEvtItems_ANY_;
+    [FieldOffset(0x00A8)] public TArray<ushort> mDlcItems_ALWAYS_;
+    [FieldOffset(0x00B8)] public TArray<ushort> mNotInheritanceItems_;
 }

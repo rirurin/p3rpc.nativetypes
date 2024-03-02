@@ -1304,3 +1304,42 @@ public enum EFindType : int
     FNAME_Add = 1,
     FNAME_Replace_Not_Safe_For_Threading = 2
 }
+
+[StructLayout(LayoutKind.Explicit, Size = 0x90)]
+public unsafe struct FForceFeedbackChannelDetails
+{
+    [FieldOffset(0x0000)] public byte bAffectsLeftLarge;
+    [FieldOffset(0x0000)] public byte bAffectsLeftSmall;
+    [FieldOffset(0x0000)] public byte bAffectsRightLarge;
+    [FieldOffset(0x0000)] public byte bAffectsRightSmall;
+    [FieldOffset(0x0008)] public FRuntimeFloatCurve Curve;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x88)]
+public unsafe struct FRuntimeFloatCurve
+{
+    [FieldOffset(0x0000)] public FRichCurve EditorCurveData;
+    [FieldOffset(0x0080)] public UCurveFloat* ExternalCurve;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct UCurveBase
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xB8)]
+public unsafe struct UCurveFloat
+{
+    [FieldOffset(0x0000)] public UCurveBase baseObj;
+    [FieldOffset(0x0030)] public FRichCurve FloatCurve;
+    [FieldOffset(0x00B0)] public bool bIsEventCurve;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UForceFeedbackEffect
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public TArray<FForceFeedbackChannelDetails> ChannelDetails;
+    [FieldOffset(0x0038)] public float Duration;
+}
