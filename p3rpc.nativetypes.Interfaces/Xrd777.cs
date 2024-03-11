@@ -117,11 +117,11 @@ public unsafe struct AUIGenericSelect //: public AUIBaseActor
 public unsafe struct UUILayoutDataTable //: public UObject
 {
     [FieldOffset(0x28)] public UDataTable* LayoutTable;
-    [FieldOffset(0x30)] public TArray<UUILayoutDataTableEntry> Entries;
+    [FieldOffset(0x30)] public TArray<nint> Entries; // TArray<UUILayoutDataTableEntry*>
 
     public UUILayoutDataTableEntry* GetLayoutDataTableEntry(int idx)
     {
-        if (idx >= 0 && idx < Entries.arr_num) return &Entries.allocator_instance[idx];
+        if (idx >= 0 && idx < Entries.arr_num) return (UUILayoutDataTableEntry*)Entries.allocator_instance[idx];
         return null;
     }
 };
@@ -129,9 +129,9 @@ public unsafe struct UUILayoutDataTable //: public UObject
 [StructLayout(LayoutKind.Explicit, Size = 0x10)]
 public unsafe struct UUILayoutDataTableEntry
 {
-    [FieldOffset(0x0)] public FVector2D position;
-    [FieldOffset(0x8)] public float angle;
-    [FieldOffset(0xc)] public float scale;
+    [FieldOffset(0x8)] public FVector2D position;
+    [FieldOffset(0x10)] public float angle;
+    [FieldOffset(0x14)] public float scale;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x490)]
@@ -2112,8 +2112,25 @@ public unsafe struct AitfMsgProgWindow_TUTRIALDraw //: public AUIDrawBaseActor
 [StructLayout(LayoutKind.Explicit, Size = 0xB0)]
 public unsafe struct USelItem //: public UObject
 {
+    [FieldOffset(0x40)] public uint selIndex;
+    [FieldOffset(0x48)] public uint selCount;
+    [FieldOffset(0x50)] public TArray<nint> selEntries; // TArray<SelBoxStruct2*>
     [FieldOffset(0x00A0)] UMsgProcWindow_Select* mpSelProcWindow;
 }; // Size: 0xB0
+[StructLayout(LayoutKind.Explicit, Size = 0x20)]
+public struct SelBoxStruct1
+{
+    [FieldOffset(0x0)] public int selIndex;
+    [FieldOffset(0x4)] public int field04;
+    [FieldOffset(0x8)] public int selCount;
+    [FieldOffset(0xc)] public int selType; // 0 = mind, 1 = simple
+    [FieldOffset(0x10)] public TArray<nint> selEntries; // TArray<SelBoxStruct2*>
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x50)]
+public struct SelBoxStruct2
+{
+
+}
 [StructLayout(LayoutKind.Explicit, Size = 0x50)]
 public unsafe struct UBustupAnimDataAsset //: public UAppMultiDataAsset
 {
@@ -2225,6 +2242,8 @@ public unsafe struct UMsgProcWindow_Mind //: public UMsgProcWindowBase
     [FieldOffset(0x0140)] public USprAsset* _readSpr;
     [FieldOffset(0x0148)] public UPlgAsset* MsgPlg_;
     [FieldOffset(0x150)] public UMsgProcWindow_Simple_NextPageParams NextPage;
+    [FieldOffset(0x190)] public float leftSpotBgOpacity1;
+    [FieldOffset(0x1a4)] public float leftSpotBgOpacity2;
     [FieldOffset(0x1ec)] public FLinearColor OuterBorderColor;
     [FieldOffset(0x1fc)] public FLinearColor InnerContentsColor;
     [FieldOffset(0x20c)] public FLinearColor OutsideMistColor;
@@ -2264,6 +2283,18 @@ public unsafe struct UMsgProcWindow_Select_Mind //: public UMsgProcWindow_Select
 [StructLayout(LayoutKind.Explicit, Size = 0x1D0)]
 public unsafe struct UMsgProcWindow_Select_Simple //: public UMsgProcWindow_Select
 {
+    [FieldOffset(0x124)] public float speechShadowOffsetX;
+    [FieldOffset(0x128)] public FVector2D speechShadowMod;
+    [FieldOffset(0x130)] public float speechShadowOpacity;
+    [FieldOffset(0x138)] public float speechShadowRotation;
+    [FieldOffset(0x13c)] public float bustupMainX;
+    [FieldOffset(0x140)] public float bustupShadowX;
+    [FieldOffset(0x144)] public FVector2D scrollbarOffset1;
+    [FieldOffset(0x14c)] public FVector2D scrollbarOffset2;
+    [FieldOffset(0x154)] public FVector2D selBoxFill;
+    [FieldOffset(0x16c)] public FVector2D selBoxShadow;
+    [FieldOffset(0x188)] public int BRIndex1;
+    [FieldOffset(0x18c)] public int BRIndex2;
     [FieldOffset(0x0190)] public UBustupObject* BustupObject_;
     [FieldOffset(0x0198)] public USprAsset* MsgSpr_;
     [FieldOffset(0x01A0)] public UPlgAsset* MsgPlg_;
@@ -2407,7 +2438,33 @@ public unsafe struct FCurveLinearColorAnimation //: public FBaseCurveAnimation
 [StructLayout(LayoutKind.Explicit, Size = 0x74)]
 public unsafe struct LocationSelectParams1
 {
+    [FieldOffset(0x0)] public float Field00;
+    [FieldOffset(0x4)] public float Field04;
+    [FieldOffset(0x8)] public float Field08;
+    [FieldOffset(0xc)] public float Field0C;
+    [FieldOffset(0x10)] public float Field10;
+    [FieldOffset(0x14)] public float Field14;
+    [FieldOffset(0x18)] public float Field18;
+    [FieldOffset(0x1C)] public float Field1C;
+    [FieldOffset(0x20)] public float Field20;
+    [FieldOffset(0x24)] public float Field24;
+    [FieldOffset(0x28)] public float Field28;
+    [FieldOffset(0x2C)] public float Field2C;
+    [FieldOffset(0x30)] public float Field30;
+    [FieldOffset(0x34)] public float Field34;
+    [FieldOffset(0x38)] public float Field38;
     [FieldOffset(0x3c)] public FSprColor Color;
+    [FieldOffset(0x40)] public float Field40;
+    [FieldOffset(0x44)] public float Field44;
+    [FieldOffset(0x48)] public float Field48;
+    [FieldOffset(0x4c)] public float Field4C;
+    [FieldOffset(0x50)] public float Field50;
+    [FieldOffset(0x54)] public float Field54;
+    [FieldOffset(0x58)] public float Field58;
+    [FieldOffset(0x5c)] public ulong Field5C;
+    [FieldOffset(0x64)] public ulong Field64;
+    [FieldOffset(0x6c)] public uint Field6C;
+    [FieldOffset(0x70)] public uint Field70;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x11c0)]
@@ -3216,4 +3273,232 @@ public unsafe struct FAppCalculationItem
         this.DstFrame = DstFrame;
         this.Type = Type;
     }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xA60)]
+public unsafe struct AUIBackLogDraw
+{
+    //[FieldOffset(0x0000)] public AUIDrawBaseActor baseObj;
+    [FieldOffset(0x02B8)] public float CursorMoveSpeed;
+    [FieldOffset(0x02C0)] public TArray<float> CursorPosFix;
+    [FieldOffset(0x02D0)] public float IconWaveMoveSpeed;
+    [FieldOffset(0x02D8)] public TArray<int> IconWaveSmallWaitFrameList;
+    [FieldOffset(0x02E8)] public TArray<int> IconWaveMediumWaitFrameList;
+    [FieldOffset(0x02F8)] public TArray<int> IconWaveLargeWaitFrameList;
+    [FieldOffset(0x0308)] public TArray<int> IconWaitAngleFrame;
+    [FieldOffset(0x0318)] public TArray<int> IconMoveAngleFrame;
+    [FieldOffset(0x0328)] public TArray<FColor> IconWaveSelColorList;
+    [FieldOffset(0x0338)] public TArray<FColor> IconWaveNonSelColorList;
+    [FieldOffset(0x0348)] public TArray<FColor> IconColor;
+    [FieldOffset(0x0358)] public FColor BlackBoardColor;
+    [FieldOffset(0x035C)] public FColor GladationBoardColor;
+    [FieldOffset(0x0360)] public FColor BlueBoardColor;
+    [FieldOffset(0x0364)] public FColor BlackBoardCoverColor;
+    [FieldOffset(0x0368)] public TArray<int> CursorWaitMoveSlideFrame;
+    [FieldOffset(0x0378)] public TArray<int> CursorMoveSlideFrame;
+    [FieldOffset(0x0388)] public TArray<float> BlackBoardMoveSpeed;
+    [FieldOffset(0x0398)] public TArray<float> BlueBoardMoveSpeed;
+    [FieldOffset(0x03A8)] public TArray<float> BlueBoardRollSpeed;
+    [FieldOffset(0x03B8)] public TArray<float> DayMoveSpeed;
+    [FieldOffset(0x03C8)] public TArray<float> ScrollBarMoveSpeed;
+    [FieldOffset(0x03D8)] public TArray<float> LogMoveSpeed;
+    [FieldOffset(0x03E8)] public TArray<float> IconMoveSpeed;
+    [FieldOffset(0x03F8)] public TArray<float> NoneMoveSpeed;
+    [FieldOffset(0x0408)] public TArray<float> DecoMoveSpeed;
+    [FieldOffset(0x0418)] public TArray<float> BlackBoardAlphaSpeed;
+    [FieldOffset(0x0428)] public TArray<float> BlueBoardAlphaSpeed;
+    [FieldOffset(0x0438)] public TArray<float> GradationAlphaSpeed;
+    [FieldOffset(0x0448)] public TArray<float> DayAlphaSpeed;
+    [FieldOffset(0x0458)] public TArray<float> ScrollBarAlphaSpeed;
+    [FieldOffset(0x0468)] public TArray<float> LogAlphaSpeed;
+    [FieldOffset(0x0478)] public TArray<float> IconAlphaSpeed;
+    [FieldOffset(0x0488)] public TArray<float> NoneAlphaSpeed;
+    [FieldOffset(0x0498)] public TArray<float> DecoAlphaSpeed;
+    [FieldOffset(0x04A8)] public TArray<float> CursorWhiteMoveSpeed;
+    [FieldOffset(0x04B8)] public TArray<float> CursorWhiteAlphaSpeed;
+    [FieldOffset(0x04C8)] public TArray<float> CursorBlueMoveSpeed;
+    [FieldOffset(0x04D8)] public TArray<float> CursorBlueAlphaSpeed;
+    [FieldOffset(0x04E8)] public float AnimFinishTime;
+    [FieldOffset(0x04EC)] public float SelMsgInterval;
+    [FieldOffset(0x04F0)] public float MingMsgInterval;
+    [FieldOffset(0x04F4)] public float SoundPlusPosX;
+    [FieldOffset(0x04F8)] public float SoundPlusPosY;
+    [FieldOffset(0x04FC)] public byte BlackboardOpacity;
+    [FieldOffset(0x04FD)] public byte BlueboardOpacity;
+    [FieldOffset(0x04FE)] public byte GladationOpacity;
+    [FieldOffset(0x05C0)] public UTexture* tex;
+    //[FieldOffset(0x05C8)] public UFrameBufferCapture* captureBackGround;
+    [FieldOffset(0x0A58)] public UUILayoutDataTable* pLayoutDataTable;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xFA8)]
+public unsafe struct AUIDayChange
+{
+    //[FieldOffset(0x0000)] public AUIBaseActor baseObj;
+    [FieldOffset(0x02B0)] public UAssetLoader* m_pLoader;
+    [FieldOffset(0x02B8)] public USprAsset* m_pSpr;
+    [FieldOffset(0x02C0)] public UPlgAsset* m_pPlg;
+    [FieldOffset(0x02C8)] public FGetUIParameter m_tagUip;
+    //[FieldOffset(0x0340)] public FDayChangeRipple m_tagRipple;
+    //[FieldOffset(0x0370)] public FDayChangeRipple m_tagLoadRipple;
+    [FieldOffset(0x03A0)] public FCurveFloatAnimation m_curveInAnim;
+    [FieldOffset(0x03D0)] public FCurveFloatAnimation m_curveInRectMaskAnim;
+    [FieldOffset(0x0400)] public FCurveFloatAnimation m_curveCenterBlueBandMaskAnim;
+    [FieldOffset(0x0430)] public FCurveFloatAnimation m_curve1DaySpeedAnim;
+    [FieldOffset(0x0460)] public FCurveFloatAnimation m_curveSkipSpeedAnim;
+    [FieldOffset(0x0490)] public FCurveFloatAnimation m_curveSuperSkipSpeedAnim;
+    //[FieldOffset(0x04C0)] public FCurveVectorAnimation m_curveCenterMoonAgeInOutAnim;
+    //[FieldOffset(0x04F0)] public FCurveVectorAnimation m_curveBigMoonAgeInOutAnim;
+    [FieldOffset(0x0520)] public FCurveFloatAnimation m_curveCommonMoveAnim;
+    //[FieldOffset(0x0550)] public FCurveVectorAnimation m_curveDaysGroupInAnim;
+    //[FieldOffset(0x0580)] public FCurveVectorAnimation m_curveDayInAnim;
+    //[FieldOffset(0x05B0)] public FCurveVectorAnimation m_curveDayOutAnim;
+    [FieldOffset(0x05E0)] public FCurveFloatAnimation m_curveBlueBandAnim;
+    //[FieldOffset(0x0610)] public FCurveVectorAnimation m_curveSkipMoonAgeFadeAnim;
+    [FieldOffset(0x0640)] public UDataTable* m_pLayoutData;
+    [FieldOffset(0x0648)] public UUILayoutDataTable* m_pLayoutDataParam;
+    [FieldOffset(0x870)] public FSprColor LimitTextColor; // #3664ad
+    [FieldOffset(0x924)] public FSprColor MoonColor; // #474343
+    [FieldOffset(0xae4)] public FSprColor BandColorPrevDay; // #0049a2
+    [FieldOffset(0xb58)] public FSprColor BandColorNextDay; // #0049a2
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8D8)]
+public unsafe struct AUITimeChange
+{
+    //[FieldOffset(0x0000)] public AUIBaseActor baseObj;
+    [FieldOffset(0x02B0)] public UAssetLoader* m_pLoader;
+    [FieldOffset(0x02B8)] public USprAsset* m_pSpr;
+    //[FieldOffset(0x02C0)] public FCurveVectorAnimation m_curveRotateAnim1;
+    //[FieldOffset(0x02F0)] public FCurveVectorAnimation m_curveRotateAnim2;
+    //[FieldOffset(0x0320)] public FCurveVectorAnimation m_curveRotateAnim3;
+    //[FieldOffset(0x0350)] public FCurveVectorAnimation m_curveRotateAnim4;
+    //[FieldOffset(0x0380)] public FCurveVectorAnimation m_curveRotateAnim5;
+    //[FieldOffset(0x03B0)] public FCurveVectorAnimation m_curveOutAnim;
+    [FieldOffset(0x03E0)] public FGetUIParameter m_uip;
+    [FieldOffset(0x0458)] public UDataTable* m_pTimeChangeUIDT;
+    [FieldOffset(0x740)] public FSprColor MainBarColor;
+    [FieldOffset(0x828)] public FSprColor TopBarColor;
+    [FieldOffset(0x08B8)] public UDataTable* m_pTimeChangeDataTable;
+    [FieldOffset(0x08C0)] public UUILayoutDataTable* m_pTimeChangeLayoutDataTable;
+    [FieldOffset(0x08C8)] public UDataTable* m_pTimeChangeMaskDataTable;
+    [FieldOffset(0x08D0)] public UUILayoutDataTable* m_pTimeChangeMaskLayoutDataTable;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x24)]
+public struct FKeyHelpInterpolate
+{
+    [FieldOffset(0x1c)] public float Field1C;
+    [FieldOffset(0x20)] public float Field20;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x68)]
+public struct FKeyHelpButtonUILayout
+{
+    [FieldOffset(0x0)] public FSprColor Color;
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x508)]
+public unsafe struct FKeyHelpButtonBase
+{
+    [FieldOffset(0x10)] public USprAsset* keyHelpSpr;
+    [FieldOffset(0x18)] public USprAsset* keyHelpSpr2;
+    [FieldOffset(0x20)] public UPlgAsset* keyHelpPlg;
+    //[FieldOffset(0x48)] public FKeyHelpButtonUILayout Sprites;
+    [FieldOffset(0x1e8)] public FKeyHelpButtonUILayout TextLayout;
+    [FieldOffset(0x244)] public float KeyHelpTransparency;
+    [FieldOffset(0x258)] public int SpriteCount;
+
+    public FKeyHelpButtonUILayout* GetSpriteLayout(int i) { fixed (FKeyHelpButtonBase* self = &this) { return &((FKeyHelpButtonUILayout*)((nint)self + 0x48))[i]; } }
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x598)]
+public unsafe struct FKeyHelpButtonAuto
+{
+    [FieldOffset(0x0)] public FKeyHelpButtonBase Super;
+    [FieldOffset(0x540)] public FKeyHelpInterpolate Field540;
+    [FieldOffset(0x590)] public int ActivationState;
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x590)]
+public unsafe struct FKeyHelpButtonFastForward
+{
+    [FieldOffset(0x0)] public FKeyHelpButtonBase Super;
+    [FieldOffset(0x538)] public FKeyHelpInterpolate Field538;
+    [FieldOffset(0x588)] public int ActivationState;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xE38)]
+public unsafe struct AUIMiscGetItemDraw
+{
+    //[FieldOffset(0x0000)] public AUIBaseActor baseObj;
+    [FieldOffset(0x0308)] public USprAsset* m_pGetItemSpr;
+    [FieldOffset(0x0310)] public UPlgAsset* m_pGetPlg;
+    [FieldOffset(0x0318)] public UDataTable* m_pItemGetDT;
+    [FieldOffset(0x0320)] public USprAsset* m_pSpecialKeyHelpSpr;
+    [FieldOffset(0x0328)] public USprAsset* m_pSpecialKeyHelpTextSpr;
+    [FieldOffset(0x0330)] public UDataTable* m_pLayoutTextColDT;
+    [FieldOffset(0x0338)] public UDataTable* m_pLayoutOkNextDT;
+    [FieldOffset(0x0340)] public UDataTable* m_pLayoutOkNextMaskDT;
+    [FieldOffset(0x0348)] public UUILayoutDataTable* m_pLayoutTextCol;
+    [FieldOffset(0x0350)] public UUILayoutDataTable* m_pLayoutOkNext;
+    [FieldOffset(0x0358)] public UUILayoutDataTable* m_pLayoutOkNextMask;
+    [FieldOffset(0x440)] public SprDefStruct1 ItemCountBg;
+    [FieldOffset(0x7e8)] public LocationSelectParams1 FirstArrowBg;
+    [FieldOffset(0x85c)] public LocationSelectParams1 SecondArrowBg;
+    [FieldOffset(0xaa0)] public PlgDefStruct1 GotGraphicLeftOutline;
+    [FieldOffset(0xae0)] public PlgDefStruct1 GotGraphicRightFill;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x858)]
+public unsafe struct AUIMiscMoneyDraw
+{
+    //[FieldOffset(0x0000)] public AUIBaseActor baseObj;
+    [FieldOffset(0x02D8)] public USprAsset* m_pMoneySpr;
+    [FieldOffset(0x310)] public FSprColor PayMoneyMarginColor;
+    [FieldOffset(0x378)] public FSprColor BuyItemAmountSubtractColor;
+    [FieldOffset(0x3e0)] public FSprColor White3E0;
+    [FieldOffset(0x448)] public FSprColor BuyItemBlankAmountColor;
+    [FieldOffset(0x4d4)] public FSprColor BgImageTintColorFill;
+    [FieldOffset(0x548)] public FSprColor BgImageTintColorBorder;
+    [FieldOffset(0x5bc)] public FSprColor MoneyTiltShadowColor;
+    [FieldOffset(0x630)] public FSprColor Field630;
+    [FieldOffset(0x67c)] public FSprColor White67C;
+    [FieldOffset(0x6cc)] public FSprColor BuyItemAmountSubtractNumberColor;
+    [FieldOffset(0x708)] public int MoneyDialogType;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x34)]
+public unsafe struct DrawCircle // used in AUIDrawBaseActor::BPUICommand_DrawSircle
+{
+    [FieldOffset(0x0)] public FVector position;
+    [FieldOffset(0xc)] public FVector2D radius;
+    [FieldOffset(0x18)] public float Antialiasing;
+    [FieldOffset(0x1c)] public FSprColor Color;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xCA0)]
+public unsafe struct FBaseHeadPanel
+{
+    [FieldOffset(0x10)] public ushort PlayerId; // P3RE colorful party panel when????
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x4010)]
+public unsafe struct FBattleHeadPanel
+{
+    [FieldOffset(0x0000)] public FBaseHeadPanel baseObj;
+    [FieldOffset(0xca0)] public SprDefStruct1 cardBlueBgTrans;
+    [FieldOffset(0xd08)] public SprDefStruct1 lineShadowBgTrans;
+    [FieldOffset(0x12C8)] public UMaterialInstanceDynamic* materialSmokeInst;
+    [FieldOffset(0x12D0)] public UMaterialInstanceDynamic* materialSmokeInstGrey;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xEF0)]
+public unsafe struct FFieldHeadPanel
+{
+    [FieldOffset(0x0000)] public FBaseHeadPanel baseObj;
+    [FieldOffset(0xca0)] public SprDefStruct1 cardBlueBgTrans;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x428)]
+public unsafe struct FTownMapMarker2
+{
+    [FieldOffset(0xf0)] public FSprColor IconColor;
 }

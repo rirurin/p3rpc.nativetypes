@@ -637,6 +637,7 @@ public struct FVector
     public float Z;                                                                          // 0x0008 (size: 0x4)
 
     public FVector(float x, float y, float z) { X = x; Y = y; Z = z; }
+    public override string ToString() => $"({X}, {Y}, {Z})";
 }; // Size: 0xC
 
 [StructLayout(LayoutKind.Sequential, Size = 0x8)]
@@ -646,6 +647,8 @@ public struct FVector2D
     public float Y;                                                                          // 0x0004 (size: 0x4)
 
     public FVector2D(float x, float y) { X = x; Y = y; }
+
+    public override string ToString() => $"({X}, {Y})";
 }; // Size: 0x8
 
 [StructLayout(LayoutKind.Sequential, Size = 0x10)]
@@ -657,6 +660,7 @@ public struct FVector4
     public float W;                                                                          // 0x000C (size: 0x4)
 
     public FVector4(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
+    public override string ToString() => $"({X}, {Y}, {Z}, {W})";
 
 }; // Size: 0x10
 
