@@ -157,3 +157,18 @@ public enum EUI_DRAW_POINT
     UI_DRAW_RIGHT_BOTTOM = 8,
     //UI_DRAW_MAX = 9,
 };
+
+public enum EPERSONA_STATUS_DRAW_SCENE : byte
+{
+    NONE = 0,
+    LIST = 1,
+    MAIN = 2,
+    LEVEL_UP = 3,
+    PARAMETER_UP = 4,
+    COMBINE = 5,
+    DRAWER = 6,
+    REGISTRY = 7,
+    SKILL_CARD = 8,
+    EPERSONA_STATUS_DRAW_MAX = 9,
+
+};

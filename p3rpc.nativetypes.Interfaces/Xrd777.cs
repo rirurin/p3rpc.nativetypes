@@ -1608,17 +1608,17 @@ public unsafe struct FDatUnitSupport
 [StructLayout(LayoutKind.Explicit, Size = 0x30)]
 public unsafe struct FDatUnitPersonaEntry
 {
-    [FieldOffset(0x0)] short Flags;
-    [FieldOffset(0x2)] ushort Id;
-    [FieldOffset(0x4)] ushort Level;
-    [FieldOffset(0x6)] ushort Field08;
-    [FieldOffset(0x8)] uint Experience;
+    [FieldOffset(0x0)] public short Flags;
+    [FieldOffset(0x2)] public ushort Id;
+    [FieldOffset(0x4)] public ushort Level;
+    [FieldOffset(0x6)] public ushort Field08;
+    [FieldOffset(0x8)] public uint Experience;
     //uint16 Skills[8];
-    [FieldOffset(0x1c)] byte Strength;
-    [FieldOffset(0x1d)] byte Magic;
-    [FieldOffset(0x1e)] byte Endurance;
-    [FieldOffset(0x1f)] byte Agility;
-    [FieldOffset(0x20)] byte Luck;
+    [FieldOffset(0x1c)] public byte Strength;
+    [FieldOffset(0x1d)] public byte Magic;
+    [FieldOffset(0x1e)] public byte Endurance;
+    [FieldOffset(0x1f)] public byte Agility;
+    [FieldOffset(0x20)] public byte Luck;
     // statsEx, statsExpTemp
 
     public ushort GetSkill(int i)
@@ -3501,4 +3501,188 @@ public unsafe struct FFieldHeadPanel
 public unsafe struct FTownMapMarker2
 {
     [FieldOffset(0xf0)] public FSprColor IconColor;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2B8)]
+public unsafe struct AUIDrawBaseActor
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+    [FieldOffset(0x278)] public BPDrawSpr drawer;
+    [FieldOffset(0x288)] public int QueueId;
+    [FieldOffset(0x0290)] public UAssetLoader* pAssetLoader;
+    //[FieldOffset(0x0298)] public UUIDataAsset* ResourceDataAsset;
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct FPersonaStatusDraw
+{
+    public byte GetEquipBonusStat(int i) { fixed (FPersonaStatusDraw* self = &this) { return *(byte*)((nint)self + 0x1c + i); } }
+    public byte GetNextLevelStat(int i) { fixed (FPersonaStatusDraw* self = &this) { return *(byte*)((nint)self + 0x21 + i); } }
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x900)]
+public unsafe struct APersonaStatusDraw
+{
+    [FieldOffset(0x0000)] public AUIDrawBaseActor baseObj;
+    [FieldOffset(0x02B8)] public bool IsMemoryCheckPersonaModel;
+    [FieldOffset(0x02D8)] public int Edit_L1R1_Loop_Animation_Frame;
+    [FieldOffset(0x02DC)] public int Edit_L1R1_Push_Animation_Frame;
+    [FieldOffset(0x02E0)] public int Edit_Flickering_Loop_Frame;
+    [FieldOffset(0x02E4)] public int Edit_Persona_Change_SlideIn_Frame;
+    [FieldOffset(0x02E8)] public float Edit_Persona_Change_Slide_Value;
+    [FieldOffset(0x02EC)] public EPERSONA_STATUS_DRAW_SCENE Scene;
+    [FieldOffset(0x02F0)] public UMaterialInstanceDynamic* pBackgroundMaterial;
+    //[FieldOffset(0x03A8)] public APersonaModelCaptureUpdater* ModelCaptureUpdater;
+    [FieldOffset(0x34a)] public ushort PlayerId;
+    [FieldOffset(0x34c)] public FDatUnitPersonaEntry CurrentPersona;
+    [FieldOffset(0x380)] public FDatUnitPersonaEntry* pCurrentPersona;
+    [FieldOffset(0x388)] public FPersonaStatusDraw* pPersonaEquipEffect;
+    [FieldOffset(0x03B0)] public int Edit_Background_FadeIn_Frame;
+    [FieldOffset(0x03B4)] public int Edit_Caustics_SlideIn_Delay;
+    [FieldOffset(0x03B8)] public int Edit_Caustics_SlideIn_Frame;
+    [FieldOffset(0x03BC)] public int Edit_Caustics_RectMask_ScaleUp_Delay;
+    [FieldOffset(0x03C0)] public int Edit_Caustics_RectMask_ScaleUp_Frame;
+    [FieldOffset(0x03C4)] public int Edit_PersonaInfo_SlideIn_Delay;
+    [FieldOffset(0x03C8)] public int Edit_PersonaInfo_SlideIn_Frame;
+    [FieldOffset(0x03CC)] public int Edit_Attribute_Effect_Frame;
+    [FieldOffset(0x03D0)] public int Edit_SkillList_SlideIn_Delay;
+    [FieldOffset(0x03D4)] public int Edit_SkillList_SlideIn_Frame;
+    [FieldOffset(0x03D8)] public int Edit_Parameter_SlideIn_Delay;
+    [FieldOffset(0x03DC)] public int Edit_Parameter_SlideIn_Frame;
+    [FieldOffset(0x03E0)] public int Edit_Persona_SlideIn_Delay;
+    [FieldOffset(0x03E4)] public int Edit_Persona_SlideIn_Frame;
+    [FieldOffset(0x042C)] public int Edit_Parameter_Gage_Animation_Frame;
+    [FieldOffset(0x0430)] public int Edit_Parameter_Gage_Animation_Delay;
+    [FieldOffset(0x0434)] public int Edit_Parameter_UpGage_Animation_Frame;
+    [FieldOffset(0x0438)] public int Edit_Parameter_Incense_Value_FadeIn_Frame;
+    [FieldOffset(0x470)] public int BaseStrengthStat;
+    [FieldOffset(0x474)] public int BaseMagicStat;
+    [FieldOffset(0x478)] public int BaseEnduranceStat;
+    [FieldOffset(0x47c)] public int BaseAgilityStat;
+    [FieldOffset(0x480)] public int BaseLuckStat;
+    [FieldOffset(0x0484)] public int Edit_LevelUp_SlideIn_Frame;
+    [FieldOffset(0x0488)] public int Edit_LevelUp_Plate_FadeOut_Frame;
+    [FieldOffset(0x05A0)] public int Edit_SkillAdd_Next_Skill_Start_Delay;
+    [FieldOffset(0x05A4)] public float Edit_SkillAdd_Next_Skill_Plate_Color_Fade_Wait;
+    [FieldOffset(0x05A8)] public float Edit_SkillAdd_Next_Skill_Plate_Color_Fade_Time;
+    [FieldOffset(0x05AC)] public int Edit_SkillAdd_Next_Skill_Move_Frame;
+    [FieldOffset(0x05B0)] public int Edit_SkillAdd_Next_Skill_In_Frame;
+    [FieldOffset(0x05B4)] public int Edit_SkillAdd_Next_Skill_New_Slide_In_Frame;
+    [FieldOffset(0x05B8)] public int Edit_SkillAdd_Next_Skill_New_Fade_In_Frame;
+    [FieldOffset(0x5c4)] public float Field5C4;
+    [FieldOffset(0x05E8)] public int Edit_Conception_Level3_LoopAnimation_Frame;
+    [FieldOffset(0x05EC)] public int Edit_Conception_Level1_LoopAnimation_Frame;
+    [FieldOffset(0x05F0)] public int Edit_Conception_GetEffect_Scale_Frame;
+    [FieldOffset(0x05F4)] public int Edit_Conception_GetEffect_FadeOut_Delay;
+    [FieldOffset(0x05F8)] public int Edit_Conception_GetEffect_FadeOut_Frame;
+    [FieldOffset(0x05FC)] public int Edit_Conception_Icon_Get_FadeOut_Delay;
+    [FieldOffset(0x0600)] public int Edit_Conception_Icon_Get_FadeOut_Frame;
+    [FieldOffset(0x0614)] public int Edit_SkillCard_FadeIn_Frame;
+    [FieldOffset(0x0618)] public int Edit_SkillCard_SlideIn_Frame;
+    [FieldOffset(0x061C)] public int Edit_SkillCard_Used_FadeOut_Frame;
+    [FieldOffset(0x0620)] public int Edit_SkillCard_Used_SlideeOut_Frame;
+    [FieldOffset(0x0624)] public int Edit_SkillCard_Used_Plate_AddEffect_Frame;
+    [FieldOffset(0x0628)] public int Edit_SkillCard_Used_Plate_LoopAnimation_Frame;
+    [FieldOffset(0x062C)] public int Edit_SkillCard_Used_GetIcon_SlideIn_Frame;
+    [FieldOffset(0x0648)] public int Edit_ChangeSkill_Skill_Name_Color_LoopAnimation_Frame;
+    [FieldOffset(0x064C)] public int Edit_ChangeSkill_1Effect_Delay;
+    [FieldOffset(0x0650)] public int Edit_ChangeSkill_BluePlate_SlideIn_Frame;
+    [FieldOffset(0x0654)] public int Edit_ChangeSkill_BluePlate_Slide_Wait_Frame;
+    [FieldOffset(0x0658)] public int Edit_ChangeSkill_BluePlate_SlideOut_Frame;
+    [FieldOffset(0x065C)] public int Edit_ChangeSkill_Change_Font_SlideIn_Delay;
+    [FieldOffset(0x0660)] public int Edit_ChangeSkill_Change_Font_SlideIn_Frame;
+    [FieldOffset(0x0664)] public int Edit_ChangeSkill_Change_Font_Slide_Wait_Frame;
+    [FieldOffset(0x0668)] public int Edit_ChangeSkill_Change_Font_SlideOut_Frame;
+    [FieldOffset(0x066C)] public int Edit_ChangeSkill_Change_Font_FadeIn_Delay;
+    [FieldOffset(0x0670)] public int Edit_ChangeSkill_Change_Font_FadeIn_Frame;
+    [FieldOffset(0x0674)] public int Edit_ChangeSkill_Change_Font_Fade_Wait_Frame;
+    [FieldOffset(0x0678)] public int Edit_ChangeSkill_Change_Font_FadeOut_Frame;
+    [FieldOffset(0x067C)] public int Edit_ChangeSkill_ChangeIcon_FadeIn_Frame;
+    [FieldOffset(0x0680)] public int Edit_ChangeSkill_ChangeIcon_SlideIn_Frame;
+    [FieldOffset(0x06A8)] public int Edit_SkillInfo_SlideIn_Frame;
+    [FieldOffset(0x06AC)] public int Edit_SkillInfo_FadeIn_Frame;
+    [FieldOffset(0x06B0)] public int Edit_SkillInfo_SlideOut_Frame;
+    [FieldOffset(0x06B4)] public int Edit_SkillInfo_FadeOut_Frame;
+    [FieldOffset(0x06B8)] public int Edit_SkillInfo_Cursor_FadeIn_Frame;
+    [FieldOffset(0x06BC)] public int Edit_SkillInfo_Cursor_FadeOut_Frame;
+    [FieldOffset(0x06C0)] public int Edit_SkillInfo_Cursor_Frame;
+    [FieldOffset(0x06C4)] public int Edit_SkillInfo_SubCursor_Frame;
+    [FieldOffset(0x072C)] public int Edit_AffinityCheck_Icon_Move_Frame;
+    [FieldOffset(0x0730)] public int Edit_AffinityCheck_Icon_1_Move_Delay;
+    [FieldOffset(0x0734)] public int Edit_AffinityCheck_Font_Delay;
+    [FieldOffset(0x0738)] public int Edit_AffinityCheck_Font_Move_Frame;
+    [FieldOffset(0x073C)] public int Edit_AffinityCheck_Font_1_Move_Delay;
+    [FieldOffset(0x0740)] public int Edit_AffinityCheck_Font_FadeIn_Frame;
+    [FieldOffset(0x0744)] public int Edit_AffinityCheck_Font_1_FadeIn_Delay;
+    [FieldOffset(0x0750)] public int Edit_SkillSelectList_SlideIn_Delay;
+    [FieldOffset(0x0754)] public int Edit_SkillSelectList_SlideIn_Frame;
+    [FieldOffset(0x0758)] public int Edit_SkillSelectList_FadeIn_Delay;
+    [FieldOffset(0x075C)] public int Edit_SkillSelectList_FadeIn_Frame;
+    [FieldOffset(0x0760)] public int Edit_SkillSelectList_SlideOut_Delay;
+    [FieldOffset(0x0764)] public int Edit_SkillSelectList_SlideOut_Frame;
+    [FieldOffset(0x0768)] public int Edit_SkillSelectList_FadeOut_Delay;
+    [FieldOffset(0x076C)] public int Edit_SkillSelectList_FadeOut_Frame;
+    [FieldOffset(0x0770)] public int Edit_SkillSelectList_RectScale_Delay;
+    [FieldOffset(0x0774)] public int Edit_SkillSelectList_RectScale_Frame;
+    [FieldOffset(0x0778)] public int Edit_SkillSelectList_Cursor_FadeIn_Delay;
+    [FieldOffset(0x077C)] public int Edit_SkillSelectList_Cursor_FadeIn_Frame;
+    [FieldOffset(0x0780)] public int Edit_SkillSelectList_Cursor_SlideIn_Delay;
+    [FieldOffset(0x0784)] public int Edit_SkillSelectList_Cursor_SlideIn_Frame;
+    [FieldOffset(0x0788)] public int Edit_SkillSelectList_SubCursor_SlideIn_Frame;
+    [FieldOffset(0x078C)] public int Edit_SkillSelectList_Cursor_Frame;
+    [FieldOffset(0x0790)] public int Edit_SkillSelectList_SubCursor_Frame;
+    [FieldOffset(0x0794)] public int Edit_SkillSelectList_Info_SlideIn_Frame;
+    [FieldOffset(0x0798)] public int Edit_SkillSelectList_Info_FadeIn_Frame;
+    [FieldOffset(0x079C)] public int Edit_SkillSelectList_Info_ChangeSlideIn_Frame;
+    [FieldOffset(0x07A0)] public int Edit_SkillSelectList_Info_ChangeFadeIn_Frame;
+    [FieldOffset(0x07A4)] public int Edit_Selected_Succession_Skill_SlideIn_Delay;
+    [FieldOffset(0x07A8)] public int Edit_Selected_Succession_Skill_SlideIn_Frame;
+    [FieldOffset(0x07AC)] public int Edit_Selected_Succession_Skill_FadeIn_Delay;
+    [FieldOffset(0x07B0)] public int Edit_Selected_Succession_Skill_FadeIn_Frame;
+    [FieldOffset(0x07E8)] public int Edit_Commentary_FadeIn_Frame;
+    [FieldOffset(0x7bc)] public float Field7BC;
+    [FieldOffset(0x7c0)] public float Field7C0;
+    [FieldOffset(0x07EC)] public int Edit_Commentary_SlideIn_Frame;
+    [FieldOffset(0x07F0)] public int Edit_Commentary_Persona_Slide_Delay;
+    [FieldOffset(0x07F4)] public int Edit_Commentary_Persona_Slide_Frame;
+    [FieldOffset(0x07F8)] public int Edit_Commentary_Info_FadeOut_Delay;
+    [FieldOffset(0x07FC)] public int Edit_Commentary_Info_FadeOut_Frame;
+    [FieldOffset(0x0800)] public int Edit_Commentary_SkillList_Move_Delay;
+    [FieldOffset(0x0804)] public int Edit_Commentary_SkillList_Move_Frame;
+    [FieldOffset(0x0808)] public int Edit_Commentary_Paramter_Move_Delay;
+    [FieldOffset(0x080C)] public int Edit_Commentary_Paramter_Move_Frame;
+    [FieldOffset(0x0810)] public int Edit_Commentary_Affinity_FadeOut_Delay;
+    [FieldOffset(0x0814)] public int Edit_Commentary_Affinity_FadeOut_Frame;
+    [FieldOffset(0x0818)] public int Edit_Commentary_Affinity_SlideOut_Delay;
+    [FieldOffset(0x081C)] public int Edit_Commentary_Affinity_SlideOut_Frame;
+    [FieldOffset(0x0820)] public int Edit_Commentary_Rect_ScaleUp_Delay;
+    [FieldOffset(0x0824)] public int Edit_Commentary_Rect_ScaleUp_Frame;
+    [FieldOffset(0x0828)] public int Edit_Commentary_Font_Change_Frame;
+    [FieldOffset(0x830)] public float PersonaInfoBottomBarMod;
+    [FieldOffset(0x0834)] public int Edit_Combine_CommuBonus_SlideIn_Frame;
+    [FieldOffset(0x0838)] public int Edit_Combine_CommuBonus_Plate_FadeOut_Frame;
+    [FieldOffset(0x083C)] public int Edit_Combine_CommuBonus_Font_FadeOut_Frame;
+    [FieldOffset(0x0840)] public int Edit_Combine_CommuBonus_Fix_Point_ColorChange_Frame1;
+    [FieldOffset(0x0844)] public int Edit_Combine_CommuBonus_Fix_Point_ColorChange_Frame2;
+    [FieldOffset(0x0848)] public int Edit_Combine_CommuBonus_ColorChange_Frame;
+    [FieldOffset(0x084C)] public int Edit_Combine_BonusExp_SlideIn_Delay;
+    [FieldOffset(0x0850)] public int Edit_Combine_BonusExp_SlideIn_Frame;
+    [FieldOffset(0x0854)] public int Edit_Combine_BonusExp_Fade_Frame;
+    [FieldOffset(0x0870)] public int Edit_Registry_LockIcon_InAnimation_Delay;
+    [FieldOffset(0x0874)] public int Edit_Registry_LockIcon_InAnimation_Frame;
+    [FieldOffset(0x0878)] public int Edit_Registry_Switch_Heading_SlideOut_Delay;
+    [FieldOffset(0x087C)] public int Edit_Registry_Switch_Heading_SlideOut_Frame;
+    [FieldOffset(0x0880)] public int Edit_Registry_Switch_Heading_FadeOut_Delay;
+    [FieldOffset(0x0884)] public int Edit_Registry_Switch_Heading_FadeOut_Frame;
+    [FieldOffset(0x0888)] public int Edit_Registry_Switch_Heading_SlideIn_Delay;
+    [FieldOffset(0x088C)] public int Edit_Registry_Switch_Heading_SlideIn_Frame;
+    [FieldOffset(0x0890)] public int Edit_Registry_Switch_Heading_FadeIn_Delay;
+    [FieldOffset(0x0894)] public int Edit_Registry_Switch_Heading_FadeIn_Frame;
+    [FieldOffset(0x0898)] public int Edit_Registry_Switch_Mark_Rotate_Animation_Frame;
+    [FieldOffset(0x08B0)] public UDataTable* LayoutTable;
+    [FieldOffset(0x08B8)] public UDataTable* TextLayoutTable;
+    [FieldOffset(0x08C0)] public UDataTable* TextPosRowLayoutTable;
+    [FieldOffset(0x08C8)] public UUILayoutDataTable* LayoutDataTable;
+    [FieldOffset(0x08D0)] public UUILayoutDataTable* TextLayoutDataTable;
+    [FieldOffset(0x08D8)] public UUILayoutDataTable* TextPosRowLayoutDataTable;
+
+    public int GetBasePersonaStat(int i) { fixed (APersonaStatusDraw* self = &this) { return *(int*)((nint)self + 0x470 + i * 4); } }
 }
