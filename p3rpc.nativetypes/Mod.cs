@@ -1,15 +1,17 @@
-﻿using p3rpc.nativetypes.Configuration;
+﻿using p3rpc.nativetypes.Components;
+using p3rpc.nativetypes.Configuration;
 using p3rpc.nativetypes.Interfaces;
 using p3rpc.nativetypes.Template;
 using Reloaded.Hooks.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
+using SharedScans.Interfaces;
 
 namespace p3rpc.nativetypes
 {
     /// <summary>
     /// Your mod logic goes here.
     /// </summary>
-    public class Mod : ModBase // <= Do not Remove.
+    public class Mod : ModBase//, IExports // <= Do not Remove.
     {
         /// <summary>
         /// Provides access to the mod loader API.
@@ -42,6 +44,9 @@ namespace p3rpc.nativetypes
         /// </summary>
         private readonly IModConfig _modConfig;
 
+        private UIMethods _uiMethods;
+        private CommonMethods _commonMethods;
+
         public Mod(ModContext context)
         {
             _modLoader = context.ModLoader;
@@ -50,6 +55,11 @@ namespace p3rpc.nativetypes
             _owner = context.Owner;
             _configuration = context.Configuration;
             _modConfig = context.ModConfig;
+
+            _modLoader.GetController<ISharedScans>().TryGetTarget(out var sharedScans);
+            if (sharedScans == null) throw new Exception("[P3RE Native Types] Could not get controller for Shared Scans");
+            _commonMethods = new(sharedScans);
+            _uiMethods = new(sharedScans);
         }
 
         #region Standard Overrides
@@ -67,5 +77,7 @@ namespace p3rpc.nativetypes
         public Mod() { }
 #pragma warning restore CS8618
         #endregion
+
+        //public Type[] GetTypes() => new[] { typeof(ICommonMethods), typeof(IUIMethods) };
     }
 }
