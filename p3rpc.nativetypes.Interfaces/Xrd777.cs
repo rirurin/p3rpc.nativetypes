@@ -3517,6 +3517,8 @@ public unsafe struct FPersonaStatusDraw
 {
     public byte GetEquipBonusStat(int i) { fixed (FPersonaStatusDraw* self = &this) { return *(byte*)((nint)self + 0x1c + i); } }
     public byte GetNextLevelStat(int i) { fixed (FPersonaStatusDraw* self = &this) { return *(byte*)((nint)self + 0x21 + i); } }
+    public void SetEquipBonusStat(int i, byte v) { fixed (FPersonaStatusDraw* self = &this) { *(byte*)((nint)self + 0x1c + i) = v; } }
+    public void SetNextLevelStat(int i, byte v) { fixed (FPersonaStatusDraw* self = &this) { *(byte*)((nint)self + 0x21 + i) = v; } }
 }
 [StructLayout(LayoutKind.Explicit, Size = 0x900)]
 public unsafe struct APersonaStatusDraw
@@ -3530,7 +3532,10 @@ public unsafe struct APersonaStatusDraw
     [FieldOffset(0x02E8)] public float Edit_Persona_Change_Slide_Value;
     [FieldOffset(0x02EC)] public EPERSONA_STATUS_DRAW_SCENE Scene;
     [FieldOffset(0x02F0)] public UMaterialInstanceDynamic* pBackgroundMaterial;
+    [FieldOffset(0x2f8)] public float NextLevelColorFlicker;
     //[FieldOffset(0x03A8)] public APersonaModelCaptureUpdater* ModelCaptureUpdater;
+    [FieldOffset(0x309)] public byte Field309;
+    [FieldOffset(0x30a)] public byte Field30A;
     [FieldOffset(0x34a)] public ushort PlayerId;
     [FieldOffset(0x34c)] public FDatUnitPersonaEntry CurrentPersona;
     [FieldOffset(0x380)] public FDatUnitPersonaEntry* pCurrentPersona;
@@ -3553,6 +3558,8 @@ public unsafe struct APersonaStatusDraw
     [FieldOffset(0x0430)] public int Edit_Parameter_Gage_Animation_Delay;
     [FieldOffset(0x0434)] public int Edit_Parameter_UpGage_Animation_Frame;
     [FieldOffset(0x0438)] public int Edit_Parameter_Incense_Value_FadeIn_Frame;
+    [FieldOffset(0x440)] public float Field440;
+    [FieldOffset(0x444)] public float Field444;
     [FieldOffset(0x470)] public int BaseStrengthStat;
     [FieldOffset(0x474)] public int BaseMagicStat;
     [FieldOffset(0x478)] public int BaseEnduranceStat;
@@ -3560,6 +3567,7 @@ public unsafe struct APersonaStatusDraw
     [FieldOffset(0x480)] public int BaseLuckStat;
     [FieldOffset(0x0484)] public int Edit_LevelUp_SlideIn_Frame;
     [FieldOffset(0x0488)] public int Edit_LevelUp_Plate_FadeOut_Frame;
+    [FieldOffset(0x48e)] public byte Field48E;
     [FieldOffset(0x05A0)] public int Edit_SkillAdd_Next_Skill_Start_Delay;
     [FieldOffset(0x05A4)] public float Edit_SkillAdd_Next_Skill_Plate_Color_Fade_Wait;
     [FieldOffset(0x05A8)] public float Edit_SkillAdd_Next_Skill_Plate_Color_Fade_Time;
@@ -3568,6 +3576,7 @@ public unsafe struct APersonaStatusDraw
     [FieldOffset(0x05B4)] public int Edit_SkillAdd_Next_Skill_New_Slide_In_Frame;
     [FieldOffset(0x05B8)] public int Edit_SkillAdd_Next_Skill_New_Fade_In_Frame;
     [FieldOffset(0x5c4)] public float Field5C4;
+    [FieldOffset(0x5c4)] public float TimeSinceSwitchedPersona;
     [FieldOffset(0x05E8)] public int Edit_Conception_Level3_LoopAnimation_Frame;
     [FieldOffset(0x05EC)] public int Edit_Conception_Level1_LoopAnimation_Frame;
     [FieldOffset(0x05F0)] public int Edit_Conception_GetEffect_Scale_Frame;
@@ -3685,4 +3694,7 @@ public unsafe struct APersonaStatusDraw
     [FieldOffset(0x08D8)] public UUILayoutDataTable* TextPosRowLayoutDataTable;
 
     public int GetBasePersonaStat(int i) { fixed (APersonaStatusDraw* self = &this) { return *(int*)((nint)self + 0x470 + i * 4); } }
+    public float GetParamDisplayValueFrom(int i) { fixed (APersonaStatusDraw* self = &this) { return *(float*)((nint)self + 0x45C + i * 4); } }
+    public float GetParamDisplayValueTo(int i) { fixed (APersonaStatusDraw* self = &this) { return *(float*)((nint)self + 0x448 + i * 4); } }
+    public void SetParamDisplayValueTo(int i, float v) { fixed (APersonaStatusDraw* self = &this) { *(float*)((nint)self + 0x448 + i * 4) = v; } }
 }

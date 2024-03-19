@@ -603,10 +603,11 @@ public unsafe struct FUObjectArray
     [FieldOffset(0x2c)] public int NumChunks;
     // 0x30: Critical Section
 }
-[StructLayout(LayoutKind.Sequential, Size = 0x18)]
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
 public unsafe struct FUObjectItem
 {
-    public UObject* Object;
+    [FieldOffset(0x0)] public UObject* Object;
+    [FieldOffset(0x8)] public EInternalObjectFlags Flags;
 }
 // For StaticConstructObject_Internal
 [StructLayout(LayoutKind.Explicit, Size = 0x40)]
