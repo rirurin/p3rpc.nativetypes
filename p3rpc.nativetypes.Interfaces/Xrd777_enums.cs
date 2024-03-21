@@ -169,6 +169,37 @@ public enum EPERSONA_STATUS_DRAW_SCENE : byte
     DRAWER = 6,
     REGISTRY = 7,
     SKILL_CARD = 8,
-    EPERSONA_STATUS_DRAW_MAX = 9,
+    //EPERSONA_STATUS_DRAW_MAX = 9,
+};
 
+public enum EEvtCharaAnimationSlotType : byte
+{
+    User = 0,
+    DefaultSlot = 1,
+    EventSlot = 2,
+    NodSlot = 3,
+    FacialSlot = 4,
+    ArmL = 5,
+    ArmR = 6,
+    //EEvtCharaAnimationSlotType_MAX = 7,
+};
+
+public enum EEvtCharaAnimationType : byte
+{
+    SimpleMontage = 0,
+    LoopAnimationSingle = 1,
+    LoopAnimationOnLastFrame = 2,
+    StopSlotAnimation = 3,
+    LoopAnimationSingleWithStartOffset = 4,
+    KeepWorld = 5,
+    //EEvtCharaAnimationType_MAX = 6,
+};
+
+public enum EEvtFadeScreenType : byte
+{
+    EVT_FADESCREEN_FADE_IN = 0,
+    EVT_FADESCREEN_FADE_OUT = 1,
+    EVT_FADESCREEN_CROSSFADE_IN = 2,
+    EVT_FADESCREEN_CROSSFADE_OUT = 3,
+    //EVT_FADESCREEN_MAX = 4,
 };

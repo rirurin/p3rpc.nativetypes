@@ -124,6 +124,12 @@ public unsafe struct UUILayoutDataTable //: public UObject
         if (idx >= 0 && idx < Entries.arr_num) return (UUILayoutDataTableEntry*)Entries.allocator_instance[idx];
         return null;
     }
+    /*
+    public static UUILayoutDataTable* FromDataTable(UDataTable* table)
+    {
+
+    }
+    */
 };
 
 [StructLayout(LayoutKind.Explicit, Size = 0x10)]
@@ -2424,7 +2430,7 @@ public unsafe struct ASaveLoadDraw //: public AUIDrawBaseActor
 public unsafe struct FGetUIParameter
 {
     //[FieldOffset(0x0018)] public UUIParameterAsset* ParameterAsset;                                          //  (size: 0x8)
-    [FieldOffset(0x0020)] public TMap ParameterMap;                                                //  (size: 0x50)
+    //[FieldOffset(0x0020)] public TMap ParameterMap;                                                //  (size: 0x50)
     [FieldOffset(0x0070)] public UAssetLoader* AssetLoader;                                                  //  (size: 0x8)
 }; // Size: 0x78
 
@@ -3692,9 +3698,182 @@ public unsafe struct APersonaStatusDraw
     [FieldOffset(0x08C8)] public UUILayoutDataTable* LayoutDataTable;
     [FieldOffset(0x08D0)] public UUILayoutDataTable* TextLayoutDataTable;
     [FieldOffset(0x08D8)] public UUILayoutDataTable* TextPosRowLayoutDataTable;
+    [FieldOffset(0x8e0)] public byte madeLayoutDataTable;
+    [FieldOffset(0x8e1)] public byte madeTextLayoutDataTable;
+    [FieldOffset(0x8e2)] public byte madeTextPosRowLayoutDataTable;
 
     public int GetBasePersonaStat(int i) { fixed (APersonaStatusDraw* self = &this) { return *(int*)((nint)self + 0x470 + i * 4); } }
     public float GetParamDisplayValueFrom(int i) { fixed (APersonaStatusDraw* self = &this) { return *(float*)((nint)self + 0x45C + i * 4); } }
     public float GetParamDisplayValueTo(int i) { fixed (APersonaStatusDraw* self = &this) { return *(float*)((nint)self + 0x448 + i * 4); } }
     public void SetParamDisplayValueTo(int i, float v) { fixed (APersonaStatusDraw* self = &this) { *(float*)((nint)self + 0x448 + i * 4) = v; } }
+}
+
+// EVENTS
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct FFieldEventInfo
+{
+    [FieldOffset(0x0000)] public AActor* FieldCameraActor;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public unsafe struct FAtlEvtPlayBindingTagParameter
+{
+    [FieldOffset(0x0000)] public AActor* BindingActor;
+    [FieldOffset(0x0008)] public FString BindingTag;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x38)]
+public unsafe struct FAtlEvtPlayParameter
+{
+    [FieldOffset(0x0000)] public FString EventAssetName;
+    [FieldOffset(0x0010)] public bool bEnableBinding;
+    [FieldOffset(0x0018)] public TArray<FAtlEvtPlayBindingTagParameter> BindingTagActors;
+    [FieldOffset(0x0028)] public bool bDisableTimeZone;
+    [FieldOffset(0x0030)] public FFieldEventInfo FieldEventInfo;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x300)]
+public unsafe struct AAtlEvtPlayObject
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+    [FieldOffset(0x0278)] public FString LevelName;
+    [FieldOffset(0x0288)] public FAtlEvtPlayParameter EvtPlayParam;
+    [FieldOffset(0x02C0)] public FString EventRank;
+    [FieldOffset(0x02E8)] public ALevelSequenceActor* LevelSequenceActor;
+}
+
+// ATLUS MOVIE TRACKS
+
+[StructLayout(LayoutKind.Explicit, Size = 0x50)]
+public unsafe struct FEvtDialoguePayload
+{
+    [FieldOffset(0x0000)] public FName EventName;
+    [FieldOffset(0x0008)] public int MessageNo;
+    [FieldOffset(0x000C)] public int MessageMajorID;
+    [FieldOffset(0x0010)] public int MessageMinorID;
+    [FieldOffset(0x0014)] public int MessageSubID;
+    [FieldOffset(0x0018)] public int MessagePageID;
+    [FieldOffset(0x0020)] public UBmdAsset* BmdAsset;
+    [FieldOffset(0x0028)] public bool bMessageRefAffected;
+    [FieldOffset(0x0029)] public bool bPauseSequencer;
+    [FieldOffset(0x002C)] public int EventMessageID;
+    [FieldOffset(0x0030)] public int SeqEventMessageID;
+    [FieldOffset(0x0034)] public bool bWithSelect;
+    [FieldOffset(0x0038)] public int SelectID;
+    [FieldOffset(0x003C)] public int SelectMessageMajorID;
+    [FieldOffset(0x0040)] public int SelectMessageMinorID;
+    [FieldOffset(0x0044)] public int SelectMessageSubID;
+    [FieldOffset(0x0048)] public int SelectResponceToLocalDataID;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x88)]
+public unsafe struct FMovieSceneEvtDialogueSectionData
+{
+    [FieldOffset(0x0000)] public FMovieSceneChannel baseObj;
+    [FieldOffset(0x0008)] public TArray<FFrameNumber> Times;
+    [FieldOffset(0x0018)] public TArray<FEvtDialoguePayload> KeyValues;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1E8)]
+public unsafe struct UMovieSceneEvtDialogueSection
+{
+    [FieldOffset(0x0000)] public UMovieSceneSection baseObj;
+    [FieldOffset(0x00E8)] public FMovieSceneEvtDialogueSectionData EventData;
+    //[FieldOffset(0x0170)] public FNameCurve Events;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x28)]
+public unsafe struct FEvtScriptPayload
+{
+    [FieldOffset(0x0000)] public FName EventName;
+    [FieldOffset(0x0008)] public int ProcNo;
+    [FieldOffset(0x0010)] public UBfAsset* BfAsset;
+    [FieldOffset(0x0018)] public bool bPauseSequencer;
+    [FieldOffset(0x0019)] public bool bUseBmdAssetInBfAsset;
+    [FieldOffset(0x0020)] public UBmdAsset* BmdAsset;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x88)]
+public unsafe struct FMovieSceneEvtScriptSectionData
+{
+    [FieldOffset(0x0000)] public FMovieSceneChannel baseObj;
+    [FieldOffset(0x0008)] public TArray<FFrameNumber> Times;
+    [FieldOffset(0x0018)] public TArray<FEvtScriptPayload> KeyValues;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x170)]
+public unsafe struct UMovieSceneEvtScriptSection
+{
+    [FieldOffset(0x0000)] public UMovieSceneSection baseObj;
+    [FieldOffset(0x00E8)] public FMovieSceneEvtScriptSectionData EventData;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x20)]
+public unsafe struct FAtlSlotMultiAnimationParam
+{
+    [FieldOffset(0x0000)] public UAnimSequenceBase* Animation;
+    [FieldOffset(0x0008)] public float StartOffset;
+    [FieldOffset(0x000C)] public float EndOffset;
+    [FieldOffset(0x0010)] public float BlendIn;
+    [FieldOffset(0x0014)] public float BlendOut;
+    [FieldOffset(0x0018)] public float PlayRate;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct FEvtCharaAnimationPayload
+{
+    [FieldOffset(0x0000)] public UAnimSequenceBase* Animation;
+    [FieldOffset(0x0008)] public FName SlotName;
+    [FieldOffset(0x0010)] public EEvtCharaAnimationSlotType SlotType;
+    [FieldOffset(0x0014)] public float StartOffset;
+    [FieldOffset(0x0018)] public float EndOffset;
+    [FieldOffset(0x001C)] public float BlendIn;
+    [FieldOffset(0x0020)] public float BlendOut;
+    [FieldOffset(0x0024)] public float PlayRate;
+    [FieldOffset(0x0028)] public EEvtCharaAnimationType CharaAnimationType;
+    [FieldOffset(0x0030)] public TArray<FAtlSlotMultiAnimationParam> AnimArray;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x88)]
+public unsafe struct FMovieSceneEvtCharaAnimationSectionData
+{
+    [FieldOffset(0x0000)] public FMovieSceneChannel baseObj;
+    [FieldOffset(0x0008)] public TArray<FFrameNumber> Times;
+    [FieldOffset(0x0018)] public TArray<FEvtCharaAnimationPayload> KeyValues;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1E8)]
+public unsafe struct UMovieSceneEvtCharaAnimationSection
+{
+    [FieldOffset(0x0000)] public UMovieSceneSection baseObj;
+    //[FieldOffset(0x00E8)] public FNameCurve Events;
+    [FieldOffset(0x0160)] public FMovieSceneEvtCharaAnimationSectionData EventData;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public unsafe struct FEvtFadeScreenPayload
+{
+    [FieldOffset(0x0000)] public FName EventName;
+    [FieldOffset(0x0008)] public EEvtFadeScreenType FadeScreenType;
+    [FieldOffset(0x000C)] public int FadeType;
+    [FieldOffset(0x0010)] public int FadeFrame;
+    [FieldOffset(0x0014)] public byte ColorR;
+    [FieldOffset(0x0015)] public byte ColorG;
+    [FieldOffset(0x0016)] public byte ColorB;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x88)]
+public unsafe struct FMovieSceneEvtFadeScreenSectionData
+{
+    [FieldOffset(0x0000)] public FMovieSceneChannel baseObj;
+    [FieldOffset(0x0008)] public TArray<FFrameNumber> Times;
+    [FieldOffset(0x0018)] public TArray<FEvtFadeScreenPayload> KeyValues;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x170)]
+public unsafe struct UMovieSceneEvtFadeScreenSection
+{
+    [FieldOffset(0x0000)] public UMovieSceneSection baseObj;
+    [FieldOffset(0x00E8)] public FMovieSceneEvtFadeScreenSectionData EventData;
 }

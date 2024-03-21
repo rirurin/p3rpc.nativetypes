@@ -28,5 +28,5 @@ public struct FSprDataArray
 public unsafe struct USprAsset //: public UObject
 {
     [FieldOffset(0x0028)] public TArray<nint> mTexArray; // UTexture*
-    [FieldOffset(0x0038)] TMap SprDatas;
+    [FieldOffset(0x0038)] TMap<int, FSprDataArray> SprDatas;
 };

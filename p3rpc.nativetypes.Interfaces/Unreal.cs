@@ -26,22 +26,111 @@ public unsafe struct FIoChunkId
 // ====================
 
 [StructLayout(LayoutKind.Sequential, Size = 0x10)]
-public unsafe struct TArray<T>
+public unsafe struct TArray<T> where T : unmanaged
 {
     public T* allocator_instance;
     public int arr_num;
     public int arr_max;
+
+    public T* GetRef(int index) // for arrays of type TArray<FValueType>
+    {
+        if (index < 0 || index >= arr_num) return null;
+        return &allocator_instance[index];
+    }
+
+    public V* Get<V>(int index) where V : unmanaged // for arrays of type TArray<FValueType*>
+    {
+        if (index < 0 || index >= arr_num) return null;
+        return *(V**)&allocator_instance[index];
+    }
 }
-[StructLayout(LayoutKind.Explicit, Size = 0x50)]
-public unsafe struct TMap // : TSortableMapBase
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct TMapElement<KeyType, ValueType> 
+    where KeyType : unmanaged, IEquatable<KeyType>
+    where ValueType : unmanaged
 {
-    // TSparseArray fields (0x0 - 0x38)
-    [FieldOffset(0x0)] public TArray<IntPtr> valueOffsets;
-    // TBitArray<Allocator::BitArrayAllocator> allocationFlags @ 0x10
-    [FieldOffset(0x30)] public int first_free_index;
-    [FieldOffset(0x34)] public int num_free_indices;
-    // TSet fields (0x38 - 0x50)
+    public KeyType Key;
+    public ValueType Value;
+    long Unk;
 }
+//[StructLayout(LayoutKind.Explicit, Size = 0x50)] // inherits from TSortableMapBase
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct TMap<KeyType, ValueType>
+    where KeyType : unmanaged, IEquatable<KeyType>
+    where ValueType : unmanaged
+{
+    public TMapElement<KeyType, ValueType>* elements;
+    public int mapNum;
+    public int mapMax;
+    public ValueType* TryGet(KeyType key)
+    {
+        if (mapNum == 0 || elements == null) return null;
+        ValueType* value = null;
+        for (int i = 0; i < mapNum; i++)
+        {
+            var currElem = &elements[i];
+            if (currElem->Key.Equals(key))
+            {
+                value = &currElem->Value;
+                break;
+            }
+        }
+        return value;
+    }
+    public ValueType* GetByIndex(int idx)
+    {
+        if (idx < 0 || idx > mapNum) return null;
+        return &elements[idx].Value;
+    }
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct FWeakObjectPtr
+{
+    public int ObjectIndex;
+    public int ObjectSerialNumber;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct TPersistentObjectPtr<T> where T : unmanaged
+{
+    public FWeakObjectPtr WeakPtr;
+    public int TagAtLastTest;
+    public T ObjectId;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct FUniqueObjectGuid
+{
+    public FGuid Guid;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct FLazyObjectPtr
+{
+    public TPersistentObjectPtr<FUniqueObjectGuid> baseObj;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct TLazyObjectPtr<T> where T : unmanaged
+{
+    public FLazyObjectPtr baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public unsafe struct FSoftObjectPath
+{
+    [FieldOffset(0x0000)] public FName AssetPathName;
+    [FieldOffset(0x0008)] public FString SubPathString;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct FSoftObjectPtr
+{
+    public TPersistentObjectPtr<FSoftObjectPath> baseObj;
+}
+
 public enum EObjectFlags : uint
 {
     Public = 1 << 0x0,
@@ -343,8 +432,8 @@ public unsafe struct UClass
     [FieldOffset(0xe8)] public FName class_conf_name;
     [FieldOffset(0x100)] public TArray<UField> net_fields;
     [FieldOffset(0x118)] public UObject* class_default_obj; // Default object of type described in UClass instance
-    [FieldOffset(0x130)] public TMap func_map;
-    [FieldOffset(0x180)] public TMap super_func_map;
+    //[FieldOffset(0x130)] public TMap func_map;
+    //[FieldOffset(0x180)] public TMap super_func_map;
     [FieldOffset(0x1d8)] public TArray<IntPtr> interfaces;
     [FieldOffset(0x220)] public TArray<FNativeFunctionLookup> native_func_lookup;
 }
@@ -554,12 +643,21 @@ public unsafe struct FEnumProperty
 }
 // For g_namePool
 [StructLayout(LayoutKind.Explicit, Size = 0x8)]
-public unsafe struct FName
+public unsafe struct FName : IEquatable<FName>
 {
     [FieldOffset(0x0)] public uint pool_location;
+    public bool Equals(FName other) => pool_location == other.pool_location;
 }
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct FString : IEquatable<FString>
+{
+    public TArray<nint> text;
+    public override string ToString() => Marshal.PtrToStringUni((nint)text.allocator_instance, text.arr_num - 1);
+    public bool Equals(FString other) => ToString().Equals(other.ToString());
+}
+
 [StructLayout(LayoutKind.Explicit, Size = 0x2)]
-public unsafe struct FString
+public unsafe struct FNamePoolString
 {
     // Flags:
     // bIsWide : 1;
@@ -567,8 +665,9 @@ public unsafe struct FString
     // Length : 10;
     // Get Length: flags >> 6
     [FieldOffset(0x0)] public short flags;
-    public string GetString() { fixed (FString* self = &this) return Marshal.PtrToStringAnsi((IntPtr)(self + 1), flags >> 6); }
+    public string GetString() { fixed (FNamePoolString* self = &this) return Marshal.PtrToStringAnsi((IntPtr)(self + 1), flags >> 6); }
 }
+
 [StructLayout(LayoutKind.Explicit, Size = 0x10)]
 public unsafe struct FNamePool
 {
@@ -584,7 +683,7 @@ public unsafe struct FNamePool
             IntPtr ptr = GetPool(pool_loc >> 0x10); // 0xABB2B - pool 0xA
             // Go to name entry in pool
             ptr += (nint)((pool_loc & 0xFFFF) * 2);
-            return ((FString*)ptr)->GetString();
+            return ((FNamePoolString*)ptr)->GetString();
         }
     }
 
@@ -783,7 +882,7 @@ public unsafe struct UTexture // : UStreamableRenderAsset
 public unsafe struct UDataTable //: public UObject
 {
     [FieldOffset(0x0028)] public UScriptStruct* RowStruct;
-    [FieldOffset(0x30)] public TMap RowMap;
+    [FieldOffset(0x30)] public TMap<FName, nint> RowMap;
     [FieldOffset(0x0080)] public byte bStripFromClientBuilds;
     [FieldOffset(0x0080)] public byte bIgnoreExtraFields;
     [FieldOffset(0x0080)] public byte bIgnoreMissingFields;
@@ -1190,7 +1289,7 @@ public unsafe struct FFrame
 [StructLayout(LayoutKind.Explicit, Size = 0x798)]
 public unsafe struct UWorld //: public UObject
 {
-    //[FieldOffset(0x0030)] public ULevel* PersistentLevel;
+    [FieldOffset(0x0030)] public ULevel* PersistentLevel;
     //[FieldOffset(0x0038)] public UNetDriver* NetDriver;
     //[FieldOffset(0x0040)] public ULineBatchComponent* LineBatcher;
     //[FieldOffset(0x0048)] public ULineBatchComponent* PersistentLineBatcher;
@@ -1202,8 +1301,8 @@ public unsafe struct UWorld //: public UObject
     //[FieldOffset(0x0088)] public TArray<nint> StreamingLevels;
     //[FieldOffset(0x0098)] public FStreamingLevelsToConsider StreamingLevelsToConsider;
     //[FieldOffset(0x00C0)] public FString StreamingLevelsPrefix;
-    //[FieldOffset(0x00D0)] public ULevel* CurrentLevelPendingVisibility;
-    //[FieldOffset(0x00D8)] public ULevel* CurrentLevelPendingInvisibility;
+    [FieldOffset(0x00D0)] public ULevel* CurrentLevelPendingVisibility;
+    [FieldOffset(0x00D8)] public ULevel* CurrentLevelPendingInvisibility;
     //[FieldOffset(0x00E0)] public UDemoNetDriver* DemoNetDriver;
     //[FieldOffset(0x00E8)] public AParticleEventManager* MyParticleEventManager;
     //[FieldOffset(0x00F0)] public APhysicsVolume* DefaultPhysicsVolume;
@@ -1347,4 +1446,444 @@ public unsafe struct UForceFeedbackEffect
     [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0028)] public TArray<FForceFeedbackChannelDetails> ChannelDetails;
     [FieldOffset(0x0038)] public float Duration;
+}
+
+// LEVEL SEQUENCE/MOVIE
+public enum EMoviePlaybackType : byte
+{
+    MT_Normal = 0,
+    MT_Looped = 1,
+    MT_LoadingLoop = 2,
+};
+
+public enum EMovieScenePlayerStatus : byte
+{
+    Stopped = 0,
+    Playing = 1,
+    Scrubbing = 2,
+    Jumping = 3,
+    Stepping = 4,
+    Paused = 5,
+};
+
+[StructLayout(LayoutKind.Explicit, Size = 0x4)]
+public unsafe struct FFrameNumber
+{
+    [FieldOffset(0x0000)] public int Value;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x50)]
+public unsafe struct UMovieSceneSignedObject
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public FGuid Signature;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x160)]
+public unsafe struct FMovieSceneEvaluationTemplate
+{
+    //[FieldOffset(0x0000)] public TMap<FMovieSceneTrackIdentifier, FMovieSceneEvaluationTrack> Tracks;
+    [FieldOffset(0x00A0)] public FGuid SequenceSignature;
+    //[FieldOffset(0x00B0)] public FMovieSceneEvaluationTemplateSerialNumber TemplateSerialNumber;
+    //[FieldOffset(0x00B8)] public FMovieSceneTemplateGenerationLedger TemplateLedger;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x3F8)]
+public unsafe struct UMovieSceneCompiledData
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public FMovieSceneEvaluationTemplate EvaluationTemplate;
+    //[FieldOffset(0x0188)] public FMovieSceneSequenceHierarchy Hierarchy;
+    //[FieldOffset(0x02A0)] public FMovieSceneEntityComponentField EntityComponentField;
+    //[FieldOffset(0x0390)] public FMovieSceneEvaluationField TrackTemplateField;
+    [FieldOffset(0x03C0)] public TArray<FFrameTime> DeterminismFences;
+    [FieldOffset(0x03D0)] public FGuid CompiledSignature;
+    [FieldOffset(0x03E0)] public FGuid CompilerVersion;
+    //[FieldOffset(0x03F0)] public FMovieSceneSequenceCompilerMaskStruct AccumulatedMask;
+    //[FieldOffset(0x03F1)] public FMovieSceneSequenceCompilerMaskStruct AllocatedMask;
+    //[FieldOffset(0x03F2)] public EMovieSceneSequenceFlags AccumulatedFlags;
+}
+
+public enum EMovieSceneCompletionMode : byte
+{
+    KeepState = 0,
+    RestoreState = 1,
+    ProjectDefault = 2,
+    //EMovieSceneCompletionMode_MAX = 3,
+};
+
+public enum EMovieSceneSequenceFlags : byte
+{
+    None = 0,
+    Volatile = 1,
+    BlockingEvaluation = 2,
+    InheritedFlags = 1,
+    //EMovieSceneSequenceFlags_MAX = 3,
+};
+
+[StructLayout(LayoutKind.Explicit, Size = 0x60)]
+public unsafe struct UMovieSceneSequence
+{
+    [FieldOffset(0x0000)] public UMovieSceneSignedObject baseObj;
+    [FieldOffset(0x0050)] public UMovieSceneCompiledData* CompiledData;
+    [FieldOffset(0x0058)] public EMovieSceneCompletionMode DefaultCompletionMode;
+    [FieldOffset(0x0059)] public bool bParentContextsAreSignificant;
+    [FieldOffset(0x005A)] public bool bPlayableDirectly;
+    [FieldOffset(0x005B)] public EMovieSceneSequenceFlags SequenceFlags;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x38)]
+public unsafe struct FLevelSequenceObject
+{
+    [FieldOffset(0x0000)] public TLazyObjectPtr<UObject> ObjectOrOwner;
+    [FieldOffset(0x0020)] public FString ComponentName;
+    //[FieldOffset(0x0030)] public TWeakObjectPtr<UObject> CachedComponent;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1C8)]
+public unsafe struct ULevelSequence
+{
+    [FieldOffset(0x0000)] public UMovieSceneSequence baseObj;
+    [FieldOffset(0x0068)] public UMovieScene* MovieScene;
+    //[FieldOffset(0x0070)] public FLevelSequenceObjectReferenceMap ObjectReferences;
+    //[FieldOffset(0x00C0)] public FLevelSequenceBindingReferences BindingReferences;
+    [FieldOffset(0x0160)] public TMap<FString, FLevelSequenceObject> PossessedObjects;
+    [FieldOffset(0x01B0)] public UClass* DirectorClass;
+    [FieldOffset(0x01B8)] public TArray<IntPtr> AssetUserData;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x90)]
+public unsafe struct FMovieSceneSpawnable
+{
+    //[FieldOffset(0x0000)] public FTransform SpawnTransform;
+    [FieldOffset(0x0030)] public TArray<FName> Tags;
+    [FieldOffset(0x0040)] public bool bContinuouslyRespawn;
+    [FieldOffset(0x0041)] public bool bNetAddressableName;
+    [FieldOffset(0x0042)] public bool bEvaluateTracksWhenNotSpawned;
+    [FieldOffset(0x0044)] public FGuid Guid;
+    [FieldOffset(0x0058)] public FString Name;
+    [FieldOffset(0x0068)] public UObject* ObjectTemplate;
+    [FieldOffset(0x0070)] public TArray<FGuid> ChildPossessables;
+    //[FieldOffset(0x0080)] public ESpawnOwnership Ownership;
+    [FieldOffset(0x0084)] public FName LevelName;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x48)]
+public unsafe struct FMovieScenePossessable
+{
+    [FieldOffset(0x0000)] public TArray<FName> Tags;
+    [FieldOffset(0x0010)] public FGuid Guid;
+    [FieldOffset(0x0020)] public FString Name;
+    [FieldOffset(0x0030)] public UClass* PossessedObjectClass;
+    [FieldOffset(0x0038)] public FGuid ParentGuid;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct FMovieSceneBinding
+{
+    [FieldOffset(0x0000)] public FGuid ObjectGuid;
+    [FieldOffset(0x0010)] public FString BindingName;
+    [FieldOffset(0x0020)] public TArray<IntPtr> Tracks; // TArray<UMovieSceneTrack*>
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public unsafe struct FMovieSceneObjectBindingID
+{
+    [FieldOffset(0x0000)] public FGuid Guid;
+    [FieldOffset(0x0010)] public int SequenceID;
+    [FieldOffset(0x0014)] public int ResolveParentIndex;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FMovieSceneObjectBindingIDs
+{
+    [FieldOffset(0x0000)] public TArray<FMovieSceneObjectBindingID> IDs;
+}
+
+
+[StructLayout(LayoutKind.Explicit, Size = 0xE8)]
+public unsafe struct UMovieSceneSection
+{
+    [FieldOffset(0x0000)] public UMovieSceneSignedObject baseObj;
+    //[FieldOffset(0x0050)] public FMovieSceneSectionEvalOptions EvalOptions;
+    //[FieldOffset(0x0058)] public FMovieSceneEasingSettings Easing;
+    [FieldOffset(0x0090)] public FMovieSceneFrameRange SectionRange;
+    [FieldOffset(0x00A0)] public FFrameNumber PreRollFrames;
+    [FieldOffset(0x00A4)] public FFrameNumber PostRollFrames;
+    [FieldOffset(0x00A8)] public int RowIndex;
+    [FieldOffset(0x00AC)] public int OverlapPriority;
+    [FieldOffset(0x00B0)] public byte bIsActive;
+    [FieldOffset(0x00B0)] public byte bIsLocked;
+    [FieldOffset(0x00B4)] public float StartTime;
+    [FieldOffset(0x00B8)] public float EndTime;
+    [FieldOffset(0x00BC)] public float PrerollTime;
+    [FieldOffset(0x00C0)] public float PostrollTime;
+    [FieldOffset(0x00C4)] public byte bIsInfinite;
+    [FieldOffset(0x00C8)] public bool bSupportsInfiniteRange;
+    //[FieldOffset(0x00C9)] public FOptionalMovieSceneBlendType BlendType;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x14)]
+public unsafe struct FMovieScenePropertyBinding
+{
+    [FieldOffset(0x0000)] public FName PropertyName;
+    [FieldOffset(0x0008)] public FName PropertyPath;
+    [FieldOffset(0x0010)] public bool bCanUseClassLookup;
+}
+
+public enum ERangeBoundTypes
+{
+    Exclusive = 0,
+    Inclusive = 1,
+    Open = 2,
+    //ERangeBoundTypes_MAX = 3,
+};
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct FFrameNumberRangeBound
+{
+    [FieldOffset(0x0000)] public ERangeBoundTypes Type;
+    [FieldOffset(0x0004)] public FFrameNumber Value;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FFrameNumberRange
+{
+    [FieldOffset(0x0000)] public FFrameNumberRangeBound LowerBound;
+    [FieldOffset(0x0008)] public FFrameNumberRangeBound UpperBound;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x5)]
+public unsafe struct FMovieSceneTrackEvalOptions
+{
+    [FieldOffset(0x0000)] public byte bCanEvaluateNearestSection;
+    [FieldOffset(0x0001)] public byte bEvalNearestSection;
+    [FieldOffset(0x0002)] public byte bEvaluateInPreroll;
+    [FieldOffset(0x0003)] public byte bEvaluateInPostroll;
+    [FieldOffset(0x0004)] public byte bEvaluateNearestSection;
+}
+
+public enum ESectionEvaluationFlags
+{
+    None = 0,
+    PreRoll = 1,
+    PostRoll = 2,
+    //ESectionEvaluationFlags_MAX = 3,
+};
+
+[StructLayout(LayoutKind.Explicit, Size = 0x20)]
+public unsafe struct FMovieSceneTrackEvaluationFieldEntry
+{
+    [FieldOffset(0x0000)] public UMovieSceneSection* Section;
+    [FieldOffset(0x0008)] public FFrameNumberRange Range;
+    [FieldOffset(0x0018)] public FFrameNumber ForcedTime;
+    [FieldOffset(0x001C)] public ESectionEvaluationFlags flags;
+    [FieldOffset(0x001E)] public short LegacySortOrder;
+}
+
+// MOVIE TRACKS
+
+[StructLayout(LayoutKind.Explicit, Size = 0x90)]
+public unsafe struct UMovieSceneTrack
+{
+    [FieldOffset(0x0000)] public UMovieSceneSignedObject baseObj;
+    [FieldOffset(0x0050)] public FMovieSceneTrackEvalOptions EvalOptions;
+    [FieldOffset(0x0055)] public bool bIsEvalDisabled;
+    [FieldOffset(0x0058)] public TArray<int> RowsDisabled;
+    [FieldOffset(0x006C)] public FGuid EvaluationFieldGuid;
+    [FieldOffset(0x0080)] public TArray<FMovieSceneTrackEvaluationFieldEntry> EvaluationFields;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x90)]
+public unsafe struct UMovieSceneNameableTrack
+{
+    [FieldOffset(0x0000)] public UMovieSceneTrack baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xC0)]
+public unsafe struct UMovieScenePropertyTrack
+{
+    [FieldOffset(0x0000)] public UMovieSceneNameableTrack baseObj;
+    [FieldOffset(0x0090)] public UMovieSceneSection* SectionToKey;
+    [FieldOffset(0x0098)] public FMovieScenePropertyBinding PropertyBinding;
+    [FieldOffset(0x00B0)] public TArray<IntPtr> Sections; // UMovieSceneSection*
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xC0)]
+public unsafe struct UMovieSceneFloatTrack
+{
+    [FieldOffset(0x0000)] public UMovieScenePropertyTrack baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FMovieSceneFrameRange
+{
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x20)]
+public unsafe struct FMovieSceneMarkedFrame
+{
+    [FieldOffset(0x0000)] public FFrameNumber FrameNumber;
+    [FieldOffset(0x0008)] public FString Label;
+    [FieldOffset(0x0018)] public bool bIsDeterminismFence;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct FMovieSceneChannel
+{
+}
+
+public enum EUpdateClockSource : byte
+{
+    Tick = 0,
+    Platform = 1,
+    Audio = 2,
+    RelativeTimecode = 3,
+    Timecode = 4,
+    Custom = 5,
+    //EUpdateClockSource_MAX = 6,
+};
+
+public enum EMovieSceneEvaluationType : byte
+{
+    FrameLocked = 0,
+    WithSubFrames = 1,
+    //EMovieSceneEvaluationType_MAX = 2,
+};
+
+[StructLayout(LayoutKind.Explicit, Size = 0x148)]
+public unsafe struct UMovieScene
+{
+    [FieldOffset(0x0000)] public UMovieSceneSignedObject baseObj;
+    [FieldOffset(0x0050)] public TArray<FMovieSceneSpawnable> Spawnables;
+    [FieldOffset(0x0060)] public TArray<FMovieScenePossessable> Possessables;
+    [FieldOffset(0x0070)] public TArray<FMovieSceneBinding> ObjectBindings;
+    [FieldOffset(0x0080)] public TMap<FName, FMovieSceneObjectBindingIDs> BindingGroups;
+    [FieldOffset(0x00D0)] public TArray<IntPtr> MasterTracks;
+    [FieldOffset(0x00E0)] public UMovieSceneTrack* CameraCutTrack;
+    [FieldOffset(0x00E8)] public FMovieSceneFrameRange SelectionRange;
+    [FieldOffset(0x00F8)] public FMovieSceneFrameRange PlaybackRange;
+    [FieldOffset(0x0108)] public FFrameRate TickResolution;
+    [FieldOffset(0x0110)] public FFrameRate DisplayRate;
+    [FieldOffset(0x0118)] public EMovieSceneEvaluationType EvaluationType;
+    [FieldOffset(0x0119)] public EUpdateClockSource ClockSource;
+    //[FieldOffset(0x0120)] public FSoftObjectPath CustomClockSourcePath;
+    [FieldOffset(0x0138)] public TArray<FMovieSceneMarkedFrame> MarkedFrames;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)] // from CoreUObject
+public unsafe struct FFrameTime
+{
+    [FieldOffset(0x0000)] public FFrameNumber FrameNumber;
+    [FieldOffset(0x0004)] public float SubFrame;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct FFrameRate
+{
+    [FieldOffset(0x0000)] public int Numerator;
+    [FieldOffset(0x0004)] public int Denominator;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x14)]
+public unsafe struct FMovieSceneSequencePlaybackSettings
+{
+    [FieldOffset(0x0000)] public byte bAutoPlay;
+    [FieldOffset(0x0004)] public int LoopCount;
+    [FieldOffset(0x0008)] public float PlayRate;
+    [FieldOffset(0x000C)] public float StartTime;
+    [FieldOffset(0x0010)] public byte bRandomStartTime;
+    [FieldOffset(0x0010)] public byte bRestoreState;
+    [FieldOffset(0x0010)] public byte bDisableMovementInput;
+    [FieldOffset(0x0010)] public byte bDisableLookAtInput;
+    [FieldOffset(0x0010)] public byte bHidePlayer;
+    [FieldOffset(0x0010)] public byte bHideHud;
+    [FieldOffset(0x0010)] public byte bDisableCameraCuts;
+    [FieldOffset(0x0010)] public byte bPauseAtEnd;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x4E8)]
+public unsafe struct UMovieSceneSequencePlayer
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x02B0)] public EMovieScenePlayerStatus Status;
+    [FieldOffset(0x02B4)] public byte bReversePlayback;
+    [FieldOffset(0x02B8)] public UMovieSceneSequence* Sequence; // or ULevelSequence if inside ULevelSequencePlayer*
+    [FieldOffset(0x02C0)] public FFrameNumber StartTime;
+    [FieldOffset(0x02C4)] public int DurationFrames;
+    [FieldOffset(0x02C8)] public float DurationSubFrames;
+    [FieldOffset(0x02CC)] public int CurrentNumLoops;
+    [FieldOffset(0x02D0)] public FMovieSceneSequencePlaybackSettings PlaybackSettings;
+    //[FieldOffset(0x02E8)] public FMovieSceneRootEvaluationTemplateInstance RootTemplateInstance;
+    [FieldOffset(0x3d0)] public FFrameRate FrameRate;
+    [FieldOffset(0x3e4)] public FFrameTime FrameTime;
+    //[FieldOffset(0x0438)] public FMovieSceneSequenceReplProperties NetSyncProps;
+    //[FieldOffset(0x0448)] public TScriptInterface<IMovieScenePlaybackClient> PlaybackClient;
+    //[FieldOffset(0x0458)] public UMovieSceneSequenceTickManager* TickManager;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x600)]
+public unsafe struct ULevelSequencePlayer
+{
+    [FieldOffset(0x0000)] public UMovieSceneSequencePlayer baseObj;
+
+    public ULevelSequence* GetLevelSequence() => (ULevelSequence*)baseObj.Sequence;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2A8)]
+public unsafe struct ALevelSequenceActor
+{
+    [FieldOffset(0x0000)] public AActor baseObj;
+    [FieldOffset(0x0238)] public FMovieSceneSequencePlaybackSettings PlaybackSettings;
+    [FieldOffset(0x0250)] public ULevelSequencePlayer* SequencePlayer;
+    //[FieldOffset(0x0258)] public FSoftObjectPath LevelSequence;
+    //[FieldOffset(0x0270)] public FLevelSequenceCameraSettings CameraSettings;
+    //[FieldOffset(0x0278)] public ULevelSequenceBurnInOptions* BurnInOptions;
+    //[FieldOffset(0x0280)] public UMovieSceneBindingOverrides* BindingOverrides;
+    [FieldOffset(0x0288)] public byte bAutoPlay;
+    [FieldOffset(0x0288)] public byte bOverrideInstanceData;
+    [FieldOffset(0x0288)] public byte bReplicatePlayback;
+    [FieldOffset(0x0290)] public UObject* DefaultInstanceData;
+    //[FieldOffset(0x0298)] public ULevelSequenceBurnIn* BurnInInstance;
+    [FieldOffset(0x02A0)] public bool bShowBurnin;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x298)]
+public unsafe struct ULevel
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x00B8)] public UWorld* OwningWorld;
+    //[FieldOffset(0x00C0)] public UModel* Model;
+    [FieldOffset(0x00C8)] public TArray<IntPtr> ModelComponents;
+    //[FieldOffset(0x00D8)] public ULevelActorContainer* ActorCluster;
+    [FieldOffset(0x00E0)] public int NumTextureStreamingUnbuiltComponents;
+    [FieldOffset(0x00E4)] public int NumTextureStreamingDirtyResources;
+    //[FieldOffset(0x00E8)] public ALevelScriptActor* LevelScriptActor;
+    //[FieldOffset(0x00F0)] public ANavigationObjectBase* NavListStart;
+    //[FieldOffset(0x00F8)] public ANavigationObjectBase* NavListEnd;
+    [FieldOffset(0x0100)] public TArray<IntPtr> NavDataChunks;
+    [FieldOffset(0x0110)] public float LightmapTotalSize;
+    [FieldOffset(0x0114)] public float ShadowmapTotalSize;
+    [FieldOffset(0x0118)] public TArray<FVector> StaticNavigableGeometry;
+    [FieldOffset(0x0128)] public TArray<FGuid> StreamingTextureGuids;
+    [FieldOffset(0x01D0)] public FGuid LevelBuildDataId;
+    //[FieldOffset(0x01E0)] public UMapBuildDataRegistry* MapBuildData;
+    //[FieldOffset(0x01E8)] public FIntVector LightBuildLevelOffset;
+    [FieldOffset(0x01F4)] public byte bIsLightingScenario;
+    [FieldOffset(0x01F4)] public byte bTextureStreamingRotationChanged;
+    [FieldOffset(0x01F4)] public byte bStaticComponentsRegisteredInStreamingManager;
+    [FieldOffset(0x01F4)] public byte bIsVisible;
+    //[FieldOffset(0x0258)] public AWorldSettings* WorldSettings;
+    [FieldOffset(0x0268)] public TArray<IntPtr> AssetUserData;
+    //[FieldOffset(0x0288)] public TArray<FReplicatedStaticActorDestructionInfo> DestroyedReplicatedStaticActors;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xA8)]
+public unsafe struct UAnimSequenceBase
+{
+    //[FieldOffset(0x0000)] public UAnimationAsset baseObj;
+    //[FieldOffset(0x0080)] public TArray<FAnimNotifyEvent> Notifies;
+    //[FieldOffset(0x0090)] public float SequenceLength;
+    //[FieldOffset(0x0094)] public float RateScale;
+    //[FieldOffset(0x0098)] public FRawCurveTracks RawCurveData;
 }
