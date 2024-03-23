@@ -1389,6 +1389,13 @@ public struct FRichCurve //: public FRealCurve
     [FieldOffset(0x0070)] TArray<FRichCurveKey> Keys;                                                       // 0x0070 (size: 0x10)
 }; // Size: 0x80
 
+[StructLayout(LayoutKind.Explicit, Size = 0x1b0)]
+public unsafe struct UCurveVector
+{
+    [FieldOffset(0x0)] public UCurveBase baseObj;
+    [FieldOffset(0x30)] public FRichCurve FloatCurves;
+}
+
 [StructLayout(LayoutKind.Explicit, Size = 0x250)]
 public unsafe struct UCurveLinearColor //: public UCurveBase
 {

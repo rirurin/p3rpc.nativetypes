@@ -2469,6 +2469,10 @@ public unsafe struct LocationSelectParams1
     [FieldOffset(0x58)] public float Field58;
     [FieldOffset(0x5c)] public ulong Field5C;
     [FieldOffset(0x64)] public ulong Field64;
+    [FieldOffset(0x5c)] public FSprColor ColorCornerTopLeft;
+    [FieldOffset(0x60)] public FSprColor ColorCornerTopRight;
+    [FieldOffset(0x64)] public FSprColor ColorCornerBottomLeft;
+    [FieldOffset(0x68)] public FSprColor ColorCornerBottomRight;
     [FieldOffset(0x6c)] public uint Field6C;
     [FieldOffset(0x70)] public uint Field70;
 }
@@ -3876,4 +3880,46 @@ public unsafe struct UMovieSceneEvtFadeScreenSection
 {
     [FieldOffset(0x0000)] public UMovieSceneSection baseObj;
     [FieldOffset(0x00E8)] public FMovieSceneEvtFadeScreenSectionData EventData;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2A0)]
+public unsafe struct AUIBaseActor
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xAC8)]
+public unsafe struct ACutInDraw
+{
+    [FieldOffset(0x0000)] public AUIBaseActor baseObj;
+    [FieldOffset(0x5ac)] public LocationSelectParams1 EmotionGradientMain;
+    [FieldOffset(0x6a0)] public PlgDefStruct1 EmotionPlgTint;
+    [FieldOffset(0x6e0)] public SprDefStruct1 EmotionHighlight;
+    [FieldOffset(0x08D8)] public UAssetLoader* AssetLoader_;
+    [FieldOffset(0x08E0)] public UPlgAsset* EmotionIconPlg_;
+    [FieldOffset(0x08E8)] public UTexture* BustUpTexture_;
+    [FieldOffset(0x08F0)] public UTexture* BustUpDummyTexture_;
+    [FieldOffset(0x08F8)] public FGetUIParameter UIP_;
+    [FieldOffset(0x0970)] public FCurveVectorAnimation Curve1_;
+    [FieldOffset(0x09A0)] public FCurveVectorAnimation Curve2_;
+    [FieldOffset(0x09D0)] public FCurveVectorAnimation Curve3_;
+    [FieldOffset(0x0A00)] public FCurveVectorAnimation Curve4_;
+    [FieldOffset(0x0A30)] public FCurveVectorAnimation Curve5_;
+    [FieldOffset(0x0A60)] public FCurveVectorAnimation Curve6_;
+    [FieldOffset(0x0A90)] public FCurveVectorAnimation Curve7_;
+    [FieldOffset(0x0AC0)] public USprAsset* Spr_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x28)]
+public unsafe struct FBaseCurveAnimation
+{
+    [FieldOffset(0x0018)] public UAssetLoader* m_pAssetLoader;
+    [FieldOffset(0x0020)] public UCurveBase* m_pCurve;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct FCurveVectorAnimation
+{
+    [FieldOffset(0x0000)] public FBaseCurveAnimation baseObj;
+    [FieldOffset(0x0028)] public UCurveVector* m_pCurveVector;
 }
