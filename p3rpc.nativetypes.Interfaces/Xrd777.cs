@@ -3417,6 +3417,8 @@ public unsafe struct FKeyHelpButtonBase
     [FieldOffset(0x1e8)] public FKeyHelpButtonUILayout TextLayout;
     [FieldOffset(0x244)] public float KeyHelpTransparency;
     [FieldOffset(0x258)] public int SpriteCount;
+    [FieldOffset(0x414)] public FSprColor moviePauseMainColor;
+    [FieldOffset(0x4d4)] public FSprColor moviePausePulseColor;
 
     public FKeyHelpButtonUILayout* GetSpriteLayout(int i) { fixed (FKeyHelpButtonBase* self = &this) { return &((FKeyHelpButtonUILayout*)((nint)self + 0x48))[i]; } }
 }
