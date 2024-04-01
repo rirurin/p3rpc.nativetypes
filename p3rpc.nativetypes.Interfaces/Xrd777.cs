@@ -2759,6 +2759,8 @@ public unsafe struct UCmpHeroHumanStatusDraw
     [FieldOffset(0x38)] public uint MenuState;
     [FieldOffset(0x4048)] public ACmpMainActor* pMainActor;
     [FieldOffset(0x4050)] public UUICmpStatus* pParent;
+    [FieldOffset(0x40b0)] public FColor statUpPulseFadeColor;
+    [FieldOffset(0x40b4)] public FColor statUpPulseMainColor;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x68)]
