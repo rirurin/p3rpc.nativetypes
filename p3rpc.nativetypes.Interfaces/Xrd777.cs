@@ -2647,6 +2647,10 @@ public unsafe struct UCmpItemDraw // : UObject
 [StructLayout(LayoutKind.Explicit, Size = 0x10)]
 public struct FItemListItem
 {
+    [FieldOffset(0x0)] public int ItemId;
+    [FieldOffset(0x4)] public int ItemCount;
+    [FieldOffset(0x8)] public int MsgToken;
+    [FieldOffset(0xc)] public int bIsNew;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x798)]
@@ -2656,6 +2660,40 @@ public unsafe struct UCmpItemSystem // : UObject
     [FieldOffset(0x0768)] public TArray<short> PartyMemberList;
     [FieldOffset(0x0778)] public TArray<int> PersonaStockIDList;
     [FieldOffset(0x0788)] public TArray<FItemListItem> ItemList;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct FEquipListItem
+{
+    [FieldOffset(0x0)] public uint ItemId;
+    [FieldOffset(0x4)] public uint ItemCount;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x70)]
+public unsafe struct UCmpEquipSystem
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0028)] public TArray<short> PartyMemberList;
+    [FieldOffset(0x0038)] public TArray<FEquipListItem> EquipList;
+    [FieldOffset(0x0048)] public TArray<FEquipListItem> LastEquipList;
+    [FieldOffset(0x0060)] public ACmpMainActor* pMainActor;
+    [FieldOffset(0x0068)] public UCmpEquip* pParent;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x330)]
+public unsafe struct UCmpEquip
+{
+    [FieldOffset(0x0000)] public UCmpMenuBase baseObj;
+    [FieldOffset(0x0278)] public UCmpEquipSystem* PSystem;
+    [FieldOffset(0x0280)] public UCmpEquipDraw* pDraw;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x3528)]
+public unsafe struct UCmpEquipDraw
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x34C0)] public ACmpMainActor* pMainActor;
+    [FieldOffset(0x34C8)] public UCmpEquip* pParent;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x248)]
@@ -3513,6 +3551,12 @@ public unsafe struct FFieldHeadPanel
 public unsafe struct FTownMapMarker2
 {
     [FieldOffset(0xf0)] public FSprColor IconColor;
+    [FieldOffset(0x70)] public SprDefStruct1 MarkerShapeMask;
+    [FieldOffset(0xd8)] public SprDefStruct1 InsideIconMask;
+    [FieldOffset(0x140)] public SprDefStruct1 PlaceTextMask;
+    [FieldOffset(0x1a8)] public SprDefStruct1 MarkerOutline;
+    [FieldOffset(0x210)] public SprDefStruct1 SocialLinkCircle;
+    [FieldOffset(0x278)] public SprDefStruct1 PlaceImageMask;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x2B8)]
