@@ -1354,11 +1354,13 @@ public unsafe struct AUIAccessInfoDraw //: public AUIBaseActor
     [FieldOffset(0x0320)] public UBmdAsset* m_pBmdAsset;
     //[FieldOffset(0x0328)] public UUILocationSelect* m_pLocationSelect;
     [FieldOffset(0x0330)] public UPlgAsset* m_pPlacePlg;
+    [FieldOffset(0x630)] public LocationSelectParams1 mapBg;
     [FieldOffset(0x0E00)] public FGetUIParameter m_tagUip;
     [FieldOffset(0x0E78)] public FCurveFloatAnimation m_tagFadeInCurve;
     [FieldOffset(0x0EA8)] public FCurveFloatAnimation m_tagFadeOutCurve;
     [FieldOffset(0xee0)] public FVector2D PlaceInfoBgPosition;
     [FieldOffset(0xf04)] public FSprColor PlaceInfoBgColor;
+    [FieldOffset(0xf24)] public int PlaceTitleId;
     [FieldOffset(0x0F30)] public UDataTable* LayoutData;
     [FieldOffset(0x0F38)] public UUILayoutDataTable* LayoutDataTable;
     [FieldOffset(0x0F40)] public UDataTable* LayoutParamData;
@@ -2486,6 +2488,7 @@ public unsafe struct AUIMiscCheckDraw //: public AUIBaseActor
     [FieldOffset(0x02D0)] public FCurveLinearColorAnimation m_tagMaxColorWave;
     [FieldOffset(0x0300)] public FGetUIParameter m_uip;
     [FieldOffset(0x354)] public SprDefStruct1 sprDefParamsAlpha;
+    [FieldOffset(0x378)] public SprDefStruct1 sprDefParamsAlphaNew;
     [FieldOffset(0x448)] public SprDefStruct1 sprDefAlphaSpr1;
     [FieldOffset(0x4b0)] public SprDefStruct1 sprDefAlphaSpr2;
     [FieldOffset(0x518)] public SprDefStruct1 sprDefParamsKey1;
