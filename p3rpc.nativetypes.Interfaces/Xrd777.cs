@@ -1842,6 +1842,7 @@ public unsafe struct UGlobalWork //: public UGameInstance
 public unsafe struct SprDefStruct1
 {
     [FieldOffset(0x0)] public FVector2D Position;
+    
     [FieldOffset(0x8)] public float Field08;
     [FieldOffset(0xC)] public float Field0C;
     [FieldOffset(0x10)] public float Field10;
@@ -1858,6 +1859,9 @@ public unsafe struct SprDefStruct1
     [FieldOffset(0x48)] public uint Field48;
     [FieldOffset(0x4c)] public int SpriteIndex2;
     [FieldOffset(0x64)] public int SpriteIndex;
+
+    [FieldOffset(0x0)] public FVector PositionEx;
+    [FieldOffset(0xc)] public FVector Stretch;
 
     public SprDefStruct1(FVector2D Position, float Field08, float Field0C, float Field10, float Field14, FSprColor color, float Field1C,
         FVector4 Size, float Field30, float Field34, float Field38, float Field3C, float Field40, float Field44, int spriteIndex)
@@ -1898,6 +1902,23 @@ public unsafe struct SprDefStruct1
         this.Field0C = Field0C;
         Field10 = Field0C;
         this.Field08 = Field08;
+        this.SpriteIndex = spriteIndex;
+        this.SpriteIndex2 = SpriteIndex;
+    }
+
+    public SprDefStruct1(int spriteIndex, FVector position, FVector stretch, FSprColor color, float Field1C, float Field30, float Field34, float Field38, float Field3C, float Field40, float Field44)
+    {
+        Size = new FVector4(960, 540, 0, 1);
+        this.Field30 = Field30;
+        this.Field34 = Field34;
+        this.Field40 = Field40;
+        this.Field44 = Field44;
+        this.Field38 = Field38;
+        this.Field3C = Field3C;
+        this.Field1C = Field1C;
+        this.color = color;
+        PositionEx = position;
+        Stretch = stretch;
         this.SpriteIndex = spriteIndex;
         this.SpriteIndex2 = SpriteIndex;
     }
@@ -2540,6 +2561,7 @@ public unsafe struct UUILocationSelect //: public UObject
 [StructLayout(LayoutKind.Explicit, Size = 0x30)]
 public unsafe struct CheckDrawUIStruct1
 {
+    [FieldOffset(0x14)] public byte Field14;
     [FieldOffset(0x20)] public float Field20;
     [FieldOffset(0x28)] public float Field28;
 }
@@ -3973,4 +3995,118 @@ public unsafe struct FCurveVectorAnimation
 {
     [FieldOffset(0x0000)] public FBaseCurveAnimation baseObj;
     [FieldOffset(0x0028)] public UCurveVector* m_pCurveVector;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xF8)]
+public unsafe struct FMissingParamTableRow
+{
+    //[FieldOffset(0x0000)] public FTableRowBase baseObj;
+    [FieldOffset(0x0008)] public int PlateQuestInAllFrame;
+    [FieldOffset(0x000C)] public int PlateQuestInStartFrame;
+    [FieldOffset(0x0010)] public int PlateChangeAllFrame;
+    [FieldOffset(0x0014)] public int PlateChangeStartFrame;
+    [FieldOffset(0x0018)] public int PlateChangeOutAllFrame;
+    [FieldOffset(0x001C)] public int PlateChangeOutStartFrame;
+    [FieldOffset(0x0020)] public int ListChangeAllFrame;
+    [FieldOffset(0x0024)] public int ListChangeStartFrame;
+    [FieldOffset(0x0028)] public int AlphaBGNoCampAllFrame;
+    [FieldOffset(0x002C)] public int AlphaBGNoCampStartFrame;
+    [FieldOffset(0x0030)] public int BGPlateNoCampAllFrame;
+    [FieldOffset(0x0034)] public int BGPlateNoCampStartFrame;
+    [FieldOffset(0x0038)] public int MissingPlateNoCampAllFrame;
+    [FieldOffset(0x003C)] public int MissingPlateNoCampStartFrame;
+    [FieldOffset(0x0040)] public int ListNoCampAllFrame;
+    [FieldOffset(0x0044)] public int ListNoCampStartFrame;
+    [FieldOffset(0x0048)] public int DetailInPlateAllFrame;
+    [FieldOffset(0x004C)] public int DetailInPlateStartFrame;
+    [FieldOffset(0x0050)] public int DetailInInfoAllFrame;
+    [FieldOffset(0x0054)] public int DetailInInfoStartFrame;
+    [FieldOffset(0x0058)] public int DetailInCursorAllFrame;
+    [FieldOffset(0x005C)] public int DetailInCursorStartFrame;
+    [FieldOffset(0x0060)] public int DetailInMoreInfoAllFrame;
+    [FieldOffset(0x0064)] public int DetailInMoreInfoStartFrame;
+    [FieldOffset(0x0068)] public int DetailInNotSelectAllFrame;
+    [FieldOffset(0x006C)] public int DetailInNotSelectStartFrame;
+    [FieldOffset(0x0070)] public int DetailInCompleteAllFrame;
+    [FieldOffset(0x0074)] public int DetailInCompleteStartFrame;
+    [FieldOffset(0x0078)] public int DetailOutPlateAllFrame;
+    [FieldOffset(0x007C)] public int DetailOutPlateStartFrame;
+    [FieldOffset(0x0080)] public int DetailOutInfoAllFrame;
+    [FieldOffset(0x0084)] public int DetailOutInfoStartFrame;
+    [FieldOffset(0x0088)] public int DetailOutCursorAllFrame;
+    [FieldOffset(0x008C)] public int DetailOutCursorStartFrame;
+    [FieldOffset(0x0090)] public int DetailOutMoreInfoAllFrame;
+    [FieldOffset(0x0094)] public int DetailOutMoreInfoStartFrame;
+    [FieldOffset(0x0098)] public int DetailOutNotSelectAllFrame;
+    [FieldOffset(0x009C)] public int DetailOutNotSelectStartFrame;
+    [FieldOffset(0x00A0)] public int DetailOutCompleteAllFrame;
+    [FieldOffset(0x00A4)] public int DetailOutCompleteStartFrame;
+    [FieldOffset(0x00A8)] public int DetailShowPrevContentFrame;
+    [FieldOffset(0x00AC)] public int DetailChangeInfoAllFrame;
+    [FieldOffset(0x00B0)] public int DetailChangeInfoStartFrame;
+    [FieldOffset(0x00B4)] public int DetailChangeCompleteAllFrame;
+    [FieldOffset(0x00B8)] public int DetailChangeCompleteStartFrame;
+    [FieldOffset(0x00BC)] public int SortPrevAllFrame;
+    [FieldOffset(0x00C0)] public int SortPrevStartFrame;
+    [FieldOffset(0x00C4)] public int SortNewAllFrame;
+    [FieldOffset(0x00C8)] public int SortNewStartFrame;
+    [FieldOffset(0x00CC)] public int SortListAllFrame;
+    [FieldOffset(0x00D0)] public int SortListStartFrame;
+    [FieldOffset(0x00D4)] public float PlateWhenMissingX;
+    [FieldOffset(0x00D8)] public float PlateWhenMissingY;
+    [FieldOffset(0x00DC)] public float PlateWhenQuestX;
+    [FieldOffset(0x00E0)] public float PlateWhenQuestY;
+    [FieldOffset(0x00E4)] public float PlateInY;
+    [FieldOffset(0x00E8)] public float TatumiY;
+    [FieldOffset(0x00EC)] public float CursorRedInAllFrame;
+    [FieldOffset(0x00F0)] public float CursorRedInStartFrame;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x4)]
+public unsafe struct FMissingEntry
+{
+    [FieldOffset(0x2)] public ushort Field02;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xBF8)]
+public unsafe struct UUIMissingPerson
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x34)] public int State;
+    [FieldOffset(0x40)] public FVector2D missingNamesPos;
+    [FieldOffset(0x48)] public float missingNamesPaddingY;
+    [FieldOffset(0x4c)] public byte bTryLeaveMenu;
+    [FieldOffset(0x4d)] public byte bLeftMenu;
+    [FieldOffset(0x58)] public CheckDrawUIStruct1 Field58;
+    [FieldOffset(0x88)] public CheckDrawUIStruct1 Field88;
+    [FieldOffset(0xe8)] public CheckDrawUIStruct1 LabelRowOpacity;
+    [FieldOffset(0x118)] public CheckDrawUIStruct1 Field118;
+    [FieldOffset(0x148)] public CheckDrawUIStruct1 Field148;
+    [FieldOffset(0x178)] public CheckDrawUIStruct1 Field178;
+    [FieldOffset(0x1a8)] public float Field1A8;
+    [FieldOffset(0x1ac)] public ushort currentMissing;
+    [FieldOffset(0x1b0)] public byte bOverrideMissing;
+    [FieldOffset(0x2a8)] public byte bHideSortedRow;
+    [FieldOffset(0x2b0)] public CheckDrawUIStruct1 Field2B0;
+    [FieldOffset(0x2e0)] public CheckDrawUIStruct1 Field2E0;
+    [FieldOffset(0x310)] public CheckDrawUIStruct1 Field310;
+    [FieldOffset(0x340)] public int SortByStatus;
+    [FieldOffset(0x378)] public CheckDrawUIStruct1 Field378;
+    [FieldOffset(0x3a8)] public CheckDrawUIStruct1 Field3A8;
+    [FieldOffset(0x538)] public nint Field538;
+    [FieldOffset(0x0408)] public USprAsset* pSpr_;
+    [FieldOffset(0x0410)] public UAssetLoader* pLoader_;
+    [FieldOffset(0x0418)] public UMaterialInterface* m_pBGMat;
+    [FieldOffset(0x0420)] public UMaterialInstanceDynamic* m_pBGMatInst;
+    [FieldOffset(0x0428)] public UDataTable* m_pDT;
+    [FieldOffset(0x0430)] public FMissingParamTableRow ParamDT;
+    [FieldOffset(0x0528)] public UWorld* pRefWorld_;
+    [FieldOffset(0x531)] public byte bInCampMenu;
+    [FieldOffset(0x532)] public byte Field532;
+    [FieldOffset(0xb48)] public TArray<FMissingEntry> MissingPersons;
+    [FieldOffset(0xb58)] public int SortByNumber;
+    [FieldOffset(0x0B60)] public UUILayoutDataTable* LayoutData;
+    [FieldOffset(0x0B68)] public UUILayoutDataTable* TextColLayoutData;
+    [FieldOffset(0x0B70)] public UUILayoutDataTable* TextPosLayoutData;
+    [FieldOffset(0x0B78)] public UUILayoutDataTable* DateLayoutData;
 }
