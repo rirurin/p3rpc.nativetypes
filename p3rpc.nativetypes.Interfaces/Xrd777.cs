@@ -4087,6 +4087,8 @@ public unsafe struct UUIMissingPerson
     [FieldOffset(0x1ac)] public ushort currentMissing;
     [FieldOffset(0x1b0)] public byte bOverrideMissing;
     [FieldOffset(0x2a8)] public byte bHideSortedRow;
+    [FieldOffset(0x218)] public CheckDrawUIStruct1 Field218;
+    [FieldOffset(0x248)] public CheckDrawUIStruct1 Field248;
     [FieldOffset(0x2b0)] public CheckDrawUIStruct1 Field2B0;
     [FieldOffset(0x2e0)] public CheckDrawUIStruct1 Field2E0;
     [FieldOffset(0x310)] public CheckDrawUIStruct1 Field310;
@@ -4103,6 +4105,15 @@ public unsafe struct UUIMissingPerson
     [FieldOffset(0x0528)] public UWorld* pRefWorld_;
     [FieldOffset(0x531)] public byte bInCampMenu;
     [FieldOffset(0x532)] public byte Field532;
+    [FieldOffset(0x730)] public SprDefStruct1 arrowUpA;
+    [FieldOffset(0x798)] public SprDefStruct1 arrowUpB;
+    [FieldOffset(0x800)] public SprDefStruct1 arrowDownA;
+    [FieldOffset(0x868)] public SprDefStruct1 arrowDownB;
+    [FieldOffset(0x8d0)] public CheckDrawUIStruct1 Field8D0;
+    [FieldOffset(0x900)] public CheckDrawUIStruct1 Field900;
+    [FieldOffset(0x938)] public float Field938;
+    [FieldOffset(0x970)] public float Field970;
+    [FieldOffset(0x9a8)] public float Field9A8;
     [FieldOffset(0xb48)] public TArray<FMissingEntry> MissingPersons;
     [FieldOffset(0xb58)] public int SortByNumber;
     [FieldOffset(0x0B60)] public UUILayoutDataTable* LayoutData;
