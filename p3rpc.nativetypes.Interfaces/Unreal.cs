@@ -1894,3 +1894,10 @@ public unsafe struct UAnimSequenceBase
     //[FieldOffset(0x0094)] public float RateScale;
     //[FieldOffset(0x0098)] public FRawCurveTracks RawCurveData;
 }
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct UDataAsset
+{
+    [FieldOffset(0x0)] public UObject baseObj;
+    [FieldOffset(0x28)] public UDataAsset* nativeClass;
+}

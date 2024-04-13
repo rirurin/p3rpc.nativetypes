@@ -2998,21 +2998,77 @@ public unsafe struct UBustupModel
     [FieldOffset(0x0040)] public UBustupDraw* pBustupDraw;
 }
 
+// SOCIAL LINK
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct CmmPtr
+{
+    [FieldOffset(0x0)] public ushort ArcanaId;
+    [FieldOffset(0x8)] public CmmEntry* entry;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct UAppMultiDataAsset
+{
+    [FieldOffset(0x0000)] public UDataAsset baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xC)]
+public unsafe struct FCommunityEventData
+{
+    [FieldOffset(0x0000)] public int Rank;
+    [FieldOffset(0x0004)] public int major;
+    [FieldOffset(0x0008)] public int Minor;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1C)]
+public unsafe struct FCommunityRankUpEventData
+{
+    [FieldOffset(0x0000)] public short Rank;
+    [FieldOffset(0x0002)] public short Point;
+    [FieldOffset(0x0004)] public short major;
+    [FieldOffset(0x0006)] public short Minor;
+    [FieldOffset(0x0008)] public sbyte Brain;
+    [FieldOffset(0x0009)] public sbyte charm;
+    [FieldOffset(0x000A)] public sbyte Courage;
+    [FieldOffset(0x000C)] public uint Flag0;
+    [FieldOffset(0x0010)] public uint Flag1;
+    [FieldOffset(0x0014)] public uint Flag2;
+    [FieldOffset(0x0018)] public uint Flag3;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct FCommunityEventTable
+{
+    [FieldOffset(0x0000)] public TArray<FCommunityEventData> NotRankUpTable;
+    [FieldOffset(0x0010)] public TArray<FCommunityRankUpEventData> RankUpTable;
+    [FieldOffset(0x0020)] public TArray<FCommunityRankUpEventData> LoverRankUpTable;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UCommunityEventDataAsset
+{
+    [FieldOffset(0x0000)] public UAppMultiDataAsset baseObj;
+    [FieldOffset(0x0030)] public TArray<FCommunityEventTable> Tables;
+}
+
 [StructLayout(LayoutKind.Explicit, Size = 0x148)]
 public unsafe struct UCommunityHandler
 {
     [FieldOffset(0x0000)] public UObject baseObj;
-    //[FieldOffset(0x00F0)] public UCommunityEventDataAsset* pEventDataAsset;
+    [FieldOffset(0x00F0)] public UCommunityEventDataAsset* pEventDataAsset; // Xrd777/Community/Event/CommunityEventDataAsset
     //[FieldOffset(0x00F8)] public UHolidayEventDataAsset* pHolidayEventDataAsset;
     //[FieldOffset(0x0100)] public UHolidayScheduleDataAsset* pHolidayScheduleDataAsset;
-    [FieldOffset(0x0108)] public UDataTable* pMemberFormatTable;
-    [FieldOffset(0x0110)] public UDataTable* pNameFormatTable;
+    [FieldOffset(0x0108)] public UDataTable* pMemberFormatTable; // Xrd777/Community/Format/Member/DT_CommunityFormat_Member
+    [FieldOffset(0x0110)] public UDataTable* pNameFormatTable; // Xrd777/Community/Format/Name/DT_CommunityFormat_Name
     //[FieldOffset(0x0118)] public UCoefficientDataAsset* pCoefficientDataAsset;
     //[FieldOffset(0x0120)] public UCommunityPresentDataAsset* pPresentDataAsset;
     //[FieldOffset(0x0128)] public UMoviesEventDataAsset* pMoviesEventDataAsset;
     //[FieldOffset(0x0130)] public USummerFestivalEventDataAsset* pSummerFestivalEventDataAsset;
     //[FieldOffset(0x0138)] public UChristmasEventDataAsset* pChristmasEventDataAsset;
     //[FieldOffset(0x0140)] public ACommunityEventManager* pEventManager;
+
+    public CmmPtr* GetCmmEntry(int id) { fixed (UCommunityHandler* self = &this) { return (CmmPtr*)((nint)self + 0x28) + id; } }
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x10)]
