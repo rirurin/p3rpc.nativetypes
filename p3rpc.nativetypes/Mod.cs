@@ -3,15 +3,17 @@ using p3rpc.nativetypes.Configuration;
 using p3rpc.nativetypes.Interfaces;
 using p3rpc.nativetypes.Template;
 using Reloaded.Hooks.ReloadedII.Interfaces;
+using Reloaded.Memory.SigScan.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
 using SharedScans.Interfaces;
+using System.Diagnostics;
 
 namespace p3rpc.nativetypes
 {
     /// <summary>
     /// Your mod logic goes here.
     /// </summary>
-    public class Mod : ModBase//, IExports // <= Do not Remove.
+    public class Mod : ModBase, IExports // <= Do not Remove.
     {
         /// <summary>
         /// Provides access to the mod loader API.
@@ -46,6 +48,9 @@ namespace p3rpc.nativetypes
 
         private UIMethods _uiMethods;
         private CommonMethods _commonMethods;
+        private MemoryMethods _memoryMethods;
+
+        private long baseAddress;
 
         public Mod(ModContext context)
         {
@@ -56,10 +61,18 @@ namespace p3rpc.nativetypes
             _configuration = context.Configuration;
             _modConfig = context.ModConfig;
 
+            var mainModule = Process.GetCurrentProcess().MainModule;
+            if (mainModule == null) throw new Exception($"[{_modConfig.ModName}] Could not get main module");
+            baseAddress = mainModule.BaseAddress;
+            _modLoader.GetController<IStartupScanner>().TryGetTarget(out var startupScanner);
             _modLoader.GetController<ISharedScans>().TryGetTarget(out var sharedScans);
-            if (sharedScans == null) throw new Exception("[P3RE Native Types] Could not get controller for Shared Scans");
+            if (_hooks == null) throw new Exception($"[{_modConfig.ModName}] Could not get Reloaded hooks");
+            if (sharedScans == null) throw new Exception($"[{_modConfig.ModName}] Could not get controller for Shared Scans");
+            if (startupScanner == null) throw new Exception($"[{_modConfig.ModName}] Could not get controller for Startup Scanner");
             _commonMethods = new(sharedScans);
             _uiMethods = new(sharedScans);
+            _memoryMethods = new(startupScanner, baseAddress, _logger, _hooks, _modConfig.ModName);
+            _modLoader.AddOrReplaceController<IMemoryMethods>(_owner, _memoryMethods);
         }
 
         #region Standard Overrides
@@ -79,5 +92,6 @@ namespace p3rpc.nativetypes
         #endregion
 
         //public Type[] GetTypes() => new[] { typeof(ICommonMethods), typeof(IUIMethods) };
+        public Type[] GetTypes() => new[] { typeof(IMemoryMethods) };
     }
 }
