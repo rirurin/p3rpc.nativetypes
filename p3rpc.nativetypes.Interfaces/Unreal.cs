@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Xml.Linq;
 namespace p3rpc.nativetypes.Interfaces;
 
 #pragma warning disable CS1591
@@ -52,7 +53,8 @@ public unsafe struct TMapElement<KeyType, ValueType>
 {
     public KeyType Key;
     public ValueType Value;
-    long Unk;
+    public uint HashNextId;
+    public uint HashIndex;
 }
 //[StructLayout(LayoutKind.Explicit, Size = 0x50)] // inherits from TSortableMapBase
 [StructLayout(LayoutKind.Sequential)]
@@ -82,6 +84,75 @@ public unsafe struct TMap<KeyType, ValueType>
     {
         if (idx < 0 || idx > mapNum) return null;
         return &elements[idx].Value;
+    }
+}
+
+public interface IMapHashable
+{
+    public uint GetTypeHash();
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public unsafe struct TMapElementHashable<KeyType, ValueType>
+    where KeyType : unmanaged, IEquatable<KeyType>, IMapHashable
+    where ValueType : unmanaged
+{
+    public KeyType Key;
+    public ValueType Value;
+    public int HashNextId;
+    public int HashIndex;
+}
+public unsafe class TMapHashable<KeyType, ValueType>
+    where KeyType : unmanaged, IEquatable<KeyType>, IMapHashable
+    where ValueType : unmanaged
+{
+    // Each instance assumes that values are fixed at particular addresses from init onwards
+    public TArray<TMapElementHashable<KeyType, ValueType>>* Elements;
+    public int** Hashes;
+    public uint* HashSize;
+    public TMapHashable(nint ptr, nint hashArrOffset, nint hashSizeOffset) // Address of start of TMap struct (e.g &class_instance->func_map)
+    {
+        Elements = (TArray<TMapElementHashable<KeyType, ValueType>>*)ptr;
+        Hashes = (int**)(ptr + hashArrOffset);
+        HashSize = (uint*)(ptr + hashSizeOffset);
+    }
+
+    public ValueType* GetByIndex(int idx)
+    {
+        if (idx < 0 || idx > Elements->arr_num) return null;
+        return &Elements->allocator_instance[idx].Value;
+    }
+
+    public ValueType* TryGetLinear(KeyType key)
+    {
+        if (Elements->arr_num == 0 || Elements->allocator_instance == null) return null;
+        ValueType* value = null;
+        for (int i = 0; i < Elements->arr_num; i++)
+        {
+            var currElem = &Elements->allocator_instance[i];
+            if (currElem->Key.Equals(key))
+            {
+                value = &currElem->Value;
+                break;
+            }
+        }
+        return value;
+    }
+
+    public ValueType* TryGetByHash(KeyType key)
+    {
+        ValueType* value = null;
+        var elementTarget = (*Hashes)[key.GetTypeHash() & (*HashSize - 1)];
+        while (elementTarget != 1)
+        {
+            if (Elements->allocator_instance[elementTarget].Key.Equals(key))
+            {
+                value = &Elements->allocator_instance[elementTarget].Value;
+                break;
+            }
+            elementTarget = Elements->allocator_instance[elementTarget].HashNextId;
+        }
+        return value;
     }
 }
 
@@ -643,11 +714,18 @@ public unsafe struct FEnumProperty
 }
 // For g_namePool
 [StructLayout(LayoutKind.Explicit, Size = 0x8)]
-public unsafe struct FName : IEquatable<FName>
+public unsafe struct FName : IEquatable<FName>, IMapHashable
 {
     [FieldOffset(0x0)] public uint pool_location;
     [FieldOffset(0x4)] public uint field04;
     public bool Equals(FName other) => pool_location == other.pool_location;
+
+    public uint GetTypeHash()
+    {
+        uint block = pool_location >> 0x10;
+        uint offset = pool_location & 0xffff;
+        return (block << 19) + block + (offset << 0x10) + offset + (offset >> 4) + field04;
+    }
 }
 [StructLayout(LayoutKind.Sequential)]
 public unsafe struct FString : IEquatable<FString>
