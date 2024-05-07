@@ -432,8 +432,8 @@ public unsafe struct UClass
     [FieldOffset(0xe8)] public FName class_conf_name;
     [FieldOffset(0x100)] public TArray<UField> net_fields;
     [FieldOffset(0x118)] public UObject* class_default_obj; // Default object of type described in UClass instance
-    //[FieldOffset(0x130)] public TMap func_map;
-    //[FieldOffset(0x180)] public TMap super_func_map;
+    [FieldOffset(0x130)] public TMap<FName, nint> func_map; // TMap<FName, UFunction*>
+    [FieldOffset(0x180)] public TMap<FName, nint> super_func_map;
     [FieldOffset(0x1d8)] public TArray<IntPtr> interfaces;
     [FieldOffset(0x220)] public TArray<FNativeFunctionLookup> native_func_lookup;
 }
@@ -646,6 +646,7 @@ public unsafe struct FEnumProperty
 public unsafe struct FName : IEquatable<FName>
 {
     [FieldOffset(0x0)] public uint pool_location;
+    [FieldOffset(0x4)] public uint field04;
     public bool Equals(FName other) => pool_location == other.pool_location;
 }
 [StructLayout(LayoutKind.Sequential)]

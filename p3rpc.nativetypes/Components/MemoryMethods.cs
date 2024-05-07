@@ -62,10 +62,7 @@ namespace p3rpc.nativetypes.Components
         public unsafe nint FMemory_Malloc(nint size, uint alignment)
         {
             if (_mallocInternal == null)
-            {
-                _logger.WriteLine($"Logger funcptr is null: {*gMallocPtr:X}, entry @ {**(ulong**)gMallocPtr + 0x10}");
                 _mallocInternal = _hooks.CreateFunctionPtr<FMallocInternal_Malloc>(**(ulong**)gMallocPtr + 0x10);
-            }
             return _mallocInternal.GetDelegate()(*gMallocPtr, size, alignment);
         }
         public unsafe delegate nint FMallocInternal_Malloc(nint gMalloc, nint size, uint alignment);
