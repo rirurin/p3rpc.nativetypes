@@ -11,7 +11,7 @@ namespace p3rpc.nativetypes.Interfaces;
 // ====================
 
 [StructLayout(LayoutKind.Sequential, Size = 0xc)]
-public unsafe struct FIoChunkId
+public unsafe struct FIoChunkId : IMapHashable
 {
     public byte GetByte(int idx) { fixed (FIoChunkId* self = &this) return *(byte*)((IntPtr)self + idx); }
     public string GetId()
@@ -19,6 +19,14 @@ public unsafe struct FIoChunkId
         string key_out = "0x";
         for (int i = 0; i < 0xc; i++) key_out += $"{GetByte(i):X2}";
         return key_out;
+    }
+
+    public uint GetTypeHash()
+    {
+        uint Hash = 0x1505;
+        for (int i = 0; i < 0xc; i++)
+            Hash = Hash * 33 + GetByte(i);
+        return Hash;
     }
 }
 
