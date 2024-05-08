@@ -150,6 +150,9 @@ public unsafe class TMapHashable<KeyType, ValueType>
     public ValueType* TryGetByHash(KeyType key)
     {
         ValueType* value = null;
+        // Hash alloc doesn't exist for single element maps,
+        // so fallback to linear search
+        if (*Hashes == null) return TryGetLinear(key);
         var elementTarget = (*Hashes)[key.GetTypeHash() & (*HashSize - 1)];
         while (elementTarget != 1)
         {

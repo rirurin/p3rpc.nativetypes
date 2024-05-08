@@ -14,7 +14,7 @@
 	<PackageId>p3rpc.nativetypes.Interfaces</PackageId>
 
 	<!-- Use Semantic Versioning -->
-	<Version>1.4.0</Version>
+	<Version>1.4.1</Version>
 	<Authors>Rirurin</Authors>
 
 	<!-- Description of your Package -->
