@@ -1738,7 +1738,7 @@ public unsafe struct CharacterName
 [StructLayout(LayoutKind.Explicit, Size = 0x250E0)]
 public unsafe struct UGlobalWork //: public UGameInstance
 {
-    //[FieldOffset(0x0)] public UGameInstance Super;
+    [FieldOffset(0x0)] public UGameInstance Super;
     //[FieldOffset(0x1b0)] public FDatUnitWork PlayerCharacters[11]; // 10100_3 to 10109_3
     //[FieldOffset(0x1f6c)] public ushort ActiveCharacters[10]; // 10050_1
     [FieldOffset(0x1f80)] public ItemBag Items; // 10051_1
@@ -2872,24 +2872,24 @@ public unsafe struct UDatItem
 {
     [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0028)] public UAssetLoader* Loader;
-    //[FieldOffset(0x0030)] public UDataAsset* TableAccs;
-    //[FieldOffset(0x0038)] public UDataAsset* TableArmor;
-    //[FieldOffset(0x0040)] public UDataAsset* TableCommon;
-    //[FieldOffset(0x0048)] public UDataAsset* TableCostume;
-    //[FieldOffset(0x0050)] public UDataAsset* TableEvitem;
-    //[FieldOffset(0x0058)] public UDataAsset* TableMaterial;
-    //[FieldOffset(0x0060)] public UDataAsset* TableShoes;
-    //[FieldOffset(0x0068)] public UDataAsset* TableSkillcard;
-    //[FieldOffset(0x0070)] public UDataAsset* TableWeapon;
-    //[FieldOffset(0x0078)] public UDataAsset* TableAccsName;
-    //[FieldOffset(0x0080)] public UDataAsset* TableArmorName;
-    //[FieldOffset(0x0088)] public UDataAsset* TableCommonName;
-    //[FieldOffset(0x0090)] public UDataAsset* TableCostumeName;
-    //[FieldOffset(0x0098)] public UDataAsset* TableEvitemName;
-    //[FieldOffset(0x00A0)] public UDataAsset* TableMaterialName;
-    //[FieldOffset(0x00A8)] public UDataAsset* TableShoesName;
-    //[FieldOffset(0x00B0)] public UDataAsset* TableSkillcardName;
-    //[FieldOffset(0x00B8)] public UDataAsset* TableWeaponName;
+    [FieldOffset(0x0030)] public UDataAsset* TableAccs;
+    [FieldOffset(0x0038)] public UDataAsset* TableArmor;
+    [FieldOffset(0x0040)] public UDataAsset* TableCommon;
+    [FieldOffset(0x0048)] public UDataAsset* TableCostume;
+    [FieldOffset(0x0050)] public UDataAsset* TableEvitem;
+    [FieldOffset(0x0058)] public UDataAsset* TableMaterial;
+    [FieldOffset(0x0060)] public UDataAsset* TableShoes;
+    [FieldOffset(0x0068)] public UDataAsset* TableSkillcard;
+    [FieldOffset(0x0070)] public UDataAsset* TableWeapon;
+    [FieldOffset(0x0078)] public UDataAsset* TableAccsName;
+    [FieldOffset(0x0080)] public UDataAsset* TableArmorName;
+    [FieldOffset(0x0088)] public UDataAsset* TableCommonName;
+    [FieldOffset(0x0090)] public UDataAsset* TableCostumeName;
+    [FieldOffset(0x0098)] public UDataAsset* TableEvitemName;
+    [FieldOffset(0x00A0)] public UDataAsset* TableMaterialName;
+    [FieldOffset(0x00A8)] public UDataAsset* TableShoesName;
+    [FieldOffset(0x00B0)] public UDataAsset* TableSkillcardName;
+    [FieldOffset(0x00B8)] public UDataAsset* TableWeaponName;
     [FieldOffset(0x00C8)] public ADatItemActor* mActor_;
 }
 

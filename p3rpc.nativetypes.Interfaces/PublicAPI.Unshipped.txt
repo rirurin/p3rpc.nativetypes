@@ -4063,6 +4063,10 @@ p3rpc.nativetypes.Interfaces.FSubsurfaceProfileStruct.SubsurfaceColor -> p3rpc.n
 p3rpc.nativetypes.Interfaces.FSubsurfaceProfileStruct.SurfaceAlbedo -> p3rpc.nativetypes.Interfaces.FColor
 p3rpc.nativetypes.Interfaces.FSubsurfaceProfileStruct.TransmissionTintColor -> p3rpc.nativetypes.Interfaces.FColor
 p3rpc.nativetypes.Interfaces.FSubsurfaceProfileStruct.WorldUnitScale -> float
+p3rpc.nativetypes.Interfaces.FSubsystemCollectionBase
+p3rpc.nativetypes.Interfaces.FSubsystemCollectionBase.FSubsystemCollectionBase() -> void
+p3rpc.nativetypes.Interfaces.FSubsystemCollectionBase.SubsystemArrayMap -> p3rpc.nativetypes.Interfaces.TMap<nint, nint>
+p3rpc.nativetypes.Interfaces.FSubsystemCollectionBase.SubsystemMap -> p3rpc.nativetypes.Interfaces.TMap<nint, nint>
 p3rpc.nativetypes.Interfaces.FSupportBustupParam
 p3rpc.nativetypes.Interfaces.FSupportBustupParam.FSupportBustupParam() -> void
 p3rpc.nativetypes.Interfaces.FTextureParameterValue
@@ -4120,6 +4124,12 @@ p3rpc.nativetypes.Interfaces.FWeakObjectPtr
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.FWeakObjectPtr() -> void
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.ObjectIndex -> int
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.ObjectSerialNumber -> int
+p3rpc.nativetypes.Interfaces.HashablePointer
+p3rpc.nativetypes.Interfaces.HashablePointer.Equals(p3rpc.nativetypes.Interfaces.HashablePointer other) -> bool
+p3rpc.nativetypes.Interfaces.HashablePointer.GetTypeHash() -> uint
+p3rpc.nativetypes.Interfaces.HashablePointer.HashablePointer() -> void
+p3rpc.nativetypes.Interfaces.HashablePointer.HashablePointer(nint ptr) -> void
+p3rpc.nativetypes.Interfaces.HashablePointer.Ptr -> nint
 p3rpc.nativetypes.Interfaces.ICommonMethods
 p3rpc.nativetypes.Interfaces.ICommonMethods.FAppCalculationItem_Lerp
 p3rpc.nativetypes.Interfaces.ICommonMethods.FMemory_Free
@@ -4293,6 +4303,7 @@ p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.ObjectId -> T
 p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.TagAtLastTest -> int
 p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.TPersistentObjectPtr() -> void
 p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.WeakPtr -> p3rpc.nativetypes.Interfaces.FWeakObjectPtr
+p3rpc.nativetypes.Interfaces.TypeExtensions
 p3rpc.nativetypes.Interfaces.UAgePanel
 p3rpc.nativetypes.Interfaces.UAgePanel.ActiveDrawTypeId -> uint
 p3rpc.nativetypes.Interfaces.UAgePanel.bIsDarkHour -> bool
@@ -4547,6 +4558,24 @@ p3rpc.nativetypes.Interfaces.UDatItem
 p3rpc.nativetypes.Interfaces.UDatItem.baseObj -> p3rpc.nativetypes.Interfaces.UObject
 p3rpc.nativetypes.Interfaces.UDatItem.Loader -> p3rpc.nativetypes.Interfaces.UAssetLoader*
 p3rpc.nativetypes.Interfaces.UDatItem.mActor_ -> p3rpc.nativetypes.Interfaces.ADatItemActor*
+p3rpc.nativetypes.Interfaces.UDatItem.TableAccs -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableAccsName -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableArmor -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableArmorName -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableCommon -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableCommonName -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableCostume -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableCostumeName -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableEvitem -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableEvitemName -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableMaterial -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableMaterialName -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableShoes -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableShoesName -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableSkillcard -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableSkillcardName -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableWeapon -> p3rpc.nativetypes.Interfaces.UDataAsset*
+p3rpc.nativetypes.Interfaces.UDatItem.TableWeaponName -> p3rpc.nativetypes.Interfaces.UDataAsset*
 p3rpc.nativetypes.Interfaces.UDatItem.UDatItem() -> void
 p3rpc.nativetypes.Interfaces.UEnum
 p3rpc.nativetypes.Interfaces.UEnum.cpp_type -> p3rpc.nativetypes.Interfaces.FString
@@ -4609,6 +4638,13 @@ p3rpc.nativetypes.Interfaces.UFunction.num_params -> byte
 p3rpc.nativetypes.Interfaces.UFunction.params_size -> ushort
 p3rpc.nativetypes.Interfaces.UFunction.UFunction() -> void
 p3rpc.nativetypes.Interfaces.UFunction._super -> p3rpc.nativetypes.Interfaces.UStruct
+p3rpc.nativetypes.Interfaces.UGameInstance
+p3rpc.nativetypes.Interfaces.UGameInstance.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.UGameInstance.LocalPlayers -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UGameInstance.OnlineSession -> p3rpc.nativetypes.Interfaces.UOnlineSession*
+p3rpc.nativetypes.Interfaces.UGameInstance.ReferencedObjects -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UGameInstance.Subsystems -> p3rpc.nativetypes.Interfaces.FSubsystemCollectionBase
+p3rpc.nativetypes.Interfaces.UGameInstance.UGameInstance() -> void
 p3rpc.nativetypes.Interfaces.UGenericSelectCharacterDataAsset
 p3rpc.nativetypes.Interfaces.UGenericSelectCharacterDataAsset.UGenericSelectCharacterDataAsset() -> void
 p3rpc.nativetypes.Interfaces.UGenericSelectSystemBase
@@ -4661,6 +4697,7 @@ p3rpc.nativetypes.Interfaces.UGlobalWork.pCommunityWork -> p3rpc.nativetypes.Int
 p3rpc.nativetypes.Interfaces.UGlobalWork.pEvtDataLoad -> p3rpc.nativetypes.Interfaces.UEvtDataLoad*
 p3rpc.nativetypes.Interfaces.UGlobalWork.pMsgWork -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.UGlobalWork.pPadRumble -> p3rpc.nativetypes.Interfaces.UPadRumble*
+p3rpc.nativetypes.Interfaces.UGlobalWork.Super -> p3rpc.nativetypes.Interfaces.UGameInstance
 p3rpc.nativetypes.Interfaces.UGlobalWork.UGlobalWork() -> void
 p3rpc.nativetypes.Interfaces.UHeroParameterDataAsset
 p3rpc.nativetypes.Interfaces.UHeroParameterDataAsset.Tables -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FHeroParameterTable>
@@ -5021,6 +5058,9 @@ p3rpc.nativetypes.Interfaces.UObject.ObjectFlags -> p3rpc.nativetypes.Interfaces
 p3rpc.nativetypes.Interfaces.UObject.OuterPrivate -> p3rpc.nativetypes.Interfaces.UObject*
 p3rpc.nativetypes.Interfaces.UObject.UObject() -> void
 p3rpc.nativetypes.Interfaces.UObject._vtable -> nint
+p3rpc.nativetypes.Interfaces.UOnlineSession
+p3rpc.nativetypes.Interfaces.UOnlineSession.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.UOnlineSession.UOnlineSession() -> void
 p3rpc.nativetypes.Interfaces.UPadRumble
 p3rpc.nativetypes.Interfaces.UPadRumble.baseObj -> p3rpc.nativetypes.Interfaces.UObject
 p3rpc.nativetypes.Interfaces.UPadRumble.haveRumble -> p3rpc.nativetypes.Interfaces.UForceFeedbackEffect*
@@ -5257,3 +5297,4 @@ p3rpc.nativetypes.Interfaces.UXrd777SaveManager
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.NetworkSaveInstance -> p3rpc.nativetypes.Interfaces.UXRD777SaveGame*
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.TCSSaveData -> p3rpc.nativetypes.Interfaces.UTCSSaveData*
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.UXrd777SaveManager() -> void
+static p3rpc.nativetypes.Interfaces.TypeExtensions.AsHashable(this nint ptr) -> p3rpc.nativetypes.Interfaces.HashablePointer

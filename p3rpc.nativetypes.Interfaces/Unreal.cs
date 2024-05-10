@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Xml.Linq;
 namespace p3rpc.nativetypes.Interfaces;
 
@@ -1990,4 +1991,51 @@ public unsafe struct UDataAsset
 {
     [FieldOffset(0x0)] public UObject baseObj;
     [FieldOffset(0x28)] public UDataAsset* nativeClass;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x28)]
+public unsafe struct UOnlineSession
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xc8)]
+public unsafe struct FSubsystemCollectionBase
+{
+    [FieldOffset(0x10)] public TMap<nint, nint> SubsystemMap; // TMap<UClass*, USubsystem*>
+    [FieldOffset(0x60)] public TMap<nint, nint> SubsystemArrayMap; // TMap<UClass*, USubsystem*>
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1A8)]
+public unsafe struct UGameInstance
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0038)] public TArray<nint> LocalPlayers;
+    [FieldOffset(0x0048)] public UOnlineSession* OnlineSession;
+    [FieldOffset(0x0050)] public TArray<nint> ReferencedObjects;
+    [FieldOffset(0xe0)] public FSubsystemCollectionBase Subsystems;
+}
+
+public unsafe struct HashablePointer : IMapHashable, IEquatable<HashablePointer>
+{
+    public nint Ptr;
+    public HashablePointer(nint ptr) { Ptr = ptr; }
+    public uint GetTypeHash() // FUN_140904980
+    {
+        uint iVar4 = (uint)(Ptr >> 4);
+        uint uVar3 = 0x9e3779b9U - iVar4 ^ iVar4 << 8;
+        uint uVar1 = (uint)-(uVar3 + iVar4) ^ uVar3 >> 0xd;
+        uint uVar5 = (iVar4 - uVar3) - uVar1 ^ uVar1 >> 0xc;
+        uVar3 = (uVar3 - uVar5) - uVar1 ^ uVar5 << 0x10;
+        uVar1 = (uVar1 - uVar3) - uVar5 ^ uVar3 >> 5;
+        uVar5 = (uVar5 - uVar3) - uVar1 ^ uVar1 >> 3;
+        uVar3 = (uVar3 - uVar5) - uVar1 ^ uVar5 << 10;
+        uint ret = ((uVar1 - uVar3) - uVar5) ^ (uVar3 >> 0xf);
+        return ret;
+    }
+    public bool Equals(HashablePointer other) => Ptr == other.Ptr;
+}
+public static class TypeExtensions
+{
+    public static HashablePointer AsHashable(this nint ptr) => new HashablePointer(ptr);
 }
