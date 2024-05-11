@@ -1523,6 +1523,14 @@ p3rpc.nativetypes.Interfaces.EVectorQuantization.EVectorQuantization_MAX = 3 -> 
 p3rpc.nativetypes.Interfaces.EVectorQuantization.RoundOneDecimal = 1 -> p3rpc.nativetypes.Interfaces.EVectorQuantization
 p3rpc.nativetypes.Interfaces.EVectorQuantization.RoundTwoDecimals = 2 -> p3rpc.nativetypes.Interfaces.EVectorQuantization
 p3rpc.nativetypes.Interfaces.EVectorQuantization.RoundWholeNumber = 0 -> p3rpc.nativetypes.Interfaces.EVectorQuantization
+p3rpc.nativetypes.Interfaces.FActorSpawnParameters
+p3rpc.nativetypes.Interfaces.FActorSpawnParameters.FActorSpawnParameters() -> void
+p3rpc.nativetypes.Interfaces.FActorSpawnParameters.instigator -> p3rpc.nativetypes.Interfaces.AActor*
+p3rpc.nativetypes.Interfaces.FActorSpawnParameters.name -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FActorSpawnParameters.objectFlags -> uint
+p3rpc.nativetypes.Interfaces.FActorSpawnParameters.overrideLevel -> p3rpc.nativetypes.Interfaces.ULevel*
+p3rpc.nativetypes.Interfaces.FActorSpawnParameters.owner -> p3rpc.nativetypes.Interfaces.AActor*
+p3rpc.nativetypes.Interfaces.FActorSpawnParameters.template -> p3rpc.nativetypes.Interfaces.AActor*
 p3rpc.nativetypes.Interfaces.FAppCalculaterComponentWork
 p3rpc.nativetypes.Interfaces.FAppCalculaterComponentWork.FAppCalculaterComponentWork() -> void
 p3rpc.nativetypes.Interfaces.FAppCalculaterComponentWork.List -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FAppCalculationItem>
@@ -4083,6 +4091,12 @@ p3rpc.nativetypes.Interfaces.FTownMapMarker2.MarkerShapeMask -> p3rpc.nativetype
 p3rpc.nativetypes.Interfaces.FTownMapMarker2.PlaceImageMask -> p3rpc.nativetypes.Interfaces.SprDefStruct1
 p3rpc.nativetypes.Interfaces.FTownMapMarker2.PlaceTextMask -> p3rpc.nativetypes.Interfaces.SprDefStruct1
 p3rpc.nativetypes.Interfaces.FTownMapMarker2.SocialLinkCircle -> p3rpc.nativetypes.Interfaces.SprDefStruct1
+p3rpc.nativetypes.Interfaces.FTransform
+p3rpc.nativetypes.Interfaces.FTransform.FTransform() -> void
+p3rpc.nativetypes.Interfaces.FTransform.FTransform(p3rpc.nativetypes.Interfaces.FVector4 rotation, p3rpc.nativetypes.Interfaces.FVector translation, p3rpc.nativetypes.Interfaces.FVector scale) -> void
+p3rpc.nativetypes.Interfaces.FTransform.Rotation -> p3rpc.nativetypes.Interfaces.FVector4
+p3rpc.nativetypes.Interfaces.FTransform.Scale3D -> p3rpc.nativetypes.Interfaces.FVector
+p3rpc.nativetypes.Interfaces.FTransform.Translation -> p3rpc.nativetypes.Interfaces.FVector
 p3rpc.nativetypes.Interfaces.FUniqueObjectGuid
 p3rpc.nativetypes.Interfaces.FUniqueObjectGuid.FUniqueObjectGuid() -> void
 p3rpc.nativetypes.Interfaces.FUniqueObjectGuid.Guid -> p3rpc.nativetypes.Interfaces.FGuid
@@ -4093,6 +4107,9 @@ p3rpc.nativetypes.Interfaces.FUObjectArray.NumElements -> int
 p3rpc.nativetypes.Interfaces.FUObjectArray.Objects -> p3rpc.nativetypes.Interfaces.FUObjectItem**
 p3rpc.nativetypes.Interfaces.FUObjectArray.ObjFirstGCIndex -> int
 p3rpc.nativetypes.Interfaces.FUObjectArray.ObjLastNonGCIndex -> int
+p3rpc.nativetypes.Interfaces.FUObjectHashTables
+p3rpc.nativetypes.Interfaces.FUObjectHashTables.FUObjectHashTables() -> void
+p3rpc.nativetypes.Interfaces.FUObjectHashTables.Hashes -> p3rpc.nativetypes.Interfaces.TMap<int, nint>
 p3rpc.nativetypes.Interfaces.FUObjectItem
 p3rpc.nativetypes.Interfaces.FUObjectItem.Flags -> p3rpc.nativetypes.Interfaces.EInternalObjectFlags
 p3rpc.nativetypes.Interfaces.FUObjectItem.FUObjectItem() -> void

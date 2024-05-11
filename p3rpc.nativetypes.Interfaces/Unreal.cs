@@ -2039,3 +2039,42 @@ public static class TypeExtensions
 {
     public static HashablePointer AsHashable(this nint ptr) => new HashablePointer(ptr);
 }
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct FActorSpawnParameters
+{
+    [FieldOffset(0x0)] public FName name;
+    [FieldOffset(0x8)] public AActor* template;
+    [FieldOffset(0x10)] public AActor* owner;
+    [FieldOffset(0x18)] public AActor* /* APawn* */ instigator;
+    [FieldOffset(0x20)] public ULevel* overrideLevel;
+    [FieldOffset(0x2c)] public uint objectFlags;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x260)]
+public unsafe struct FUObjectHashTables
+{
+    // 0x0: Critical Section
+    [FieldOffset(0x28)] public TMap<int, nint> Hashes; // TMap<int, FHashBucket>
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct FTransform
+{
+    [FieldOffset(0x0000)] public FVector4 Rotation;
+    [FieldOffset(0x0010)] public FVector Translation;
+    [FieldOffset(0x0020)] public FVector Scale3D;
+
+    public FTransform()
+    {
+        Rotation = new FVector4(0, 0, 0, 1);
+        Translation = new FVector(0, 0, 0);
+        Scale3D = new FVector(1, 1, 1);
+    }
+    public FTransform(FVector4 rotation, FVector translation, FVector scale)
+    {
+        Rotation = rotation;
+        Translation = translation;
+        Scale3D = scale;
+    }
+}
