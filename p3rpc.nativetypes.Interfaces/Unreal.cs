@@ -2035,9 +2035,17 @@ public unsafe struct HashablePointer : IMapHashable, IEquatable<HashablePointer>
     }
     public bool Equals(HashablePointer other) => Ptr == other.Ptr;
 }
+public unsafe struct HashableInt : IMapHashable, IEquatable<HashableInt>
+{
+    public int Value;
+    public HashableInt(int value) { Value = value; }
+    public uint GetTypeHash() => (uint)Value;
+    public bool Equals(HashableInt other) => other.Value == Value;
+}
 public static class TypeExtensions
 {
     public static HashablePointer AsHashable(this nint ptr) => new HashablePointer(ptr);
+    public static HashableInt AsHashable(this int val) => new HashableInt(val);
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x30)]
@@ -2056,6 +2064,7 @@ public unsafe struct FUObjectHashTables
 {
     // 0x0: Critical Section
     [FieldOffset(0x28)] public TMap<int, nint> Hashes; // TMap<int, FHashBucket>
+    [FieldOffset(0x78)] public TMap<int, nint> HashesOuter; // TMap<int, FHashBucket>
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x30)]
@@ -2077,4 +2086,44 @@ public unsafe struct FTransform
         Translation = translation;
         Scale3D = scale;
     }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct USubsystem
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30)]
+public unsafe struct UGameInstanceSubsystem
+{
+    [FieldOffset(0x0000)] public USubsystem baseObj;
+}
+
+public enum EComponentCreationMethod : int
+{
+    Native = 0,
+    SimpleConstructionScript = 1,
+    UserConstructionScript = 2,
+    Instance = 3,
+    //EComponentCreationMethod_MAX = 4,
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xB0)]
+public unsafe struct UActorComponent
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    //[FieldOffset(0x0030)] public FActorComponentTickFunction PrimaryComponentTick;
+    [FieldOffset(0x0060)] public TArray<FName> ComponentTags;
+    [FieldOffset(0x0070)] public TArray<IntPtr> AssetUserData;
+    [FieldOffset(0x0084)] public int UCSSerializationIndex;
+    [FieldOffset(0x0088)] public byte bNetAddressable;
+    [FieldOffset(0x0088)] public byte bReplicates;
+    [FieldOffset(0x0089)] public byte bAutoActivate;
+    [FieldOffset(0x008A)] public byte bIsActive;
+    [FieldOffset(0x008A)] public byte bEditableWhenInherited;
+    [FieldOffset(0x008A)] public byte bCanEverAffectNavigation;
+    [FieldOffset(0x008A)] public byte bIsEditorOnly;
+    [FieldOffset(0x008C)] public EComponentCreationMethod CreationMethod;
+    //[FieldOffset(0x0090)] public TArray<FSimpleMemberReference> UCSModifiedProperties;
 }

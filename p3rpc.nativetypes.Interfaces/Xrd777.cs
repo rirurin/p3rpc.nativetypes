@@ -4177,3 +4177,155 @@ public unsafe struct UUIMissingPerson
     [FieldOffset(0x0B70)] public UUILayoutDataTable* TextPosLayoutData;
     [FieldOffset(0x0B78)] public UUILayoutDataTable* DateLayoutData;
 }
+
+[StructLayout(LayoutKind.Explicit, Size = 0x330)]
+public unsafe struct AFldLevelManager
+{
+    [FieldOffset(0x0000)] public AFldLocalActor baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x300)]
+public unsafe struct UAppCharBaseComp
+{
+    [FieldOffset(0x0000)] public UActorComponent baseObj;
+    [FieldOffset(0x00E0)] public AActor* mMotionAttached_;
+    [FieldOffset(0x00E8)] public FName mMotionAttachedSocketName_;
+    [FieldOffset(0x00F0)] public FTransform mMotionAttachedTransform;
+    [FieldOffset(0x0120)] public bool mMotionDetachPrepared_;
+    [FieldOffset(0x0121)] public bool bMotionDetachPreparedTransKeep_;
+    [FieldOffset(0x0122)] public bool bMotionDetachPreparedRelativeTrans_;
+    [FieldOffset(0x0124)] public FRotator mMotionDetachPreparedRelativeRotator_;
+    [FieldOffset(0x0130)] public FVector mMotionDetachPreparedRelativeLocation_;
+    [FieldOffset(0x0150)] public int mFadeType_;
+    [FieldOffset(0x0154)] public int mFadeFrame_;
+    [FieldOffset(0x0158)] public int mFadePattern_;
+    [FieldOffset(0x0190)] public bool mDelayPauseAnimReq_;
+    [FieldOffset(0x0191)] public bool mDelayPauseAnimFlag_;
+    [FieldOffset(0x0194)] public float mDelayPauseAnimSpeedRate_;
+    //[FieldOffset(0x0198)] public TSoftClassPtr<AAppPropsCore> mBagClassPtr_;
+    //[FieldOffset(0x01C0)] public FName mBagAttachSocketName;
+    //[FieldOffset(0x01C8)] public FName mBagAnimSlotName_;
+    //[FieldOffset(0x01D0)] public TMap<EAppCharBagAnimType, IntPtr> mBagAnims_;
+    //[FieldOffset(0x0220)] public AAppPropsCore* mBagActor_;
+    //[FieldOffset(0x0228)] public bool bIsLockedLookAt_;
+    //[FieldOffset(0x0229)] public byte mLockedLookAtType_;
+    //[FieldOffset(0x022C)] public float mLockedLookAtSpeed_;
+    //[FieldOffset(0x0230)] public USkeletalMeshComponent* CostumeMesh;
+    //[FieldOffset(0x0238)] public USkeletalMeshComponent* HairMesh;
+    //[FieldOffset(0x0240)] public USkeletalMeshComponent* FaceMesh;
+    //[FieldOffset(0x0248)] public UAppCharFootstepsAtom* FootstepsAtom;
+    //[FieldOffset(0x0250)] public UAnimMontage* AnimMontage_DefaultSlot;
+    //[FieldOffset(0x0258)] public UAnimMontage* AnimMontage_FacialSlot;
+    //[FieldOffset(0x0260)] public UAnimMontage* AnimMontage_NeckSlot;
+    //[FieldOffset(0x0268)] public UAnimMontage* AnimMontage_TurnSlot;
+    //[FieldOffset(0x0278)] public UAnimMontage* AnimMontage_HavBagSlot;
+    //[FieldOffset(0x0280)] public EAppCharCategoryType CategoryID;
+    //[FieldOffset(0x0284)] public int IndexID;
+    //[FieldOffset(0x0288)] public int CostumeID;
+    //[FieldOffset(0x028C)] public EAnimPackID AnimPackID;
+    //[FieldOffset(0x0290)] public UAppCharAnimDataAsset* AnimPack;
+    //[FieldOffset(0x0298)] public UAppCharFaceAnimDataAsset* FaceAnimPack;
+    //[FieldOffset(0x02A0)] public EAppCharWeaponType WeaponType;
+    //[FieldOffset(0x02A4)] public int WeaponId;
+    //[FieldOffset(0x02A8)] public TArray<IntPtr> Weapons;
+    //[FieldOffset(0x02B8)] public bool bBagEnable;
+    //[FieldOffset(0x02BC)] public int ShoesID;
+    //[FieldOffset(0x02C0)] public EAppCharState State;
+    //[FieldOffset(0x02C4)] public FVector MoveLocation;
+    //[FieldOffset(0x02D0)] public float MoveSpeed;
+    //[FieldOffset(0x02D4)] public bool bTransparencyEnable;
+    //[FieldOffset(0x02D8)] public FAppCharTransparency Transparency;
+}
+
+
+[StructLayout(LayoutKind.Explicit, Size = 0x370)]
+public unsafe struct UAppCharacterComp
+{
+    [FieldOffset(0x0000)] public UAppCharBaseComp baseObj;
+    [FieldOffset(0x02F8)] public float mBagMotionBlendTime_StandToRun_;
+    [FieldOffset(0x02FC)] public float mBagMotionBlendTime_RunToStand_;
+    [FieldOffset(0x0300)] public bool bIsBagSetting_;
+    [FieldOffset(0x0301)] public bool bIsBagRun_;
+    [FieldOffset(0x0304)] public int mBagKeyID_;
+    [FieldOffset(0x0308)] public int mOverwirteBagKeyID_;
+    [FieldOffset(0x030C)] public bool bIsBagInvalidIK_;
+    //[FieldOffset(0x0310)] public ACharacterBaseCore* Character;
+    [FieldOffset(0x0318)] public bool bNeedInitialize;
+    //[FieldOffset(0x0320)] public UAppCharLoader* Loader;
+    [FieldOffset(0x0328)] public TArray<nint> EffectWeapons;
+    [FieldOffset(0x0338)] public TArray<int> HideMaterialIDs;
+    [FieldOffset(0x0358)] public int mSetCostumeID;
+    [FieldOffset(0x035C)] public int mSetWeaponType;
+    [FieldOffset(0x0360)] public int mSetWeaponModelID;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2B8)]
+public unsafe struct AFldInitScriptManager
+{
+    [FieldOffset(0x0000)] public AFldScriptManagerCore baseObj;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x3F0)]
+public unsafe struct UFldManagerSubsystem
+{
+    [FieldOffset(0x0000)] public UGameInstanceSubsystem baseObj;
+    [FieldOffset(0x00B0)] public AFldLevelManager* mLevelManager_;
+    [FieldOffset(0x00C0)] public UAppCharacterComp* mPlayerComp_;
+    [FieldOffset(0x00D0)] public FTransform mPlayerTransform;
+    [FieldOffset(0x0100)] public AFldOperator* mOparetator_;
+    [FieldOffset(0x0108)] public AFldInitScriptManager* mInitScrManager_;
+    //[FieldOffset(0x0140)] public AFldKeyFreeAnnounceActor* mKeyFreeAnnounceActor_;
+    //[FieldOffset(0x0148)] public AFldKeyFreeEventActor* mKeyFreeEventActor_;
+    //[FieldOffset(0x0150)] public AFldFieldEventActor* mFieldEventActor_;
+    [FieldOffset(0x0158)] public AAppActor* mLargeMapActor_;
+    //[FieldOffset(0x0160)] public UFldSoundManager* mSoundManager_;
+    //[FieldOffset(0x0168)] public UFldMiniMapManager* mMiniMapManager_;
+    //[FieldOffset(0x02C8)] public AFldDungeonMenuScript* mDungeonMenuScript_;
+    //[FieldOffset(0x02D0)] public AFldDailyMenuScript* mDailyMenuScript_;
+    //[FieldOffset(0x02D8)] public AUISaveLoad* mSaveMenu_;
+    //[FieldOffset(0x02E0)] public AUIBackLog* mBackLogDisp_;
+    [FieldOffset(0x02E8)] public AActor* mVoiceActionDisp_;
+    //[FieldOffset(0x02F0)] public AFldHitCore* mKeyLockedActor_;
+    //[FieldOffset(0x02F8)] public AFldAutoRecoverMenuScript* mAutoRecoverMenuScript_;
+    [FieldOffset(0x0300)] public TArray<nint> mHiddenActorArray_;
+    //[FieldOffset(0x0310)] public AFldMiscCharBaseReload* mCharBaseReload_;
+    //[FieldOffset(0x0318)] public TMap<EFldCmnProps, IntPtr> mCmnPropsActors_;
+    //[FieldOffset(0x0368)] public AFldMiscCameraShake* mCameraShake_;
+    [FieldOffset(0x0370)] public float mKeyHelpDelayTimer_;
+    [FieldOffset(0x0374)] public float mMoveFloorTimer_;
+    //[FieldOffset(0x0378)] public TSubclassOf<ACharacterBaseCore> mDefaultPlayerClass_;
+    //[FieldOffset(0x0380)] public TSubclassOf<ACharacterBaseCore> mDungeonPlayerClass_;
+    //[FieldOffset(0x0388)] public TSubclassOf<AFldCameraBase> mDefaultCameraClass_;
+    //[FieldOffset(0x0390)] public TSubclassOf<AFldCameraBase> mDungeonCameraClass_;
+    //[FieldOffset(0x0398)] public TSubclassOf<AFldCamera> mTransCameraClass_;
+    //[FieldOffset(0x03A0)] public TSubclassOf<ACharacterBaseCore> mFollowerClass_;
+    //[FieldOffset(0x03A8)] public TSubclassOf<ACharacterBaseCore> mFollowerKoromaruClass_;
+    [FieldOffset(0x03B0)] public UObject* mWorldContextObject_;
+    //[FieldOffset(0x03B8)] public AFldMiscCharaBaseMove* mMoveActor_;
+    [FieldOffset(0x03C0)] public bool mCameraLock_;
+    //[FieldOffset(0x03C8)] public AFldMiscCameraMove* mCameraMoveActor_;
+    [FieldOffset(0x03D0)] public TArray<nint> mOverlapedHitArray_;
+    [FieldOffset(0x03E0)] public AAppActor* mDebugMenu_;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2C0)]
+public unsafe struct AFldOperator
+{
+    [FieldOffset(0x0000)] public AActor baseObj;
+    //[FieldOffset(0x0220)] public UFldOperationCamera* OpCameraComp;
+    //[FieldOffset(0x0228)] public UFldOperationPlayer* OpPlayerComp;
+    //[FieldOffset(0x0230)] public UFldOperationPrePhysics* OpPrePhysicsComp;
+    //[FieldOffset(0x0238)] public AFldCamera* MainCamera;
+    //[FieldOffset(0x0240)] public AFldCameraFree* FreeCamera;
+    //[FieldOffset(0x0248)] public FFldPlayerHolder PlayerHolder;
+    //[FieldOffset(0x0260)] public AController* PlayerController;
+    //[FieldOffset(0x0268)] public AKernelInput* KernelInput;
+    [FieldOffset(0x0270)] public TArray<nint> OverloapHits;
+    //[FieldOffset(0x0280)] public EFldOperatorKeyState KeyState;
+    //[FieldOffset(0x0284)] public EFldOperatorState State;
+    //[FieldOffset(0x0288)] public EFldOperatorState NextState;
+    //[FieldOffset(0x0290)] public FFldEnemyHolder EncountEnemy;
+    //[FieldOffset(0x02A0)] public EFldOperatorEncountType EncountType;
+    //[FieldOffset(0x02A8)] public FFldPartnerHolder AssembleEvent;
+    [FieldOffset(0x02B8)] public bool bDebugStandalone;
+}

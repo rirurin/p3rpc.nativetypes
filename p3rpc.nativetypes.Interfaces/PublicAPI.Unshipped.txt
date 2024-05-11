@@ -211,12 +211,23 @@ p3rpc.nativetypes.Interfaces.AFldCmnDataActor.AFldCmnDataActor() -> void
 p3rpc.nativetypes.Interfaces.AFldCmnDataActor.mArcAsset_ -> p3rpc.nativetypes.Interfaces.UArcAsset*
 p3rpc.nativetypes.Interfaces.AFldCmnDataActor.mAssetLoader_ -> p3rpc.nativetypes.Interfaces.UAssetLoader*
 p3rpc.nativetypes.Interfaces.AFldCmnDataActor.mParent_ -> p3rpc.nativetypes.Interfaces.UFldCommonData*
+p3rpc.nativetypes.Interfaces.AFldInitScriptManager
+p3rpc.nativetypes.Interfaces.AFldInitScriptManager.AFldInitScriptManager() -> void
+p3rpc.nativetypes.Interfaces.AFldInitScriptManager.baseObj -> p3rpc.nativetypes.Interfaces.AFldScriptManagerCore
+p3rpc.nativetypes.Interfaces.AFldLevelManager
+p3rpc.nativetypes.Interfaces.AFldLevelManager.AFldLevelManager() -> void
+p3rpc.nativetypes.Interfaces.AFldLevelManager.baseObj -> p3rpc.nativetypes.Interfaces.AFldLocalActor
 p3rpc.nativetypes.Interfaces.AFldLocalActor
 p3rpc.nativetypes.Interfaces.AFldLocalActor.AFldLocalActor() -> void
 p3rpc.nativetypes.Interfaces.AFldLocalActor.baseObj -> p3rpc.nativetypes.Interfaces.AAppActor
 p3rpc.nativetypes.Interfaces.AFldMailOrderScript
 p3rpc.nativetypes.Interfaces.AFldMailOrderScript.AFldMailOrderScript() -> void
 p3rpc.nativetypes.Interfaces.AFldMailOrderScript.baseObj -> p3rpc.nativetypes.Interfaces.AFldScriptManagerCore
+p3rpc.nativetypes.Interfaces.AFldOperator
+p3rpc.nativetypes.Interfaces.AFldOperator.AFldOperator() -> void
+p3rpc.nativetypes.Interfaces.AFldOperator.baseObj -> p3rpc.nativetypes.Interfaces.AActor
+p3rpc.nativetypes.Interfaces.AFldOperator.bDebugStandalone -> bool
+p3rpc.nativetypes.Interfaces.AFldOperator.OverloapHits -> p3rpc.nativetypes.Interfaces.TArray<nint>
 p3rpc.nativetypes.Interfaces.AFldScriptActor
 p3rpc.nativetypes.Interfaces.AFldScriptActor.AFldScriptActor() -> void
 p3rpc.nativetypes.Interfaces.AFldScriptActor.baseObj -> p3rpc.nativetypes.Interfaces.AFldLocalActor
@@ -1034,6 +1045,11 @@ p3rpc.nativetypes.Interfaces.ECldWeek.Thursday = 4 -> p3rpc.nativetypes.Interfac
 p3rpc.nativetypes.Interfaces.ECldWeek.Tuesday = 2 -> p3rpc.nativetypes.Interfaces.ECldWeek
 p3rpc.nativetypes.Interfaces.ECldWeek.Wednesday = 3 -> p3rpc.nativetypes.Interfaces.ECldWeek
 p3rpc.nativetypes.Interfaces.ECldWeek.WeekMax = 7 -> p3rpc.nativetypes.Interfaces.ECldWeek
+p3rpc.nativetypes.Interfaces.EComponentCreationMethod
+p3rpc.nativetypes.Interfaces.EComponentCreationMethod.Instance = 3 -> p3rpc.nativetypes.Interfaces.EComponentCreationMethod
+p3rpc.nativetypes.Interfaces.EComponentCreationMethod.Native = 0 -> p3rpc.nativetypes.Interfaces.EComponentCreationMethod
+p3rpc.nativetypes.Interfaces.EComponentCreationMethod.SimpleConstructionScript = 1 -> p3rpc.nativetypes.Interfaces.EComponentCreationMethod
+p3rpc.nativetypes.Interfaces.EComponentCreationMethod.UserConstructionScript = 2 -> p3rpc.nativetypes.Interfaces.EComponentCreationMethod
 p3rpc.nativetypes.Interfaces.EDungeonAnimID
 p3rpc.nativetypes.Interfaces.EDungeonAnimID.AttackA = 50 -> p3rpc.nativetypes.Interfaces.EDungeonAnimID
 p3rpc.nativetypes.Interfaces.EDungeonAnimID.AttackAssault = 52 -> p3rpc.nativetypes.Interfaces.EDungeonAnimID
@@ -4110,6 +4126,7 @@ p3rpc.nativetypes.Interfaces.FUObjectArray.ObjLastNonGCIndex -> int
 p3rpc.nativetypes.Interfaces.FUObjectHashTables
 p3rpc.nativetypes.Interfaces.FUObjectHashTables.FUObjectHashTables() -> void
 p3rpc.nativetypes.Interfaces.FUObjectHashTables.Hashes -> p3rpc.nativetypes.Interfaces.TMap<int, nint>
+p3rpc.nativetypes.Interfaces.FUObjectHashTables.HashesOuter -> p3rpc.nativetypes.Interfaces.TMap<int, nint>
 p3rpc.nativetypes.Interfaces.FUObjectItem
 p3rpc.nativetypes.Interfaces.FUObjectItem.Flags -> p3rpc.nativetypes.Interfaces.EInternalObjectFlags
 p3rpc.nativetypes.Interfaces.FUObjectItem.FUObjectItem() -> void
@@ -4141,6 +4158,12 @@ p3rpc.nativetypes.Interfaces.FWeakObjectPtr
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.FWeakObjectPtr() -> void
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.ObjectIndex -> int
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.ObjectSerialNumber -> int
+p3rpc.nativetypes.Interfaces.HashableInt
+p3rpc.nativetypes.Interfaces.HashableInt.Equals(p3rpc.nativetypes.Interfaces.HashableInt other) -> bool
+p3rpc.nativetypes.Interfaces.HashableInt.GetTypeHash() -> uint
+p3rpc.nativetypes.Interfaces.HashableInt.HashableInt() -> void
+p3rpc.nativetypes.Interfaces.HashableInt.HashableInt(int value) -> void
+p3rpc.nativetypes.Interfaces.HashableInt.Value -> int
 p3rpc.nativetypes.Interfaces.HashablePointer
 p3rpc.nativetypes.Interfaces.HashablePointer.Equals(p3rpc.nativetypes.Interfaces.HashablePointer other) -> bool
 p3rpc.nativetypes.Interfaces.HashablePointer.GetTypeHash() -> uint
@@ -4321,6 +4344,20 @@ p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.TagAtLastTest -> int
 p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.TPersistentObjectPtr() -> void
 p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.WeakPtr -> p3rpc.nativetypes.Interfaces.FWeakObjectPtr
 p3rpc.nativetypes.Interfaces.TypeExtensions
+p3rpc.nativetypes.Interfaces.UActorComponent
+p3rpc.nativetypes.Interfaces.UActorComponent.AssetUserData -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UActorComponent.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.UActorComponent.bAutoActivate -> byte
+p3rpc.nativetypes.Interfaces.UActorComponent.bCanEverAffectNavigation -> byte
+p3rpc.nativetypes.Interfaces.UActorComponent.bEditableWhenInherited -> byte
+p3rpc.nativetypes.Interfaces.UActorComponent.bIsActive -> byte
+p3rpc.nativetypes.Interfaces.UActorComponent.bIsEditorOnly -> byte
+p3rpc.nativetypes.Interfaces.UActorComponent.bNetAddressable -> byte
+p3rpc.nativetypes.Interfaces.UActorComponent.bReplicates -> byte
+p3rpc.nativetypes.Interfaces.UActorComponent.ComponentTags -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FName>
+p3rpc.nativetypes.Interfaces.UActorComponent.CreationMethod -> p3rpc.nativetypes.Interfaces.EComponentCreationMethod
+p3rpc.nativetypes.Interfaces.UActorComponent.UActorComponent() -> void
+p3rpc.nativetypes.Interfaces.UActorComponent.UCSSerializationIndex -> int
 p3rpc.nativetypes.Interfaces.UAgePanel
 p3rpc.nativetypes.Interfaces.UAgePanel.ActiveDrawTypeId -> uint
 p3rpc.nativetypes.Interfaces.UAgePanel.bIsDarkHour -> bool
@@ -4348,6 +4385,39 @@ p3rpc.nativetypes.Interfaces.UAgePanelSection.Y1 -> float
 p3rpc.nativetypes.Interfaces.UAgePanelSection.Y2 -> float
 p3rpc.nativetypes.Interfaces.UAnimSequenceBase
 p3rpc.nativetypes.Interfaces.UAnimSequenceBase.UAnimSequenceBase() -> void
+p3rpc.nativetypes.Interfaces.UAppCharacterComp
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.baseObj -> p3rpc.nativetypes.Interfaces.UAppCharBaseComp
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.bIsBagInvalidIK_ -> bool
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.bIsBagRun_ -> bool
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.bIsBagSetting_ -> bool
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.bNeedInitialize -> bool
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.EffectWeapons -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.HideMaterialIDs -> p3rpc.nativetypes.Interfaces.TArray<int>
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.mBagKeyID_ -> int
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.mBagMotionBlendTime_RunToStand_ -> float
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.mBagMotionBlendTime_StandToRun_ -> float
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.mOverwirteBagKeyID_ -> int
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.mSetCostumeID -> int
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.mSetWeaponModelID -> int
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.mSetWeaponType -> int
+p3rpc.nativetypes.Interfaces.UAppCharacterComp.UAppCharacterComp() -> void
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.baseObj -> p3rpc.nativetypes.Interfaces.UActorComponent
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.bMotionDetachPreparedRelativeTrans_ -> bool
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.bMotionDetachPreparedTransKeep_ -> bool
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mDelayPauseAnimFlag_ -> bool
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mDelayPauseAnimReq_ -> bool
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mDelayPauseAnimSpeedRate_ -> float
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mFadeFrame_ -> int
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mFadePattern_ -> int
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mFadeType_ -> int
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionAttachedSocketName_ -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionAttachedTransform -> p3rpc.nativetypes.Interfaces.FTransform
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionAttached_ -> p3rpc.nativetypes.Interfaces.AActor*
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionDetachPreparedRelativeLocation_ -> p3rpc.nativetypes.Interfaces.FVector
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionDetachPreparedRelativeRotator_ -> p3rpc.nativetypes.Interfaces.FRotator
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionDetachPrepared_ -> bool
+p3rpc.nativetypes.Interfaces.UAppCharBaseComp.UAppCharBaseComp() -> void
 p3rpc.nativetypes.Interfaces.UAppMultiDataAsset
 p3rpc.nativetypes.Interfaces.UAppMultiDataAsset.baseObj -> p3rpc.nativetypes.Interfaces.UDataAsset
 p3rpc.nativetypes.Interfaces.UAppMultiDataAsset.UAppMultiDataAsset() -> void
@@ -4641,6 +4711,23 @@ p3rpc.nativetypes.Interfaces.UFldCommonData.mMailOrderActor_ -> p3rpc.nativetype
 p3rpc.nativetypes.Interfaces.UFldCommonData.mTableDat_ -> p3rpc.nativetypes.Interfaces.UDataTable*
 p3rpc.nativetypes.Interfaces.UFldCommonData.mTvProgramActor_ -> p3rpc.nativetypes.Interfaces.AFldTvProgramScript*
 p3rpc.nativetypes.Interfaces.UFldCommonData.UFldCommonData() -> void
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.baseObj -> p3rpc.nativetypes.Interfaces.UGameInstanceSubsystem
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mCameraLock_ -> bool
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mDebugMenu_ -> p3rpc.nativetypes.Interfaces.AAppActor*
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mHiddenActorArray_ -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mInitScrManager_ -> p3rpc.nativetypes.Interfaces.AFldInitScriptManager*
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mKeyHelpDelayTimer_ -> float
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mLargeMapActor_ -> p3rpc.nativetypes.Interfaces.AAppActor*
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mLevelManager_ -> p3rpc.nativetypes.Interfaces.AFldLevelManager*
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mMoveFloorTimer_ -> float
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mOparetator_ -> p3rpc.nativetypes.Interfaces.AFldOperator*
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mOverlapedHitArray_ -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mPlayerComp_ -> p3rpc.nativetypes.Interfaces.UAppCharacterComp*
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mPlayerTransform -> p3rpc.nativetypes.Interfaces.FTransform
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mVoiceActionDisp_ -> p3rpc.nativetypes.Interfaces.AActor*
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.mWorldContextObject_ -> p3rpc.nativetypes.Interfaces.UObject*
+p3rpc.nativetypes.Interfaces.UFldManagerSubsystem.UFldManagerSubsystem() -> void
 p3rpc.nativetypes.Interfaces.UForceFeedbackEffect
 p3rpc.nativetypes.Interfaces.UForceFeedbackEffect.baseObj -> p3rpc.nativetypes.Interfaces.UObject
 p3rpc.nativetypes.Interfaces.UForceFeedbackEffect.ChannelDetails -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FForceFeedbackChannelDetails>
@@ -4662,6 +4749,9 @@ p3rpc.nativetypes.Interfaces.UGameInstance.OnlineSession -> p3rpc.nativetypes.In
 p3rpc.nativetypes.Interfaces.UGameInstance.ReferencedObjects -> p3rpc.nativetypes.Interfaces.TArray<nint>
 p3rpc.nativetypes.Interfaces.UGameInstance.Subsystems -> p3rpc.nativetypes.Interfaces.FSubsystemCollectionBase
 p3rpc.nativetypes.Interfaces.UGameInstance.UGameInstance() -> void
+p3rpc.nativetypes.Interfaces.UGameInstanceSubsystem
+p3rpc.nativetypes.Interfaces.UGameInstanceSubsystem.baseObj -> p3rpc.nativetypes.Interfaces.USubsystem
+p3rpc.nativetypes.Interfaces.UGameInstanceSubsystem.UGameInstanceSubsystem() -> void
 p3rpc.nativetypes.Interfaces.UGenericSelectCharacterDataAsset
 p3rpc.nativetypes.Interfaces.UGenericSelectCharacterDataAsset.UGenericSelectCharacterDataAsset() -> void
 p3rpc.nativetypes.Interfaces.UGenericSelectSystemBase
@@ -5139,6 +5229,9 @@ p3rpc.nativetypes.Interfaces.UStruct.UStruct() -> void
 p3rpc.nativetypes.Interfaces.UStruct._super -> p3rpc.nativetypes.Interfaces.UField
 p3rpc.nativetypes.Interfaces.USubsurfaceProfile
 p3rpc.nativetypes.Interfaces.USubsurfaceProfile.USubsurfaceProfile() -> void
+p3rpc.nativetypes.Interfaces.USubsystem
+p3rpc.nativetypes.Interfaces.USubsystem.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.USubsystem.USubsystem() -> void
 p3rpc.nativetypes.Interfaces.USupportBustupDataAsset
 p3rpc.nativetypes.Interfaces.USupportBustupDataAsset.USupportBustupDataAsset() -> void
 p3rpc.nativetypes.Interfaces.UTCSSaveData
@@ -5314,4 +5407,5 @@ p3rpc.nativetypes.Interfaces.UXrd777SaveManager
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.NetworkSaveInstance -> p3rpc.nativetypes.Interfaces.UXRD777SaveGame*
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.TCSSaveData -> p3rpc.nativetypes.Interfaces.UTCSSaveData*
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.UXrd777SaveManager() -> void
+static p3rpc.nativetypes.Interfaces.TypeExtensions.AsHashable(this int val) -> p3rpc.nativetypes.Interfaces.HashableInt
 static p3rpc.nativetypes.Interfaces.TypeExtensions.AsHashable(this nint ptr) -> p3rpc.nativetypes.Interfaces.HashablePointer
