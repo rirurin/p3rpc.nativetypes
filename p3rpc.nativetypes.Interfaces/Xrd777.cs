@@ -4329,3 +4329,95 @@ public unsafe struct AFldOperator
     //[FieldOffset(0x02A8)] public FFldPartnerHolder AssembleEvent;
     [FieldOffset(0x02B8)] public bool bDebugStandalone;
 }
+
+[StructLayout(LayoutKind.Explicit, Size = 0x38)]
+public unsafe struct FAtlEvtPreSublevelData
+{
+    [FieldOffset(0x0000)] public TArray<FString> EventBGLevels;
+    [FieldOffset(0x0010)] public int BGFieldMajorID;
+    [FieldOffset(0x0014)] public int BGFieldMinorID;
+    [FieldOffset(0x0018)] public FString BGFieldSeasonSubLevel;
+    [FieldOffset(0x0028)] public FString BGFieldSoundSubLevel;
+}
+
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FAtlEvtPreDungeonSublevelData
+{
+    [FieldOffset(0x0000)] public FName EventBGFloorLevel;
+    [FieldOffset(0x0008)] public FName BGEnvironmentSubLevel;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x70)]
+public unsafe struct FAtlEvtPreData
+{
+    [FieldOffset(0x0000)] public int EventMajorID;
+    [FieldOffset(0x0004)] public int EventMinorID;
+    [FieldOffset(0x0008)] public int EventCategoryTypeID;
+    [FieldOffset(0x000C)] public FName EventRank;
+    [FieldOffset(0x0014)] public FName EventCategory;
+    [FieldOffset(0x0020)] public FString EventLevel;
+    [FieldOffset(0x0030)] public TArray<FAtlEvtPreSublevelData> EventSublevels;
+    [FieldOffset(0x0040)] public TArray<FName> LightScenarioSublevels;
+    [FieldOffset(0x0050)] public FAtlEvtPreDungeonSublevelData DungeonSublevel;
+    [FieldOffset(0x0060)] public bool bDisableAutoLoadFirstLightingScenarioLevel;
+    [FieldOffset(0x0061)] public bool bForceDisableUseCurrentTimeZone;
+    [FieldOffset(0x0062)] public byte ForcedCldTimeZoneValue;
+    [FieldOffset(0x0064)] public int ForceMonth;
+    [FieldOffset(0x0068)] public int ForceDay;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct UAtlEvtPreDataAsset
+{
+    [FieldOffset(0x0000)] public UDataAsset baseObj;
+    [FieldOffset(0x0030)] public TArray<FAtlEvtPreData> Data;
+}
+
+
+[StructLayout(LayoutKind.Explicit, Size = 0x2F0)]
+public unsafe struct UAtlEvtSubsystem
+{
+    [FieldOffset(0x0000)] public UGameInstanceSubsystem baseObj;
+    /*[FieldOffset(0x0030)] public TMap<uint, FAtlEvtPlayingCharacterInfo> AppEvtCharactersMap;
+    [FieldOffset(0x0080)] public TMap<int, FAtlEvtPlayingCharacterInfo> AppEvtLipUniqueIDCharactersMap;
+    [FieldOffset(0x00D0)] public TArray<FAtlEvtSoundSEInfo> EventSEInfoArray;
+    [FieldOffset(0x00E0)] public AAtlEvtLightScenarioTransitionController* LightScenarioTransitionController;
+    [FieldOffset(0x00E8)] public FEvtLocalData EvtLocalData;
+    [FieldOffset(0x00F8)] public UAssetLoader* pLSAssetLoader;
+    [FieldOffset(0x0100)] public UObject* LevelSequenceObject;
+    */
+    [FieldOffset(0x0148)] public UAtlEvtPreDataAsset* EvtPreDataAsset;
+    [FieldOffset(0x0150)] public TMap<uint, FAtlEvtPreData> EvtPreDataMap;
+    /*[FieldOffset(0x01A0)] public TWeakObjectPtr<UWorld> EventSublevelWorldObjPtr;
+    [FieldOffset(0x01B8)] public TArray<FAtlEvtPlayLoadSublevelInfo> LoadedEventSublevelInfos;
+    [FieldOffset(0x0270)] public TArray<FName> CurrentLoadedEventSublevels;
+    [FieldOffset(0x0280)] public TArray<FAtlEvtAssetOverrideParameter> ReserveAssetOverrideParameter;
+    [FieldOffset(0x0298)] public UAssetLoader* AssetOverrideLoader;
+    [FieldOffset(0x02A0)] public TSubclassOf<ACharacter> AssetOverrideSubClass;
+    [FieldOffset(0x02C8)] public AActor* BagActor;
+    [FieldOffset(0x02D0)] public AAtlEvtOnePicture* OnePicture;
+    */
+
+    public static uint GetEvtPreDataHash(EAtlEvtEventCategoryType category, uint major, uint minor) // FUN_141097f20
+    {
+        uint uVar3 = major - minor ^ (uint)minor >> 0xd;
+        uint uVar1 = (uint)(-0x61c88647 - uVar3) - minor ^ uVar3 << 8;
+        uint uVar4 = (minor - uVar1) - uVar3 ^ uVar1 >> 0xd;
+        uVar3 = (uVar3 - uVar1) - uVar4 ^ uVar4 >> 0xc;
+        uVar1 = (uVar1 - uVar3) - uVar4 ^ uVar3 << 0x10;
+        uVar4 = (uVar4 - uVar1) - uVar3 ^ uVar1 >> 5;
+        uVar3 = (uVar3 - uVar1) - uVar4 ^ uVar4 >> 3;
+        uVar1 = (uVar1 - uVar3) - uVar4 ^ uVar3 << 10;
+        uVar1 = (uVar4 - uVar1) - uVar3 ^ uVar1 >> 0xf;
+        uint iVar2 = uVar1 - (uint)category;
+        uVar3 = 0x9e3779b9 - uVar1 ^ iVar2 * 0x100;
+        uVar4 = ((uint)category - uVar3) - iVar2 ^ uVar3 >> 0xd;
+        uVar1 = (iVar2 - uVar3) - uVar4 ^ uVar4 >> 0xc;
+        uVar3 = (uVar3 - uVar1) - uVar4 ^ uVar1 << 0x10;
+        uVar4 = (uVar4 - uVar3) - uVar1 ^ uVar3 >> 5;
+        uVar1 = (uVar1 - uVar3) - uVar4 ^ uVar4 >> 3;
+        uVar3 = (uVar3 - uVar1) - uVar4 ^ uVar1 << 10;
+        return (uVar4 - uVar3) - uVar1 ^ uVar3 >> 0xf;
+    }
+}

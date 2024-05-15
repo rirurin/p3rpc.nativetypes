@@ -203,3 +203,12 @@ public enum EEvtFadeScreenType : byte
     EVT_FADESCREEN_CROSSFADE_OUT = 3,
     //EVT_FADESCREEN_MAX = 4,
 };
+
+public enum EAtlEvtEventCategoryType : byte
+{
+    MAIN = 0,
+    CMMU = 1,
+    QEST = 2,
+    EXTR = 3,
+    FILD = 4,
+};
