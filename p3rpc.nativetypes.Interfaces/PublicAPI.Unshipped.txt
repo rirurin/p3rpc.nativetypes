@@ -877,6 +877,12 @@ p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag.FieldLocal = 4 -> p3rpc.nativet
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag.FieldSound = 32 -> p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag.SystemUI = 8 -> p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag.Unknown = 0 -> p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
+p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
+p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.CMMU = 1 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
+p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.EXTR = 3 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
+p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.FILD = 4 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
+p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.MAIN = 0 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
+p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.QEST = 2 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
 p3rpc.nativetypes.Interfaces.EAutoReceiveInputType
 p3rpc.nativetypes.Interfaces.EAutoReceiveInputType.Disabled = 0 -> p3rpc.nativetypes.Interfaces.EAutoReceiveInputType
 p3rpc.nativetypes.Interfaces.EAutoReceiveInputType.EAutoReceiveInput_MAX = 9 -> p3rpc.nativetypes.Interfaces.EAutoReceiveInputType
@@ -1575,6 +1581,37 @@ p3rpc.nativetypes.Interfaces.FAtlEvtPlayParameter.BindingTagActors -> p3rpc.nati
 p3rpc.nativetypes.Interfaces.FAtlEvtPlayParameter.EventAssetName -> p3rpc.nativetypes.Interfaces.FString
 p3rpc.nativetypes.Interfaces.FAtlEvtPlayParameter.FAtlEvtPlayParameter() -> void
 p3rpc.nativetypes.Interfaces.FAtlEvtPlayParameter.FieldEventInfo -> p3rpc.nativetypes.Interfaces.FFieldEventInfo
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.bDisableAutoLoadFirstLightingScenarioLevel -> bool
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.bForceDisableUseCurrentTimeZone -> bool
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.DungeonSublevel -> p3rpc.nativetypes.Interfaces.FAtlEvtPreDungeonSublevelData
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.EventCategory -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.EventCategoryTypeID -> int
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.EventLevel -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.EventMajorID -> int
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.EventMinorID -> int
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.EventRank -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.EventSublevels -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData>
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.FAtlEvtPreData() -> void
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.FAtlEvtPreData(int eventMajorID, int eventMinorID, int eventCategoryTypeID, p3rpc.nativetypes.Interfaces.FName eventRank, p3rpc.nativetypes.Interfaces.FName eventCategory) -> void
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.ForceDay -> int
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.ForcedCldTimeZoneValue -> byte
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.ForceMonth -> int
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.IsValid() -> bool
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.LightScenarioSublevels -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FName>
+p3rpc.nativetypes.Interfaces.FAtlEvtPreData.MakeInvalidEvent() -> void
+p3rpc.nativetypes.Interfaces.FAtlEvtPreDungeonSublevelData
+p3rpc.nativetypes.Interfaces.FAtlEvtPreDungeonSublevelData.BGEnvironmentSubLevel -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FAtlEvtPreDungeonSublevelData.EventBGFloorLevel -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FAtlEvtPreDungeonSublevelData.FAtlEvtPreDungeonSublevelData() -> void
+p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData
+p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData.BGFieldMajorID -> int
+p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData.BGFieldMinorID -> int
+p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData.BGFieldSeasonSubLevel -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData.BGFieldSoundSubLevel -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData.EventBGLevels -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData.FAtlEvtPreSublevelData() -> void
+p3rpc.nativetypes.Interfaces.FAtlEvtPreSublevelData.FAtlEvtPreSublevelData(int MajorId, int MinorId) -> void
 p3rpc.nativetypes.Interfaces.FAtlSlotMultiAnimationParam
 p3rpc.nativetypes.Interfaces.FAtlSlotMultiAnimationParam.Animation -> p3rpc.nativetypes.Interfaces.UAnimSequenceBase*
 p3rpc.nativetypes.Interfaces.FAtlSlotMultiAnimationParam.BlendIn -> float
@@ -4184,7 +4221,10 @@ p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Free(nint ptr) -> void
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Free<TType>(TType* ptr) -> void
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_GetAllocSize(nint ptr) -> nint
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Malloc(nint size, uint alignment) -> nint
+p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Malloc<TType>() -> TType*
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Malloc<TType>(uint alignment) -> TType*
+p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocMultiple<TType>(uint count) -> TType*
+p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocMultiple<TType>(uint count, uint alignment) -> TType*
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Realloc(nint ptr, nint size, uint alignment) -> nint
 p3rpc.nativetypes.Interfaces.ItemBag
 p3rpc.nativetypes.Interfaces.ItemBag.GetAccessoryCount(int i) -> byte
@@ -4427,6 +4467,15 @@ p3rpc.nativetypes.Interfaces.UArcAsset.mBuffer_ -> p3rpc.nativetypes.Interfaces.
 p3rpc.nativetypes.Interfaces.UArcAsset.UArcAsset() -> void
 p3rpc.nativetypes.Interfaces.UAssetLoader
 p3rpc.nativetypes.Interfaces.UAssetLoader.UAssetLoader() -> void
+p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset
+p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset.baseObj -> p3rpc.nativetypes.Interfaces.UDataAsset
+p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset.Data -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FAtlEvtPreData>
+p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset.UAtlEvtPreDataAsset() -> void
+p3rpc.nativetypes.Interfaces.UAtlEvtSubsystem
+p3rpc.nativetypes.Interfaces.UAtlEvtSubsystem.baseObj -> p3rpc.nativetypes.Interfaces.UGameInstanceSubsystem
+p3rpc.nativetypes.Interfaces.UAtlEvtSubsystem.EvtPreDataAsset -> p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset*
+p3rpc.nativetypes.Interfaces.UAtlEvtSubsystem.EvtPreDataMap -> p3rpc.nativetypes.Interfaces.TMap<uint, p3rpc.nativetypes.Interfaces.FAtlEvtPreData>
+p3rpc.nativetypes.Interfaces.UAtlEvtSubsystem.UAtlEvtSubsystem() -> void
 p3rpc.nativetypes.Interfaces.UBfAsset
 p3rpc.nativetypes.Interfaces.UBfAsset.UBfAsset() -> void
 p3rpc.nativetypes.Interfaces.UBmdAsset
@@ -5409,3 +5458,5 @@ p3rpc.nativetypes.Interfaces.UXrd777SaveManager.TCSSaveData -> p3rpc.nativetypes
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.UXrd777SaveManager() -> void
 static p3rpc.nativetypes.Interfaces.TypeExtensions.AsHashable(this int val) -> p3rpc.nativetypes.Interfaces.HashableInt
 static p3rpc.nativetypes.Interfaces.TypeExtensions.AsHashable(this nint ptr) -> p3rpc.nativetypes.Interfaces.HashablePointer
+static p3rpc.nativetypes.Interfaces.TypeExtensions.HashCombine(uint a, uint b) -> uint
+static p3rpc.nativetypes.Interfaces.UAtlEvtSubsystem.GetEvtPreDataHash(p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType category, uint major, uint minor) -> uint

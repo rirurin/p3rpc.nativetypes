@@ -31,6 +31,7 @@
     <Content Include="ModConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Update="Preview.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
