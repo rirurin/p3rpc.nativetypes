@@ -9,5 +9,8 @@ namespace p3rpc.nativetypes.Interfaces
         public unsafe nint FMemory_GetAllocSize(nint ptr);
         public unsafe nint FMemory_Malloc(nint size, uint alignment);
         public unsafe TType* FMemory_Malloc<TType>(uint alignment) where TType : unmanaged;
+        public unsafe TType* FMemory_Malloc<TType>() where TType : unmanaged;
+        public unsafe TType* FMemory_MallocMultiple<TType>(uint count, uint alignment) where TType : unmanaged;
+        public unsafe TType* FMemory_MallocMultiple<TType>(uint count) where TType : unmanaged;
     }
 }

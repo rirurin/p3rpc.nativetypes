@@ -155,7 +155,7 @@ public unsafe class TMapHashable<KeyType, ValueType>
         // so fallback to linear search
         if (*Hashes == null) return TryGetLinear(key);
         var elementTarget = (*Hashes)[key.GetTypeHash() & (*HashSize - 1)];
-        while (elementTarget != 1)
+        while (elementTarget != -1)
         {
             if (Elements->allocator_instance[elementTarget].Key.Equals(key))
             {
@@ -2046,6 +2046,18 @@ public static class TypeExtensions
 {
     public static HashablePointer AsHashable(this nint ptr) => new HashablePointer(ptr);
     public static HashableInt AsHashable(this int val) => new HashableInt(val);
+    public static uint HashCombine(uint a, uint b)
+    { // FUN_141cbc830
+        uint uVar1 = a - b ^ b >> 0xd;
+        uint uVar3 = (uint)(-0x61c88647 - uVar1) - b ^ uVar1 << 8;
+        uint uVar2 = (b - uVar3) - uVar1 ^ uVar3 >> 0xd;
+        uVar1 = (uVar1 - uVar3) - uVar2 ^ uVar2 >> 0xc;
+        uVar3 = (uVar3 - uVar1) - uVar2 ^ uVar1 << 0x10;
+        uVar2 = (uVar2 - uVar3) - uVar1 ^ uVar3 >> 5;
+        uVar1 = (uVar1 - uVar3) - uVar2 ^ uVar2 >> 3;
+        uVar3 = (uVar3 - uVar1) - uVar2 ^ uVar1 << 10;
+        return (uVar2 - uVar3) - uVar1 ^ uVar3 >> 0xf;
+    }
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x30)]

@@ -4338,6 +4338,12 @@ public unsafe struct FAtlEvtPreSublevelData
     [FieldOffset(0x0014)] public int BGFieldMinorID;
     [FieldOffset(0x0018)] public FString BGFieldSeasonSubLevel;
     [FieldOffset(0x0028)] public FString BGFieldSoundSubLevel;
+
+    public FAtlEvtPreSublevelData(int MajorId, int MinorId)
+    {
+        BGFieldMajorID = MajorId;
+        BGFieldMinorID = MinorId;
+    }
 }
 
 
@@ -4365,6 +4371,24 @@ public unsafe struct FAtlEvtPreData
     [FieldOffset(0x0062)] public byte ForcedCldTimeZoneValue;
     [FieldOffset(0x0064)] public int ForceMonth;
     [FieldOffset(0x0068)] public int ForceDay;
+
+    public FAtlEvtPreData(int eventMajorID, int eventMinorID, int eventCategoryTypeID, FName eventRank, FName eventCategory)
+    {
+        EventMajorID = eventMajorID;
+        EventMinorID = eventMinorID;
+        EventCategoryTypeID = eventCategoryTypeID;
+        EventRank = eventRank;
+        EventCategory = eventCategory;
+    }
+
+    public bool IsValid() => EventMajorID != -1 && EventMinorID != -1 && EventCategoryTypeID != -1;
+
+    public void MakeInvalidEvent()
+    {
+        EventMajorID = -1;
+        EventMinorID = -1;
+        EventCategoryTypeID = -1;
+    }
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x40)]

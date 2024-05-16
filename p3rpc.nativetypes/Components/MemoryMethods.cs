@@ -59,6 +59,9 @@ namespace p3rpc.nativetypes.Components
         }
         public unsafe delegate void FMallocInternal_Free(nint gMalloc, nint ptr);
         public unsafe TType* FMemory_Malloc<TType>(uint alignment) where TType : unmanaged => (TType*)FMemory_Malloc(sizeof(TType), alignment);
+        public unsafe TType* FMemory_Malloc<TType>() where TType : unmanaged => (TType*)FMemory_Malloc(sizeof(TType), (uint)sizeof(nint));
+        public unsafe TType* FMemory_MallocMultiple<TType>(uint count, uint alignment) where TType : unmanaged => (TType*)FMemory_Malloc(sizeof(TType) * (nint)count, alignment);
+        public unsafe TType* FMemory_MallocMultiple<TType>(uint count) where TType : unmanaged => (TType*)FMemory_Malloc(sizeof(TType) * (nint)count, (uint)sizeof(nint));
         public unsafe nint FMemory_Malloc(nint size, uint alignment)
         {
             if (_mallocInternal == null)
