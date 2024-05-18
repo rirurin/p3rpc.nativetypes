@@ -756,7 +756,14 @@ public unsafe struct FNamePoolString
     // Length : 10;
     // Get Length: flags >> 6
     [FieldOffset(0x0)] public short flags;
-    public string GetString() { fixed (FNamePoolString* self = &this) return Marshal.PtrToStringAnsi((IntPtr)(self + 1), flags >> 6); }
+    public string GetString() {
+        fixed (FNamePoolString* self = &this)
+        {
+            return ((flags & 1) == 0) 
+                ? Marshal.PtrToStringAnsi((IntPtr)(self + 1), flags >> 6) 
+                : Marshal.PtrToStringUni((IntPtr)(self + 1), flags >> 6);
+        }
+    }
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x10)]
