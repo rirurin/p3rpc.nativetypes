@@ -1633,6 +1633,16 @@ public unsafe struct FDatUnitPersonaEntry
     {
         fixed (FDatUnitPersonaEntry* self = &this) { return ((ushort*)((nint)self + 0xc))[i]; }
     }
+    public byte GetParamTotal(int pId) // FUN_1411acc90
+    {
+        if (pId < 0 || pId > 4) return 0;
+        fixed (FDatUnitPersonaEntry* self = &this)
+        {
+            var pTotal = (byte)(*((byte*)self + 0x1c + pId) + *((byte*)self + 0x21 + pId) + *((byte*)self + 0x26 + pId));
+            if (pTotal > 99) pTotal = 99;
+            return pTotal;
+        }
+    }
 };
 
 [StructLayout(LayoutKind.Explicit, Size = 0x244)]
@@ -2659,7 +2669,7 @@ public unsafe struct UCmpItem // : UCmpMenuBase
     [FieldOffset(0x0000)] public UCmpMenuBase baseObj;
     [FieldOffset(0x0188)] public UCmpItemSystem* PSystem;
     [FieldOffset(0x0190)] public UCmpItemDraw* pDraw;
-    //[FieldOffset(0x0198)] public APersonaStatus* pPersonaStatus;
+    [FieldOffset(0x0198)] public APersonaStatus* pPersonaStatus;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x608)]
@@ -2749,7 +2759,7 @@ public unsafe struct UUICmpStatus // : UObject
     [FieldOffset(0x0000)] public UObject baseObj;
     //[FieldOffset(0x02B0)] public UUISceneFSM* SceneFSM_;
     //[FieldOffset(0x02B8)] public TMap<int, UUIScene*> Scenes_;
-    //[FieldOffset(0x0308)] public APersonaStatus* PSStatusActor_;
+    [FieldOffset(0x0308)] public APersonaStatus* PSStatusActor_;
     //[FieldOffset(0x0310)] public AUIDialogSingle* SingleDialog_;
     [FieldOffset(0x0318)] public UCmpStatusCharacterListDraw* CharaListDraw_;
     //[FieldOffset(0x0320)] public UCmpCharacterStatusDraw* CharaStatusDraw_;
@@ -3068,7 +3078,7 @@ public unsafe struct UCommunityHandler
     //[FieldOffset(0x0138)] public UChristmasEventDataAsset* pChristmasEventDataAsset;
     //[FieldOffset(0x0140)] public ACommunityEventManager* pEventManager;
 
-    public CmmPtr* GetCmmEntry(int id) { fixed (UCommunityHandler* self = &this) { return (CmmPtr*)((nint)self + 0x28) + id; } }
+    public CmmPtr* GetCmmEntry(int id) { fixed (UCommunityHandler* self = &this) { return ((CmmPtr**)((nint)self + 0x28))[id]; } }
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x10)]
@@ -3814,6 +3824,8 @@ public unsafe struct APersonaStatusDraw
     [FieldOffset(0x084C)] public int Edit_Combine_BonusExp_SlideIn_Delay;
     [FieldOffset(0x0850)] public int Edit_Combine_BonusExp_SlideIn_Frame;
     [FieldOffset(0x0854)] public int Edit_Combine_BonusExp_Fade_Frame;
+    [FieldOffset(0x858)] public int ArcanaRank;
+    [FieldOffset(0x85c)] public int ExpBonusPoints;
     [FieldOffset(0x0870)] public int Edit_Registry_LockIcon_InAnimation_Delay;
     [FieldOffset(0x0874)] public int Edit_Registry_LockIcon_InAnimation_Frame;
     [FieldOffset(0x0878)] public int Edit_Registry_Switch_Heading_SlideOut_Delay;
@@ -4444,4 +4456,19 @@ public unsafe struct UAtlEvtSubsystem
         uVar3 = (uVar3 - uVar1) - uVar4 ^ uVar1 << 10;
         return (uVar4 - uVar3) - uVar1 ^ uVar3 >> 0xf;
     }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x130)]
+public unsafe struct FPersonaStatusListItem
+{
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x640)]
+public unsafe struct APersonaStatus
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+    //[FieldOffset(0x0520)] public UPersonaStatusSeq* Sequence_;
+    [FieldOffset(0x0538)] public TArray<FPersonaStatusListItem> PersonaList;
+    [FieldOffset(0x0548)] public TArray<FPersonaStatusListItem> RegistList;
+    [FieldOffset(0x0580)] public APersonaStatusDraw* pPersonaStatusDraw;
 }

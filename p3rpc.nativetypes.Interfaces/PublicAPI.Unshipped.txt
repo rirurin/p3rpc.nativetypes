@@ -319,8 +319,15 @@ p3rpc.nativetypes.Interfaces.ALevelSequenceActor.bShowBurnin -> bool
 p3rpc.nativetypes.Interfaces.ALevelSequenceActor.DefaultInstanceData -> p3rpc.nativetypes.Interfaces.UObject*
 p3rpc.nativetypes.Interfaces.ALevelSequenceActor.PlaybackSettings -> p3rpc.nativetypes.Interfaces.FMovieSceneSequencePlaybackSettings
 p3rpc.nativetypes.Interfaces.ALevelSequenceActor.SequencePlayer -> p3rpc.nativetypes.Interfaces.ULevelSequencePlayer*
+p3rpc.nativetypes.Interfaces.APersonaStatus
+p3rpc.nativetypes.Interfaces.APersonaStatus.APersonaStatus() -> void
+p3rpc.nativetypes.Interfaces.APersonaStatus.baseObj -> p3rpc.nativetypes.Interfaces.AAppActor
+p3rpc.nativetypes.Interfaces.APersonaStatus.PersonaList -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FPersonaStatusListItem>
+p3rpc.nativetypes.Interfaces.APersonaStatus.pPersonaStatusDraw -> p3rpc.nativetypes.Interfaces.APersonaStatusDraw*
+p3rpc.nativetypes.Interfaces.APersonaStatus.RegistList -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FPersonaStatusListItem>
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.APersonaStatusDraw() -> void
+p3rpc.nativetypes.Interfaces.APersonaStatusDraw.ArcanaRank -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.BaseAgilityStat -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.BaseEnduranceStat -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.BaseLuckStat -> int
@@ -466,6 +473,7 @@ p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Edit_SkillSelectList_SlideOut_De
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Edit_SkillSelectList_SlideOut_Frame -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Edit_SkillSelectList_SubCursor_Frame -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Edit_SkillSelectList_SubCursor_SlideIn_Frame -> int
+p3rpc.nativetypes.Interfaces.APersonaStatusDraw.ExpBonusPoints -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Field309 -> byte
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Field30A -> byte
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Field440 -> float
@@ -2627,6 +2635,7 @@ p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry.Experience -> uint
 p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry.FDatUnitPersonaEntry() -> void
 p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry.Field08 -> ushort
 p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry.Flags -> short
+p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry.GetParamTotal(int pId) -> byte
 p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry.GetSkill(int i) -> ushort
 p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry.Id -> ushort
 p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry.Level -> ushort
@@ -3964,6 +3973,8 @@ p3rpc.nativetypes.Interfaces.FPersonaStatusDraw.GetEquipBonusStat(int i) -> byte
 p3rpc.nativetypes.Interfaces.FPersonaStatusDraw.GetNextLevelStat(int i) -> byte
 p3rpc.nativetypes.Interfaces.FPersonaStatusDraw.SetEquipBonusStat(int i, byte v) -> void
 p3rpc.nativetypes.Interfaces.FPersonaStatusDraw.SetNextLevelStat(int i, byte v) -> void
+p3rpc.nativetypes.Interfaces.FPersonaStatusListItem
+p3rpc.nativetypes.Interfaces.FPersonaStatusListItem.FPersonaStatusListItem() -> void
 p3rpc.nativetypes.Interfaces.FPlgData
 p3rpc.nativetypes.Interfaces.FPlgData.FPlgData() -> void
 p3rpc.nativetypes.Interfaces.FPlgPrimitiveData
@@ -4585,6 +4596,7 @@ p3rpc.nativetypes.Interfaces.UCmpHeroHumanStatusDraw.UCmpHeroHumanStatusDraw() -
 p3rpc.nativetypes.Interfaces.UCmpItem
 p3rpc.nativetypes.Interfaces.UCmpItem.baseObj -> p3rpc.nativetypes.Interfaces.UCmpMenuBase
 p3rpc.nativetypes.Interfaces.UCmpItem.pDraw -> p3rpc.nativetypes.Interfaces.UCmpItemDraw*
+p3rpc.nativetypes.Interfaces.UCmpItem.pPersonaStatus -> p3rpc.nativetypes.Interfaces.APersonaStatus*
 p3rpc.nativetypes.Interfaces.UCmpItem.PSystem -> p3rpc.nativetypes.Interfaces.UCmpItemSystem*
 p3rpc.nativetypes.Interfaces.UCmpItem.UCmpItem() -> void
 p3rpc.nativetypes.Interfaces.UCmpItemDraw
@@ -5325,6 +5337,7 @@ p3rpc.nativetypes.Interfaces.UUICmpStatus.baseObj -> p3rpc.nativetypes.Interface
 p3rpc.nativetypes.Interfaces.UUICmpStatus.CharaListDraw_ -> p3rpc.nativetypes.Interfaces.UCmpStatusCharacterListDraw*
 p3rpc.nativetypes.Interfaces.UUICmpStatus.pMainActor -> p3rpc.nativetypes.Interfaces.ACmpMainActor*
 p3rpc.nativetypes.Interfaces.UUICmpStatus.pParent -> p3rpc.nativetypes.Interfaces.UCmpStatus*
+p3rpc.nativetypes.Interfaces.UUICmpStatus.PSStatusActor_ -> p3rpc.nativetypes.Interfaces.APersonaStatus*
 p3rpc.nativetypes.Interfaces.UUICmpStatus.UUICmpStatus() -> void
 p3rpc.nativetypes.Interfaces.UUIGenericSelectCharacter
 p3rpc.nativetypes.Interfaces.UUIGenericSelectCharacter.UUIGenericSelectCharacter() -> void
