@@ -1481,6 +1481,10 @@ public unsafe struct AUITownMapActor //: public AUIBaseActor
 [StructLayout(LayoutKind.Explicit, Size = 0x68)]
 public unsafe struct UAssetLoader //: public UObject
 {
+    [FieldOffset(0x0)] public UObject baseObj;
+    [FieldOffset(0x28)] public nint StreamHandle;
+    [FieldOffset(0x38)] public TArray<int> ObjectWeakReferences;
+    [FieldOffset(0x48)] public TArray<nint> ObjectReferences; // TArray<UObject*>
 };
 
 // SAVE FILE

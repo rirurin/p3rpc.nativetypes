@@ -4477,6 +4477,10 @@ p3rpc.nativetypes.Interfaces.UArcAsset.baseObj -> p3rpc.nativetypes.Interfaces.U
 p3rpc.nativetypes.Interfaces.UArcAsset.mBuffer_ -> p3rpc.nativetypes.Interfaces.TArray<byte>
 p3rpc.nativetypes.Interfaces.UArcAsset.UArcAsset() -> void
 p3rpc.nativetypes.Interfaces.UAssetLoader
+p3rpc.nativetypes.Interfaces.UAssetLoader.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.UAssetLoader.ObjectReferences -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UAssetLoader.ObjectWeakReferences -> p3rpc.nativetypes.Interfaces.TArray<int>
+p3rpc.nativetypes.Interfaces.UAssetLoader.StreamHandle -> nint
 p3rpc.nativetypes.Interfaces.UAssetLoader.UAssetLoader() -> void
 p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset
 p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset.baseObj -> p3rpc.nativetypes.Interfaces.UDataAsset
