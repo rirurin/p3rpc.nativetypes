@@ -6,6 +6,7 @@ using SharedScans.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,5 +90,62 @@ namespace p3rpc.nativetypes.Components
         }
         public unsafe delegate char FMallocInternal_GetAllocSize(nint gMalloc, nint ptr, ref nint size);
 
+        public unsafe TType* FMemory_MallocZeroed<TType>() where TType : unmanaged
+        {
+            var alloc = FMemory_Malloc<TType>();
+            NativeMemory.Clear(alloc, (nuint)sizeof(TType));
+            return alloc;
+        }
+        public unsafe TType* FMemory_MallocMultipleZeroed<TType>(uint count) where TType : unmanaged
+        {
+            var alloc = FMemory_MallocMultiple<TType>(count);
+            NativeMemory.Clear(alloc, (nuint)(sizeof(TType) * count));
+            return alloc;
+        }
+
+        // Array modification
+
+        public unsafe bool TArray_Insert<TArrayType>(TArray<TArrayType>* arr, TArrayType entry) where TArrayType : unmanaged
+        {
+            if (arr == null)
+                return false;
+
+            if (arr->arr_num == arr->arr_max)
+            {
+                // Resize allocation
+                uint newEntrySize = (arr->allocator_instance != null) ? (uint)arr->arr_max * 2 : 4;
+                var newAlloc = FMemory_MallocMultiple<TArrayType>(newEntrySize);
+                if (arr->allocator_instance != null)
+                {
+                    NativeMemory.Copy(arr->allocator_instance, newAlloc, (nuint)(arr->arr_max * sizeof(TArrayType)));
+                    FMemory_Free(arr->allocator_instance);
+                }
+                arr->allocator_instance = newAlloc;
+                arr->arr_max = (int)newEntrySize;
+            }
+            arr->allocator_instance[arr->arr_num] = entry;
+            arr->arr_num++;
+            return true;
+        }
+
+        public unsafe bool TArray_Insert<TArrayType>(TArray<TArrayType>* arr, TArrayType entry, int index) where TArrayType : unmanaged
+        {
+            if (arr == null || index > arr->arr_num || index < 0)
+                return false;
+            if (index == arr->arr_num)
+                return TArray_Insert(arr, entry);
+            arr->allocator_instance[index] = entry;
+            return true;
+        }
+
+        public unsafe bool TArray_Delete<TArrayType>(TArray<TArrayType>* arr, int index) where TArrayType : unmanaged
+        {
+            if (arr == null || index >= arr->arr_num || index < 0)
+                return false;
+            for (int i = index; i < arr->arr_num - 1; i++)
+                arr->allocator_instance[i] = arr->allocator_instance[i + 1];
+            arr->arr_num--;
+            return true;
+        }
     }
 }

@@ -59,6 +59,7 @@ p3rpc.nativetypes.Interfaces.ACmpMainActor.CalendarTextLayoutDataTable -> p3rpc.
 p3rpc.nativetypes.Interfaces.ACmpMainActor.CommuTextColLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.ACmpMainActor.DictionaryTextLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.ACmpMainActor.EquipTextColLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ACmpMainActor.Field288 -> int
 p3rpc.nativetypes.Interfaces.ACmpMainActor.HelpOthersLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.ACmpMainActor.HeroGaussMaskTexAry -> p3rpc.nativetypes.Interfaces.UTexture2D*
 p3rpc.nativetypes.Interfaces.ACmpMainActor.HologMaskTexAAry -> p3rpc.nativetypes.Interfaces.UTexture2D*
@@ -4236,7 +4237,12 @@ p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Malloc<TType>() -> TType*
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Malloc<TType>(uint alignment) -> TType*
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocMultiple<TType>(uint count) -> TType*
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocMultiple<TType>(uint count, uint alignment) -> TType*
+p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocMultipleZeroed<TType>(uint count) -> TType*
+p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocZeroed<TType>() -> TType*
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Realloc(nint ptr, nint size, uint alignment) -> nint
+p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Delete<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, int index) -> bool
+p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Insert<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry) -> bool
+p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Insert<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry, int index) -> bool
 p3rpc.nativetypes.Interfaces.ItemBag
 p3rpc.nativetypes.Interfaces.ItemBag.GetAccessoryCount(int i) -> byte
 p3rpc.nativetypes.Interfaces.ItemBag.GetArmorCount(int i) -> byte
@@ -4494,6 +4500,7 @@ p3rpc.nativetypes.Interfaces.UAtlEvtSubsystem.UAtlEvtSubsystem() -> void
 p3rpc.nativetypes.Interfaces.UBfAsset
 p3rpc.nativetypes.Interfaces.UBfAsset.UBfAsset() -> void
 p3rpc.nativetypes.Interfaces.UBmdAsset
+p3rpc.nativetypes.Interfaces.UBmdAsset.mBuf -> p3rpc.nativetypes.Interfaces.TArray<byte>
 p3rpc.nativetypes.Interfaces.UBmdAsset.UBmdAsset() -> void
 p3rpc.nativetypes.Interfaces.UBustupAnimDataAsset
 p3rpc.nativetypes.Interfaces.UBustupAnimDataAsset.EyeAnim -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FBustupAnim>

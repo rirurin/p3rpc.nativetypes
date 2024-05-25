@@ -5,5 +5,5 @@ namespace p3rpc.nativetypes.Interfaces;
 [StructLayout(LayoutKind.Explicit, Size = 0x38)]
 public unsafe struct UBmdAsset //: public UObject
 {
-    [FieldOffset(0x28)] TArray<byte> mBuf;
+    [FieldOffset(0x28)] public TArray<byte> mBuf;
 };

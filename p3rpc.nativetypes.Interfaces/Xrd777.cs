@@ -165,6 +165,7 @@ public unsafe struct UCmpMenuBase //: public UObject
 [StructLayout(LayoutKind.Explicit, Size = 0x30F0)]
 public unsafe struct ACmpMainActor //: public AAppActor
 {
+    [FieldOffset(0x288)] public int Field288;
     [FieldOffset(0x290)] public int MenuState;
     [FieldOffset(0x12C8)] public nint pAssetLoader;
     [FieldOffset(0x12D0)] public nint SceneCaptureClass;
