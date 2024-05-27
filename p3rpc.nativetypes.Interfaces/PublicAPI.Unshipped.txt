@@ -4095,8 +4095,13 @@ p3rpc.nativetypes.Interfaces.FSprColor.R -> byte
 p3rpc.nativetypes.Interfaces.FSprColor.SetColor(uint color) -> void
 p3rpc.nativetypes.Interfaces.FSprData
 p3rpc.nativetypes.Interfaces.FSprData.FSprData() -> void
+p3rpc.nativetypes.Interfaces.FSprData.FSprData(float width, float height, p3rpc.nativetypes.Interfaces.FVector2D topLeft, p3rpc.nativetypes.Interfaces.FVector2D bottomRight, p3rpc.nativetypes.Interfaces.UTexture2D* texture, uint color, short stretch, uint scale) -> void
+p3rpc.nativetypes.Interfaces.FSprData.SetColor(int index, uint color) -> void
+p3rpc.nativetypes.Interfaces.FSprData.SetScalingSize(int index, uint color) -> void
+p3rpc.nativetypes.Interfaces.FSprData.SetStretchLength(int index, short stretchLen) -> void
 p3rpc.nativetypes.Interfaces.FSprDataArray
 p3rpc.nativetypes.Interfaces.FSprDataArray.FSprDataArray() -> void
+p3rpc.nativetypes.Interfaces.FSprDataArray.SprDatas -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FSprData>
 p3rpc.nativetypes.Interfaces.FStaticConstructObjectParameters
 p3rpc.nativetypes.Interfaces.FStaticConstructObjectParameters.bAssumeTemplateIsArchetype -> byte
 p3rpc.nativetypes.Interfaces.FStaticConstructObjectParameters.bCopyTransientsFromClassDefaults -> byte
@@ -4243,6 +4248,7 @@ p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Realloc(nint ptr, nint size,
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Delete<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, int index) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Insert<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Insert<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry, int index) -> bool
+p3rpc.nativetypes.Interfaces.IMemoryMethods.TMap_Insert<KeyType, ValueType>(p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>* map, KeyType key, ValueType val) -> bool
 p3rpc.nativetypes.Interfaces.ItemBag
 p3rpc.nativetypes.Interfaces.ItemBag.GetAccessoryCount(int i) -> byte
 p3rpc.nativetypes.Interfaces.ItemBag.GetArmorCount(int i) -> byte
@@ -5285,6 +5291,7 @@ p3rpc.nativetypes.Interfaces.USignedInDialog.baseObj -> p3rpc.nativetypes.Interf
 p3rpc.nativetypes.Interfaces.USignedInDialog.USignedInDialog() -> void
 p3rpc.nativetypes.Interfaces.USprAsset
 p3rpc.nativetypes.Interfaces.USprAsset.mTexArray -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USprAsset.SprDatas -> p3rpc.nativetypes.Interfaces.TMap<int, p3rpc.nativetypes.Interfaces.FSprDataArray>
 p3rpc.nativetypes.Interfaces.USprAsset.USprAsset() -> void
 p3rpc.nativetypes.Interfaces.UStruct
 p3rpc.nativetypes.Interfaces.UStruct.children -> p3rpc.nativetypes.Interfaces.UField*

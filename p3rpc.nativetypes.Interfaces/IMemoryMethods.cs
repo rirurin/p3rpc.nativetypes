@@ -17,9 +17,13 @@ namespace p3rpc.nativetypes.Interfaces
         public unsafe TType* FMemory_MallocMultipleZeroed<TType>(uint count) where TType : unmanaged;
 
         // Array modification
-
         public unsafe bool TArray_Insert<TArrayType>(TArray<TArrayType>* arr, TArrayType entry) where TArrayType : unmanaged;
         public unsafe bool TArray_Insert<TArrayType>(TArray<TArrayType>* arr, TArrayType entry, int index) where TArrayType : unmanaged;
         public unsafe bool TArray_Delete<TArrayType>(TArray<TArrayType>* arr, int index) where TArrayType : unmanaged;
+
+        // Map modification (no hashing atm)
+        public unsafe bool TMap_Insert<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
+            where KeyType : unmanaged, IEquatable<KeyType>
+            where ValueType : unmanaged;
     }
 }

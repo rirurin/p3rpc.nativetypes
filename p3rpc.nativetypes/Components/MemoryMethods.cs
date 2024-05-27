@@ -147,5 +147,41 @@ namespace p3rpc.nativetypes.Components
             arr->arr_num--;
             return true;
         }
+
+        // Map modification (very rough)
+
+        public unsafe bool TMap_Insert<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
+            where KeyType : unmanaged, IEquatable<KeyType>
+            where ValueType : unmanaged
+        {
+            if (map == null)
+                return false;
+            if (map->mapNum == map->mapMax)
+            {
+                // Resize allocation
+                uint newEntrySize = (map->elements != null) ? (uint)map->mapNum * 2 : 4;
+                var newAlloc = FMemory_MallocMultiple<TMapElement<KeyType, ValueType>>(newEntrySize);
+                if (map->elements != null)
+                {
+                    NativeMemory.Copy(map->elements, newAlloc, (nuint)(map->mapMax * sizeof(TMapElement<KeyType, ValueType>)));
+                    FMemory_Free(map->elements);
+                }
+                map->elements = newAlloc;
+                map->mapMax = (int)newEntrySize;
+            }
+            var newEntry = &map->elements[map->mapNum];
+            newEntry->Key = key;
+            newEntry->Value = val;
+            newEntry->HashIndex = uint.MaxValue;
+            newEntry->HashNextId = uint.MaxValue;
+            // based on state of other sprite maps
+            *(int*)((nint)map + 0x10) = 1;
+            *(int*)((nint)map + 0x28) = 1;
+            *(int*)((nint)map + 0x2c) = 0x80;
+            *(int*)((nint)map + 0x30) = -1;
+            *(int*)((nint)map + 0x48) = 1; // hash size
+            map->mapNum++;
+            return false;
+        }
     }
 }
