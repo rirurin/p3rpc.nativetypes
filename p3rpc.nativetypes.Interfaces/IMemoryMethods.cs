@@ -25,5 +25,9 @@ namespace p3rpc.nativetypes.Interfaces
         public unsafe bool TMap_Insert<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
             where KeyType : unmanaged, IEquatable<KeyType>
             where ValueType : unmanaged;
+
+        public unsafe bool TMap_InsertNoInit<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
+            where KeyType : unmanaged, IEquatable<KeyType>, IMapHashable
+            where ValueType : unmanaged;
     }
 }

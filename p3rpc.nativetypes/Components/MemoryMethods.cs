@@ -183,5 +183,62 @@ namespace p3rpc.nativetypes.Components
             map->mapNum++;
             return false;
         }
+
+        public unsafe bool TMap_InsertNoInit<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
+            where KeyType : unmanaged, IEquatable<KeyType>, IMapHashable
+            where ValueType : unmanaged
+        {
+            if (map == null)
+                return false;
+            // Get respective hash index
+            var hashes = (int**)((nint)map + 0x40);
+            var hashSize = (int*)((nint)map + 0x48);
+            var hashIndex = (uint)(key.GetTypeHash() & (*hashSize - 1));
+            var currHash = (*hashes)[hashIndex];
+            // Add a new hash if required
+            if (currHash == -1)
+                (*hashes)[hashIndex] = map->mapNum;
+            // Add a new element in the array
+            var newEntry = &map->elements[map->mapNum];
+            NativeMemory.Clear(newEntry, (nuint)sizeof(TMapElement<KeyType, ValueType>));
+            newEntry->Key = key;
+            newEntry->Value = val;
+            newEntry->HashNextId = uint.MaxValue;
+            newEntry->HashIndex = hashIndex;
+            // Link element to hash map
+            var linkElement = &map->elements[currHash];
+            while (linkElement->HashNextId != uint.MaxValue)
+                linkElement = &map->elements[linkElement->HashNextId];
+            linkElement->HashNextId = (uint)map->mapNum;
+            // Add to bit allocator
+            var inlineAlloc = (byte*)((nint)map + 0x10);
+            var alloc = *(byte**)((nint)map + 0x20);
+            var allocCount = (int*)((nint)map + 0x28);
+            if (alloc == null) // we haven't filled the inline allocator yet...
+            {
+                inlineAlloc[(*allocCount / 8) + 1] |= (byte)(1 << (*allocCount % 8));
+            } else
+            {
+                alloc[(*allocCount / 8) + 1] |= (byte)(1 << (*allocCount % 8));
+            }
+            *allocCount += 1;
+            map->mapNum++;
+            return true;
+            /*
+            if (map->mapNum == map->mapMax)
+            {
+                // Resize allocation
+                uint newEntrySize = (map->elements != null) ? (uint)map->mapNum * 2 : 4;
+                var newAlloc = FMemory_MallocMultiple<TMapElement<KeyType, ValueType>>(newEntrySize);
+                if (map->elements != null)
+                {
+                    NativeMemory.Copy(map->elements, newAlloc, (nuint)(map->mapMax * sizeof(TMapElement<KeyType, ValueType>)));
+                    FMemory_Free(map->elements);
+                }
+                map->elements = newAlloc;
+                map->mapMax = (int)newEntrySize;
+            }
+            */
+        }
     }
 }

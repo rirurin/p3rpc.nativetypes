@@ -2258,8 +2258,12 @@ public unsafe struct BmdDataLetter
 [StructLayout(LayoutKind.Explicit, Size = 0x60)]
 public unsafe struct FCurrentBmdCharacterOverview
 {
+    [FieldOffset(0x8)] public int Id;
+    [FieldOffset(0x20)] public ulong LetterCount;
     [FieldOffset(0x28)] public BmdDataLetter* FirstCharacter;
     [FieldOffset(0x30)] public BmdDataLetter* LastCharacter;
+    [FieldOffset(0x40)] public FCurrentBmdCharacterOverview* Previous;
+    [FieldOffset(0x48)] public FCurrentBmdCharacterOverview* Next;
     [FieldOffset(0x48)] public nint Field48;
 }
 [StructLayout(LayoutKind.Explicit, Size = 0x98)]
@@ -2962,11 +2966,20 @@ public unsafe struct UFldCommonData
 {
     [FieldOffset(0x0000)] public UObject baseObj;
     [FieldOffset(0x0030)] public AFldCmnDataActor* mActor_;
+    [FieldOffset(0x40)] public TArray<FBD_CmmExistEntry>** CmmExistEntry;
     [FieldOffset(0x00B8)] public AFldTvProgramScript* mTvProgramActor_;
     [FieldOffset(0x00C0)] public AFldMailOrderScript* mMailOrderActor_;
     [FieldOffset(0x00C8)] public AFldBossBattleScript* mBossBattleActor_;
     [FieldOffset(0x00D0)] public UDataTable* mTableDat_;
     [FieldOffset(0x0188)] public UClass* mBpClass_;
+
+    public UDataTable* GetDataTable(int id)
+    {
+        fixed (UFldCommonData* self = &this)
+        {
+            return ((UDataTable**)((nint)self + 0xd0))[id];
+        }
+    }
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x1B0)]
@@ -4476,4 +4489,44 @@ public unsafe struct APersonaStatus
     [FieldOffset(0x0538)] public TArray<FPersonaStatusListItem> PersonaList;
     [FieldOffset(0x0548)] public TArray<FPersonaStatusListItem> RegistList;
     [FieldOffset(0x0580)] public APersonaStatusDraw* pPersonaStatusDraw;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x314)]
+public unsafe struct FBD_CmmExistEntry
+{
+    [FieldOffset(0x0)] public short ArcanaId;
+    [FieldOffset(0x4)] public int OkBitflag;
+    [FieldOffset(0x8)] public int preOpenBitflag;
+    [FieldOffset(0x10)] public int NGPlusBitflag;
+    [FieldOffset(0x18c)] public int NPCBitflag;
+    [FieldOffset(0x198)] public int SysHolidayBitflag;
+    [FieldOffset(0x19c)] public int NationalHolidayBitflag;
+    public unsafe bool GetCmmAvailable(int day)
+    {
+        fixed (FBD_CmmExistEntry* self = &this)
+        {
+            return ((byte*)((nint)self + 0x1c))[day] == 1 ? true : false;
+        }
+    }
+    public unsafe void SetCmmAvailable(int day, byte value)
+    {
+        fixed (FBD_CmmExistEntry* self = &this)
+        {
+            ((byte*)((nint)self + 0x1c))[day] = value;
+        }
+    }
+    public unsafe bool GetNormalAvailable(int day)
+    {
+        fixed (FBD_CmmExistEntry* self = &this)
+        {
+            return ((byte*)((nint)self + 0x1a4))[day] == 1 ? true : false;
+        }
+    }
+    public unsafe void SetNormalAvailable(int day, byte value)
+    {
+        fixed (FBD_CmmExistEntry* self = &this)
+        {
+            ((byte*)((nint)self + 0x1a4))[day] = value;
+        }
+    }
 }

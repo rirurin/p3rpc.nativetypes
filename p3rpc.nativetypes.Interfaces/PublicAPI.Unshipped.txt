@@ -1643,6 +1643,19 @@ p3rpc.nativetypes.Interfaces.FBattleHeadPanel.FBattleHeadPanel() -> void
 p3rpc.nativetypes.Interfaces.FBattleHeadPanel.lineShadowBgTrans -> p3rpc.nativetypes.Interfaces.SprDefStruct1
 p3rpc.nativetypes.Interfaces.FBattleHeadPanel.materialSmokeInst -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
 p3rpc.nativetypes.Interfaces.FBattleHeadPanel.materialSmokeInstGrey -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.ArcanaId -> short
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.FBD_CmmExistEntry() -> void
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.GetCmmAvailable(int day) -> bool
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.GetNormalAvailable(int day) -> bool
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.NationalHolidayBitflag -> int
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.NGPlusBitflag -> int
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.NPCBitflag -> int
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.OkBitflag -> int
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.preOpenBitflag -> int
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.SetCmmAvailable(int day, byte value) -> void
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.SetNormalAvailable(int day, byte value) -> void
+p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.SysHolidayBitflag -> int
 p3rpc.nativetypes.Interfaces.FBoolProperty
 p3rpc.nativetypes.Interfaces.FBoolProperty.byte_mask -> byte
 p3rpc.nativetypes.Interfaces.FBoolProperty.byte_offset -> byte
@@ -2605,7 +2618,11 @@ p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview
 p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview.FCurrentBmdCharacterOverview() -> void
 p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview.Field48 -> nint
 p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview.FirstCharacter -> p3rpc.nativetypes.Interfaces.BmdDataLetter*
+p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview.Id -> int
 p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview.LastCharacter -> p3rpc.nativetypes.Interfaces.BmdDataLetter*
+p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview.LetterCount -> ulong
+p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview.Next -> p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview*
+p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview.Previous -> p3rpc.nativetypes.Interfaces.FCurrentBmdCharacterOverview*
 p3rpc.nativetypes.Interfaces.FCurrentBmdPage
 p3rpc.nativetypes.Interfaces.FCurrentBmdPage.baseColor -> p3rpc.nativetypes.Interfaces.FSprColor
 p3rpc.nativetypes.Interfaces.FCurrentBmdPage.BmdBufferPage -> nint
@@ -4249,6 +4266,7 @@ p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Delete<TArrayType>(p3rpc.nati
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Insert<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Insert<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry, int index) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TMap_Insert<KeyType, ValueType>(p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>* map, KeyType key, ValueType val) -> bool
+p3rpc.nativetypes.Interfaces.IMemoryMethods.TMap_InsertNoInit<KeyType, ValueType>(p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>* map, KeyType key, ValueType val) -> bool
 p3rpc.nativetypes.Interfaces.ItemBag
 p3rpc.nativetypes.Interfaces.ItemBag.GetAccessoryCount(int i) -> byte
 p3rpc.nativetypes.Interfaces.ItemBag.GetArmorCount(int i) -> byte
@@ -4486,6 +4504,7 @@ p3rpc.nativetypes.Interfaces.UAppMultiDataAsset.baseObj -> p3rpc.nativetypes.Int
 p3rpc.nativetypes.Interfaces.UAppMultiDataAsset.UAppMultiDataAsset() -> void
 p3rpc.nativetypes.Interfaces.UArcAsset
 p3rpc.nativetypes.Interfaces.UArcAsset.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.UArcAsset.GetFile(string! name, out int size) -> byte*
 p3rpc.nativetypes.Interfaces.UArcAsset.mBuffer_ -> p3rpc.nativetypes.Interfaces.TArray<byte>
 p3rpc.nativetypes.Interfaces.UArcAsset.UArcAsset() -> void
 p3rpc.nativetypes.Interfaces.UAssetLoader
@@ -4782,6 +4801,8 @@ p3rpc.nativetypes.Interfaces.UFldCharParamTable.Data -> p3rpc.nativetypes.Interf
 p3rpc.nativetypes.Interfaces.UFldCharParamTable.UFldCharParamTable() -> void
 p3rpc.nativetypes.Interfaces.UFldCommonData
 p3rpc.nativetypes.Interfaces.UFldCommonData.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.UFldCommonData.CmmExistEntry -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry>**
+p3rpc.nativetypes.Interfaces.UFldCommonData.GetDataTable(int id) -> p3rpc.nativetypes.Interfaces.UDataTable*
 p3rpc.nativetypes.Interfaces.UFldCommonData.mActor_ -> p3rpc.nativetypes.Interfaces.AFldCmnDataActor*
 p3rpc.nativetypes.Interfaces.UFldCommonData.mBossBattleActor_ -> p3rpc.nativetypes.Interfaces.AFldBossBattleScript*
 p3rpc.nativetypes.Interfaces.UFldCommonData.mBpClass_ -> p3rpc.nativetypes.Interfaces.UClass*
