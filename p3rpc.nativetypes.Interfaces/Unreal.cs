@@ -962,6 +962,8 @@ public struct FRotator
     float Yaw;                                                                        // 0x0004 (size: 0x4)
     float Roll;                                                                       // 0x0008 (size: 0x4)
 
+    public FRotator(float pitch, float yaw, float roll) { Pitch = pitch; Yaw = yaw; Roll = roll; }
+
 }; // Size: 0xC
 
 [StructLayout(LayoutKind.Explicit, Size = 0x1A0)]
@@ -1118,7 +1120,12 @@ public unsafe struct AActor // : UObject
 [StructLayout(LayoutKind.Explicit, Size = 0x10)]
 public unsafe struct FGuid
 {
+    [FieldOffset(0x0)] public uint A;
+    [FieldOffset(0x4)] public uint B;
+    [FieldOffset(0x8)] public uint C;
+    [FieldOffset(0xc)] public uint D;
 
+    public override string ToString() => $"{A:X}-{B:X}-{C:X}-{D:X}";
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x440)]
@@ -1396,9 +1403,9 @@ public unsafe struct UWorld //: public UObject
     //[FieldOffset(0x0060)] public UPhysicsCollisionHandler* PhysicsCollisionHandler;
     //[FieldOffset(0x0068)] public TArray<nint> ExtraReferencedObjects;
     //[FieldOffset(0x0078)] public TArray<nint> PerModuleDataObjects;
-    //[FieldOffset(0x0088)] public TArray<nint> StreamingLevels;
+    [FieldOffset(0x0088)] public TArray<nint> StreamingLevels; // TArray<ULevelStreaming*>
     //[FieldOffset(0x0098)] public FStreamingLevelsToConsider StreamingLevelsToConsider;
-    //[FieldOffset(0x00C0)] public FString StreamingLevelsPrefix;
+    [FieldOffset(0x00C0)] public FString StreamingLevelsPrefix;
     [FieldOffset(0x00D0)] public ULevel* CurrentLevelPendingVisibility;
     [FieldOffset(0x00D8)] public ULevel* CurrentLevelPendingInvisibility;
     //[FieldOffset(0x00E0)] public UDemoNetDriver* DemoNetDriver;
@@ -1423,6 +1430,12 @@ public unsafe struct UWorld //: public UObject
     //[FieldOffset(0x05E0)] public UWorldComposition* WorldComposition;
     //[FieldOffset(0x0678)] public FWorldPSCPool PSCPool;
 };
+
+[StructLayout(LayoutKind.Explicit, Size = 0x28)]
+public unsafe struct ULevelStreaming
+{
+
+}
 
 public enum ERichCurveExtrapolation : byte
 {

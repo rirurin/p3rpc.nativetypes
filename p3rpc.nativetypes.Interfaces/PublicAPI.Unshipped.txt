@@ -1,5 +1,6 @@
 ﻿#nullable enable
 override p3rpc.nativetypes.Interfaces.FColor.ToString() -> string
+override p3rpc.nativetypes.Interfaces.FGuid.ToString() -> string!
 override p3rpc.nativetypes.Interfaces.FLinearColor.ToString() -> string
 override p3rpc.nativetypes.Interfaces.FSprColor.ToString() -> string
 override p3rpc.nativetypes.Interfaces.FString.ToString() -> string
@@ -876,6 +877,47 @@ p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod.EActorUpdateOverlapsMeth
 p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod.NeverUpdate = 3 -> p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod
 p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod.OnlyUpdateMovable = 2 -> p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod
 p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod.UseConfigDefault = 0 -> p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod
+p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.CutinDraw = 29 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.FclAntiqueShop = 35 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.FclItemShop = 31 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.FclSimpleShop = 34 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.FclWeaponShop = 30 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.GenericSelect = 36 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.MailActor = 32 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.NameEntry = 37 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.TheurgiaActor = 33 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIAccessInfoDraw = 8 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIActionSuggestionDraw = 7 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UICampPartyPanel = 12 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UICommunityPointDraw = 22 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIConfiguration = 41 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIDateDraw = 5 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIDayChange = 25 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIDungeonTransfer = 26 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIFieldPartyPanel = 11 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIGetHeroParameterDraw = 21 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIHeroParameterStatus = 28 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIKeyhelpDraw = 6 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMailIconDraw = 9 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMiscCheckDraw = 3 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMiscCinemascopeDraw = 1 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMiscEnemySymbolDraw = 20 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMiscGetItemDraw = 2 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMiscMoneyDraw = 0 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMiscPictureDraw = 27 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMiscSupportPartyPanel = 23 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIMissingPersonActor = 42 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIPartyPanel = 10 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIRankupDraw = 13 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UITimeChange = 24 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UITownMapActorDraw = 4 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIVelvetRoom = 14 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIVelvetRoomRequest = 15 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.UIVoiceConnectWatching = 43 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.VoiceAction = 38 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.VoiceAnswer = 39 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppActorId.VoiceConnect = 40 -> p3rpc.nativetypes.Interfaces.EAppActorId
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag.Always = 255 -> p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag.CampUI = 1 -> p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
@@ -1137,6 +1179,15 @@ p3rpc.nativetypes.Interfaces.EFldCharKeyType.Square = 3 -> p3rpc.nativetypes.Int
 p3rpc.nativetypes.Interfaces.EFldCharKeyType.TOUCH = 16 -> p3rpc.nativetypes.Interfaces.EFldCharKeyType
 p3rpc.nativetypes.Interfaces.EFldCharKeyType.Triangle = 1 -> p3rpc.nativetypes.Interfaces.EFldCharKeyType
 p3rpc.nativetypes.Interfaces.EFldCharKeyType.Up = 5 -> p3rpc.nativetypes.Interfaces.EFldCharKeyType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType.Action = 4 -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType.Check = 0 -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType.Goto = 3 -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType.Listen = 2 -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType.Max = 7 -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType.None = 6 -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType.Shop = 5 -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType.Speak = 1 -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
 p3rpc.nativetypes.Interfaces.EFrictionCombineModeType
 p3rpc.nativetypes.Interfaces.EFrictionCombineModeType.Average = 0 -> p3rpc.nativetypes.Interfaces.EFrictionCombineModeType
 p3rpc.nativetypes.Interfaces.EFrictionCombineModeType.Max = 3 -> p3rpc.nativetypes.Interfaces.EFrictionCombineModeType
@@ -2915,6 +2966,10 @@ p3rpc.nativetypes.Interfaces.FGetUIParameter
 p3rpc.nativetypes.Interfaces.FGetUIParameter.AssetLoader -> p3rpc.nativetypes.Interfaces.UAssetLoader*
 p3rpc.nativetypes.Interfaces.FGetUIParameter.FGetUIParameter() -> void
 p3rpc.nativetypes.Interfaces.FGuid
+p3rpc.nativetypes.Interfaces.FGuid.A -> uint
+p3rpc.nativetypes.Interfaces.FGuid.B -> uint
+p3rpc.nativetypes.Interfaces.FGuid.C -> uint
+p3rpc.nativetypes.Interfaces.FGuid.D -> uint
 p3rpc.nativetypes.Interfaces.FGuid.FGuid() -> void
 p3rpc.nativetypes.Interfaces.FHeroParameterTable
 p3rpc.nativetypes.Interfaces.FHeroParameterTable.FHeroParameterTable() -> void
@@ -4042,6 +4097,7 @@ p3rpc.nativetypes.Interfaces.FRichCurveKey
 p3rpc.nativetypes.Interfaces.FRichCurveKey.FRichCurveKey() -> void
 p3rpc.nativetypes.Interfaces.FRotator
 p3rpc.nativetypes.Interfaces.FRotator.FRotator() -> void
+p3rpc.nativetypes.Interfaces.FRotator.FRotator(float pitch, float yaw, float roll) -> void
 p3rpc.nativetypes.Interfaces.FRumbleData
 p3rpc.nativetypes.Interfaces.FRumbleData.Broken -> p3rpc.nativetypes.Interfaces.FRumbleParam
 p3rpc.nativetypes.Interfaces.FRumbleData.Encount -> p3rpc.nativetypes.Interfaces.FRumbleParam
@@ -4248,6 +4304,10 @@ p3rpc.nativetypes.Interfaces.ICommonMethods.GetPrivateStaticClassBody
 p3rpc.nativetypes.Interfaces.ICommonMethods.GetUGlobalWork
 p3rpc.nativetypes.Interfaces.ICommonMethods.StaticConstructObject_Internal
 p3rpc.nativetypes.Interfaces.ICommonMethods.UGlobalWork_GetUUIResources
+p3rpc.nativetypes.Interfaces.IContactManagerPayload
+p3rpc.nativetypes.Interfaces.IContactManagerPayload.Base() -> p3rpc.nativetypes.Interfaces.UUIContactManagerPayload*
+p3rpc.nativetypes.Interfaces.IContactManagerPayload.Get<TPayload>() -> TPayload*
+p3rpc.nativetypes.Interfaces.IContactManagerPayload.GetPayloadType() -> p3rpc.nativetypes.Interfaces.EAppActorId
 p3rpc.nativetypes.Interfaces.IMapHashable
 p3rpc.nativetypes.Interfaces.IMapHashable.GetTypeHash() -> uint
 p3rpc.nativetypes.Interfaces.IMemoryMethods
@@ -4913,6 +4973,16 @@ p3rpc.nativetypes.Interfaces.UHeroParameterHandle.baseObj -> p3rpc.nativetypes.I
 p3rpc.nativetypes.Interfaces.UHeroParameterHandle.pDataAsset -> p3rpc.nativetypes.Interfaces.UHeroParameterDataAsset*
 p3rpc.nativetypes.Interfaces.UHeroParameterHandle.pParameterNameTable -> p3rpc.nativetypes.Interfaces.UDataTable*
 p3rpc.nativetypes.Interfaces.UHeroParameterHandle.UHeroParameterHandle() -> void
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.arcana -> int
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.Base() -> p3rpc.nativetypes.Interfaces.UUIContactManagerPayload*
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.bIsCmmNpc -> byte
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.charName -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.Get<TPayload>() -> TPayload*
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.GetPayloadType() -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.iconType -> p3rpc.nativetypes.Interfaces.EFldHitCoreCheckIconType
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.rank -> int
+p3rpc.nativetypes.Interfaces.UICheckDrawPayload.UICheckDrawPayload() -> void
 p3rpc.nativetypes.Interfaces.UIComponentBlendType
 p3rpc.nativetypes.Interfaces.UIComponentBlendType.Add = 2 -> p3rpc.nativetypes.Interfaces.UIComponentBlendType
 p3rpc.nativetypes.Interfaces.UIComponentBlendType.Add2 = 7 -> p3rpc.nativetypes.Interfaces.UIComponentBlendType
@@ -4932,6 +5002,13 @@ p3rpc.nativetypes.Interfaces.UIGenericSelectDrawTitleType.Item = 2 -> p3rpc.nati
 p3rpc.nativetypes.Interfaces.UIGenericSelectDrawTitleType.List = 0 -> p3rpc.nativetypes.Interfaces.UIGenericSelectDrawTitleType
 p3rpc.nativetypes.Interfaces.UIGenericSelectDrawTitleType.Nothing = 3 -> p3rpc.nativetypes.Interfaces.UIGenericSelectDrawTitleType
 p3rpc.nativetypes.Interfaces.UIGenericSelectDrawTitleType.Select = 1 -> p3rpc.nativetypes.Interfaces.UIGenericSelectDrawTitleType
+p3rpc.nativetypes.Interfaces.UIRankupDrawPayload
+p3rpc.nativetypes.Interfaces.UIRankupDrawPayload.ArcanaNo -> int
+p3rpc.nativetypes.Interfaces.UIRankupDrawPayload.Base() -> p3rpc.nativetypes.Interfaces.UUIContactManagerPayload*
+p3rpc.nativetypes.Interfaces.UIRankupDrawPayload.Get<TPayload>() -> TPayload*
+p3rpc.nativetypes.Interfaces.UIRankupDrawPayload.GetPayloadType() -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.UIRankupDrawPayload.ModeNo -> int
+p3rpc.nativetypes.Interfaces.UIRankupDrawPayload.UIRankupDrawPayload() -> void
 p3rpc.nativetypes.Interfaces.ULeaderBoardManager
 p3rpc.nativetypes.Interfaces.ULeaderBoardManager.baseObj -> p3rpc.nativetypes.Interfaces.UObject
 p3rpc.nativetypes.Interfaces.ULeaderBoardManager.ULeaderBoardManager() -> void
@@ -4964,6 +5041,8 @@ p3rpc.nativetypes.Interfaces.ULevelSequencePlayer
 p3rpc.nativetypes.Interfaces.ULevelSequencePlayer.baseObj -> p3rpc.nativetypes.Interfaces.UMovieSceneSequencePlayer
 p3rpc.nativetypes.Interfaces.ULevelSequencePlayer.GetLevelSequence() -> p3rpc.nativetypes.Interfaces.ULevelSequence*
 p3rpc.nativetypes.Interfaces.ULevelSequencePlayer.ULevelSequencePlayer() -> void
+p3rpc.nativetypes.Interfaces.ULevelStreaming
+p3rpc.nativetypes.Interfaces.ULevelStreaming.ULevelStreaming() -> void
 p3rpc.nativetypes.Interfaces.UMaterial
 p3rpc.nativetypes.Interfaces.UMaterial.UMaterial() -> void
 p3rpc.nativetypes.Interfaces.UMaterialInstance
@@ -5378,6 +5457,13 @@ p3rpc.nativetypes.Interfaces.UUICmpStatus.pMainActor -> p3rpc.nativetypes.Interf
 p3rpc.nativetypes.Interfaces.UUICmpStatus.pParent -> p3rpc.nativetypes.Interfaces.UCmpStatus*
 p3rpc.nativetypes.Interfaces.UUICmpStatus.PSStatusActor_ -> p3rpc.nativetypes.Interfaces.APersonaStatus*
 p3rpc.nativetypes.Interfaces.UUICmpStatus.UUICmpStatus() -> void
+p3rpc.nativetypes.Interfaces.UUIContactManagerPayload
+p3rpc.nativetypes.Interfaces.UUIContactManagerPayload.Base() -> p3rpc.nativetypes.Interfaces.UUIContactManagerPayload*
+p3rpc.nativetypes.Interfaces.UUIContactManagerPayload.Get<TPayload>() -> TPayload*
+p3rpc.nativetypes.Interfaces.UUIContactManagerPayload.GetPayloadType() -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.UUIContactManagerPayload.msgId -> int
+p3rpc.nativetypes.Interfaces.UUIContactManagerPayload.payloadType -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.UUIContactManagerPayload.UUIContactManagerPayload() -> void
 p3rpc.nativetypes.Interfaces.UUIGenericSelectCharacter
 p3rpc.nativetypes.Interfaces.UUIGenericSelectCharacter.UUIGenericSelectCharacter() -> void
 p3rpc.nativetypes.Interfaces.UUILayoutDataTable
@@ -5499,6 +5585,8 @@ p3rpc.nativetypes.Interfaces.UWorld
 p3rpc.nativetypes.Interfaces.UWorld.CurrentLevelPendingInvisibility -> p3rpc.nativetypes.Interfaces.ULevel*
 p3rpc.nativetypes.Interfaces.UWorld.CurrentLevelPendingVisibility -> p3rpc.nativetypes.Interfaces.ULevel*
 p3rpc.nativetypes.Interfaces.UWorld.PersistentLevel -> p3rpc.nativetypes.Interfaces.ULevel*
+p3rpc.nativetypes.Interfaces.UWorld.StreamingLevels -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UWorld.StreamingLevelsPrefix -> p3rpc.nativetypes.Interfaces.FString
 p3rpc.nativetypes.Interfaces.UWorld.UWorld() -> void
 p3rpc.nativetypes.Interfaces.UXRD777SaveGame
 p3rpc.nativetypes.Interfaces.UXRD777SaveGame.SaveDataArea -> uint

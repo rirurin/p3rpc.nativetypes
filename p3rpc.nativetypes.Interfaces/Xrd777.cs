@@ -4530,3 +4530,51 @@ public unsafe struct FBD_CmmExistEntry
         }
     }
 }
+
+public interface IContactManagerPayload
+{
+    public unsafe TPayload* Get<TPayload>() where TPayload : unmanaged, IContactManagerPayload;
+    public unsafe UUIContactManagerPayload* Base();
+    public EAppActorId GetPayloadType();
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct UUIContactManagerPayload : IContactManagerPayload
+{
+    [FieldOffset(0x0)] public EAppActorId payloadType;
+    [FieldOffset(0x4)] public int msgId;
+    public unsafe TPayload* Get<TPayload>() where TPayload : unmanaged, IContactManagerPayload
+    { fixed (UUIContactManagerPayload* self = &this) { return (TPayload*)(self + 1); } }
+    public unsafe UUIContactManagerPayload* Base()
+    { fixed (UUIContactManagerPayload* self = &this) { return self; } }
+    public EAppActorId GetPayloadType() => payloadType;
+}
+
+// from FieldActorGetInteractNameImpl
+[StructLayout(LayoutKind.Explicit, Size = 0x78)]
+public unsafe struct UICheckDrawPayload : IContactManagerPayload
+{
+    [FieldOffset(0x1c)] public int rank;
+    [FieldOffset(0x20)] public int arcana;
+    [FieldOffset(0x24)] public EFldHitCoreCheckIconType iconType;
+    [FieldOffset(0x28)] public byte bIsCmmNpc;
+    [FieldOffset(0x50)] public FString charName;
+    public unsafe TPayload* Get<TPayload>() where TPayload : unmanaged, IContactManagerPayload
+    { fixed (UICheckDrawPayload* self = &this) { return (TPayload*)self; } }
+    public unsafe UUIContactManagerPayload* Base()
+    { fixed (UICheckDrawPayload* self = &this) { return (UUIContactManagerPayload*)((nint)self - 0x8); } }
+    public EAppActorId GetPayloadType() => Base()->payloadType;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x78)]
+public unsafe struct UIRankupDrawPayload : IContactManagerPayload
+{
+    [FieldOffset(0x2c)] public int ArcanaNo;
+    [FieldOffset(0x30)] public int ModeNo;
+    public unsafe TPayload* Get<TPayload>() where TPayload : unmanaged, IContactManagerPayload
+    { fixed (UIRankupDrawPayload* self = &this) { return (TPayload*)self; } }
+    public unsafe UUIContactManagerPayload* Base()
+    { fixed (UIRankupDrawPayload* self = &this) { return (UUIContactManagerPayload*)((nint)self - 0x8); } }
+
+    public EAppActorId GetPayloadType() => Base()->payloadType;
+}
