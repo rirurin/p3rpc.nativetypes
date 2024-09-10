@@ -1,0 +1,262 @@
+﻿using System.Runtime.InteropServices;
+namespace p3rpc.nativetypes.Interfaces.Astrea;
+
+[StructLayout(LayoutKind.Explicit, Size = 0x378)]
+public unsafe struct UAgePanel
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0038)] public USprAsset* _readSpr;
+    [FieldOffset(0x0040)] public USprAsset* _readSprAstrea;
+    [FieldOffset(0x0048)] public UMaterial* _readMat;
+    [FieldOffset(0x0058)] public UMaterialInstanceDynamic* _readMatInst;
+    [FieldOffset(0x0068)] public FCurveVectorAnimation _fadeCurve;
+    [FieldOffset(0xb0)] public bool bIsDarkHour;
+    [FieldOffset(0x278)] public UAgePanelSection BottomMaterial;
+    [FieldOffset(0x2a8)] public UAgePanelSection TopMaterial;
+    [FieldOffset(0x02F0)] public UAssetLoader* Loader_;
+    [FieldOffset(0x2f8)] public uint ActiveDrawTypeId;
+    [FieldOffset(0x318)] public FLinearColor BottomColorNormal;
+    [FieldOffset(0x328)] public FLinearColor BottomColorDarkHour;
+    [FieldOffset(0x338)] public FLinearColor TopColorNormal;
+    [FieldOffset(0x348)] public FLinearColor TopColorDarkHour;
+    [FieldOffset(0x358)] public FLinearColor WaterColorNormal;
+    [FieldOffset(0x368)] public FLinearColor WaterColorDarkHour;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x7F8)]
+public unsafe struct AUIDateDraw
+{
+    [FieldOffset(0x0000)] public AUIBaseActor baseObj;
+    [FieldOffset(0x02A8)] public UAgePanel* m_pAgePanel;
+    [FieldOffset(0x02B0)] public USprAsset* m_pFieldSpr;
+    [FieldOffset(0x02B8)] public USprAsset* m_pFieldSprAstrea;
+    [FieldOffset(0x408)] public SprDefStruct1 TimeOfDayParams;
+    [FieldOffset(0x7b5)] public byte TimeOfDay;
+    [FieldOffset(0x07D8)] public UDataTable* LayoutData;
+    [FieldOffset(0x07E0)] public UUILayoutDataTable* LayoutDataTable;
+    [FieldOffset(0x07E8)] public UDataTable* LayoutDataAstrea;
+    [FieldOffset(0x07F0)] public UUILayoutDataTable* LayoutDataTableAstrea;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1110)]
+public unsafe struct AUIAccessInfoDraw
+{
+    [FieldOffset(0x0000)] public AUIBaseActor baseObj;
+    [FieldOffset(0x02F0)] public USprAsset* m_pMiniMapSpr;
+    [FieldOffset(0x02F8)] public USprAsset* m_pMiniMapSprAstrea;
+    [FieldOffset(0x0300)] public USprAsset* m_pPlaceSpr;
+    [FieldOffset(0x0308)] public USprAsset* m_pPlaceSprAstrea;
+    [FieldOffset(0x0310)] public UUIMiniMapDraw* m_pMiniMap;
+    [FieldOffset(0x0318)] public UAssetLoader* m_pLoader;
+    //[FieldOffset(0x0320)] public AScrActor* m_pScrActor;
+    [FieldOffset(0x0328)] public UBfAsset* m_pBfAsset;
+    [FieldOffset(0x0330)] public UBmdAsset* m_pBmdAsset;
+    [FieldOffset(0x0338)] public UUILocationSelect* m_pLocationSelect;
+    [FieldOffset(0x0340)] public UPlgAsset* m_pPlacePlg;
+    [FieldOffset(0x0348)] public UPlgAsset* m_pPlacePlgAstrea;
+    [FieldOffset(0x0E88)] public FGetUIParameter m_tagUip;
+    [FieldOffset(0x0F00)] public FCurveFloatAnimation m_tagFadeInCurve;
+    [FieldOffset(0x0F30)] public FCurveFloatAnimation m_tagFadeOutCurve;
+    [FieldOffset(0xf8c)] public FSprColor PlaceInfoBgColor;
+    [FieldOffset(0x0FB8)] public UDataTable* LayoutData;
+    [FieldOffset(0x0FC0)] public UUILayoutDataTable* LayoutDataTable;
+    [FieldOffset(0x0FC8)] public UDataTable* LayoutParamData;
+    [FieldOffset(0x0FD0)] public UDataTable* PlaceNameLayoutData;
+    [FieldOffset(0x0FD8)] public UUILayoutDataTable* PlaceNameLayoutDataTable;
+    [FieldOffset(0x0FE0)] public UDataTable* PlaceNameLayoutDataAstrea;
+    [FieldOffset(0x0FE8)] public UUILayoutDataTable* PlaceNameLayoutDataTableAstrea;
+    [FieldOffset(0x0FF0)] public UDataTable* MapNameLayoutData;
+    [FieldOffset(0x0FF8)] public UUILayoutDataTable* MapNameLayoutDataTable;
+    [FieldOffset(0x1000)] public UDataTable* IwatodaiFloorNoLayoutData;
+    [FieldOffset(0x1008)] public UUILayoutDataTable* IwatodaiFloorNoLayoutDataTable;
+    [FieldOffset(0x1010)] public UDataTable* MallFloorNoLayoutData;
+    [FieldOffset(0x1018)] public UUILayoutDataTable* MallFloorNoLayoutDataTable;
+    [FieldOffset(0x1020)] public UDataTable* SchoolFloorNoLayoutData;
+    [FieldOffset(0x1028)] public UUILayoutDataTable* SchoolFloorNoLayoutDataTable;
+    [FieldOffset(0x1030)] public UDataTable* DormitoryFloorNoLayoutData;
+    [FieldOffset(0x1038)] public UUILayoutDataTable* DormitoryFloorNoLayoutDataTable;
+    [FieldOffset(0x1040)] public UDataTable* RyokanFloorNoLayoutData;
+    [FieldOffset(0x1048)] public UUILayoutDataTable* RyokanFloorNoLayoutDataTable;
+    [FieldOffset(0x1050)] public UDataTable* HotelFloorNoLayoutData;
+    [FieldOffset(0x1058)] public UUILayoutDataTable* HotelFloorNoLayoutDataTable;
+    [FieldOffset(0x1060)] public UDataTable* ThebelFloorNoLayoutData;
+    [FieldOffset(0x1068)] public UUILayoutDataTable* ThebelFloorNoLayoutDataTable;
+    [FieldOffset(0x1070)] public UDataTable* ArqaFloorNoLayoutData;
+    [FieldOffset(0x1078)] public UUILayoutDataTable* ArqaFloorNoLayoutDataTable;
+    [FieldOffset(0x1080)] public UDataTable* YabbashahFloorNoLayoutData;
+    [FieldOffset(0x1088)] public UUILayoutDataTable* YabbashahFloorNoLayoutDataTable;
+    [FieldOffset(0x1090)] public UDataTable* TziahFloorNoLayoutData;
+    [FieldOffset(0x1098)] public UUILayoutDataTable* TziahFloorNoLayoutDataTable;
+    [FieldOffset(0x10A0)] public UDataTable* HarabahFloorNoLayoutData;
+    [FieldOffset(0x10A8)] public UUILayoutDataTable* HarabahFloorNoLayoutDataTable;
+    [FieldOffset(0x10B0)] public UDataTable* AdamahFloorNoLayoutData;
+    [FieldOffset(0x10B8)] public UUILayoutDataTable* AdamahFloorNoLayoutDataTable;
+    [FieldOffset(0x10C0)] public TArray<IntPtr> DungeonFloorNoLayoutDataAstrea;
+    [FieldOffset(0x10D0)] public TArray<IntPtr> DungeonFloorNoLayoutDataTableAstrea;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x250)]
+public unsafe struct UMsgProcWindow_Mind
+{
+    [FieldOffset(0x0000)] public UMsgProcWindowBase baseObj;
+    [FieldOffset(0x0108)] public UAssetLoader* Loader_;
+    [FieldOffset(0x0110)] public UMaterial* ReadMat_;
+    [FieldOffset(0x0118)] public UMaterial* ReadaddMat_;
+    [FieldOffset(0x0120)] public UMaterial* ReadblurMat_;
+    [FieldOffset(0x0128)] public UMaterial* ReadlineMat_;
+    [FieldOffset(0x0130)] public UMaterialInstanceDynamic* ReadMatInst_;
+    [FieldOffset(0x0138)] public UMaterialInstanceDynamic* ReadaddMatInst_;
+    [FieldOffset(0x0140)] public UMaterialInstanceDynamic* ReadblurMatInst_;
+    [FieldOffset(0x0148)] public UMaterialInstanceDynamic* ReadlineMatInst_;
+    [FieldOffset(0x0150)] public USprAsset* _readSpr;
+    [FieldOffset(0x0158)] public UPlgAsset* MsgPlg_;
+    [FieldOffset(0x168)] public UMsgProcWindow_Simple_NextPageParams NextPage;
+    [FieldOffset(0x1a8)] public float leftSpotBgOpacity1;
+    [FieldOffset(0x1bc)] public float leftSpotBgOpacity2;
+    [FieldOffset(0x204)] public FLinearColor OuterBorderColor;
+    [FieldOffset(0x214)] public FLinearColor InnerContentsColor;
+    [FieldOffset(0x224)] public FLinearColor OutsideMistColor;
+    [FieldOffset(0x0238)] public UUILayoutDataTable* LayoutDataTable;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x31E0)]
+public unsafe struct ACmpMainActor
+{
+    [FieldOffset(0x0000)] public AAppActor baseObj;
+    [FieldOffset(0x12C8)] public UAssetLoader* pAssetLoader;
+    //[FieldOffset(0x12D0)] public TSubclassOf<ACampSceneCapture> SceneCaptureClass;
+    //[FieldOffset(0x12D8)] public ACampSceneCapture* pSceneCapture2D;
+    [FieldOffset(0x12E0)] public UMaterialInstance* pCaptureMaterial;
+    [FieldOffset(0x12E8)] public UMaterialInstanceDynamic* pCaptureInstanceDynamic;
+    [FieldOffset(0x12F0)] public UMaterialInstance* pOutlineMaterial;
+    [FieldOffset(0x12F8)] public UMaterialInstanceDynamic* pOutlineInstanceDynamic;
+    [FieldOffset(0x1300)] public UMaterial* pSimpleCopyMaterial;
+    [FieldOffset(0x1308)] public UMaterialInstanceDynamic* pSimpleCopyMateDynamic;
+    [FieldOffset(0x1310)] public UMaterial* pHologramMaterial;
+    [FieldOffset(0x1318)] public UMaterialInstanceDynamic* pHologramMateDynamic;
+    [FieldOffset(0x1320)] public UTexture2D* HologMaskTexAAry;
+    [FieldOffset(0x1328)] public UTexture2D* HologMaskTexBAry;
+    [FieldOffset(0x1330)] public UTexture2D* HologMaskTexCAry;
+    [FieldOffset(0x1338)] public UTexture2D* HologMaskTexDAry;
+    [FieldOffset(0x1348)] public UMaterialInstanceDynamic* pGlassMateDynamic;
+    //[FieldOffset(0x1350)] public UTextureRenderTarget2D* pCaptureRenderTarget;
+    [FieldOffset(0x1358)] public UTexture2D* HeroGaussMaskTexAry;
+    [FieldOffset(0x13B0)] public UTexture2D* pOutAnimationTexture;
+    [FieldOffset(0x13B8)] public USprAsset* pSprCommon;
+    [FieldOffset(0x13C0)] public UUimAsset* pUimBgAry;
+    [FieldOffset(0x13D0)] public UDataTable* pParamHologTable;
+    [FieldOffset(0x13D8)] public UDataTable* pParamTopTable;
+    [FieldOffset(0x13E0)] public UDataTable* pParamSkillTable;
+    [FieldOffset(0x13E8)] public UDataTable* pParamItemTable;
+    [FieldOffset(0x13F0)] public UDataTable* pParamEquipTable;
+    [FieldOffset(0x13F8)] public UDataTable* pParamPersonaTable;
+    [FieldOffset(0x1400)] public UDataTable* pParamStatusTable;
+    [FieldOffset(0x1408)] public UDataTable* pParamRankUpTable;
+    [FieldOffset(0x1410)] public UDataTable* pParamCommuTable;
+    [FieldOffset(0x1418)] public UDataTable* pParamSystemTable;
+    [FieldOffset(0x1420)] public UDataTable* pParamCommonTable;
+    [FieldOffset(0x1428)] public UDataTable* pCameraTable;
+    [FieldOffset(0x1430)] public UDataTable* pHologramTable;
+    [FieldOffset(0x1438)] public UDataTable* pCharaLookAdjustTable;
+    //[FieldOffset(0x1440)] public UMaterialParameterCollection* pCharaLookAdjustMPC;
+    [FieldOffset(0x1448)] public UMaterial* pMateWaveCaustics;
+    [FieldOffset(0x1450)] public FGetUIParameter m_SlashColorParameter;
+    [FieldOffset(0x14C8)] public UDataTable* pParamLayoutDataRoot;
+    [FieldOffset(0x14D0)] public UDataTable* pParamLayoutDataSystem;
+    [FieldOffset(0x14D8)] public UDataTable* pParamTriangularCursorDataRoot;
+    [FieldOffset(0x14E0)] public UDataTable* pParamTriangularCursorDataSystem;
+    [FieldOffset(0x14E8)] public UDataTable* pParamLayoutDataQuest;
+    [FieldOffset(0x14F0)] public UDataTable* pParamLayoutDataQuestDate;
+    [FieldOffset(0x14F8)] public UDataTable* pParamLayoutPersonaList;
+    [FieldOffset(0x1500)] public UDataTable* pParamLayoutDataItem;
+    [FieldOffset(0x1508)] public UDataTable* pParamLayoutDataSkill;
+    [FieldOffset(0x1510)] public UDataTable* pParamLayoutDataSkill2;
+    [FieldOffset(0x1518)] public UDataTable* pParamLayoutDataOthers;
+    [FieldOffset(0x1520)] public UDataTable* pParamLayoutDataOthersAstrea;
+    [FieldOffset(0x1528)] public UDataTable* pParamLayoutDataHelpOthers;
+    [FieldOffset(0x1530)] public UDataTable* pParamLayoutDataPartyPanel;
+    [FieldOffset(0x1538)] public UDataTable* pParamLayoutDataTutorialText;
+    [FieldOffset(0x1540)] public UDataTable* pParamLayoutDataDictionaryText;
+    [FieldOffset(0x1548)] public UDataTable* pParamLayoutDataCalendarText;
+    [FieldOffset(0x1550)] public UDataTable* pParamLayoutDataEquipTextCol;
+    [FieldOffset(0x1558)] public UDataTable* pParamLayoutDataItemTextCol;
+    [FieldOffset(0x1560)] public UDataTable* pParamLayoutDataQuestTextCol;
+    [FieldOffset(0x1568)] public UDataTable* pParamLayoutDataQuestTextPos;
+    [FieldOffset(0x1570)] public UDataTable* pParamLayoutDataQuestTextPosAstrea;
+    [FieldOffset(0x1578)] public UDataTable* pParamLayoutDataQuestTextColAstrea;
+    [FieldOffset(0x1580)] public UDataTable* pParamLayoutDataCommuTextCol;
+    [FieldOffset(0x1588)] public UDataTable* pParamLayoutDataStatusTextCol;
+    [FieldOffset(0x1590)] public UDataTable* pParamLayoutDataOkNext;
+    [FieldOffset(0x1598)] public UDataTable* pParamLayoutDataOkNextMask;
+    [FieldOffset(0x15A0)] public UDataTable* pParamLayoutDataRootTouchColl;
+    [FieldOffset(0x15A8)] public UDataTable* pParamLayoutDataSystemTouchColl;
+    [FieldOffset(0x15B0)] public UUimAsset* pUimNamiRootAAry;
+    [FieldOffset(0x16A0)] public UUimAsset* pUimNamiRootBAry;
+    [FieldOffset(0x1790)] public UUimAsset* pUimNamiSkillAAry;
+    [FieldOffset(0x1880)] public UUimAsset* pUimNamiSkillBAry;
+    [FieldOffset(0x1970)] public UUimAsset* pUimNamiItemAAry;
+    [FieldOffset(0x1A60)] public UUimAsset* pUimNamiItemBAry;
+    [FieldOffset(0x1B50)] public UUimAsset* pUimNamiEquipAAry;
+    [FieldOffset(0x1C40)] public UUimAsset* pUimNamiEquipBAry;
+    [FieldOffset(0x1D30)] public UUimAsset* pUimNamiPersonaAAry;
+    [FieldOffset(0x1E20)] public UUimAsset* pUimNamiPersonaBAry;
+    [FieldOffset(0x1F10)] public UUimAsset* pUimNamiStatusAAry;
+    [FieldOffset(0x2000)] public UUimAsset* pUimNamiStatusBAry;
+    [FieldOffset(0x20F0)] public UUimAsset* pUimNamiQuestAAry;
+    [FieldOffset(0x21E0)] public UUimAsset* pUimNamiQuestBAry;
+    [FieldOffset(0x22D0)] public UUimAsset* pUimNamiCommuAAry;
+    [FieldOffset(0x23C0)] public UUimAsset* pUimNamiCommuBAry;
+    [FieldOffset(0x24B0)] public UUimAsset* pUimNamiCalendarAAry;
+    [FieldOffset(0x25A0)] public UUimAsset* pUimNamiCalendarBAry;
+    [FieldOffset(0x2690)] public UUimAsset* pUimNamiSystemAAry;
+    [FieldOffset(0x2780)] public UUimAsset* pUimNamiSystemBAry;
+    [FieldOffset(0x2870)] public UUimAsset* pUimNamiTutorialAAry;
+    [FieldOffset(0x2960)] public UUimAsset* pUimNamiTutorialBAry;
+    [FieldOffset(0x2A50)] public UUimAsset* pUimNamiConfigAAry;
+    [FieldOffset(0x2B40)] public UUimAsset* pUimNamiConfigBAry;
+    [FieldOffset(0x2C30)] public UTexture2D* pCharaGlassAry;
+    [FieldOffset(0x2C90)] public UTexture2D* pCharaDetailAry;
+    [FieldOffset(0x2CF0)] public UTexture2D* pCharaDetailShdAry;
+    [FieldOffset(0x2D70)] public TArray<IntPtr> MenuList;
+    [FieldOffset(0x2D88)] public UCmpMenuBase* pCurrentMenu;
+    [FieldOffset(0x2D90)] public UCmpMenuBase* pNextMenu;
+    [FieldOffset(0x2D98)] public UCmpMenuBase* pPrevMenu;
+    //[FieldOffset(0x2DA0)] public UCampModelController* pModelController;
+    //[FieldOffset(0x2DA8)] public ACmpMainLoadActor* pCmpMainLoadActor;
+    //[FieldOffset(0x2DB8)] public TSubclassOf<ACharacter> pHeroCharaClass;
+    //[FieldOffset(0x2DC0)] public UAppAnimCtrl* pHeroAnimCtrl;
+    [FieldOffset(0x2DC8)] public TArray<IntPtr> MateInterAry;
+    [FieldOffset(0x2DD8)] public bool bIsDisableForceTermination;
+    [FieldOffset(0x2DDA)] public bool bEquipChange;
+    [FieldOffset(0x2DDB)] public bool bReturnCommuToField;
+    //[FieldOffset(0x2DE0)] public UUIRequest* pUIRequest;
+    [FieldOffset(0x2DE8)] public UUIMissingPerson* pUIMissingPerson;
+    //[FieldOffset(0x2DF0)] public UUITheurgia* pUITheurgia;
+    [FieldOffset(0x3100)] public UUILayoutDataTable* RootLayoutDataTable;
+    [FieldOffset(0x3108)] public UUILayoutDataTable* SystemLayoutDataTable;
+    [FieldOffset(0x3110)] public UUILayoutDataTable* QuestLayoutDataTable;
+    [FieldOffset(0x3118)] public UUILayoutDataTable* QuestDateLayoutDataTable;
+    [FieldOffset(0x3120)] public UUILayoutDataTable* OthersLayoutDataTable;
+    [FieldOffset(0x3128)] public UUILayoutDataTable* OthersLayoutDataTableAstrea;
+    [FieldOffset(0x3130)] public UUILayoutDataTable* HelpOthersLayoutDataTable;
+    [FieldOffset(0x3138)] public UUILayoutDataTable* PersonaListLayoutDataTable;
+    [FieldOffset(0x3140)] public UUILayoutDataTable* ItemLayoutDataTable;
+    [FieldOffset(0x3148)] public UUILayoutDataTable* SkillLayoutDataTable;
+    [FieldOffset(0x3150)] public UUILayoutDataTable* SkillLayoutDataTable2;
+    [FieldOffset(0x3158)] public UUILayoutDataTable* PartyPanelLayoutDataTable;
+    [FieldOffset(0x3160)] public UUILayoutDataTable* TutorialTextLayoutDataTable;
+    [FieldOffset(0x3168)] public UUILayoutDataTable* DictionaryTextLayoutDataTable;
+    [FieldOffset(0x3170)] public UUILayoutDataTable* CalendarTextLayoutDataTable;
+    [FieldOffset(0x3178)] public UUILayoutDataTable* EquipTextColLayoutDataTable;
+    [FieldOffset(0x3180)] public UUILayoutDataTable* ItemTextColLayoutDataTable;
+    [FieldOffset(0x3188)] public UUILayoutDataTable* QuestTextColLayoutDataTable;
+    [FieldOffset(0x3190)] public UUILayoutDataTable* QuestTextPosLayoutDataTable;
+    [FieldOffset(0x3198)] public UUILayoutDataTable* QuestTextPosLayoutDataTableAstrea;
+    [FieldOffset(0x31A0)] public UUILayoutDataTable* QuestTextColLayoutDataTableAstrea;
+    [FieldOffset(0x31A8)] public UUILayoutDataTable* CommuTextColLayoutDataTable;
+    [FieldOffset(0x31B0)] public UUILayoutDataTable* StatusTextColLayoutDataTable;
+    [FieldOffset(0x31B8)] public UUILayoutDataTable* OkNextLayoutDataTable;
+    [FieldOffset(0x31C0)] public UUILayoutDataTable* OkNextMaskLayoutDataTable;
+    [FieldOffset(0x31C8)] public UUILayoutDataTable* RootTouchCollLayoutDataTable;
+    [FieldOffset(0x31D0)] public UUILayoutDataTable* SystemTouchCollLayoutDataTable;
+}

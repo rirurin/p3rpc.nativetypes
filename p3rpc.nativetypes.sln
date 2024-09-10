@@ -6,8 +6,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "p3rpc.nativetypes", "p3rpc.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "p3rpc.nativetypes.Interfaces", "p3rpc.nativetypes.Interfaces\p3rpc.nativetypes.Interfaces.csproj", "{AE60D563-77EF-4E27-8BCD-C4D823430972}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedScans.Interfaces", "include\SharedScans\SharedScans.Interfaces\SharedScans.Interfaces.csproj", "{76111553-D469-4BF8-8F7C-269032CEE623}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BEED26A8-5D92-4E10-B5D2-CEB0E0B3846A}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -27,10 +25,6 @@ Global
 		{AE60D563-77EF-4E27-8BCD-C4D823430972}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE60D563-77EF-4E27-8BCD-C4D823430972}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE60D563-77EF-4E27-8BCD-C4D823430972}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76111553-D469-4BF8-8F7C-269032CEE623}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76111553-D469-4BF8-8F7C-269032CEE623}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76111553-D469-4BF8-8F7C-269032CEE623}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76111553-D469-4BF8-8F7C-269032CEE623}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
