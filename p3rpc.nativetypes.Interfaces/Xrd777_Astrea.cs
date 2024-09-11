@@ -1,6 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 namespace p3rpc.nativetypes.Interfaces.Astrea;
 
+#pragma warning disable CS1591
+
 [StructLayout(LayoutKind.Explicit, Size = 0x378)]
 public unsafe struct UAgePanel
 {
@@ -110,7 +112,7 @@ public unsafe struct UMsgProcWindow_Mind
     [FieldOffset(0x0148)] public UMaterialInstanceDynamic* ReadlineMatInst_;
     [FieldOffset(0x0150)] public USprAsset* _readSpr;
     [FieldOffset(0x0158)] public UPlgAsset* MsgPlg_;
-    [FieldOffset(0x168)] public UMsgProcWindow_Simple_NextPageParams NextPage;
+    [FieldOffset(0x160)] public UMsgProcWindow_Simple_NextPageParams NextPage;
     [FieldOffset(0x1a8)] public float leftSpotBgOpacity1;
     [FieldOffset(0x1bc)] public float leftSpotBgOpacity2;
     [FieldOffset(0x204)] public FLinearColor OuterBorderColor;
@@ -259,4 +261,36 @@ public unsafe struct ACmpMainActor
     [FieldOffset(0x31C0)] public UUILayoutDataTable* OkNextMaskLayoutDataTable;
     [FieldOffset(0x31C8)] public UUILayoutDataTable* RootTouchCollLayoutDataTable;
     [FieldOffset(0x31D0)] public UUILayoutDataTable* SystemTouchCollLayoutDataTable;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x508)]
+public unsafe struct FKeyHelpButtonBase
+{
+    [FieldOffset(0x10)] public USprAsset* keyHelpSpr;
+    [FieldOffset(0x18)] public USprAsset* keyHelpSpr2;
+    [FieldOffset(0x20)] public UPlgAsset* keyHelpPlg;
+    [FieldOffset(0x28)] public UPlgAsset* Field28;
+    //[FieldOffset(0x48)] public FKeyHelpButtonUILayout Sprites;
+    [FieldOffset(0x1f0)] public FKeyHelpButtonUILayout TextLayout;
+    [FieldOffset(0x24c)] public float KeyHelpTransparency;
+    [FieldOffset(0x260)] public int SpriteCount;
+    [FieldOffset(0x41c)] public FSprColor moviePauseMainColor;
+    [FieldOffset(0x4dc)] public FSprColor moviePausePulseColor;
+
+    public FKeyHelpButtonUILayout* GetSpriteLayout(int i) { fixed (FKeyHelpButtonBase* self = &this) { return &((FKeyHelpButtonUILayout*)((nint)self + 0x50))[i]; } }
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x5a0)]
+public unsafe struct FKeyHelpButtonAuto
+{
+    [FieldOffset(0x0)] public FKeyHelpButtonBase Super;
+    [FieldOffset(0x548)] public FKeyHelpInterpolate Field540;
+    [FieldOffset(0x598)] public int ActivationState;
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x598)]
+public unsafe struct FKeyHelpButtonFastForward
+{
+    [FieldOffset(0x0)] public FKeyHelpButtonBase Super;
+    [FieldOffset(0x540)] public FKeyHelpInterpolate Field538;
+    [FieldOffset(0x590)] public int ActivationState;
 }

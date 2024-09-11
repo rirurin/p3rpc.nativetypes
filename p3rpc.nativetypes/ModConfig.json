@@ -2,7 +2,7 @@
   "ModId": "p3rpc.nativetypes",
   "ModName": "P3RE Native Types",
   "ModAuthor": "Rirurin",
-  "ModVersion": "1.6.0",
+  "ModVersion": "1.6.1",
   "ModDescription": "Struct defintions for Persona 3 Reload code mods",
   "ModDll": "p3rpc.nativetypes.dll",
   "ModIcon": "Preview.png",
