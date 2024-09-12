@@ -4578,3 +4578,187 @@ public unsafe struct UIRankupDrawPayload : IContactManagerPayload
 
     public EAppActorId GetPayloadType() => Base()->payloadType;
 }
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public unsafe struct UArcNpcExistField
+{
+    [FieldOffset(0x0)] public ushort FieldMajor;
+    [FieldOffset(0x8)] public TArray<UArcNpcExistEntry> Entries;
+}
+[StructLayout(LayoutKind.Explicit, Size = 0x2f8)]
+public unsafe struct UArcNpcExistEntry
+{
+    [FieldOffset(0x0)] public ushort NpcMajor;
+    [FieldOffset(0x2)] public ushort NpcMinor;
+    [FieldOffset(0x4)] public fixed uint EnableFlags[3];
+    [FieldOffset(0x10)] public fixed uint DisableFlags[3];
+    [FieldOffset(0x1c)] public fixed byte IsAvailable0[365];
+    [FieldOffset(0x189)] public fixed byte IsAvailable1[365];
+}
+
+// 0x144290b20 (Episode Aigis)
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FldNpcExistTableEntry
+{
+    [FieldOffset(0x0)] public uint Major;
+    [FieldOffset(0x4)] public uint Minor;
+    [FieldOffset(0x8)] public nint pName; // char*
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x130)]
+public unsafe struct FFldLoadLevelListData // DT_FldSubLevelList
+{
+    [FieldOffset(0x0000)] public FTableRowBase baseObj;
+    [FieldOffset(0x0008)] public int FieldMajor;
+    [FieldOffset(0x000C)] public int FieldMinor;
+    [FieldOffset(0x0010)] public TArray<FString> Bg;
+    [FieldOffset(0x0020)] public TArray<FString> Lighting_NOON;
+    [FieldOffset(0x0030)] public TArray<FString> Lighting_EVENING;
+    [FieldOffset(0x0040)] public TArray<FString> Lighting_NIGHT;
+    [FieldOffset(0x0050)] public TArray<FString> Lighting_SHADOW;
+    [FieldOffset(0x0060)] public TArray<FString> Sound;
+    [FieldOffset(0x0070)] public TArray<FString> AreaChange;
+    [FieldOffset(0x0080)] public TArray<FString> Hit;
+    [FieldOffset(0x0090)] public TArray<FString> Hit_SHADOW;
+    [FieldOffset(0x00A0)] public TArray<FString> NPC;
+    [FieldOffset(0x00B0)] public TArray<FString> Npc_NOON;
+    [FieldOffset(0x00C0)] public TArray<FString> Npc_EVENING;
+    [FieldOffset(0x00D0)] public TArray<FString> Npc_NIGHT;
+    [FieldOffset(0x00E0)] public TArray<FString> Npc_SHADOW;
+    [FieldOffset(0x00F0)] public TArray<FString> Cmm_NOON;
+    [FieldOffset(0x0100)] public TArray<FString> Cmm_EVENING;
+    [FieldOffset(0x0110)] public TArray<FString> Cmm_NIGHT;
+    [FieldOffset(0x0120)] public TArray<FString> CrowdTarget;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FFldLoadCrowdLevelDays
+{
+    [FieldOffset(0x0000)] public int StartMonth;
+    [FieldOffset(0x0004)] public int StartDay;
+    [FieldOffset(0x0008)] public int EndMonth;
+    [FieldOffset(0x000C)] public int EndDay;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x68)]
+public unsafe struct FFldLoadCrowdLevel // DT_FldCrowdSubLevelTable
+{
+    [FieldOffset(0x0000)] public FTableRowBase baseObj;
+    [FieldOffset(0x0008)] public int FieldMajor;
+    [FieldOffset(0x000C)] public int FieldMinor;
+    [FieldOffset(0x0010)] public int FieldPartsID;
+    [FieldOffset(0x0018)] public TArray<FFldLoadCrowdLevelDays> DayDatas;
+    [FieldOffset(0x0028)] public int Time;
+    [FieldOffset(0x0030)] public TArray<int> OnFlags;
+    [FieldOffset(0x0040)] public TArray<int> OffFlags;
+    [FieldOffset(0x0050)] public int Type;
+    [FieldOffset(0x0058)] public FString LevelName;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x40)]
+public unsafe struct FFldLoadVariationLevel // DT_FldVariationSubLevelTable
+{
+    [FieldOffset(0x0000)] public FTableRowBase baseObj;
+    [FieldOffset(0x0008)] public int FieldMajor;
+    [FieldOffset(0x000C)] public int FieldMinor;
+    [FieldOffset(0x0010)] public int StartMonth;
+    [FieldOffset(0x0014)] public int StartDay;
+    [FieldOffset(0x0018)] public int EndMonth;
+    [FieldOffset(0x001C)] public int EndDay;
+    [FieldOffset(0x0020)] public int Time;
+    [FieldOffset(0x0024)] public int OnFlag;
+    [FieldOffset(0x0028)] public int OffFlag;
+    [FieldOffset(0x0030)] public FString LevelName;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x20)]
+public unsafe struct FFldPlaceNameNameTableRowBase // DT_FldPlaceName
+{
+    [FieldOffset(0x0000)] public FTableRowBase baseObj;
+    [FieldOffset(0x0008)] public int Index;
+    [FieldOffset(0x0010)] public FString Name;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x20)]
+public unsafe struct FFldShortcutNameTableRowBase // DT_FldShortcutName
+{
+    [FieldOffset(0x0000)] public FTableRowBase baseObj;
+    [FieldOffset(0x0008)] public int Index;
+    [FieldOffset(0x0010)] public FString Name;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x38)]
+public unsafe struct FFldHitNameTableRow // DT_FldDailyHitName, DT_FldDungeonHitName
+{
+    [FieldOffset(0x0000)] public FTableRowBase baseObj;
+    [FieldOffset(0x0008)] public FString Name;
+    [FieldOffset(0x0018)] public FString flag;
+    [FieldOffset(0x0028)] public FString Name2;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x180)]
+public unsafe struct FAppCharTableRow
+{
+    [FieldOffset(0x0000)] public FTableRowBase baseObj;
+    [FieldOffset(0x0008)] public float CapsuleHalfHeight;
+    [FieldOffset(0x000C)] public FVector MeshLocation;
+    //[FieldOffset(0x0018)] public TMap<EAnimPackID, TSoftObjectPtr<UAppCharAnimDataAsset>> Anims;
+    [FieldOffset(0x0018)] public TMap<byte, TSoftObjectPtr<UAppCharAnimDataAsset>> Anims;
+    [FieldOffset(0x0068)] public TSoftObjectPtr<UAppCharFaceAnimDataAsset> FaceAnim;
+    [FieldOffset(0x0090)] public TMap<HashableInt, FAppCharCostumeData> Costumes;
+    [FieldOffset(0x00E0)] public TMap<int, FAppCharWeaponData> WeaponType;
+    [FieldOffset(0x0130)] public TMap<int, FAppCharBagData> BagType;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0xE0)]
+public unsafe struct UAppCharAnimDataAsset
+{
+    [FieldOffset(0x0000)] public UDataAsset baseObj;
+    [FieldOffset(0x0030)] public EAnimPackID PackId;
+    //[FieldOffset(0x0031)] public EAppCharCategoryType Category;
+    [FieldOffset(0x0034)] public int CharId;
+    [FieldOffset(0x0038)] public UClass* AnimInstance;
+    [FieldOffset(0x0040)] public TMap<int, IntPtr> SpecialAnimInstance;
+    [FieldOffset(0x0090)] public TMap<int, IntPtr> Anims;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x88)]
+public unsafe struct UAppCharFaceAnimDataAsset
+{
+    [FieldOffset(0x0000)] public UDataAsset baseObj;
+    //[FieldOffset(0x0030)] public EAppCharCategoryType Category;
+    [FieldOffset(0x0034)] public int CharId;
+    [FieldOffset(0x0038)] public TMap<int, IntPtr> Anims;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x50)]
+public unsafe struct FAppCharCostumePartsData
+{
+    //[FieldOffset(0x0000)] public TSoftObjectPtr<USkeletalMesh> Mesh;
+    //[FieldOffset(0x0028)] public TSoftClassPtr<UObject> Anim;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x148)]
+public unsafe struct FAppCharCostumeData
+{
+    [FieldOffset(0x0000)] public FAppCharCostumePartsData Base;
+    [FieldOffset(0x0050)] public FAppCharCostumePartsData Costume;
+    [FieldOffset(0x00A0)] public FAppCharCostumePartsData Hair;
+    [FieldOffset(0x00F0)] public FAppCharCostumePartsData Face;
+    [FieldOffset(0x0140)] public int BagKeyID;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FAppCharWeaponData
+{
+    //[FieldOffset(0x0000)] public TArray<TSoftClassPtr<AAppCharWeaponBase>> BluePrints;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x88)]
+public unsafe struct FAppCharBagData
+{
+    //[FieldOffset(0x0000)] public TSoftClassPtr<AAppPropsCore> Base;
+    [FieldOffset(0x0028)] public FName AttachSocketName;
+    [FieldOffset(0x0030)] public FName SetAnimSlotName;
+    //[FieldOffset(0x0038)] public TMap<EAppCharBagAnimType, TSoftObjectPtr<UAnimSequenceBase>> AnimSeqs;
+}

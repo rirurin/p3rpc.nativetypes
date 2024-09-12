@@ -105,6 +105,20 @@ namespace p3rpc.nativetypes.Components
 
         // Array modification
 
+        public unsafe void TArray_Resize<TArrayType>(TArray<TArrayType>* arr) where TArrayType : unmanaged
+        {
+            // Resize allocation
+            uint newEntrySize = (arr->allocator_instance != null) ? (uint)arr->arr_max * 2 : 4;
+            var newAlloc = FMemory_MallocMultiple<TArrayType>(newEntrySize);
+            if (arr->allocator_instance != null)
+            {
+                NativeMemory.Copy(arr->allocator_instance, newAlloc, (nuint)(arr->arr_max * sizeof(TArrayType)));
+                FMemory_Free(arr->allocator_instance);
+            }
+            arr->allocator_instance = newAlloc;
+            arr->arr_max = (int)newEntrySize;
+        }
+
         public unsafe bool TArray_Insert<TArrayType>(TArray<TArrayType>* arr, TArrayType entry) where TArrayType : unmanaged
         {
             if (arr == null)
@@ -138,6 +152,22 @@ namespace p3rpc.nativetypes.Components
             return true;
         }
 
+        public unsafe bool TArray_InsertShift<TArrayType>(TArray<TArrayType>* arr, TArrayType entry, int index) where TArrayType : unmanaged
+        {
+            if (arr == null || index > arr->arr_num || index < 0)
+                return false;
+            if (index == arr->arr_num)
+                return TArray_Insert(arr, entry);
+            // Shift elements down by one, then insert entry at index
+            if (arr->arr_num + 1 > arr->arr_num)
+                TArray_Resize(arr);
+            for (int i = arr->arr_num - 1; i >= index; i--)
+                arr->allocator_instance[i + 1] = arr->allocator_instance[i];
+            arr->allocator_instance[index] = entry;
+            arr->arr_num++;
+            return true;
+        }
+
         public unsafe bool TArray_Delete<TArrayType>(TArray<TArrayType>* arr, int index) where TArrayType : unmanaged
         {
             if (arr == null || index >= arr->arr_num || index < 0)
@@ -147,6 +177,17 @@ namespace p3rpc.nativetypes.Components
             arr->arr_num--;
             return true;
         }
+        // (1.7.0) Managed array factory methods
+        public unsafe TManagedValueArray<T> MakeManagedValueArray<T>(TArray<T>* arr) where T : unmanaged
+            => new TManagedValueArray<T>(this, arr);
+        public unsafe TManagedValueArray<T> MakeManagedValueArray<T>() where T : unmanaged
+            => new TManagedValueArray<T>(this);
+        /*
+        public unsafe TManagedPointerArray<T> MakeManagedPointerArray<T>(TArray<T>* arr) where T : unmanaged
+            => new TManagedPointerArray<T>(this, arr);
+        public unsafe TManagedPointerArray<T> MakeManagedPointerArray<T>() where T : unmanaged
+            => new TManagedPointerArray<T>(this);
+        */
 
         // Map modification (very rough)
 
@@ -223,8 +264,6 @@ namespace p3rpc.nativetypes.Components
             }
             *allocCount += 1;
             map->mapNum++;
-            return true;
-            /*
             if (map->mapNum == map->mapMax)
             {
                 // Resize allocation
@@ -238,7 +277,7 @@ namespace p3rpc.nativetypes.Components
                 map->elements = newAlloc;
                 map->mapMax = (int)newEntrySize;
             }
-            */
+            return true;
         }
     }
 }

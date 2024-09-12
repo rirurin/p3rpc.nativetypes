@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
 namespace p3rpc.nativetypes.Interfaces;
@@ -54,6 +56,232 @@ public unsafe struct TArray<T> where T : unmanaged
         return *(V**)&allocator_instance[index];
     }
 }
+
+public abstract class TManagedBaseArray<T> : IList<T>, IDisposable where T : unmanaged
+{
+    protected IMemoryMethods MemoryMethods;
+    protected unsafe TArray<T>* Self;
+    protected bool bOwnsAllocation;
+    protected bool bIsDisposed;
+    public unsafe TManagedBaseArray(IMemoryMethods _MemoryMethods, TArray<T>* _Self)
+    {
+        MemoryMethods = _MemoryMethods;
+        Self = _Self;
+        bOwnsAllocation = false;
+    }
+    public unsafe TManagedBaseArray(IMemoryMethods _MemoryMethods)
+    {
+        MemoryMethods = _MemoryMethods;
+        Self = MemoryMethods.FMemory_Malloc<TArray<T>>();
+        NativeMemory.Fill(Self, (nuint)sizeof(TArray<T>), 0);
+        bOwnsAllocation = true;
+    }
+    // Implement IList<T>
+    public abstract T this[int index] { get; set; } 
+    public unsafe int Count => Self->arr_num;
+    public bool IsReadOnly => false;
+    public abstract void Add(T item);
+    public abstract void Clear();
+    public abstract bool Contains(T item);
+    public abstract void CopyTo(T[] array, int arrayIndex);
+    public abstract IEnumerator<T> GetEnumerator();
+    public abstract int IndexOf(T item);
+    public abstract void Insert(int index, T item);
+    public abstract bool Remove(T item);
+    public abstract void RemoveAt(int index);
+    IEnumerator IEnumerable.GetEnumerator() => throw new NotImplementedException();
+    // Implement IDisposable
+    ~TManagedBaseArray() => Dispose(false);
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!bIsDisposed)
+        {
+            //if (disposing) { } // For managed components
+            if (bOwnsAllocation)
+                unsafe { MemoryMethods.FMemory_Free(Self); }
+            bIsDisposed = true;
+        }
+    }
+}
+
+public abstract class TManagedBaseArrayEnumerator<T> : IEnumerator<T>, IEnumerator where T : unmanaged
+{
+    protected unsafe TArray<T>* Self;
+    public abstract object Current { get; }
+    T IEnumerator<T>.Current => (T)Current;
+    public void Dispose() {}
+    public abstract bool MoveNext();
+    public abstract void Reset();
+}
+
+/// <summary>
+/// A managed representation of an Unreal Engine TArray, where the array elements are stored by value (e.g TArray with type constraint int)
+/// </summary>
+/// <typeparam name="T">Type of the Unreal type to be stored by value in this array</typeparam>
+public class TManagedValueArray<T> : TManagedBaseArray<T>, IEnumerable where T : unmanaged
+{
+    public unsafe TManagedValueArray(IMemoryMethods _MemoryMethods, TArray<T>* _Self) : base(_MemoryMethods, _Self) { }
+    public unsafe TManagedValueArray(IMemoryMethods _MemoryMethods) : base(_MemoryMethods) { }
+    public unsafe override T this[int index] 
+    {
+        get => *Self->GetRef(index);
+        set => MemoryMethods.TArray_InsertShift(Self, value, index);
+    }
+
+    public unsafe override void Add(T item) => MemoryMethods.TArray_Insert(Self, item);
+
+    public unsafe override void Clear()
+    {
+        NativeMemory.Clear(Self->allocator_instance, (nuint)(sizeof(T) * Self->arr_num));
+        Self->arr_num = 0;
+    }
+
+    public override bool Contains(T item)
+    {
+        foreach (var el in this)
+            if (el.Equals(item)) return true;
+        return false;
+    }
+
+    public unsafe override void CopyTo(T[] array, int arrayIndex)
+    {
+        if (arrayIndex > Self->arr_num || arrayIndex < 0) return; // lol, lmao even
+        for (int i = 0; i < Self->arr_num - arrayIndex; i++)
+            array[i] = Self->allocator_instance[i + arrayIndex];
+    }
+
+    public unsafe override IEnumerator<T> GetEnumerator() => new TManagedValueArrayEnumerator<T>(Self);
+
+    public override int IndexOf(T item)
+    {
+        int index = 0;
+        foreach (var el in this)
+        {
+            if (el.Equals(item)) return index;
+            index++;
+        }
+        return -1;
+    }
+    public unsafe override void Insert(int index, T item) => MemoryMethods.TArray_InsertShift(Self, item, index);
+    public unsafe override bool Remove(T item)
+    {
+        int ItemIndex = IndexOf(item);
+        if (ItemIndex != -1)
+        {
+            RemoveAt(ItemIndex);
+            return true;
+        }
+        return false;
+    }
+
+    public unsafe override void RemoveAt(int index) => MemoryMethods.TArray_Delete(Self, index);
+    unsafe IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
+
+public class TManagedValueArrayEnumerator<T> : TManagedBaseArrayEnumerator<T>, IEnumerator<T> where T : unmanaged
+{
+    protected unsafe TArray<T>* Self;
+    private int position = -1;
+    public unsafe override object Current 
+    {
+        get
+        {
+            if (position < 0 || position >= Self->arr_num)
+                throw new InvalidOperationException();
+            return *Self->GetRef(position);
+        }
+    }
+    public unsafe TManagedValueArrayEnumerator(TArray<T>* _Self) => Self = _Self;
+    public unsafe override bool MoveNext() => ++position < Self->arr_num;
+    T IEnumerator<T>.Current => (T)Current;
+    public override void Reset() => position = -1;
+}
+
+/// <summary>
+/// A managed representation of an Unreal Engine TArray, where the array elements are stored by reference (e.g TArray with type constraint int* )
+/// This assumes that all elements inside the pointer array are distinct objects allocated by the Unreal allocator
+/// </summary>
+/// <typeparam name="T">Type of the Unreal type to be stored by value in this array</typeparam>
+/*
+public class TManagedPointerArray<T> : TManagedBaseArray<T>, IEnumerable where T : unmanaged
+{
+    public unsafe TManagedPointerArray(IMemoryMethods _MemoryMethods, TArray<T>* _Self) : base(_MemoryMethods, _Self) { }
+    public unsafe TManagedPointerArray(IMemoryMethods _MemoryMethods) : base(_MemoryMethods) { }
+    public unsafe override T this[int index] 
+    { 
+        get => *Self->Get<T>(index);
+        set => MemoryMethods.TArray_InsertShift((TArray<nint>*)Self, (nint)(&value), index);
+    }
+
+    public override void Add(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Clear()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Contains(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void CopyTo(T[] array, int arrayIndex)
+    {
+        throw new NotImplementedException();
+    }
+
+    public unsafe override IEnumerator<T> GetEnumerator() => new TManagedPointerArrayEnumerator<T>(Self);
+
+    public override int IndexOf(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Insert(int index, T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Remove(T item)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void RemoveAt(int index)
+    {
+        throw new NotImplementedException();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+}
+
+public class TManagedPointerArrayEnumerator<T> : TManagedBaseArrayEnumerator<T>, IEnumerator<T> where T : unmanaged
+{
+    protected unsafe TArray<T>* Self;
+    private int position = -1;
+    public unsafe override object Current 
+    {
+        get
+        {
+            if (position < 0 || position >= Self->arr_num)
+                throw new InvalidOperationException();
+            return *Self->Get<T>(position);
+        }
+    }
+    public unsafe TManagedPointerArrayEnumerator(TArray<T>* _Self) => Self = _Self;
+    public unsafe override bool MoveNext() => ++position < Self->arr_num;
+    T IEnumerator<T>.Current => (T)Current;
+    public override void Reset() => position = -1;
+}
+*/
 
 [StructLayout(LayoutKind.Sequential)]
 public unsafe struct TMapElement<KeyType, ValueType> 
@@ -212,6 +440,12 @@ public unsafe struct FSoftObjectPath
 public struct FSoftObjectPtr
 {
     public TPersistentObjectPtr<FSoftObjectPath> baseObj;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct TSoftObjectPtr<T> where T : unmanaged
+{
+    public FSoftObjectPtr baseObj;
 }
 
 public enum EObjectFlags : uint
@@ -2158,4 +2392,9 @@ public unsafe struct UActorComponent
     [FieldOffset(0x008A)] public byte bIsEditorOnly;
     [FieldOffset(0x008C)] public EComponentCreationMethod CreationMethod;
     //[FieldOffset(0x0090)] public TArray<FSimpleMemberReference> UCSModifiedProperties;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x8)]
+public unsafe struct FTableRowBase
+{
 }

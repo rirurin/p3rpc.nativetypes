@@ -12,7 +12,7 @@ public unsafe struct UArcAsset
 
     public unsafe byte* GetFile(string name, out int size)
     {
-        var pBuffer = &mBuffer_.allocator_instance[0];
+        var pBuffer = mBuffer_.GetRef(0);
         int fileCount = *(int*)pBuffer;
         for (int i = 0; i < fileCount; i++)
         {

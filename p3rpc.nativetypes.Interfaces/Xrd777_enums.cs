@@ -268,3 +268,27 @@ public enum EFldHitCoreCheckIconType
     None = 6,
     Max = 7,
 };
+
+public enum EAnimPackID : byte
+{
+    None = 0,
+    Common = 1,
+    Dungeon = 2,
+    Combine = 3,
+    Event = 4,
+};
+
+public enum EAppCharBagAnimType : byte
+{
+    EC_None = 0,
+    EC_Stand = 1,
+    EC_Run = 2,
+};
+
+public enum EAppCharCategoryType : byte
+{
+    None = 0,
+    MainCharacter = 1,
+    SubCharacter = 2,
+    NpcCharacter = 3,
+};

@@ -3106,12 +3106,77 @@ p3rpc.nativetypes.Interfaces.FFldCharSpeed.Dash -> float
 p3rpc.nativetypes.Interfaces.FFldCharSpeed.FFldCharSpeed() -> void
 p3rpc.nativetypes.Interfaces.FFldCharSpeed.Run -> float
 p3rpc.nativetypes.Interfaces.FFldCharSpeed.Walk -> float
+p3rpc.nativetypes.Interfaces.FFldHitNameTableRow
+p3rpc.nativetypes.Interfaces.FFldHitNameTableRow.baseObj -> p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FFldHitNameTableRow.FFldHitNameTableRow() -> void
+p3rpc.nativetypes.Interfaces.FFldHitNameTableRow.flag -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.FFldHitNameTableRow.Name -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.FFldHitNameTableRow.Name2 -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.baseObj -> p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.DayDatas -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevelDays>
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.FFldLoadCrowdLevel() -> void
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.FieldMajor -> int
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.FieldMinor -> int
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.FieldPartsID -> int
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.LevelName -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.OffFlags -> p3rpc.nativetypes.Interfaces.TArray<int>
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.OnFlags -> p3rpc.nativetypes.Interfaces.TArray<int>
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.Time -> int
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevel.Type -> int
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevelDays
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevelDays.EndDay -> int
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevelDays.EndMonth -> int
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevelDays.FFldLoadCrowdLevelDays() -> void
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevelDays.StartDay -> int
+p3rpc.nativetypes.Interfaces.FFldLoadCrowdLevelDays.StartMonth -> int
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.AreaChange -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.baseObj -> p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Bg -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Cmm_EVENING -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Cmm_NIGHT -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Cmm_NOON -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.CrowdTarget -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.FFldLoadLevelListData() -> void
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.FieldMajor -> int
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.FieldMinor -> int
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Hit -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Hit_SHADOW -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Lighting_EVENING -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Lighting_NIGHT -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Lighting_NOON -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Lighting_SHADOW -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.NPC -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Npc_EVENING -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Npc_NIGHT -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Npc_NOON -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Npc_SHADOW -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadLevelListData.Sound -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FString>
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.baseObj -> p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.EndDay -> int
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.EndMonth -> int
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.FFldLoadVariationLevel() -> void
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.FieldMajor -> int
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.FieldMinor -> int
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.LevelName -> p3rpc.nativetypes.Interfaces.FString
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.OffFlag -> int
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.OnFlag -> int
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.StartDay -> int
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.StartMonth -> int
+p3rpc.nativetypes.Interfaces.FFldLoadVariationLevel.Time -> int
 p3rpc.nativetypes.Interfaces.FFldPartnerData
 p3rpc.nativetypes.Interfaces.FFldPartnerData.AvoidPlayerDistance -> float
 p3rpc.nativetypes.Interfaces.FFldPartnerData.FFldPartnerData() -> void
 p3rpc.nativetypes.Interfaces.FFldPartnerData.TrackingBeginDistance -> float
 p3rpc.nativetypes.Interfaces.FFldPartnerData.TrackingNearDistance -> float
 p3rpc.nativetypes.Interfaces.FFldPartnerData.TrackingUpdateDistance -> float
+p3rpc.nativetypes.Interfaces.FFldPlaceNameNameTableRowBase
+p3rpc.nativetypes.Interfaces.FFldPlaceNameNameTableRowBase.baseObj -> p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FFldPlaceNameNameTableRowBase.FFldPlaceNameNameTableRowBase() -> void
+p3rpc.nativetypes.Interfaces.FFldPlaceNameNameTableRowBase.Index -> int
+p3rpc.nativetypes.Interfaces.FFldPlaceNameNameTableRowBase.Name -> p3rpc.nativetypes.Interfaces.FString
 p3rpc.nativetypes.Interfaces.FFldPlayerAttackData
 p3rpc.nativetypes.Interfaces.FFldPlayerAttackData.AnimBlendTime -> float
 p3rpc.nativetypes.Interfaces.FFldPlayerAttackData.AnimId -> p3rpc.nativetypes.Interfaces.EDungeonAnimID
@@ -3173,6 +3238,11 @@ p3rpc.nativetypes.Interfaces.FFldShortcutData.FFldShortcutData() -> void
 p3rpc.nativetypes.Interfaces.FFldShortcutData.mEnable -> bool
 p3rpc.nativetypes.Interfaces.FFldShortcutData.mName -> p3rpc.nativetypes.Interfaces.FString
 p3rpc.nativetypes.Interfaces.FFldShortcutData.mShortcutIndex -> short
+p3rpc.nativetypes.Interfaces.FFldShortcutNameTableRowBase
+p3rpc.nativetypes.Interfaces.FFldShortcutNameTableRowBase.baseObj -> p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FFldShortcutNameTableRowBase.FFldShortcutNameTableRowBase() -> void
+p3rpc.nativetypes.Interfaces.FFldShortcutNameTableRowBase.Index -> int
+p3rpc.nativetypes.Interfaces.FFldShortcutNameTableRowBase.Name -> p3rpc.nativetypes.Interfaces.FString
 p3rpc.nativetypes.Interfaces.FFontParameterValue
 p3rpc.nativetypes.Interfaces.FFontParameterValue.ExpressionGUID -> p3rpc.nativetypes.Interfaces.FGuid
 p3rpc.nativetypes.Interfaces.FFontParameterValue.FFontParameterValue() -> void
@@ -3272,6 +3342,11 @@ p3rpc.nativetypes.Interfaces.FKeyHelpInterpolate.FKeyHelpInterpolate() -> void
 p3rpc.nativetypes.Interfaces.FLazyObjectPtr
 p3rpc.nativetypes.Interfaces.FLazyObjectPtr.baseObj -> p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<p3rpc.nativetypes.Interfaces.FUniqueObjectGuid>
 p3rpc.nativetypes.Interfaces.FLazyObjectPtr.FLazyObjectPtr() -> void
+p3rpc.nativetypes.Interfaces.FldNpcExistTableEntry
+p3rpc.nativetypes.Interfaces.FldNpcExistTableEntry.FldNpcExistTableEntry() -> void
+p3rpc.nativetypes.Interfaces.FldNpcExistTableEntry.Major -> uint
+p3rpc.nativetypes.Interfaces.FldNpcExistTableEntry.Minor -> uint
+p3rpc.nativetypes.Interfaces.FldNpcExistTableEntry.pName -> nint
 p3rpc.nativetypes.Interfaces.FLevelSequenceObject
 p3rpc.nativetypes.Interfaces.FLevelSequenceObject.ComponentName -> p3rpc.nativetypes.Interfaces.FString
 p3rpc.nativetypes.Interfaces.FLevelSequenceObject.FLevelSequenceObject() -> void
@@ -4476,6 +4551,8 @@ p3rpc.nativetypes.Interfaces.FSubsystemCollectionBase.SubsystemArrayMap -> p3rpc
 p3rpc.nativetypes.Interfaces.FSubsystemCollectionBase.SubsystemMap -> p3rpc.nativetypes.Interfaces.TMap<nint, nint>
 p3rpc.nativetypes.Interfaces.FSupportBustupParam
 p3rpc.nativetypes.Interfaces.FSupportBustupParam.FSupportBustupParam() -> void
+p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FTableRowBase.FTableRowBase() -> void
 p3rpc.nativetypes.Interfaces.FTextureParameterValue
 p3rpc.nativetypes.Interfaces.FTextureParameterValue.ExpressionGUID -> p3rpc.nativetypes.Interfaces.FGuid
 p3rpc.nativetypes.Interfaces.FTextureParameterValue.FTextureParameterValue() -> void
@@ -4823,12 +4900,25 @@ p3rpc.nativetypes.Interfaces.UArcAsset.baseObj -> p3rpc.nativetypes.Interfaces.U
 p3rpc.nativetypes.Interfaces.UArcAsset.GetFile(string! name, out int size) -> byte*
 p3rpc.nativetypes.Interfaces.UArcAsset.mBuffer_ -> p3rpc.nativetypes.Interfaces.TArray<byte>
 p3rpc.nativetypes.Interfaces.UArcAsset.UArcAsset() -> void
+p3rpc.nativetypes.Interfaces.UArcNpcExistEntry
+p3rpc.nativetypes.Interfaces.UArcNpcExistEntry.DisableFlags -> uint*
+p3rpc.nativetypes.Interfaces.UArcNpcExistEntry.EnableFlags -> uint*
+p3rpc.nativetypes.Interfaces.UArcNpcExistEntry.IsAvailable0 -> byte*
+p3rpc.nativetypes.Interfaces.UArcNpcExistEntry.IsAvailable1 -> byte*
+p3rpc.nativetypes.Interfaces.UArcNpcExistEntry.NpcMajor -> ushort
+p3rpc.nativetypes.Interfaces.UArcNpcExistEntry.NpcMinor -> ushort
+p3rpc.nativetypes.Interfaces.UArcNpcExistEntry.UArcNpcExistEntry() -> void
+p3rpc.nativetypes.Interfaces.UArcNpcExistField
+p3rpc.nativetypes.Interfaces.UArcNpcExistField.Entries -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.UArcNpcExistEntry>
+p3rpc.nativetypes.Interfaces.UArcNpcExistField.FieldMajor -> ushort
+p3rpc.nativetypes.Interfaces.UArcNpcExistField.UArcNpcExistField() -> void
 p3rpc.nativetypes.Interfaces.UAssetLoader
 p3rpc.nativetypes.Interfaces.UAssetLoader.baseObj -> p3rpc.nativetypes.Interfaces.UObject
 p3rpc.nativetypes.Interfaces.UAssetLoader.ObjectReferences -> p3rpc.nativetypes.Interfaces.TArray<nint>
 p3rpc.nativetypes.Interfaces.UAssetLoader.ObjectWeakReferences -> p3rpc.nativetypes.Interfaces.TArray<int>
 p3rpc.nativetypes.Interfaces.UAssetLoader.StreamHandle -> nint
 p3rpc.nativetypes.Interfaces.UAssetLoader.UAssetLoader() -> void
+p3rpc.nativetypes.Interfaces.UAstreaFuncLib_IsPlayingAstrea
 p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset
 p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset.baseObj -> p3rpc.nativetypes.Interfaces.UDataAsset
 p3rpc.nativetypes.Interfaces.UAtlEvtPreDataAsset.Data -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FAtlEvtPreData>

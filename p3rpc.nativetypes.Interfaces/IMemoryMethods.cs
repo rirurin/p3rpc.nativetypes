@@ -19,7 +19,11 @@ namespace p3rpc.nativetypes.Interfaces
         // Array modification
         public unsafe bool TArray_Insert<TArrayType>(TArray<TArrayType>* arr, TArrayType entry) where TArrayType : unmanaged;
         public unsafe bool TArray_Insert<TArrayType>(TArray<TArrayType>* arr, TArrayType entry, int index) where TArrayType : unmanaged;
+        public unsafe bool TArray_InsertShift<TArrayType>(TArray<TArrayType>* arr, TArrayType entry, int index) where TArrayType : unmanaged;
         public unsafe bool TArray_Delete<TArrayType>(TArray<TArrayType>* arr, int index) where TArrayType : unmanaged;
+        // (1.7.0) Managed array factory methods
+        public unsafe TManagedValueArray<T> MakeManagedValueArray<T>(TArray<T>* arr) where T : unmanaged;
+        public unsafe TManagedValueArray<T> MakeManagedValueArray<T>() where T : unmanaged;
 
         // Map modification (no hashing atm)
         public unsafe bool TMap_Insert<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
@@ -29,5 +33,6 @@ namespace p3rpc.nativetypes.Interfaces
         public unsafe bool TMap_InsertNoInit<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
             where KeyType : unmanaged, IEquatable<KeyType>, IMapHashable
             where ValueType : unmanaged;
+        // (1.7.0) Managed map factory methods
     }
 }

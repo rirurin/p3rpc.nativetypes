@@ -33,4 +33,5 @@ namespace p3rpc.nativetypes.Interfaces
             byte isDynamic, 
             nint dynamicFn);
     }
+    public unsafe delegate byte UAstreaFuncLib_IsPlayingAstrea();
 }
