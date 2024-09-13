@@ -4697,7 +4697,7 @@ public unsafe struct FFldHitNameTableRow // DT_FldDailyHitName, DT_FldDungeonHit
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x180)]
-public unsafe struct FAppCharTableRow
+public unsafe struct FAppCharTableRow // DT_Costume
 {
     [FieldOffset(0x0000)] public FTableRowBase baseObj;
     [FieldOffset(0x0008)] public float CapsuleHalfHeight;
@@ -4705,7 +4705,7 @@ public unsafe struct FAppCharTableRow
     //[FieldOffset(0x0018)] public TMap<EAnimPackID, TSoftObjectPtr<UAppCharAnimDataAsset>> Anims;
     [FieldOffset(0x0018)] public TMap<byte, TSoftObjectPtr<UAppCharAnimDataAsset>> Anims;
     [FieldOffset(0x0068)] public TSoftObjectPtr<UAppCharFaceAnimDataAsset> FaceAnim;
-    [FieldOffset(0x0090)] public TMap<HashableInt, FAppCharCostumeData> Costumes;
+    [FieldOffset(0x0090)] public TMap<HashableInt8, FAppCharCostumeData> Costumes;
     [FieldOffset(0x00E0)] public TMap<int, FAppCharWeaponData> WeaponType;
     [FieldOffset(0x0130)] public TMap<int, FAppCharBagData> BagType;
 }

@@ -188,6 +188,8 @@ namespace p3rpc.nativetypes.Components
         public unsafe TManagedPointerArray<T> MakeManagedPointerArray<T>() where T : unmanaged
             => new TManagedPointerArray<T>(this);
         */
+        public unsafe TBitArray MakeBitArray(nint alloc) => new TBitArray(this, alloc);
+        public unsafe TBitArray MakeBitArray() => new TBitArray(this);
 
         // Map modification (very rough)
 

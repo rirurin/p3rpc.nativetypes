@@ -24,6 +24,8 @@ namespace p3rpc.nativetypes.Interfaces
         // (1.7.0) Managed array factory methods
         public unsafe TManagedValueArray<T> MakeManagedValueArray<T>(TArray<T>* arr) where T : unmanaged;
         public unsafe TManagedValueArray<T> MakeManagedValueArray<T>() where T : unmanaged;
+        public unsafe TBitArray MakeBitArray(nint alloc);
+        public unsafe TBitArray MakeBitArray();
 
         // Map modification (no hashing atm)
         public unsafe bool TMap_Insert<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)

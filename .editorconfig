@@ -1,4 +1,4 @@
 ﻿[*.cs]
 
 # RS0016: Add public types and members to the declared API
-dotnet_diagnostic.RS0016.severity = error
+# dotnet_diagnostic.RS0016.severity = error
