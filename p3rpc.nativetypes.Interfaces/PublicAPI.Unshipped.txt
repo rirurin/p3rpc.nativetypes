@@ -1,4 +1,27 @@
 ﻿#nullable enable
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Add(T item) -> void
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Clear() -> void
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Contains(T item) -> bool
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.CopyTo(T[]! array, int arrayIndex) -> void
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.GetEnumerator() -> System.Collections.Generic.IEnumerator<T>!
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.IndexOf(T item) -> int
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Insert(int index, T item) -> void
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Remove(T item) -> bool
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.RemoveAt(int index) -> void
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.this[int index].get -> T
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.this[int index].set -> void
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArrayEnumerator<T>.Current.get -> object!
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArrayEnumerator<T>.MoveNext() -> bool
+abstract p3rpc.nativetypes.Interfaces.TManagedBaseArrayEnumerator<T>.Reset() -> void
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.GetHashIndex(int Index) -> int
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.GetKey(int Index) -> TElemKey
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.GetNextHashId(int Index) -> int
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.SetHashIndex(int Index, int HashIndex) -> void
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.SetKey(int Index, TElemKey New) -> void
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.SetNextHashId(int Index, int NextId) -> void
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.SizeOf() -> int
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.this[int Index].get -> TElemValue*
+abstract p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.this[int Index].set -> void
 override p3rpc.nativetypes.Interfaces.FColor.ToString() -> string
 override p3rpc.nativetypes.Interfaces.FGuid.ToString() -> string!
 override p3rpc.nativetypes.Interfaces.FLinearColor.ToString() -> string
@@ -7,6 +30,40 @@ override p3rpc.nativetypes.Interfaces.FString.ToString() -> string
 override p3rpc.nativetypes.Interfaces.FVector.ToString() -> string
 override p3rpc.nativetypes.Interfaces.FVector2D.ToString() -> string
 override p3rpc.nativetypes.Interfaces.FVector4.ToString() -> string
+override p3rpc.nativetypes.Interfaces.HashableInt.ToString() -> string!
+override p3rpc.nativetypes.Interfaces.HashableInt8.ToString() -> string!
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.Add(T item) -> void
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.Clear() -> void
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.Contains(T item) -> bool
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.CopyTo(T[]! array, int arrayIndex) -> void
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.GetEnumerator() -> System.Collections.Generic.IEnumerator<T>!
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.IndexOf(T item) -> int
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.Insert(int index, T item) -> void
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.Remove(T item) -> bool
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.RemoveAt(int index) -> void
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.this[int index].get -> T
+override p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.this[int index].set -> void
+override p3rpc.nativetypes.Interfaces.TManagedValueArrayEnumerator<T>.Current.get -> object!
+override p3rpc.nativetypes.Interfaces.TManagedValueArrayEnumerator<T>.MoveNext() -> bool
+override p3rpc.nativetypes.Interfaces.TManagedValueArrayEnumerator<T>.Reset() -> void
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.GetHashIndex(int Index) -> int
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.GetKey(int Index) -> TElemKey
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.GetNextHashId(int Index) -> int
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.SetHashIndex(int Index, int HashIndex) -> void
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.SetKey(int Index, TElemKey New) -> void
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.SetNextHashId(int Index, int NextId) -> void
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.SizeOf() -> int
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.this[int Index].get -> TElemValue*
+override p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.this[int Index].set -> void
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.GetHashIndex(int Index) -> int
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.GetKey(int Index) -> TElemKey
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.GetNextHashId(int Index) -> int
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.SetHashIndex(int Index, int HashIndex) -> void
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.SetKey(int Index, TElemKey New) -> void
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.SetNextHashId(int Index, int NextId) -> void
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.SizeOf() -> int
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.this[int Index].get -> TElemValue*
+override p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.this[int Index].set -> void
 p3rpc.nativetypes.Interfaces.AActor
 p3rpc.nativetypes.Interfaces.AActor.AActor() -> void
 p3rpc.nativetypes.Interfaces.AActor.AttachmentReplication -> p3rpc.nativetypes.Interfaces.FRepAttachment
@@ -1133,6 +1190,12 @@ p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod.EActorUpdateOverlapsMeth
 p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod.NeverUpdate = 3 -> p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod
 p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod.OnlyUpdateMovable = 2 -> p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod
 p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod.UseConfigDefault = 0 -> p3rpc.nativetypes.Interfaces.EActorUpdateOverlapsMethod
+p3rpc.nativetypes.Interfaces.EAnimPackID
+p3rpc.nativetypes.Interfaces.EAnimPackID.Combine = 3 -> p3rpc.nativetypes.Interfaces.EAnimPackID
+p3rpc.nativetypes.Interfaces.EAnimPackID.Common = 1 -> p3rpc.nativetypes.Interfaces.EAnimPackID
+p3rpc.nativetypes.Interfaces.EAnimPackID.Dungeon = 2 -> p3rpc.nativetypes.Interfaces.EAnimPackID
+p3rpc.nativetypes.Interfaces.EAnimPackID.Event = 4 -> p3rpc.nativetypes.Interfaces.EAnimPackID
+p3rpc.nativetypes.Interfaces.EAnimPackID.None = 0 -> p3rpc.nativetypes.Interfaces.EAnimPackID
 p3rpc.nativetypes.Interfaces.EAppActorId
 p3rpc.nativetypes.Interfaces.EAppActorId.CutinDraw = 29 -> p3rpc.nativetypes.Interfaces.EAppActorId
 p3rpc.nativetypes.Interfaces.EAppActorId.FclAntiqueShop = 35 -> p3rpc.nativetypes.Interfaces.EAppActorId
@@ -1174,6 +1237,15 @@ p3rpc.nativetypes.Interfaces.EAppActorId.UIVoiceConnectWatching = 43 -> p3rpc.na
 p3rpc.nativetypes.Interfaces.EAppActorId.VoiceAction = 38 -> p3rpc.nativetypes.Interfaces.EAppActorId
 p3rpc.nativetypes.Interfaces.EAppActorId.VoiceAnswer = 39 -> p3rpc.nativetypes.Interfaces.EAppActorId
 p3rpc.nativetypes.Interfaces.EAppActorId.VoiceConnect = 40 -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.EAppCharBagAnimType
+p3rpc.nativetypes.Interfaces.EAppCharBagAnimType.EC_None = 0 -> p3rpc.nativetypes.Interfaces.EAppCharBagAnimType
+p3rpc.nativetypes.Interfaces.EAppCharBagAnimType.EC_Run = 2 -> p3rpc.nativetypes.Interfaces.EAppCharBagAnimType
+p3rpc.nativetypes.Interfaces.EAppCharBagAnimType.EC_Stand = 1 -> p3rpc.nativetypes.Interfaces.EAppCharBagAnimType
+p3rpc.nativetypes.Interfaces.EAppCharCategoryType
+p3rpc.nativetypes.Interfaces.EAppCharCategoryType.MainCharacter = 1 -> p3rpc.nativetypes.Interfaces.EAppCharCategoryType
+p3rpc.nativetypes.Interfaces.EAppCharCategoryType.None = 0 -> p3rpc.nativetypes.Interfaces.EAppCharCategoryType
+p3rpc.nativetypes.Interfaces.EAppCharCategoryType.NpcCharacter = 3 -> p3rpc.nativetypes.Interfaces.EAppCharCategoryType
+p3rpc.nativetypes.Interfaces.EAppCharCategoryType.SubCharacter = 2 -> p3rpc.nativetypes.Interfaces.EAppCharCategoryType
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag.Always = 255 -> p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
 p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag.CampUI = 1 -> p3rpc.nativetypes.Interfaces.EAppPauseObjectFlag
@@ -1201,6 +1273,12 @@ p3rpc.nativetypes.Interfaces.EAutoReceiveInputType.Player4 = 5 -> p3rpc.nativety
 p3rpc.nativetypes.Interfaces.EAutoReceiveInputType.Player5 = 6 -> p3rpc.nativetypes.Interfaces.EAutoReceiveInputType
 p3rpc.nativetypes.Interfaces.EAutoReceiveInputType.Player6 = 7 -> p3rpc.nativetypes.Interfaces.EAutoReceiveInputType
 p3rpc.nativetypes.Interfaces.EAutoReceiveInputType.Player7 = 8 -> p3rpc.nativetypes.Interfaces.EAutoReceiveInputType
+p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode
+p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode.Animation = 0 -> p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode
+p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode.AnimationRelative = 3 -> p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode
+p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode.AnimationScaled = 2 -> p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode
+p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode.OrientAndScale = 4 -> p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode
+p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode.Skeleton = 1 -> p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode
 p3rpc.nativetypes.Interfaces.EClassCastFlags
 p3rpc.nativetypes.Interfaces.EClassCastFlags.CASTCLASS_AActor = 68719476736 -> p3rpc.nativetypes.Interfaces.EClassCastFlags
 p3rpc.nativetypes.Interfaces.EClassCastFlags.CASTCLASS_APawn = 274877906944 -> p3rpc.nativetypes.Interfaces.EClassCastFlags
@@ -1869,6 +1947,10 @@ p3rpc.nativetypes.Interfaces.FActorSpawnParameters.objectFlags -> uint
 p3rpc.nativetypes.Interfaces.FActorSpawnParameters.overrideLevel -> p3rpc.nativetypes.Interfaces.ULevel*
 p3rpc.nativetypes.Interfaces.FActorSpawnParameters.owner -> p3rpc.nativetypes.Interfaces.AActor*
 p3rpc.nativetypes.Interfaces.FActorSpawnParameters.template -> p3rpc.nativetypes.Interfaces.AActor*
+p3rpc.nativetypes.Interfaces.FAnimSlotGroup
+p3rpc.nativetypes.Interfaces.FAnimSlotGroup.FAnimSlotGroup() -> void
+p3rpc.nativetypes.Interfaces.FAnimSlotGroup.GroupName -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FAnimSlotGroup.SlotNames -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FName>
 p3rpc.nativetypes.Interfaces.FAppCalculaterComponentWork
 p3rpc.nativetypes.Interfaces.FAppCalculaterComponentWork.FAppCalculaterComponentWork() -> void
 p3rpc.nativetypes.Interfaces.FAppCalculaterComponentWork.List -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FAppCalculationItem>
@@ -1881,6 +1963,33 @@ p3rpc.nativetypes.Interfaces.FAppCalculationItem.FAppCalculationItem() -> void
 p3rpc.nativetypes.Interfaces.FAppCalculationItem.FAppCalculationItem(float SrcValue, float DstValue, int Delay, int DstFrame, p3rpc.nativetypes.Interfaces.appCalculationType Type) -> void
 p3rpc.nativetypes.Interfaces.FAppCalculationItem.SrcValue -> float
 p3rpc.nativetypes.Interfaces.FAppCalculationItem.Type -> p3rpc.nativetypes.Interfaces.appCalculationType
+p3rpc.nativetypes.Interfaces.FAppCharBagData
+p3rpc.nativetypes.Interfaces.FAppCharBagData.AttachSocketName -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FAppCharBagData.FAppCharBagData() -> void
+p3rpc.nativetypes.Interfaces.FAppCharBagData.SetAnimSlotName -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FAppCharCostumeData
+p3rpc.nativetypes.Interfaces.FAppCharCostumeData.BagKeyID -> int
+p3rpc.nativetypes.Interfaces.FAppCharCostumeData.Base -> p3rpc.nativetypes.Interfaces.FAppCharCostumePartsData
+p3rpc.nativetypes.Interfaces.FAppCharCostumeData.Costume -> p3rpc.nativetypes.Interfaces.FAppCharCostumePartsData
+p3rpc.nativetypes.Interfaces.FAppCharCostumeData.Face -> p3rpc.nativetypes.Interfaces.FAppCharCostumePartsData
+p3rpc.nativetypes.Interfaces.FAppCharCostumeData.FAppCharCostumeData() -> void
+p3rpc.nativetypes.Interfaces.FAppCharCostumeData.Hair -> p3rpc.nativetypes.Interfaces.FAppCharCostumePartsData
+p3rpc.nativetypes.Interfaces.FAppCharCostumePartsData
+p3rpc.nativetypes.Interfaces.FAppCharCostumePartsData.Anim -> p3rpc.nativetypes.Interfaces.TSoftClassPtr<p3rpc.nativetypes.Interfaces.UObject>
+p3rpc.nativetypes.Interfaces.FAppCharCostumePartsData.FAppCharCostumePartsData() -> void
+p3rpc.nativetypes.Interfaces.FAppCharCostumePartsData.Mesh -> p3rpc.nativetypes.Interfaces.TSoftObjectPtr<p3rpc.nativetypes.Interfaces.USkeletalMesh>
+p3rpc.nativetypes.Interfaces.FAppCharTableRow
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.Anims -> p3rpc.nativetypes.Interfaces.TMap<byte, p3rpc.nativetypes.Interfaces.TSoftObjectPtr<p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset>>
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.BagType -> p3rpc.nativetypes.Interfaces.TMap<p3rpc.nativetypes.Interfaces.HashableInt8, p3rpc.nativetypes.Interfaces.FAppCharBagData>
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.baseObj -> p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.CapsuleHalfHeight -> float
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.Costumes -> p3rpc.nativetypes.Interfaces.TMap<p3rpc.nativetypes.Interfaces.HashableInt8, p3rpc.nativetypes.Interfaces.FAppCharCostumeData>
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.FaceAnim -> p3rpc.nativetypes.Interfaces.TSoftObjectPtr<p3rpc.nativetypes.Interfaces.UAppCharFaceAnimDataAsset>
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.FAppCharTableRow() -> void
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.MeshLocation -> p3rpc.nativetypes.Interfaces.FVector
+p3rpc.nativetypes.Interfaces.FAppCharTableRow.WeaponType -> p3rpc.nativetypes.Interfaces.TMap<p3rpc.nativetypes.Interfaces.HashableInt8, p3rpc.nativetypes.Interfaces.FAppCharWeaponData>
+p3rpc.nativetypes.Interfaces.FAppCharWeaponData
+p3rpc.nativetypes.Interfaces.FAppCharWeaponData.FAppCharWeaponData() -> void
 p3rpc.nativetypes.Interfaces.FArrayProperty
 p3rpc.nativetypes.Interfaces.FArrayProperty.FArrayProperty() -> void
 p3rpc.nativetypes.Interfaces.FArrayProperty.flags -> uint
@@ -1963,6 +2072,11 @@ p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.preOpenBitflag -> int
 p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.SetCmmAvailable(int day, byte value) -> void
 p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.SetNormalAvailable(int day, byte value) -> void
 p3rpc.nativetypes.Interfaces.FBD_CmmExistEntry.SysHolidayBitflag -> int
+p3rpc.nativetypes.Interfaces.FBoneNode
+p3rpc.nativetypes.Interfaces.FBoneNode.FBoneNode() -> void
+p3rpc.nativetypes.Interfaces.FBoneNode.Name -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FBoneNode.ParentIndex -> int
+p3rpc.nativetypes.Interfaces.FBoneNode.TranslationRetargetingMode -> p3rpc.nativetypes.Interfaces.EBoneTranslationRetargetingMode
 p3rpc.nativetypes.Interfaces.FBoolProperty
 p3rpc.nativetypes.Interfaces.FBoolProperty.byte_mask -> byte
 p3rpc.nativetypes.Interfaces.FBoolProperty.byte_offset -> byte
@@ -1970,6 +2084,11 @@ p3rpc.nativetypes.Interfaces.FBoolProperty.FBoolProperty() -> void
 p3rpc.nativetypes.Interfaces.FBoolProperty.field_mask -> byte
 p3rpc.nativetypes.Interfaces.FBoolProperty.field_size -> byte
 p3rpc.nativetypes.Interfaces.FBoolProperty._super -> p3rpc.nativetypes.Interfaces.FProperty
+p3rpc.nativetypes.Interfaces.FBoxSphereBounds
+p3rpc.nativetypes.Interfaces.FBoxSphereBounds.BoxExtent -> p3rpc.nativetypes.Interfaces.FVector
+p3rpc.nativetypes.Interfaces.FBoxSphereBounds.FBoxSphereBounds() -> void
+p3rpc.nativetypes.Interfaces.FBoxSphereBounds.Origin -> p3rpc.nativetypes.Interfaces.FVector
+p3rpc.nativetypes.Interfaces.FBoxSphereBounds.SphereRadius -> float
 p3rpc.nativetypes.Interfaces.FBustupAnim
 p3rpc.nativetypes.Interfaces.FBustupAnim.FBustupAnim() -> void
 p3rpc.nativetypes.Interfaces.FBustupMouthAnim
@@ -4352,6 +4471,7 @@ p3rpc.nativetypes.Interfaces.FName.Equals(p3rpc.nativetypes.Interfaces.FName oth
 p3rpc.nativetypes.Interfaces.FName.field04 -> uint
 p3rpc.nativetypes.Interfaces.FName.FName() -> void
 p3rpc.nativetypes.Interfaces.FName.GetTypeHash() -> uint
+p3rpc.nativetypes.Interfaces.FName.IsNone() -> bool
 p3rpc.nativetypes.Interfaces.FName.pool_location -> uint
 p3rpc.nativetypes.Interfaces.FNamePool
 p3rpc.nativetypes.Interfaces.FNamePool.FNamePool() -> void
@@ -4481,9 +4601,12 @@ p3rpc.nativetypes.Interfaces.FSetProperty.FSetProperty() -> void
 p3rpc.nativetypes.Interfaces.FSetProperty._super -> p3rpc.nativetypes.Interfaces.FProperty
 p3rpc.nativetypes.Interfaces.FShortcutItem
 p3rpc.nativetypes.Interfaces.FShortcutItem.FShortcutItem() -> void
+p3rpc.nativetypes.Interfaces.FSmartNameContainer
+p3rpc.nativetypes.Interfaces.FSmartNameContainer.FSmartNameContainer() -> void
 p3rpc.nativetypes.Interfaces.FSoftObjectPath
 p3rpc.nativetypes.Interfaces.FSoftObjectPath.AssetPathName -> p3rpc.nativetypes.Interfaces.FName
 p3rpc.nativetypes.Interfaces.FSoftObjectPath.FSoftObjectPath() -> void
+p3rpc.nativetypes.Interfaces.FSoftObjectPath.IsNull() -> bool
 p3rpc.nativetypes.Interfaces.FSoftObjectPath.SubPathString -> p3rpc.nativetypes.Interfaces.FString
 p3rpc.nativetypes.Interfaces.FSoftObjectPtr
 p3rpc.nativetypes.Interfaces.FSoftObjectPtr.baseObj -> p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<p3rpc.nativetypes.Interfaces.FSoftObjectPath>
@@ -4614,6 +4737,11 @@ p3rpc.nativetypes.Interfaces.FVectorParameterValue.ExpressionGUID -> p3rpc.nativ
 p3rpc.nativetypes.Interfaces.FVectorParameterValue.FVectorParameterValue() -> void
 p3rpc.nativetypes.Interfaces.FVectorParameterValue.ParameterInfo -> p3rpc.nativetypes.Interfaces.FMaterialParameterInfo
 p3rpc.nativetypes.Interfaces.FVectorParameterValue.ParameterValue -> p3rpc.nativetypes.Interfaces.FColor
+p3rpc.nativetypes.Interfaces.FVirtualBone
+p3rpc.nativetypes.Interfaces.FVirtualBone.FVirtualBone() -> void
+p3rpc.nativetypes.Interfaces.FVirtualBone.SourceBoneName -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FVirtualBone.TargetBoneName -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FVirtualBone.VirtualBoneName -> p3rpc.nativetypes.Interfaces.FName
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.FWeakObjectPtr() -> void
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.ObjectIndex -> int
@@ -4624,6 +4752,12 @@ p3rpc.nativetypes.Interfaces.HashableInt.GetTypeHash() -> uint
 p3rpc.nativetypes.Interfaces.HashableInt.HashableInt() -> void
 p3rpc.nativetypes.Interfaces.HashableInt.HashableInt(int value) -> void
 p3rpc.nativetypes.Interfaces.HashableInt.Value -> int
+p3rpc.nativetypes.Interfaces.HashableInt8
+p3rpc.nativetypes.Interfaces.HashableInt8.Equals(p3rpc.nativetypes.Interfaces.HashableInt8 other) -> bool
+p3rpc.nativetypes.Interfaces.HashableInt8.GetTypeHash() -> uint
+p3rpc.nativetypes.Interfaces.HashableInt8.HashableInt8() -> void
+p3rpc.nativetypes.Interfaces.HashableInt8.HashableInt8(int value) -> void
+p3rpc.nativetypes.Interfaces.HashableInt8.Value -> int
 p3rpc.nativetypes.Interfaces.HashablePointer
 p3rpc.nativetypes.Interfaces.HashablePointer.Equals(p3rpc.nativetypes.Interfaces.HashablePointer other) -> bool
 p3rpc.nativetypes.Interfaces.HashablePointer.GetTypeHash() -> uint
@@ -4655,9 +4789,19 @@ p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocMultiple<TType>(uint c
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocMultipleZeroed<TType>(uint count) -> TType*
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_MallocZeroed<TType>() -> TType*
 p3rpc.nativetypes.Interfaces.IMemoryMethods.FMemory_Realloc(nint ptr, nint size, uint alignment) -> nint
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakeBitArray() -> p3rpc.nativetypes.Interfaces.TBitArray!
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakeBitArray(nint alloc) -> p3rpc.nativetypes.Interfaces.TBitArray!
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakeManagedValueArray<T>() -> p3rpc.nativetypes.Interfaces.TManagedValueArray<T>!
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakeManagedValueArray<T>(p3rpc.nativetypes.Interfaces.TArray<T>* arr) -> p3rpc.nativetypes.Interfaces.TManagedValueArray<T>!
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakeMapFromDataTable<TValue>(p3rpc.nativetypes.Interfaces.UDataTable* DataTable) -> p3rpc.nativetypes.Interfaces.TManagedMap<p3rpc.nativetypes.Interfaces.FName, p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<p3rpc.nativetypes.Interfaces.FName, TValue>!, p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<p3rpc.nativetypes.Interfaces.FName, TValue>, TValue>!
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakePointerMap<TKey, TValue>(nint? alloc = null) -> p3rpc.nativetypes.Interfaces.TManagedMap<TKey, p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TKey, TValue>!, p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<TKey, TValue>, TValue>!
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakePointerMap<TKey, TValue>(p3rpc.nativetypes.Interfaces.TMap<TKey, TValue>* alloc) -> p3rpc.nativetypes.Interfaces.TManagedMap<TKey, p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TKey, TValue>!, p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<TKey, TValue>, TValue>!
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakeValueMap<TKey, TValue>(nint? alloc = null) -> p3rpc.nativetypes.Interfaces.TManagedMap<TKey, p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TKey, TValue>!, p3rpc.nativetypes.Interfaces.ManagedMapValueElements<TKey, TValue>, TValue>!
+p3rpc.nativetypes.Interfaces.IMemoryMethods.MakeValueMap<TKey, TValue>(p3rpc.nativetypes.Interfaces.TMap<TKey, TValue>* alloc) -> p3rpc.nativetypes.Interfaces.TManagedMap<TKey, p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TKey, TValue>!, p3rpc.nativetypes.Interfaces.ManagedMapValueElements<TKey, TValue>, TValue>!
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Delete<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, int index) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Insert<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_Insert<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry, int index) -> bool
+p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_InsertShift<TArrayType>(p3rpc.nativetypes.Interfaces.TArray<TArrayType>* arr, TArrayType entry, int index) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TMap_Insert<KeyType, ValueType>(p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>* map, KeyType key, ValueType val) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TMap_InsertNoInit<KeyType, ValueType>(p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>* map, KeyType key, ValueType val) -> bool
 p3rpc.nativetypes.Interfaces.ItemBag
@@ -4731,6 +4875,23 @@ p3rpc.nativetypes.Interfaces.MailInner
 p3rpc.nativetypes.Interfaces.MailInner.MailIncomingKey -> ushort
 p3rpc.nativetypes.Interfaces.MailInner.MailInner() -> void
 p3rpc.nativetypes.Interfaces.MailInner.Read -> byte
+p3rpc.nativetypes.Interfaces.ManagedData<T>
+p3rpc.nativetypes.Interfaces.ManagedData<T>.IsValid() -> bool
+p3rpc.nativetypes.Interfaces.ManagedData<T>.ManagedData(nint ptr) -> void
+p3rpc.nativetypes.Interfaces.ManagedData<T>.Self.get -> T*
+p3rpc.nativetypes.Interfaces.ManagedData<T>.Self.set -> void
+p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<TElemKey, TElemValue>
+p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<TElemKey, TElemValue>.HashIndex -> int
+p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<TElemKey, TElemValue>.HashNextId -> int
+p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<TElemKey, TElemValue>.Key -> TElemKey
+p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<TElemKey, TElemValue>.ManagedMapPointerElements() -> void
+p3rpc.nativetypes.Interfaces.ManagedMapPointerElements<TElemKey, TElemValue>.Value -> TElemValue*
+p3rpc.nativetypes.Interfaces.ManagedMapValueElements<TElemKey, TElemValue>
+p3rpc.nativetypes.Interfaces.ManagedMapValueElements<TElemKey, TElemValue>.HashIndex -> int
+p3rpc.nativetypes.Interfaces.ManagedMapValueElements<TElemKey, TElemValue>.HashNextId -> int
+p3rpc.nativetypes.Interfaces.ManagedMapValueElements<TElemKey, TElemValue>.Key -> TElemKey
+p3rpc.nativetypes.Interfaces.ManagedMapValueElements<TElemKey, TElemValue>.ManagedMapValueElements() -> void
+p3rpc.nativetypes.Interfaces.ManagedMapValueElements<TElemKey, TElemValue>.Value -> TElemValue
 p3rpc.nativetypes.Interfaces.PlgDefStruct1
 p3rpc.nativetypes.Interfaces.PlgDefStruct1.Color -> p3rpc.nativetypes.Interfaces.FSprColor
 p3rpc.nativetypes.Interfaces.PlgDefStruct1.Field3C -> int
@@ -4782,9 +4943,80 @@ p3rpc.nativetypes.Interfaces.TArray<T>.arr_num -> int
 p3rpc.nativetypes.Interfaces.TArray<T>.Get<V>(int index) -> V*
 p3rpc.nativetypes.Interfaces.TArray<T>.GetRef(int index) -> T*
 p3rpc.nativetypes.Interfaces.TArray<T>.TArray() -> void
+p3rpc.nativetypes.Interfaces.TBitArray
+p3rpc.nativetypes.Interfaces.TBitArray.Add(bool item) -> void
+p3rpc.nativetypes.Interfaces.TBitArray.Clear() -> void
+p3rpc.nativetypes.Interfaces.TBitArray.Contains(bool item) -> bool
+p3rpc.nativetypes.Interfaces.TBitArray.CopyTo(bool[]! array, int arrayIndex) -> void
+p3rpc.nativetypes.Interfaces.TBitArray.Count.get -> int
+p3rpc.nativetypes.Interfaces.TBitArray.Dispose() -> void
+p3rpc.nativetypes.Interfaces.TBitArray.GetEnumerator() -> System.Collections.Generic.IEnumerator<bool>!
+p3rpc.nativetypes.Interfaces.TBitArray.GetStructSize() -> int
+p3rpc.nativetypes.Interfaces.TBitArray.IndexOf(bool item) -> int
+p3rpc.nativetypes.Interfaces.TBitArray.Initialize() -> void
+p3rpc.nativetypes.Interfaces.TBitArray.InlineBitArray.get -> byte*
+p3rpc.nativetypes.Interfaces.TBitArray.Insert(int index, bool item) -> void
+p3rpc.nativetypes.Interfaces.TBitArray.IsReadOnly.get -> bool
+p3rpc.nativetypes.Interfaces.TBitArray.Leak() -> void
+p3rpc.nativetypes.Interfaces.TBitArray.Remove(bool item) -> bool
+p3rpc.nativetypes.Interfaces.TBitArray.RemoveAt(int index) -> void
+p3rpc.nativetypes.Interfaces.TBitArray.TBitArray(p3rpc.nativetypes.Interfaces.IMemoryMethods! _MemoryMethods, nint? _InlineBitArray = null, int _InlineAllocatorSize = 16) -> void
+p3rpc.nativetypes.Interfaces.TBitArray.this[int index].get -> bool
+p3rpc.nativetypes.Interfaces.TBitArray.this[int index].set -> void
+p3rpc.nativetypes.Interfaces.TBitArray.~TBitArray() -> void
+p3rpc.nativetypes.Interfaces.TBitArrayEnumerator
+p3rpc.nativetypes.Interfaces.TBitArrayEnumerator.Current.get -> bool
+p3rpc.nativetypes.Interfaces.TBitArrayEnumerator.Dispose() -> void
+p3rpc.nativetypes.Interfaces.TBitArrayEnumerator.MoveNext() -> bool
+p3rpc.nativetypes.Interfaces.TBitArrayEnumerator.Reset() -> void
+p3rpc.nativetypes.Interfaces.TBitArrayEnumerator.TBitArrayEnumerator(p3rpc.nativetypes.Interfaces.TBitArray! _Owner) -> void
 p3rpc.nativetypes.Interfaces.TLazyObjectPtr<T>
 p3rpc.nativetypes.Interfaces.TLazyObjectPtr<T>.baseObj -> p3rpc.nativetypes.Interfaces.FLazyObjectPtr
 p3rpc.nativetypes.Interfaces.TLazyObjectPtr<T>.TLazyObjectPtr() -> void
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.bIsDisposed -> bool
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.bOwnsAllocation -> bool
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Count.get -> int
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Dispose() -> void
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.IsReadOnly.get -> bool
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.MemoryMethods -> p3rpc.nativetypes.Interfaces.IMemoryMethods!
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Self -> p3rpc.nativetypes.Interfaces.TArray<T>*
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.TManagedBaseArray(p3rpc.nativetypes.Interfaces.IMemoryMethods! _MemoryMethods) -> void
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.TManagedBaseArray(p3rpc.nativetypes.Interfaces.IMemoryMethods! _MemoryMethods, p3rpc.nativetypes.Interfaces.TArray<T>* _Self) -> void
+p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.~TManagedBaseArray() -> void
+p3rpc.nativetypes.Interfaces.TManagedBaseArrayEnumerator<T>
+p3rpc.nativetypes.Interfaces.TManagedBaseArrayEnumerator<T>.Dispose() -> void
+p3rpc.nativetypes.Interfaces.TManagedBaseArrayEnumerator<T>.Self -> p3rpc.nativetypes.Interfaces.TArray<T>*
+p3rpc.nativetypes.Interfaces.TManagedBaseArrayEnumerator<T>.TManagedBaseArrayEnumerator() -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Add(System.Collections.Generic.KeyValuePair<TKey, p3rpc.nativetypes.Interfaces.ManagedData<TValue>!> item) -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Add(TKey key, p3rpc.nativetypes.Interfaces.ManagedData<TValue>! value) -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Add(TKey key, TValue value) -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Add(TKey key, TValue* value) -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Allocation.get -> nint
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Clear() -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Contains(System.Collections.Generic.KeyValuePair<TKey, p3rpc.nativetypes.Interfaces.ManagedData<TValue>!> item) -> bool
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.ContainsKey(TKey key) -> bool
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.CopyTo(System.Collections.Generic.KeyValuePair<TKey, p3rpc.nativetypes.Interfaces.ManagedData<TValue>!>[]! array, int arrayIndex) -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Count.get -> int
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Dispose() -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.GetEnumerator() -> System.Collections.Generic.IEnumerator<System.Collections.Generic.KeyValuePair<TKey, p3rpc.nativetypes.Interfaces.ManagedData<TValue>!>>!
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.IsReadOnly.get -> bool
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Keys.get -> System.Collections.Generic.ICollection<TKey>!
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Leak() -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Remove(System.Collections.Generic.KeyValuePair<TKey, p3rpc.nativetypes.Interfaces.ManagedData<TValue>!> item) -> bool
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Remove(TKey key) -> bool
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.this[TKey key].get -> TValue*
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.this[TKey key].set -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.TManagedMap(p3rpc.nativetypes.Interfaces.IMemoryMethods! _MemoryMethods, p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TKey, TValue, TElemIter>! _Elements, System.Action<string!>? _DebugCb = null) -> void
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.TryGetValue(TKey key, out p3rpc.nativetypes.Interfaces.ManagedData<TValue>! value) -> bool
+p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.~TManagedMap() -> void
+p3rpc.nativetypes.Interfaces.TManagedValueArray<T>
+p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.TManagedValueArray(p3rpc.nativetypes.Interfaces.IMemoryMethods! _MemoryMethods) -> void
+p3rpc.nativetypes.Interfaces.TManagedValueArray<T>.TManagedValueArray(p3rpc.nativetypes.Interfaces.IMemoryMethods! _MemoryMethods, p3rpc.nativetypes.Interfaces.TArray<T>* _Self) -> void
+p3rpc.nativetypes.Interfaces.TManagedValueArrayEnumerator<T>
+p3rpc.nativetypes.Interfaces.TManagedValueArrayEnumerator<T>.Self -> p3rpc.nativetypes.Interfaces.TArray<T>*
+p3rpc.nativetypes.Interfaces.TManagedValueArrayEnumerator<T>.TManagedValueArrayEnumerator(p3rpc.nativetypes.Interfaces.TArray<T>* _Self) -> void
 p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>
 p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>.elements -> p3rpc.nativetypes.Interfaces.TMapElement<KeyType, ValueType>*
 p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>.GetByIndex(int idx) -> ValueType*
@@ -4798,12 +5030,41 @@ p3rpc.nativetypes.Interfaces.TMapElement<KeyType, ValueType>.HashNextId -> uint
 p3rpc.nativetypes.Interfaces.TMapElement<KeyType, ValueType>.Key -> KeyType
 p3rpc.nativetypes.Interfaces.TMapElement<KeyType, ValueType>.TMapElement() -> void
 p3rpc.nativetypes.Interfaces.TMapElement<KeyType, ValueType>.Value -> ValueType
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Allocation.get -> nint
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Allocation.set -> void
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Array -> p3rpc.nativetypes.Interfaces.TArray<nint>*
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.CachedData -> TElemLayout*
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.CachedIndex -> int
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Capacity.get -> int
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Capacity.set -> void
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.GetEnumerator() -> System.Collections.Generic.IEnumerator<p3rpc.nativetypes.Interfaces.ManagedData<TElemLayout>!>!
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.HasAllocation() -> bool
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Self.get -> p3rpc.nativetypes.Interfaces.TArray<nint>*
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Self.set -> void
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Size.get -> int
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.Size.set -> void
+p3rpc.nativetypes.Interfaces.TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout>.TMapElementAccessorBase(p3rpc.nativetypes.Interfaces.TArray<nint>* _Array) -> void
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>.Array -> p3rpc.nativetypes.Interfaces.TArray<nint>*
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>.Current.get -> p3rpc.nativetypes.Interfaces.ManagedData<TElemLayout>!
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>.Dispose() -> void
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>.MoveNext() -> bool
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>.Position -> int
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>.Reset() -> void
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>.SetPosition(int _Position) -> void
+p3rpc.nativetypes.Interfaces.TMapElementEnumerator<TElemLayout>.TMapElementEnumerator(p3rpc.nativetypes.Interfaces.TArray<nint>* _Array) -> void
 p3rpc.nativetypes.Interfaces.TMapElementHashable<KeyType, ValueType>
 p3rpc.nativetypes.Interfaces.TMapElementHashable<KeyType, ValueType>.HashIndex -> int
 p3rpc.nativetypes.Interfaces.TMapElementHashable<KeyType, ValueType>.HashNextId -> int
 p3rpc.nativetypes.Interfaces.TMapElementHashable<KeyType, ValueType>.Key -> KeyType
 p3rpc.nativetypes.Interfaces.TMapElementHashable<KeyType, ValueType>.TMapElementHashable() -> void
 p3rpc.nativetypes.Interfaces.TMapElementHashable<KeyType, ValueType>.Value -> ValueType
+p3rpc.nativetypes.Interfaces.TMapFreeListIndex
+p3rpc.nativetypes.Interfaces.TMapFreeListIndex.FirstFreeIndex -> int
+p3rpc.nativetypes.Interfaces.TMapFreeListIndex.FreeIndexList -> int*
+p3rpc.nativetypes.Interfaces.TMapFreeListIndex.NumFreeIndices -> int
+p3rpc.nativetypes.Interfaces.TMapFreeListIndex.TMapFreeListIndex() -> void
 p3rpc.nativetypes.Interfaces.TMapHashable<KeyType, ValueType>
 p3rpc.nativetypes.Interfaces.TMapHashable<KeyType, ValueType>.Elements -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.TMapElementHashable<KeyType, ValueType>>*
 p3rpc.nativetypes.Interfaces.TMapHashable<KeyType, ValueType>.GetByIndex(int idx) -> ValueType*
@@ -4817,6 +5078,16 @@ p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.ObjectId -> T
 p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.TagAtLastTest -> int
 p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.TPersistentObjectPtr() -> void
 p3rpc.nativetypes.Interfaces.TPersistentObjectPtr<T>.WeakPtr -> p3rpc.nativetypes.Interfaces.FWeakObjectPtr
+p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>
+p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.TPointerMapElementAccessor(p3rpc.nativetypes.Interfaces.TArray<nint>* _Array) -> void
+p3rpc.nativetypes.Interfaces.TSoftClassPtr<T>
+p3rpc.nativetypes.Interfaces.TSoftClassPtr<T>.baseObj -> p3rpc.nativetypes.Interfaces.FSoftObjectPtr
+p3rpc.nativetypes.Interfaces.TSoftClassPtr<T>.TSoftClassPtr() -> void
+p3rpc.nativetypes.Interfaces.TSoftObjectPtr<T>
+p3rpc.nativetypes.Interfaces.TSoftObjectPtr<T>.baseObj -> p3rpc.nativetypes.Interfaces.FSoftObjectPtr
+p3rpc.nativetypes.Interfaces.TSoftObjectPtr<T>.TSoftObjectPtr() -> void
+p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>
+p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.TValueMapElementAccessor(p3rpc.nativetypes.Interfaces.TArray<nint>* _Array) -> void
 p3rpc.nativetypes.Interfaces.TypeExtensions
 p3rpc.nativetypes.Interfaces.UActorComponent
 p3rpc.nativetypes.Interfaces.UActorComponent.AssetUserData -> p3rpc.nativetypes.Interfaces.TArray<nint>
@@ -4875,6 +5146,14 @@ p3rpc.nativetypes.Interfaces.UAppCharacterComp.mSetCostumeID -> int
 p3rpc.nativetypes.Interfaces.UAppCharacterComp.mSetWeaponModelID -> int
 p3rpc.nativetypes.Interfaces.UAppCharacterComp.mSetWeaponType -> int
 p3rpc.nativetypes.Interfaces.UAppCharacterComp.UAppCharacterComp() -> void
+p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset
+p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset.AnimInstance -> p3rpc.nativetypes.Interfaces.UClass*
+p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset.Anims -> p3rpc.nativetypes.Interfaces.TMap<int, nint>
+p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset.baseObj -> p3rpc.nativetypes.Interfaces.UDataAsset
+p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset.CharId -> int
+p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset.PackId -> p3rpc.nativetypes.Interfaces.EAnimPackID
+p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset.SpecialAnimInstance -> p3rpc.nativetypes.Interfaces.TMap<int, nint>
+p3rpc.nativetypes.Interfaces.UAppCharAnimDataAsset.UAppCharAnimDataAsset() -> void
 p3rpc.nativetypes.Interfaces.UAppCharBaseComp
 p3rpc.nativetypes.Interfaces.UAppCharBaseComp.baseObj -> p3rpc.nativetypes.Interfaces.UActorComponent
 p3rpc.nativetypes.Interfaces.UAppCharBaseComp.bMotionDetachPreparedRelativeTrans_ -> bool
@@ -4892,6 +5171,11 @@ p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionDetachPreparedRelativeLocat
 p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionDetachPreparedRelativeRotator_ -> p3rpc.nativetypes.Interfaces.FRotator
 p3rpc.nativetypes.Interfaces.UAppCharBaseComp.mMotionDetachPrepared_ -> bool
 p3rpc.nativetypes.Interfaces.UAppCharBaseComp.UAppCharBaseComp() -> void
+p3rpc.nativetypes.Interfaces.UAppCharFaceAnimDataAsset
+p3rpc.nativetypes.Interfaces.UAppCharFaceAnimDataAsset.Anims -> p3rpc.nativetypes.Interfaces.TMap<int, nint>
+p3rpc.nativetypes.Interfaces.UAppCharFaceAnimDataAsset.baseObj -> p3rpc.nativetypes.Interfaces.UDataAsset
+p3rpc.nativetypes.Interfaces.UAppCharFaceAnimDataAsset.CharId -> int
+p3rpc.nativetypes.Interfaces.UAppCharFaceAnimDataAsset.UAppCharFaceAnimDataAsset() -> void
 p3rpc.nativetypes.Interfaces.UAppMultiDataAsset
 p3rpc.nativetypes.Interfaces.UAppMultiDataAsset.baseObj -> p3rpc.nativetypes.Interfaces.UDataAsset
 p3rpc.nativetypes.Interfaces.UAppMultiDataAsset.UAppMultiDataAsset() -> void
@@ -5735,10 +6019,54 @@ p3rpc.nativetypes.Interfaces.USequence.USequence() -> void
 p3rpc.nativetypes.Interfaces.USignedInDialog
 p3rpc.nativetypes.Interfaces.USignedInDialog.baseObj -> p3rpc.nativetypes.Interfaces.UObject
 p3rpc.nativetypes.Interfaces.USignedInDialog.USignedInDialog() -> void
+p3rpc.nativetypes.Interfaces.USkeletalMesh
+p3rpc.nativetypes.Interfaces.USkeletalMesh.AssetUserData -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USkeletalMesh.baseObj -> p3rpc.nativetypes.Interfaces.UStreamableRenderAsset
+p3rpc.nativetypes.Interfaces.USkeletalMesh.bEnablePerPolyCollision -> byte
+p3rpc.nativetypes.Interfaces.USkeletalMesh.bHasBeenSimplified -> byte
+p3rpc.nativetypes.Interfaces.USkeletalMesh.bHasVertexColors -> byte
+p3rpc.nativetypes.Interfaces.USkeletalMesh.bSupportRayTracing -> byte
+p3rpc.nativetypes.Interfaces.USkeletalMesh.bUseFullPrecisionUVs -> byte
+p3rpc.nativetypes.Interfaces.USkeletalMesh.bUseHighPrecisionTangentBasis -> byte
+p3rpc.nativetypes.Interfaces.USkeletalMesh.ExtendedBounds -> p3rpc.nativetypes.Interfaces.FBoxSphereBounds
+p3rpc.nativetypes.Interfaces.USkeletalMesh.ImportedBounds -> p3rpc.nativetypes.Interfaces.FBoxSphereBounds
+p3rpc.nativetypes.Interfaces.USkeletalMesh.MeshClothingAssets -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USkeletalMesh.MorphTargets -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USkeletalMesh.NegativeBoundsExtension -> p3rpc.nativetypes.Interfaces.FVector
+p3rpc.nativetypes.Interfaces.USkeletalMesh.NodeMappingData -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USkeletalMesh.PositiveBoundsExtension -> p3rpc.nativetypes.Interfaces.FVector
+p3rpc.nativetypes.Interfaces.USkeletalMesh.Skeleton -> p3rpc.nativetypes.Interfaces.USkeleton*
+p3rpc.nativetypes.Interfaces.USkeletalMesh.Sockets -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USkeletalMesh.USkeletalMesh() -> void
+p3rpc.nativetypes.Interfaces.USkeleton
+p3rpc.nativetypes.Interfaces.USkeleton.AssetUserData -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USkeleton.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.USkeleton.BlendProfiles -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USkeleton.BoneTree -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FBoneNode>
+p3rpc.nativetypes.Interfaces.USkeleton.RefLocalPoses -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FTransform>
+p3rpc.nativetypes.Interfaces.USkeleton.SlotGroups -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FAnimSlotGroup>
+p3rpc.nativetypes.Interfaces.USkeleton.SmartNames -> p3rpc.nativetypes.Interfaces.FSmartNameContainer
+p3rpc.nativetypes.Interfaces.USkeleton.Sockets -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.USkeleton.USkeleton() -> void
+p3rpc.nativetypes.Interfaces.USkeleton.VirtualBoneGuid -> p3rpc.nativetypes.Interfaces.FGuid
+p3rpc.nativetypes.Interfaces.USkeleton.VirtualBones -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FVirtualBone>
 p3rpc.nativetypes.Interfaces.USprAsset
 p3rpc.nativetypes.Interfaces.USprAsset.mTexArray -> p3rpc.nativetypes.Interfaces.TArray<nint>
 p3rpc.nativetypes.Interfaces.USprAsset.SprDatas -> p3rpc.nativetypes.Interfaces.TMap<int, p3rpc.nativetypes.Interfaces.FSprDataArray>
 p3rpc.nativetypes.Interfaces.USprAsset.USprAsset() -> void
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.baseObj -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.bForceMiplevelsToBeResident -> byte
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.bGlobalForceMipLevelsToBeResident -> byte
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.bHasStreamingUpdatePending -> byte
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.bIgnoreStreamingMipBias -> byte
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.bUseCinematicMipLevels -> byte
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.CachedCombinedLODBias -> int
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.ForceMipLevelsToBeResidentTimestamp -> double
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.NeverStream -> byte
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.NumCinematicMipLevels -> int
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.StreamingIndex -> int
+p3rpc.nativetypes.Interfaces.UStreamableRenderAsset.UStreamableRenderAsset() -> void
 p3rpc.nativetypes.Interfaces.UStruct
 p3rpc.nativetypes.Interfaces.UStruct.children -> p3rpc.nativetypes.Interfaces.UField*
 p3rpc.nativetypes.Interfaces.UStruct.child_properties -> p3rpc.nativetypes.Interfaces.FField*
@@ -5762,8 +6090,16 @@ p3rpc.nativetypes.Interfaces.USupportBustupDataAsset.USupportBustupDataAsset() -
 p3rpc.nativetypes.Interfaces.UTCSSaveData
 p3rpc.nativetypes.Interfaces.UTCSSaveData.UTCSSaveData() -> void
 p3rpc.nativetypes.Interfaces.UTexture
+p3rpc.nativetypes.Interfaces.UTexture.AssetUserData -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.UTexture.baseObj -> p3rpc.nativetypes.Interfaces.UStreamableRenderAsset
+p3rpc.nativetypes.Interfaces.UTexture.LightingGuid -> p3rpc.nativetypes.Interfaces.FGuid
+p3rpc.nativetypes.Interfaces.UTexture.LODBias -> int
 p3rpc.nativetypes.Interfaces.UTexture.UTexture() -> void
 p3rpc.nativetypes.Interfaces.UTexture2D
+p3rpc.nativetypes.Interfaces.UTexture2D.baseObj -> p3rpc.nativetypes.Interfaces.UTexture
+p3rpc.nativetypes.Interfaces.UTexture2D.bTemporarilyDisableStreaming -> byte
+p3rpc.nativetypes.Interfaces.UTexture2D.FirstResourceMemMip -> int
+p3rpc.nativetypes.Interfaces.UTexture2D.LevelIndex -> int
 p3rpc.nativetypes.Interfaces.UTexture2D.UTexture2D() -> void
 p3rpc.nativetypes.Interfaces.UTrophyManager
 p3rpc.nativetypes.Interfaces.UTrophyManager.baseObj -> p3rpc.nativetypes.Interfaces.UObject
@@ -5942,7 +6278,11 @@ p3rpc.nativetypes.Interfaces.UXrd777SaveManager
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.NetworkSaveInstance -> p3rpc.nativetypes.Interfaces.UXRD777SaveGame*
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.TCSSaveData -> p3rpc.nativetypes.Interfaces.UTCSSaveData*
 p3rpc.nativetypes.Interfaces.UXrd777SaveManager.UXrd777SaveManager() -> void
+static p3rpc.nativetypes.Interfaces.TBitArray.GetDefaultStructSize() -> int
 static p3rpc.nativetypes.Interfaces.TypeExtensions.AsHashable(this int val) -> p3rpc.nativetypes.Interfaces.HashableInt
 static p3rpc.nativetypes.Interfaces.TypeExtensions.AsHashable(this nint ptr) -> p3rpc.nativetypes.Interfaces.HashablePointer
 static p3rpc.nativetypes.Interfaces.TypeExtensions.HashCombine(uint a, uint b) -> uint
 static p3rpc.nativetypes.Interfaces.UAtlEvtSubsystem.GetEvtPreDataHash(p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType category, uint major, uint minor) -> uint
+virtual p3rpc.nativetypes.Interfaces.TBitArray.Dispose(bool disposing) -> void
+virtual p3rpc.nativetypes.Interfaces.TManagedBaseArray<T>.Dispose(bool disposing) -> void
+virtual p3rpc.nativetypes.Interfaces.TManagedMap<TKey, TElem, TElemIter, TValue>.Dispose(bool disposing) -> void

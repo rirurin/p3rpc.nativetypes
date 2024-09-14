@@ -1,7 +1,6 @@
 ﻿# 1.7.0
 - Add managed TArray class that implements IList interface
 - Add managed TMap class that implements IDictionary interface
-- Add managed FSoftObjectPtr class
 # 1.6.1
 - Add KeyHeko structs for Episode Aigis
 # 1.6.0

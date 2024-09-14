@@ -1101,6 +1101,7 @@ public unsafe struct FSoftObjectPath
 {
     [FieldOffset(0x0000)] public FName AssetPathName;
     [FieldOffset(0x0008)] public FString SubPathString;
+    public bool IsNull() => AssetPathName.IsNone();
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -1120,8 +1121,6 @@ public struct TSoftClassPtr<T> where T : unmanaged
 {
     public FSoftObjectPtr baseObj;
 }
-
-//public class TManagedSoftObjectPtr<T>
 
 public enum EObjectFlags : uint
 {
@@ -1647,6 +1646,7 @@ public unsafe struct FName : IEquatable<FName>, IMapHashable
         uint offset = pool_location & 0xffff;
         return (block << 19) + block + (offset << 0x10) + offset + (offset >> 4) + field04;
     }
+    public bool IsNone() => pool_location == 0;
 }
 [StructLayout(LayoutKind.Sequential)]
 public unsafe struct FString : IEquatable<FString>
