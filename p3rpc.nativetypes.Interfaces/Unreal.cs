@@ -1114,12 +1114,22 @@ public struct FSoftObjectPtr
 public struct TSoftObjectPtr<T> where T : unmanaged
 {
     public FSoftObjectPtr baseObj;
+    public unsafe TSoftObjectPtr(FName _Name)
+    {
+        baseObj.baseObj.WeakPtr.ObjectIndex = -1;
+        baseObj.baseObj.ObjectId.AssetPathName = _Name;
+    }
 }
 
 [StructLayout(LayoutKind.Sequential)]
 public struct TSoftClassPtr<T> where T : unmanaged
 {
     public FSoftObjectPtr baseObj;
+    public unsafe TSoftClassPtr(FName _Name)
+    {
+        baseObj.baseObj.WeakPtr.ObjectIndex = -1;
+        baseObj.baseObj.ObjectId.AssetPathName = _Name;
+    }
 }
 
 public enum EObjectFlags : uint

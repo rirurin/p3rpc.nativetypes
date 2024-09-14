@@ -5083,9 +5083,11 @@ p3rpc.nativetypes.Interfaces.TPointerMapElementAccessor<TElemKey, TElemValue>.TP
 p3rpc.nativetypes.Interfaces.TSoftClassPtr<T>
 p3rpc.nativetypes.Interfaces.TSoftClassPtr<T>.baseObj -> p3rpc.nativetypes.Interfaces.FSoftObjectPtr
 p3rpc.nativetypes.Interfaces.TSoftClassPtr<T>.TSoftClassPtr() -> void
+p3rpc.nativetypes.Interfaces.TSoftClassPtr<T>.TSoftClassPtr(p3rpc.nativetypes.Interfaces.FName _Name) -> void
 p3rpc.nativetypes.Interfaces.TSoftObjectPtr<T>
 p3rpc.nativetypes.Interfaces.TSoftObjectPtr<T>.baseObj -> p3rpc.nativetypes.Interfaces.FSoftObjectPtr
 p3rpc.nativetypes.Interfaces.TSoftObjectPtr<T>.TSoftObjectPtr() -> void
+p3rpc.nativetypes.Interfaces.TSoftObjectPtr<T>.TSoftObjectPtr(p3rpc.nativetypes.Interfaces.FName _Name) -> void
 p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>
 p3rpc.nativetypes.Interfaces.TValueMapElementAccessor<TElemKey, TElemValue>.TValueMapElementAccessor(p3rpc.nativetypes.Interfaces.TArray<nint>* _Array) -> void
 p3rpc.nativetypes.Interfaces.TypeExtensions
