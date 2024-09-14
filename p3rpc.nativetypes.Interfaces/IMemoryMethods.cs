@@ -36,5 +36,35 @@ namespace p3rpc.nativetypes.Interfaces
             where KeyType : unmanaged, IEquatable<KeyType>, IMapHashable
             where ValueType : unmanaged;
         // (1.7.0) Managed map factory methods
+        /*
+        public unsafe TManagedMap<TKey, TValueMapElementAccessor<TKey, TValue>, TValue> MakeValueMap<TKey, TValue>(nint? alloc = null)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged;
+        public unsafe TManagedMap<TKey, TValueMapElementAccessor<TKey, TValue>, TValue> MakeValueMap<TKey, TValue>(TMap<TKey, TValue>* alloc)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged;
+        public unsafe TManagedMap<TKey, TPointerMapElementAccessor<TKey, TValue>, TValue> MakePointerMap<TKey, TValue>(nint? alloc = null)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged;
+        public unsafe TManagedMap<TKey, TPointerMapElementAccessor<TKey, TValue>, TValue> MakePointerMap<TKey, TValue>(TMap<TKey, TValue>* alloc)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged;
+        public unsafe TManagedMap<FName, TPointerMapElementAccessor<FName, TValue>, TValue> MakeMapFromDataTable<TValue>(UDataTable* DataTable)
+            where TValue : unmanaged;
+        */
+        public unsafe TManagedMap<TKey, TValueMapElementAccessor<TKey, TValue>, ManagedMapValueElements<TKey, TValue>, TValue> MakeValueMap<TKey, TValue>(nint? alloc = null)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged;
+        public unsafe TManagedMap<TKey, TValueMapElementAccessor<TKey, TValue>, ManagedMapValueElements<TKey, TValue>, TValue> MakeValueMap<TKey, TValue>(TMap<TKey, TValue>* alloc)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged;
+        public unsafe TManagedMap<TKey, TPointerMapElementAccessor<TKey, TValue>, ManagedMapPointerElements<TKey, TValue>, TValue> MakePointerMap<TKey, TValue>(nint? alloc = null)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged;
+        public unsafe TManagedMap<TKey, TPointerMapElementAccessor<TKey, TValue>, ManagedMapPointerElements<TKey, TValue>, TValue> MakePointerMap<TKey, TValue>(TMap<TKey, TValue>* alloc)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged;
+        public unsafe TManagedMap<FName, TPointerMapElementAccessor<FName, TValue>, ManagedMapPointerElements<FName, TValue>, TValue> MakeMapFromDataTable<TValue>(UDataTable* DataTable)
+            where TValue : unmanaged;
     }
 }

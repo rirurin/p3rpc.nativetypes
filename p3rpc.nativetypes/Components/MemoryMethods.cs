@@ -192,7 +192,7 @@ namespace p3rpc.nativetypes.Components
         public unsafe TBitArray MakeBitArray() => new TBitArray(this);
 
         // Map modification (very rough)
-
+        [Obsolete("Map modification should be done using the TManagedMap class")]
         public unsafe bool TMap_Insert<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
             where KeyType : unmanaged, IEquatable<KeyType>
             where ValueType : unmanaged
@@ -226,7 +226,7 @@ namespace p3rpc.nativetypes.Components
             map->mapNum++;
             return false;
         }
-
+        [Obsolete("Map modification should be done using the TManagedMap class")]
         public unsafe bool TMap_InsertNoInit<KeyType, ValueType>(TMap<KeyType, ValueType>* map, KeyType key, ValueType val)
             where KeyType : unmanaged, IEquatable<KeyType>, IMapHashable
             where ValueType : unmanaged
@@ -281,5 +281,28 @@ namespace p3rpc.nativetypes.Components
             }
             return true;
         }
+
+        // (1.7.0) Managed map factory methods
+        public unsafe TManagedMap<TKey, TValueMapElementAccessor<TKey, TValue>, ManagedMapValueElements<TKey, TValue>, TValue> MakeValueMap<TKey, TValue>(nint? alloc = null)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged
+            => new TManagedMap<TKey, TValueMapElementAccessor<TKey, TValue>, ManagedMapValueElements<TKey, TValue>, TValue>(this, new TValueMapElementAccessor<TKey, TValue>(alloc != null ? (TArray<nint>*)alloc.Value : null));
+        public unsafe TManagedMap<TKey, TValueMapElementAccessor<TKey, TValue>, ManagedMapValueElements<TKey, TValue>, TValue> MakeValueMap<TKey, TValue>(TMap<TKey, TValue>* alloc)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged
+            => new TManagedMap<TKey, TValueMapElementAccessor<TKey, TValue>, ManagedMapValueElements<TKey, TValue>, TValue>(this, new TValueMapElementAccessor<TKey, TValue>((TArray<nint>*)alloc));
+        public unsafe TManagedMap<TKey, TPointerMapElementAccessor<TKey, TValue>, ManagedMapPointerElements<TKey, TValue>, TValue> MakePointerMap<TKey, TValue>(nint? alloc = null)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged
+            => new TManagedMap<TKey, TPointerMapElementAccessor<TKey, TValue>, ManagedMapPointerElements<TKey, TValue>, TValue>(this, new TPointerMapElementAccessor<TKey, TValue>(alloc != null ? (TArray<nint>*)alloc.Value : null));
+        public unsafe TManagedMap<TKey, TPointerMapElementAccessor<TKey, TValue>, ManagedMapPointerElements<TKey, TValue>, TValue> MakePointerMap<TKey, TValue>(TMap<TKey, TValue>* alloc)
+            where TKey : unmanaged, IEquatable<TKey>, IMapHashable
+            where TValue : unmanaged
+            => new TManagedMap<TKey, TPointerMapElementAccessor<TKey, TValue>, ManagedMapPointerElements<TKey, TValue>, TValue>(this, new TPointerMapElementAccessor<TKey, TValue>((TArray<nint>*) alloc));
+        public unsafe TManagedMap<FName, TPointerMapElementAccessor<FName, TValue>, ManagedMapPointerElements<FName, TValue>, TValue> MakeMapFromDataTable<TValue>(UDataTable* DataTable)
+            where TValue : unmanaged
+            => new TManagedMap<FName, TPointerMapElementAccessor<FName, TValue>, ManagedMapPointerElements<FName, TValue>, TValue>(this, new TPointerMapElementAccessor<FName, TValue>((TArray<nint>*)&DataTable->RowMap));
+
+        // (1.7.0) Managed Soft object pointer methods
     }
 }

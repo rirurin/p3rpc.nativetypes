@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
@@ -302,28 +303,34 @@ public class TBitArray : IList<bool>, IDisposable
     private int InlineAllocatorSize;
     private static int BITS_PER_BYTE = 0x8;
     private static uint ALLOC_DEFAULT = 0x4;
+    private const int DEFAULT_ALLOCATOR_SIZE = 0x10;
     private unsafe byte* GetAllocation() => *(byte**)(InlineBitArray + InlineAllocatorSize);
     private unsafe void SetAllocation(byte* alloc) => *(byte**)(InlineBitArray + InlineAllocatorSize) = alloc;
     private unsafe int GetArrayCount() => *(int*)(InlineBitArray + InlineAllocatorSize + sizeof(nint));
     private unsafe void SetArrayCount(int count) => *(int*)(InlineBitArray + InlineAllocatorSize + sizeof(nint)) = count;
     private unsafe int GetArrayMax() => *(int*)(InlineBitArray + InlineAllocatorSize + sizeof(nint) + sizeof(int));
     private unsafe void SetArrayMax(int count) => *(int*)(InlineBitArray + InlineAllocatorSize + sizeof(nint) + sizeof(int)) = count;
-    public unsafe TBitArray(IMemoryMethods _MemoryMethods, nint? _InlineBitArray = null, int _InlineAllocatorSize = 0x10)
+    public unsafe TBitArray(IMemoryMethods _MemoryMethods, nint? _InlineBitArray = null, int _InlineAllocatorSize = DEFAULT_ALLOCATOR_SIZE)
     {
         MemoryMethods = _MemoryMethods;
         InlineAllocatorSize = _InlineAllocatorSize;
         if (_InlineBitArray == null)
         {
             InlineBitArray = (byte*)MemoryMethods.FMemory_Malloc(GetStructSize(), 8);
-            NativeMemory.Clear(InlineBitArray, (nuint)(GetStructSize()));
-            SetArrayCount(0);
-            SetArrayMax(InlineAllocatorSize * BITS_PER_BYTE);
+            Initialize();
             bOwnsAllocation = true;
         } else
         {
             InlineBitArray = (byte*)_InlineBitArray;
             bOwnsAllocation = false;
         }
+    }
+
+    public unsafe void Initialize()
+    {
+        NativeMemory.Clear(InlineBitArray, (nuint)GetStructSize());
+        SetArrayCount(0);
+        SetArrayMax(InlineAllocatorSize * BITS_PER_BYTE);
     }
 
     // Impl IList<byte>
@@ -436,6 +443,7 @@ public class TBitArray : IList<bool>, IDisposable
 
     public void Leak() => bOwnsAllocation = false;
     public unsafe int GetStructSize() => InlineAllocatorSize + sizeof(nint) + sizeof(int) * 2;
+    public unsafe static int GetDefaultStructSize() => DEFAULT_ALLOCATOR_SIZE + sizeof(nint) + sizeof(int) * 2;
 }
 
 public class TBitArrayEnumerator : IEnumerator<bool>
@@ -562,6 +570,7 @@ public unsafe class TMapHashable<KeyType, ValueType>
         return value;
     }
 }
+/*
 public abstract class ManagedPointerBase<T> where T : unmanaged
 {
     public unsafe T* Self { get; protected set; }
@@ -580,52 +589,23 @@ public class ManagedValue<T> : ManagedPointerBase<T> where T : unmanaged
     public unsafe ManagedValue(T* ptr) => Self = ptr;
     public unsafe override int GetStride() => sizeof(T);
 }
+*/
 
+/// <summary>
+/// Wrapper for pointers to native data which can be used as generic type parameters
+/// </summary>
+/// <typeparam name="T">The native pointer type to be cast to</typeparam>
 public class ManagedData<T> where T : unmanaged 
 {
     public unsafe T* Self { get; protected set; }
     public unsafe ManagedData(nint ptr) => Self = (T*)ptr;
     public unsafe bool IsValid() => Self != null;
 }
-
-
-public abstract class TArrayElementAccessorBase<TValue>
-    where TValue : unmanaged
-{
-    protected unsafe TArray<nint>* Array;
-    public unsafe int Size
-    {
-        get => Array->arr_num;
-        set => Array->arr_num = value;
-    }
-    public unsafe int Capacity
-    {
-        get => Array->arr_max;
-        set => Array->arr_max = value;
-    }
-    public abstract unsafe TValue* this[int Index] { get; set; }
-}
-
-public class TValueArrayElementAccessor<TValue> : TArrayElementAccessorBase<TValue>
-    where TValue : unmanaged   
-{
-    public override unsafe TValue* this[int Index]
-    {
-        get => &((TValue*)Array->allocator_instance)[Index];
-        set => ((TValue*)Array->allocator_instance)[Index] = *value;
-    }
-}
-
-public class TPointerArrayElementAccessor<TValue> : TArrayElementAccessorBase<TValue>
-    where TValue : unmanaged
-{
-    public override unsafe TValue* this[int Index]
-    {
-        get => ((TValue**)Array->allocator_instance)[Index];
-        set => ((TValue**)Array->allocator_instance)[Index] = value;
-    }
-}
-
+/// <summary>
+/// Defines struct layout for map elements where the values are stored by-value
+/// </summary>
+/// <typeparam name="TElemKey">Key type</typeparam>
+/// <typeparam name="TElemValue">Data type</typeparam>
 [StructLayout(LayoutKind.Sequential)]
 public unsafe struct ManagedMapValueElements<TElemKey, TElemValue>
     where TElemKey : unmanaged, IEquatable<TElemKey>, IMapHashable
@@ -637,6 +617,11 @@ public unsafe struct ManagedMapValueElements<TElemKey, TElemValue>
     public int HashIndex;
 }
 
+/// <summary>
+/// Defines struct layout for map elements where the values are stored by-reference
+/// </summary>
+/// <typeparam name="TElemKey">Key type</typeparam>
+/// <typeparam name="TElemValue">Data pointer type</typeparam>
 [StructLayout(LayoutKind.Sequential)]
 public unsafe struct ManagedMapPointerElements<TElemKey, TElemValue>
     where TElemKey : unmanaged, IEquatable<TElemKey>, IMapHashable
@@ -647,13 +632,26 @@ public unsafe struct ManagedMapPointerElements<TElemKey, TElemValue>
     public int HashNextId;
     public int HashIndex;
 }
-
-public abstract class TMapElementAccessorBase<TElemKey, TElemValue>
+/// <summary>
+/// Managed type provide a safe(r) and more ergonomic way to access elements in a TMap or TSet
+/// </summary>
+/// <typeparam name="TElemKey">Type used for keys (first field in TElemLayout)</typeparam>
+/// <typeparam name="TElemValue">Type used for values (second field in TElemLayout)</typeparam>
+/// <typeparam name="TElemLayout">Struct layout for each entry, either a ManagedMapValueElement or ManagedMapPointerElement</typeparam>
+public abstract class TMapElementAccessorBase<TElemKey, TElemValue, TElemLayout> : IEnumerable<ManagedData<TElemLayout>>
     where TElemKey : unmanaged, IEquatable<TElemKey>, IMapHashable
     where TElemValue : unmanaged
+    where TElemLayout : unmanaged
 {
     protected unsafe TArray<nint>* Array;
-    public unsafe TMapElementAccessorBase(TArray<nint>* _Array) => Array = _Array;
+    protected int CachedIndex = -1;
+    protected unsafe TElemLayout* CachedData = null;
+    public unsafe TMapElementAccessorBase(TArray<nint>* _Array) => Self = _Array;
+    public unsafe TArray<nint>* Self
+    {
+        get => Array;
+        set => Array = value;
+    }
     public unsafe int Size
     {
         get => Array->arr_num;
@@ -666,7 +664,7 @@ public abstract class TMapElementAccessorBase<TElemKey, TElemValue>
     }
     public abstract unsafe TElemValue* this[int Index] { get; set; }
     public abstract unsafe TElemKey GetKey(int Index);
-    public abstract unsafe void SetKey(TElemKey New, int Index);
+    public abstract unsafe void SetKey(int Index, TElemKey New);
     public abstract unsafe int GetNextHashId(int Index);
     public abstract unsafe int SizeOf();
     public unsafe bool HasAllocation() => Array->allocator_instance != null;
@@ -675,73 +673,193 @@ public abstract class TMapElementAccessorBase<TElemKey, TElemValue>
         get => (nint)Array->allocator_instance;
         set => Array->allocator_instance = (nint*)value;
     }
+    unsafe IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    public unsafe IEnumerator<ManagedData<TElemLayout>> GetEnumerator() => new TMapElementEnumerator<TElemLayout>(Array);
+    public abstract void SetNextHashId(int Index, int NextId);
+    public abstract int GetHashIndex(int Index);
+    public abstract void SetHashIndex(int Index, int HashIndex);
 }
 
-public class TValueMapElementAccessor<TElemKey, TElemValue> : TMapElementAccessorBase<TElemKey, TElemValue>
+public class TMapElementEnumerator<TElemLayout> : IEnumerator<ManagedData<TElemLayout>>
+    where TElemLayout : unmanaged
+{
+    protected int Position = -1;
+    protected unsafe TArray<nint>* Array;
+    public unsafe TMapElementEnumerator(TArray<nint>* _Array) => Array = _Array;
+    public unsafe ManagedData<TElemLayout> Current => new ManagedData<TElemLayout>((nint)((TElemLayout*)Array->allocator_instance + Position));
+    object IEnumerator.Current => Current;
+    public void Dispose() { }
+    public unsafe bool MoveNext() => ++Position < Array->arr_num;
+    public void Reset() => Position = -1;
+    public void SetPosition(int _Position) => Position = _Position;
+}
+
+/// <summary>
+/// Managed type provide a safe(r) and more ergonomic way to access elements in a TMap or TSet given that the values are stored by-value
+/// </summary>
+/// <typeparam name="TElemKey">Type used for keys (first field in ManagedMapValueElements)</typeparam>
+/// <typeparam name="TElemValue">Type used for values (second field in ManagedMapValueElements)</typeparam>
+public class TValueMapElementAccessor<TElemKey, TElemValue> 
+    : TMapElementAccessorBase<TElemKey, TElemValue, ManagedMapValueElements<TElemKey, TElemValue>>
+    //, IEnumerable<ManagedData<ManagedMapValueElements<TElemKey, TElemValue>>>
     where TElemKey : unmanaged, IEquatable<TElemKey>, IMapHashable
     where TElemValue : unmanaged
 {
     public unsafe TValueMapElementAccessor(TArray<nint>* _Array) : base(_Array) { }
     public override unsafe TElemValue* this[int Index]
     {
-        get => &((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Value;
+        get
+        {
+            if (CachedIndex != Index)
+                CachedData = (ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance + Index;
+            return &CachedData->Value;
+            //& ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Value;
+        }
         set => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Value = *value;
     }
     public override unsafe TElemKey GetKey(int Index) => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Key;
-    public override unsafe void SetKey(TElemKey New, int Index) => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Key = New;
+    public override unsafe void SetKey(int Index, TElemKey New) => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Key = New;
     public override unsafe int GetNextHashId(int Index) => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].HashNextId;
-    public override unsafe int SizeOf() => sizeof(TArray<nint>);
+    public override unsafe int SizeOf()
+    {
+        var rawSizeof = sizeof(ManagedMapValueElements<TElemKey, TElemValue>);
+        return rawSizeof % 8 != 0 ? rawSizeof + (8 - (rawSizeof % 8)) : rawSizeof; // alignto(8)
+    }
+    //public override unsafe IEnumerator GetEnumerator() => new TValueMapElementEnumerator<TElemKey, TElemValue>(Array);
+    public unsafe override void SetNextHashId(int Index, int NextId) => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].HashNextId = NextId;
+    public unsafe override int GetHashIndex(int Index) => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].HashIndex;
+    public unsafe override void SetHashIndex(int Index, int HashIndex) => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].HashIndex = HashIndex;
 }
-
-public class TPointerMapElementAccessor<TElemKey, TElemValue> : TMapElementAccessorBase<TElemKey, TElemValue>
+/*
+public class TValueMapElementEnumerator<TElemKey, TElemValue> : IEnumerator<ManagedMapValueElements<TElemKey, TElemValue>>
+    where TElemKey : unmanaged, IEquatable<TElemKey>, IMapHashable
+    where TElemValue : unmanaged
+{
+    private int Position = -1;
+    protected unsafe TArray<nint>* Array;
+    public unsafe TValueMapElementEnumerator(TArray<nint>* _Array) => Array = _Array;
+    public unsafe ManagedMapValueElements<TElemKey, TElemValue> Current => ((ManagedMapValueElements<TElemKey, TElemValue>*)Array->allocator_instance)[Position];
+    object IEnumerator.Current => Current;
+    public void Dispose() {}
+    public unsafe bool MoveNext() => ++Position < Array->arr_num;
+    public void Reset() => Position = -1;
+}
+*/
+/// <summary>
+/// Managed type provide a safe(r) and more ergonomic way to access elements in a TMap or TSet given that the values are stored by-reference
+/// </summary>
+/// <typeparam name="TElemKey">Type used for keys (first field in ManagedMapPointerElements)</typeparam>
+/// <typeparam name="TElemValue">Type used for values (second field in ManagedMapPointerElements)</typeparam>
+public class TPointerMapElementAccessor<TElemKey, TElemValue> 
+    : TMapElementAccessorBase<TElemKey, TElemValue, ManagedMapPointerElements<TElemKey, TElemValue>>
+    //, IEnumerable<ManagedData<ManagedMapPointerElements<TElemKey, TElemValue>>>
     where TElemKey : unmanaged, IEquatable<TElemKey>, IMapHashable
     where TElemValue : unmanaged
 {
     public unsafe TPointerMapElementAccessor(TArray<nint>* _Array) : base(_Array) { }
     public override unsafe TElemValue* this[int Index]
     {
-        get => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Value;
+        get
+        {
+            if (CachedIndex != Index)
+                CachedData = (ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance + Index;
+            return CachedData->Value;
+        }
+        //get => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Value;
         set => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Value = value;
     }
     public override unsafe TElemKey GetKey(int Index) => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Key;
-    public override unsafe void SetKey(TElemKey New, int Index) => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Key = New;
+    public override unsafe void SetKey(int Index, TElemKey New) => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].Key = New;
     public override unsafe int GetNextHashId(int Index) => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].HashNextId;
-    public override unsafe int SizeOf() => sizeof(TArray<nint>);
+    public override unsafe int SizeOf() => sizeof(ManagedMapPointerElements<TElemKey, TElemValue>);
+    //public override unsafe IEnumerator GetEnumerator() => new TPointerMapElementEnumerator<TElemKey, TElemValue>(Array);
+    public unsafe override void SetNextHashId(int Index, int NextId) => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].HashNextId = NextId;
+    public unsafe override int GetHashIndex(int Index) => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].HashIndex;
+    public unsafe override void SetHashIndex(int Index, int HashIndex) => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Index].HashIndex = HashIndex;
+}
+/*
+public class TPointerMapElementEnumerator<TElemKey, TElemValue> : IEnumerator<ManagedMapPointerElements<TElemKey, TElemValue>>
+    where TElemKey : unmanaged, IEquatable<TElemKey>, IMapHashable
+    where TElemValue : unmanaged
+{
+    private int Position = -1;
+    protected unsafe TArray<nint>* Array;
+    public unsafe TPointerMapElementEnumerator(TArray<nint>* _Array) => Array = _Array;
+    public unsafe ManagedMapPointerElements<TElemKey, TElemValue> Current => ((ManagedMapPointerElements<TElemKey, TElemValue>*)Array->allocator_instance)[Position];
+    object IEnumerator.Current => Current;
+    public void Dispose() { }
+    public unsafe bool MoveNext() => ++Position < Array->arr_num;
+    public void Reset() => Position = -1;
+}
+*/
+
+public unsafe struct TMapFreeListIndex
+{
+    public int FirstFreeIndex;
+    public int NumFreeIndices;
+    public int* FreeIndexList;
 }
 
-public class TManagedMap<TKey, TElem, TValue> : IDictionary<TKey, ManagedData<TValue>>
+public class TManagedMap<TKey, TElem, TElemIter, TValue> : IDictionary<TKey, ManagedData<TValue>>, IDisposable
     where TKey : unmanaged, IEquatable<TKey>, IMapHashable
-    where TElem : TMapElementAccessorBase<TKey, TValue>
+    where TElem : TMapElementAccessorBase<TKey, TValue, TElemIter>
+    where TElemIter : unmanaged
     where TValue : unmanaged
 {
-
     private IMemoryMethods MemoryMethods;
-    public nint pMapAllocation { get; private set; }
     private bool bOwnsAllocation;
     private bool bIsDisposed = false;
-    private Action<string> DebugCb;
-    //private unsafe TArray<TMapElementHashable<TKey, TValue>>* GetElements() => (TArray<TMapElementHashable<TKey, TValue>>*)pMapAllocation; // 0x0
-    //private unsafe TArray<ManagedMapElementsBase<TKey, TValue>>* GetElements() => (TArray<ManagedMapElementsBase<TKey, TValue>>*)pMapAllocation; // 0x0
-    private TMapElementAccessorBase<TKey, TValue> Elements;
-    private unsafe TArray<nint>* GetElements() => (TArray<nint>*)pMapAllocation; // 0x0
+    private Action<string>? DebugCb;
+    private TMapElementAccessorBase<TKey, TValue, TElemIter> Elements; // 0x0
+    public unsafe nint Allocation { get => (nint)Elements.Self; }
+    private unsafe nint GetBitAllocatorPtr() => (nint)Elements.Self + sizeof(TArray<nint>);
     private TBitArray BitAllocator; // 0x10
-    private int GetFreeListSize() => 0x10;
-    // int32 FirstFreeIndex // 0x30
-    // int32 NumFreeIndices // 0x34
-    // int* FreeIndexList // 0x38
-    private unsafe int** GetHashesPtr() => (int**)(pMapAllocation + sizeof(TArray<nint>) + BitAllocator.GetStructSize() + GetFreeListSize());
-    private unsafe int* GetHashSizePtr() => (int*)(pMapAllocation + sizeof(TArray<nint>) + BitAllocator.GetStructSize() + GetFreeListSize() + sizeof(int*));
-    private unsafe void InitMap(IMemoryMethods _MemoryMethods, nint _pMapAllocation, TMapElementAccessorBase<TKey, TValue> _Elements, Action<string>? _DebugCb = null)
+    private unsafe TMapFreeListIndex* GetFreeList() => (TMapFreeListIndex*)((nint)Elements.Self + sizeof(TArray<nint>) + TBitArray.GetDefaultStructSize());
+    private unsafe int GetFreeListSize() => sizeof(TMapFreeListIndex);
+    private unsafe int FirstFreeIndex // 0x38
+    {
+        get => GetFreeList()->FirstFreeIndex;
+        set => GetFreeList()->FirstFreeIndex = value;
+    }
+    // Hashes: 0x40
+    private unsafe int** GetHashesPtr() => (int**)((nint)Elements.Self + sizeof(TArray<nint>) + TBitArray.GetDefaultStructSize() + GetFreeListSize());
+    private unsafe int* Hashes // 0x40
+    {
+        get => *GetHashesPtr();
+        set => *GetHashesPtr() = value;
+    }
+    private unsafe int* GetHashSizePtr() => (int*)((nint)Elements.Self + sizeof(TArray<nint>) + TBitArray.GetDefaultStructSize() + GetFreeListSize() + sizeof(int*));
+    private unsafe int HashSize // 0x48
+    {
+        get => *GetHashSizePtr();
+        set => *GetHashSizePtr() = value;
+    }
+    private static int MIN_SIZE_FOR_HASH_LIST = 0x4;
+    private static int HASH_INITIAL_SIZE = 0x10;
+    private unsafe int GetStructSize() => sizeof(TArray<nint>) + TBitArray.GetDefaultStructSize() + GetFreeListSize() + sizeof(int*) + sizeof(int) * 2;
+
+    private unsafe void InitMap(IMemoryMethods _MemoryMethods, TMapElementAccessorBase<TKey, TValue, TElemIter> _Elements, Action<string>? _DebugCb = null)
     {
         MemoryMethods = _MemoryMethods;
-        pMapAllocation = _pMapAllocation;
-        Elements = _Elements;
-        BitAllocator = new TBitArray(MemoryMethods, pMapAllocation + Elements.SizeOf());
-        bOwnsAllocation = false;
-        if (_DebugCb != null) DebugCb = _DebugCb;
+        if (_Elements.Self == null)
+        {
+            _Elements.Self = (TArray<nint>*)MemoryMethods.FMemory_Malloc(GetStructSize(), 8);
+            Elements = _Elements;
+            NativeMemory.Clear(Elements.Self, (nuint)GetStructSize());
+            BitAllocator = new TBitArray(MemoryMethods, GetBitAllocatorPtr());
+            BitAllocator.Initialize();
+            FirstFreeIndex = -1;
+            HashSize = 1;
+            bOwnsAllocation = true;
+        } else
+        {
+            Elements = _Elements;
+            BitAllocator = new TBitArray(MemoryMethods, GetBitAllocatorPtr());
+            bOwnsAllocation = false;
+        }
+        DebugCb = _DebugCb;
     }
-    public TManagedMap(IMemoryMethods _MemoryMethods, nint _pMapAllocation, TMapElementAccessorBase<TKey, TValue> _Elements, Action<string>? _DebugCb = null) => InitMap(_MemoryMethods, _pMapAllocation, _Elements, _DebugCb);
-    public unsafe TManagedMap(IMemoryMethods _MemoryMethods, TMap<TKey, TValue>* _pMap, TMapElementAccessorBase<TKey, TValue> _Elements, Action<string>? _DebugCb = null) => InitMap(_MemoryMethods, (nint)_pMap, _Elements);
+    public TManagedMap(IMemoryMethods _MemoryMethods, TMapElementAccessorBase<TKey, TValue, TElemIter> _Elements, Action<string>? _DebugCb = null) => InitMap(_MemoryMethods, _Elements, _DebugCb);
     private unsafe TValue* TryGetLinear(TKey key)
     {
         if (Elements.Size == 0 || !Elements.HasAllocation()) return null;
@@ -765,7 +883,7 @@ public class TManagedMap<TKey, TElem, TValue> : IDictionary<TKey, ManagedData<TV
         var elementTarget = (*GetHashesPtr())[key.GetTypeHash() & (*GetHashSizePtr() - 1)];
         while (elementTarget != -1)
         {
-            DebugCb($"Element Id: {elementTarget} @ 0x{(nint)(Elements[elementTarget]):X}, next id {Elements.GetNextHashId(elementTarget)}");
+            if (DebugCb != null) DebugCb($"Element Id: {elementTarget} @ 0x{(nint)(Elements[elementTarget]):X}, next id {Elements.GetNextHashId(elementTarget)}");
             if (Elements.GetKey(elementTarget).Equals(key))
             {
                 value = Elements[elementTarget];
@@ -781,7 +899,7 @@ public class TManagedMap<TKey, TElem, TValue> : IDictionary<TKey, ManagedData<TV
     private unsafe ICollection<TKey> GetKeys()
     {
         ICollection<TKey> Keys = new List<TKey>();
-        for (int i = 0; i < GetElements()->arr_num; i++)
+        for (int i = 0; i < Elements.Size; i++)
             Keys.Add(Elements.GetKey(i));
         return Keys;
     }
@@ -791,51 +909,106 @@ public class TManagedMap<TKey, TElem, TValue> : IDictionary<TKey, ManagedData<TV
     unsafe ManagedData<TValue> IDictionary<TKey, ManagedData<TValue>>.this[TKey key] 
     { 
         get => new ManagedData<TValue>((nint)TryGetByHash(key));
-        set => throw new NotImplementedException(); 
+        set => *TryGetByHash(key) = *value.Self;
     }
-    /*
-    public TValueBy this[TKey key]
-    {
-        get
-        {
-            unsafe
-            {
-                return (TValueBy)typeof(TValueBy)
-                .GetConstructor(BindingFlags.Instance | BindingFlags.Public, null, CallingConventions.HasThis, new[] { typeof(nint) }, null)!
-                .Invoke(new object[] { (nint)TryGetByHash(key) });
-            }
-        }
-    }
-    */
     public unsafe TValue* this[TKey key]
     {
         get => new ManagedData<TValue>((nint)TryGetByHash(key)).Self;
+        set
+        {
+            *TryGetByHash(key) = *value;
+        }
     }
 
-    public void Add(TKey key, ManagedData<TValue> value)
+    private unsafe int GetBucketListTail(int HashIndex)
     {
-        throw new NotImplementedException();
+        int currentIndex = Hashes[HashIndex];
+        while (true)
+        {
+            if (Elements.GetNextHashId(currentIndex) == -1) break;
+            currentIndex = Elements.GetNextHashId(currentIndex);
+        }
+        return currentIndex;
     }
 
-    public bool ContainsKey(TKey key)
+    private unsafe void Rehash(int NewSize)
     {
-        throw new NotImplementedException();
+        int* NewHashAlloc = MemoryMethods.FMemory_MallocMultiple<int>((uint)NewSize);
+        NativeMemory.Fill(NewHashAlloc, (nuint)(NewSize * sizeof(int)), 0xff);
+        if (Hashes != null)
+        {
+            MemoryMethods.FMemory_Free((nint)Hashes);
+        }
+        Hashes = NewHashAlloc;
+        for (int i = 0; i < Elements.Size; i++)
+        {
+            var newHashIndex = (int)Elements.GetKey(i).GetTypeHash() & (NewSize - 1);
+            Elements.SetHashIndex(i, newHashIndex);
+            if (Hashes[newHashIndex] == -1) Hashes[newHashIndex] = i;
+            else Elements.SetNextHashId(GetBucketListTail(newHashIndex), i);
+            Elements.SetNextHashId(i, -1);
+        }
+        HashSize = NewSize;
     }
+
+    private unsafe void Resize(int NewSize)
+    {
+        nint NewElementAlloc = MemoryMethods.FMemory_Malloc(NewSize * Elements.SizeOf(), 8);
+        if (Elements.HasAllocation())
+        {
+            NativeMemory.Copy((byte*)Elements.Allocation, (byte*)NewElementAlloc, (nuint)(Elements.Size * Elements.SizeOf()));
+            MemoryMethods.FMemory_Free(Elements.Allocation);
+        }
+        Elements.Allocation = NewElementAlloc;
+        Elements.Capacity = NewSize;
+    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private unsafe void Resize() => Resize(Elements.HasAllocation() ? Elements.Capacity * 2 : 4);
+
+    public unsafe void Add(TKey key, ManagedData<TValue> value)
+    {
+        if (ContainsKey(key)) return; // Don't allow duplicate keys
+        if (Hashes == null && Elements.Size + 1 >= MIN_SIZE_FOR_HASH_LIST) Rehash(HASH_INITIAL_SIZE);
+        else if (Hashes != null && Elements.Size == HashSize) Rehash(HashSize * 2);
+        if (Elements.Size == Elements.Capacity) Resize();
+        // Get hash index for new key
+        if (Hashes != null)
+        {
+            var hashIndex = (int)(key.GetTypeHash() & (HashSize - 1));
+            if (Hashes[hashIndex] == -1) Hashes[hashIndex] = Elements.Size;
+            else Elements.SetNextHashId(GetBucketListTail(hashIndex), Elements.Size);
+            Elements.SetNextHashId(Elements.Size, -1);
+            Elements.SetHashIndex(Elements.Size, hashIndex);
+        } else
+        {
+            Elements.SetNextHashId(Elements.Size, Elements.Size - 1);
+            Elements.SetHashIndex(Elements.Size, 0);
+        }
+        // Add a new element to the array
+        Elements.SetKey(Elements.Size, key);
+        Elements[Elements.Size] = value.Self;
+        // Update the bit allocator
+        BitAllocator.Add(true);
+        Elements.Size++;
+    }
+    public unsafe void Add(TKey key, TValue value) => Add(key, new ManagedData<TValue>((nint)(&value)));
+    public unsafe void Add(TKey key, TValue* value) => Add(key, new ManagedData<TValue>((nint)value));
+
+    public bool ContainsKey(TKey key) => Keys.Contains(key);
 
     public bool Remove(TKey key)
     {
         throw new NotImplementedException();
     }
 
-    public bool TryGetValue(TKey key, [MaybeNullWhen(false)] out ManagedData<TValue> value)
+    public unsafe bool TryGetValue(TKey key, [MaybeNullWhen(false)] out ManagedData<TValue> value)
     {
-        throw new NotImplementedException();
+        TValue* GotValue = TryGetByHash(key);
+        value = GotValue != null ? new ManagedData<TValue>((nint)GotValue) : null;
+        return GotValue != null;
     }
 
-    public void Add(KeyValuePair<TKey, ManagedData<TValue>> item)
-    {
-        throw new NotImplementedException();
-    }
+    public void Add(KeyValuePair<TKey, ManagedData<TValue>> item) => Add(item.Key, item.Value);
 
     public void Clear()
     {
@@ -863,6 +1036,31 @@ public class TManagedMap<TKey, TElem, TValue> : IDictionary<TKey, ManagedData<TV
     }
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+    public void Leak() => bOwnsAllocation = false;
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!bIsDisposed)
+        {
+            if (disposing) { }
+            unsafe
+            {
+                if (bOwnsAllocation)
+                {
+                    MemoryMethods.FMemory_Free((nint)Elements.Self);
+                }
+            }
+            bIsDisposed = true;
+        }
+    }
+
+    ~TManagedMap() => Dispose(false);
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -916,6 +1114,14 @@ public struct TSoftObjectPtr<T> where T : unmanaged
 {
     public FSoftObjectPtr baseObj;
 }
+
+[StructLayout(LayoutKind.Sequential)]
+public struct TSoftClassPtr<T> where T : unmanaged
+{
+    public FSoftObjectPtr baseObj;
+}
+
+//public class TManagedSoftObjectPtr<T>
 
 public enum EObjectFlags : uint
 {
@@ -1672,13 +1878,34 @@ public struct FRotator
 [StructLayout(LayoutKind.Explicit, Size = 0x1A0)]
 public unsafe struct UTexture2D // : UTexture
 {
-
+    [FieldOffset(0x0000)] public UTexture baseObj;
+    [FieldOffset(0x0178)] public int LevelIndex;
+    [FieldOffset(0x017C)] public int FirstResourceMemMip;
+    [FieldOffset(0x0180)] public byte bTemporarilyDisableStreaming;
+    //[FieldOffset(0x0181)] public TextureAddress AddressX;
+    //[FieldOffset(0x0182)] public TextureAddress AddressY;
+    //[FieldOffset(0x0184)] public FIntPoint ImportedSize;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x180)]
 public unsafe struct UTexture // : UStreamableRenderAsset
 {
-
+    [FieldOffset(0x0000)] public UStreamableRenderAsset baseObj;
+    [FieldOffset(0x0068)] public FGuid LightingGuid;
+    [FieldOffset(0x0078)] public int LODBias;
+    //[FieldOffset(0x007C)] public TextureCompressionSettings CompressionSettings;
+    //[FieldOffset(0x007D)] public TextureFilter Filter;
+    //[FieldOffset(0x007E)] public ETextureMipLoadOptions MipLoadOptions;
+    //[FieldOffset(0x007F)] public TextureGroup LODGroup;
+    //[FieldOffset(0x0080)] public FPerPlatformFloat Downscale;
+    //[FieldOffset(0x0084)] public ETextureDownscaleOptions DownscaleOptions;
+    //[FieldOffset(0x0085)] public byte sRGB;
+    //[FieldOffset(0x0085)] public byte bNoTiling;
+    //[FieldOffset(0x0085)] public byte VirtualTextureStreaming;
+    //[FieldOffset(0x0085)] public byte CompressionYCoCg;
+    //[FieldOffset(0x0085)] public byte bNotOfflineProcessed;
+    //[FieldOffset(0x0085)] public byte bAsyncResourceReleaseHasBeenStarted;
+    [FieldOffset(0x0088)] public TArray<IntPtr> AssetUserData;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0xB0)]
@@ -2764,6 +2991,7 @@ public unsafe struct HashableInt : IMapHashable, IEquatable<HashableInt>
     public HashableInt(int value) { Value = value; }
     public uint GetTypeHash() => (uint)Value;
     public bool Equals(HashableInt other) => other.Value == Value;
+    public override string ToString() => Value.ToString();
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x8)]
@@ -2773,6 +3001,7 @@ public unsafe struct HashableInt8 : IMapHashable, IEquatable<HashableInt8>
     public HashableInt8(int value) { Value = value; }
     public uint GetTypeHash() => (uint)Value;
     public bool Equals(HashableInt8 other) => other.Value == Value;
+    public override string ToString() => Value.ToString();
 }
 public static class TypeExtensions
 {
@@ -2875,4 +3104,115 @@ public unsafe struct UActorComponent
 [StructLayout(LayoutKind.Explicit, Size = 0x8)]
 public unsafe struct FTableRowBase
 {
+}
+
+public enum EBoneTranslationRetargetingMode
+{
+    Animation = 0,
+    Skeleton = 1,
+    AnimationScaled = 2,
+    AnimationRelative = 3,
+    OrientAndScale = 4,
+};
+
+[StructLayout(LayoutKind.Explicit, Size = 0x10)]
+public unsafe struct FBoneNode
+{
+    [FieldOffset(0x0000)] public FName Name;
+    [FieldOffset(0x0008)] public int ParentIndex;
+    [FieldOffset(0x000C)] public EBoneTranslationRetargetingMode TranslationRetargetingMode;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public unsafe struct FVirtualBone
+{
+    [FieldOffset(0x0000)] public FName SourceBoneName;
+    [FieldOffset(0x0008)] public FName TargetBoneName;
+    [FieldOffset(0x0010)] public FName VirtualBoneName;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x50)]
+public unsafe struct FSmartNameContainer
+{
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public unsafe struct FAnimSlotGroup
+{
+    [FieldOffset(0x0000)] public FName GroupName;
+    [FieldOffset(0x0008)] public TArray<FName> SlotNames;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x390)]
+public unsafe struct USkeleton
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0038)] public TArray<FBoneNode> BoneTree;
+    [FieldOffset(0x0048)] public TArray<FTransform> RefLocalPoses;
+    [FieldOffset(0x0170)] public FGuid VirtualBoneGuid;
+    [FieldOffset(0x0180)] public TArray<FVirtualBone> VirtualBones;
+    [FieldOffset(0x0190)] public TArray<IntPtr> Sockets;
+    [FieldOffset(0x01F0)] public FSmartNameContainer SmartNames;
+    [FieldOffset(0x0270)] public TArray<IntPtr> BlendProfiles;
+    [FieldOffset(0x0280)] public TArray<FAnimSlotGroup> SlotGroups;
+    [FieldOffset(0x0380)] public TArray<IntPtr> AssetUserData;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x60)]
+public unsafe struct UStreamableRenderAsset
+{
+    [FieldOffset(0x0000)] public UObject baseObj;
+    [FieldOffset(0x0040)] public double ForceMipLevelsToBeResidentTimestamp;
+    [FieldOffset(0x0048)] public int NumCinematicMipLevels;
+    [FieldOffset(0x004C)] public int StreamingIndex;
+    [FieldOffset(0x0050)] public int CachedCombinedLODBias;
+    [FieldOffset(0x0054)] public byte NeverStream;
+    [FieldOffset(0x0054)] public byte bGlobalForceMipLevelsToBeResident;
+    [FieldOffset(0x0054)] public byte bHasStreamingUpdatePending;
+    [FieldOffset(0x0054)] public byte bForceMiplevelsToBeResident;
+    [FieldOffset(0x0054)] public byte bIgnoreStreamingMipBias;
+    [FieldOffset(0x0054)] public byte bUseCinematicMipLevels;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x1C)]
+public unsafe struct FBoxSphereBounds
+{
+    [FieldOffset(0x0000)] public FVector Origin;
+    [FieldOffset(0x000C)] public FVector BoxExtent;
+    [FieldOffset(0x0018)] public float SphereRadius;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x3A0)]
+public unsafe struct USkeletalMesh
+{
+    [FieldOffset(0x0000)] public UStreamableRenderAsset baseObj;
+    [FieldOffset(0x0080)] public USkeleton* Skeleton;
+    [FieldOffset(0x0088)] public FBoxSphereBounds ImportedBounds;
+    [FieldOffset(0x00A4)] public FBoxSphereBounds ExtendedBounds;
+    [FieldOffset(0x00C0)] public FVector PositiveBoundsExtension;
+    [FieldOffset(0x00CC)] public FVector NegativeBoundsExtension;
+    //[FieldOffset(0x00D8)] public TArray<FSkeletalMaterial> Materials;
+    //[FieldOffset(0x00E8)] public TArray<FBoneMirrorInfo> SkelMirrorTable;
+    //[FieldOffset(0x00F8)] public TArray<FSkeletalMeshLODInfo> LODInfo;
+    //[FieldOffset(0x0158)] public FPerPlatformInt MinLOD;
+    //[FieldOffset(0x015C)] public FPerPlatformBool DisableBelowMinLodStripping;
+    //[FieldOffset(0x015D)] public EAxis SkelMirrorAxis;
+    //[FieldOffset(0x015E)] public EAxis SkelMirrorFlipAxis;
+    [FieldOffset(0x015F)] public byte bUseFullPrecisionUVs;
+    [FieldOffset(0x015F)] public byte bUseHighPrecisionTangentBasis;
+    [FieldOffset(0x015F)] public byte bHasBeenSimplified;
+    [FieldOffset(0x015F)] public byte bHasVertexColors;
+    [FieldOffset(0x015F)] public byte bEnablePerPolyCollision;
+    //[FieldOffset(0x0160)] public UBodySetup* BodySetup;
+    //[FieldOffset(0x0168)] public UPhysicsAsset* PhysicsAsset;
+    //[FieldOffset(0x0170)] public UPhysicsAsset* ShadowPhysicsAsset;
+    [FieldOffset(0x0178)] public TArray<IntPtr> NodeMappingData;
+    [FieldOffset(0x0188)] public byte bSupportRayTracing;
+    [FieldOffset(0x0190)] public TArray<IntPtr> MorphTargets;
+    //[FieldOffset(0x0318)] public TSubclassOf<UAnimInstance> PostProcessAnimBlueprint;
+    [FieldOffset(0x0320)] public TArray<IntPtr> MeshClothingAssets;
+    //[FieldOffset(0x0330)] public FSkeletalMeshSamplingInfo SamplingInfo;
+    [FieldOffset(0x0360)] public TArray<IntPtr> AssetUserData;
+    [FieldOffset(0x0370)] public TArray<IntPtr> Sockets;
+    //[FieldOffset(0x0390)] public TArray<FSkinWeightProfileInfo> SkinWeightProfiles;
 }

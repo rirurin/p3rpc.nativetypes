@@ -4706,8 +4706,8 @@ public unsafe struct FAppCharTableRow // DT_Costume
     [FieldOffset(0x0018)] public TMap<byte, TSoftObjectPtr<UAppCharAnimDataAsset>> Anims;
     [FieldOffset(0x0068)] public TSoftObjectPtr<UAppCharFaceAnimDataAsset> FaceAnim;
     [FieldOffset(0x0090)] public TMap<HashableInt8, FAppCharCostumeData> Costumes;
-    [FieldOffset(0x00E0)] public TMap<int, FAppCharWeaponData> WeaponType;
-    [FieldOffset(0x0130)] public TMap<int, FAppCharBagData> BagType;
+    [FieldOffset(0x00E0)] public TMap<HashableInt8, FAppCharWeaponData> WeaponType;
+    [FieldOffset(0x0130)] public TMap<HashableInt8, FAppCharBagData> BagType;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0xE0)]
@@ -4734,8 +4734,8 @@ public unsafe struct UAppCharFaceAnimDataAsset
 [StructLayout(LayoutKind.Explicit, Size = 0x50)]
 public unsafe struct FAppCharCostumePartsData
 {
-    //[FieldOffset(0x0000)] public TSoftObjectPtr<USkeletalMesh> Mesh;
-    //[FieldOffset(0x0028)] public TSoftClassPtr<UObject> Anim;
+    [FieldOffset(0x0000)] public TSoftObjectPtr<USkeletalMesh> Mesh;
+    [FieldOffset(0x0028)] public TSoftClassPtr<UObject> Anim;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x148)]
