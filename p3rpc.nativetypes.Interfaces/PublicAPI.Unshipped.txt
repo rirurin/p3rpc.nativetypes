@@ -110,6 +110,7 @@ p3rpc.nativetypes.Interfaces.ACldCmnDataActor.mArcAsset_ -> p3rpc.nativetypes.In
 p3rpc.nativetypes.Interfaces.ACldCmnDataActor.mAssetLoader_ -> p3rpc.nativetypes.Interfaces.UAssetLoader*
 p3rpc.nativetypes.Interfaces.ACmpMainActor
 p3rpc.nativetypes.Interfaces.ACmpMainActor.ACmpMainActor() -> void
+p3rpc.nativetypes.Interfaces.ACmpMainActor.baseObj -> p3rpc.nativetypes.Interfaces.AAppActor
 p3rpc.nativetypes.Interfaces.ACmpMainActor.bEquipChange -> bool
 p3rpc.nativetypes.Interfaces.ACmpMainActor.bIsDisableForceTermination -> bool
 p3rpc.nativetypes.Interfaces.ACmpMainActor.bReturnCommuToField -> bool
@@ -600,6 +601,7 @@ p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.CalendarTextLayoutDataTable ->
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.CommuTextColLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.DictionaryTextLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.EquipTextColLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.Field288 -> int
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.HelpOthersLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.HeroGaussMaskTexAry -> p3rpc.nativetypes.Interfaces.UTexture2D*
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.HologMaskTexAAry -> p3rpc.nativetypes.Interfaces.UTexture2D*
@@ -610,6 +612,7 @@ p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.ItemLayoutDataTable -> p3rpc.n
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.ItemTextColLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.MateInterAry -> p3rpc.nativetypes.Interfaces.TArray<nint>
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.MenuList -> p3rpc.nativetypes.Interfaces.TArray<nint>
+p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.MenuState -> int
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.m_SlashColorParameter -> p3rpc.nativetypes.Interfaces.FGetUIParameter
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.OkNextLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor.OkNextMaskLayoutDataTable -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
@@ -784,6 +787,51 @@ p3rpc.nativetypes.Interfaces.Astrea.AUIDateDraw.m_pFieldSpr -> p3rpc.nativetypes
 p3rpc.nativetypes.Interfaces.Astrea.AUIDateDraw.m_pFieldSprAstrea -> p3rpc.nativetypes.Interfaces.USprAsset*
 p3rpc.nativetypes.Interfaces.Astrea.AUIDateDraw.TimeOfDay -> byte
 p3rpc.nativetypes.Interfaces.Astrea.AUIDateDraw.TimeOfDayParams -> p3rpc.nativetypes.Interfaces.SprDefStruct1
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.CmpMainActor(p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor* _Data) -> void
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetAssetLoader() -> p3rpc.nativetypes.Interfaces.UAssetLoader*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetCalendarTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetCaptureInstanceDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetCaptureMaterial() -> p3rpc.nativetypes.Interfaces.UMaterialInstance*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetCommuTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetCurrentMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetDictionaryTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetEquipTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetField288() -> int
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetGlassMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetHelpOthersLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetHologMaskTexAAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetHologMaskTexBAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetHologMaskTexCAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetHologMaskTexDAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetHologramMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetHologramMaterial() -> p3rpc.nativetypes.Interfaces.UMaterial*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetItemLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetItemTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetMenuState() -> int
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetNextMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetOkNextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetOkNextMaskLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetOthersLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetOutlineInstanceDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetOutlineMaterial() -> p3rpc.nativetypes.Interfaces.UMaterialInstance*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetPartyPanelLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetPersonaListLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetPrevMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetQuestDateLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetQuestLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetQuestTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetQuestTextPosLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetRootLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetRootTouchCollLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetSimpleCopyMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetSimpleCopyMaterial() -> p3rpc.nativetypes.Interfaces.UMaterial*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetSkillLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetSkillLayoutDataTable2() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetStatusTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetSystemLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetSystemTouchCollLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.Astrea.CmpMainActor.GetTutorialTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.Astrea.FKeyHelpButtonAuto
 p3rpc.nativetypes.Interfaces.Astrea.FKeyHelpButtonAuto.ActivationState -> int
 p3rpc.nativetypes.Interfaces.Astrea.FKeyHelpButtonAuto.Field540 -> p3rpc.nativetypes.Interfaces.FKeyHelpInterpolate
@@ -806,6 +854,29 @@ p3rpc.nativetypes.Interfaces.Astrea.FKeyHelpButtonFastForward.ActivationState ->
 p3rpc.nativetypes.Interfaces.Astrea.FKeyHelpButtonFastForward.Field538 -> p3rpc.nativetypes.Interfaces.FKeyHelpInterpolate
 p3rpc.nativetypes.Interfaces.Astrea.FKeyHelpButtonFastForward.FKeyHelpButtonFastForward() -> void
 p3rpc.nativetypes.Interfaces.Astrea.FKeyHelpButtonFastForward.Super -> p3rpc.nativetypes.Interfaces.Astrea.FKeyHelpButtonBase
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetActiveCharacters() -> System.Collections.Generic.List<short>!
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetBitflag(uint id) -> bool
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetBustupController() -> p3rpc.nativetypes.Interfaces.UBustupController*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetCalendarInstance() -> p3rpc.nativetypes.Interfaces.UCalendar*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetCldCommonData() -> p3rpc.nativetypes.Interfaces.UCldCommonData*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetCommunityWork() -> p3rpc.nativetypes.Interfaces.UCommunityWork*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetCounter(uint i) -> int
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetErrorDialog() -> p3rpc.nativetypes.Interfaces.UErrorDialog*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetEvtDataLoad() -> p3rpc.nativetypes.Interfaces.UEvtDataLoad*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetFileNameData() -> p3rpc.nativetypes.Interfaces.UFileNameManager*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetFldCommonData() -> p3rpc.nativetypes.Interfaces.UFldCommonData*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetItemData() -> p3rpc.nativetypes.Interfaces.UDatItem*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetLeaderBoard() -> p3rpc.nativetypes.Interfaces.ULeaderBoardManager*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetMail() -> p3rpc.nativetypes.Interfaces.Mail*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetSequenceInstance() -> p3rpc.nativetypes.Interfaces.USequence*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetSignedInDialog() -> p3rpc.nativetypes.Interfaces.USignedInDialog*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetTrophy() -> p3rpc.nativetypes.Interfaces.UTrophyManager*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetUnit(int i) -> p3rpc.nativetypes.Interfaces.FDatUnitWork*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GlobalWork(p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork* _Data) -> void
 p3rpc.nativetypes.Interfaces.Astrea.UAgePanel
 p3rpc.nativetypes.Interfaces.Astrea.UAgePanel.ActiveDrawTypeId -> uint
 p3rpc.nativetypes.Interfaces.Astrea.UAgePanel.baseObj -> p3rpc.nativetypes.Interfaces.UObject
@@ -825,6 +896,38 @@ p3rpc.nativetypes.Interfaces.Astrea.UAgePanel._readMat -> p3rpc.nativetypes.Inte
 p3rpc.nativetypes.Interfaces.Astrea.UAgePanel._readMatInst -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
 p3rpc.nativetypes.Interfaces.Astrea.UAgePanel._readSpr -> p3rpc.nativetypes.Interfaces.USprAsset*
 p3rpc.nativetypes.Interfaces.Astrea.UAgePanel._readSprAstrea -> p3rpc.nativetypes.Interfaces.USprAsset*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.baseObj -> p3rpc.nativetypes.Interfaces.UGameInstance
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.bTempSaveHeaderUsed_ -> bool
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Calendar -> p3rpc.nativetypes.Interfaces.Calendar
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Items -> p3rpc.nativetypes.Interfaces.ItemBag
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Mail -> p3rpc.nativetypes.Interfaces.Mail
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mCalendarInstance_ -> p3rpc.nativetypes.Interfaces.UCalendar*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mCldCommonData_ -> p3rpc.nativetypes.Interfaces.UCldCommonData*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mCmpMainActor_ -> p3rpc.nativetypes.Interfaces.Astrea.ACmpMainActor*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mErrorDialog_ -> p3rpc.nativetypes.Interfaces.UErrorDialog*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mFileNameData_ -> p3rpc.nativetypes.Interfaces.UFileNameManager*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mFldCharParamTable_ -> p3rpc.nativetypes.Interfaces.UFldCharParamTable*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mFldCommonData_ -> p3rpc.nativetypes.Interfaces.UFldCommonData*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mGameDataProc_ -> p3rpc.nativetypes.Interfaces.UGlobalGameData*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mItemData_ -> p3rpc.nativetypes.Interfaces.UDatItem*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mLeaderBoard_ -> p3rpc.nativetypes.Interfaces.ULeaderBoardManager*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mMessageDialog_ -> p3rpc.nativetypes.Interfaces.UMessageDialog*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Money -> uint
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mPoolSetting_ -> bool
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mSaveManager_ -> p3rpc.nativetypes.Interfaces.UXrd777SaveManager*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mSequenceInstance_ -> p3rpc.nativetypes.Interfaces.USequence*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mSignedInDialog_ -> p3rpc.nativetypes.Interfaces.USignedInDialog*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mSystemMonitor_ -> p3rpc.nativetypes.Interfaces.AAppActor*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mTempSaveHeader_ -> p3rpc.nativetypes.Interfaces.FSaveGameHeadder
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mTrophy_ -> p3rpc.nativetypes.Interfaces.UTrophyManager*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Name -> p3rpc.nativetypes.Interfaces.CharacterName
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pBustupController -> p3rpc.nativetypes.Interfaces.UBustupController*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pCommunityWork -> p3rpc.nativetypes.Interfaces.UCommunityWork*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pEvtDataLoad -> p3rpc.nativetypes.Interfaces.UEvtDataLoad*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pMsgWork -> p3rpc.nativetypes.Interfaces.UMsgWork*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pPadRumble -> p3rpc.nativetypes.Interfaces.UPadRumble*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.UGlobalWork() -> void
 p3rpc.nativetypes.Interfaces.Astrea.UMsgProcWindow_Mind
 p3rpc.nativetypes.Interfaces.Astrea.UMsgProcWindow_Mind.baseObj -> p3rpc.nativetypes.Interfaces.UMsgProcWindowBase
 p3rpc.nativetypes.Interfaces.Astrea.UMsgProcWindow_Mind.InnerContentsColor -> p3rpc.nativetypes.Interfaces.FLinearColor
@@ -1178,6 +1281,51 @@ p3rpc.nativetypes.Interfaces.CmmPtr
 p3rpc.nativetypes.Interfaces.CmmPtr.ArcanaId -> ushort
 p3rpc.nativetypes.Interfaces.CmmPtr.CmmPtr() -> void
 p3rpc.nativetypes.Interfaces.CmmPtr.entry -> p3rpc.nativetypes.Interfaces.CmmEntry*
+p3rpc.nativetypes.Interfaces.CmpMainActor
+p3rpc.nativetypes.Interfaces.CmpMainActor.CmpMainActor(p3rpc.nativetypes.Interfaces.ACmpMainActor* _Data) -> void
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetAssetLoader() -> p3rpc.nativetypes.Interfaces.UAssetLoader*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetCalendarTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetCaptureInstanceDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetCaptureMaterial() -> p3rpc.nativetypes.Interfaces.UMaterialInstance*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetCommuTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetCurrentMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetDictionaryTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetEquipTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetField288() -> int
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetGlassMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetHelpOthersLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetHologMaskTexAAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetHologMaskTexBAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetHologMaskTexCAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetHologMaskTexDAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetHologramMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetHologramMaterial() -> p3rpc.nativetypes.Interfaces.UMaterial*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetItemLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetItemTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetMenuState() -> int
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetNextMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetOkNextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetOkNextMaskLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetOthersLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetOutlineInstanceDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetOutlineMaterial() -> p3rpc.nativetypes.Interfaces.UMaterialInstance*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetPartyPanelLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetPersonaListLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetPrevMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetQuestDateLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetQuestLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetQuestTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetQuestTextPosLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetRootLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetRootTouchCollLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetSimpleCopyMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetSimpleCopyMaterial() -> p3rpc.nativetypes.Interfaces.UMaterial*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetSkillLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetSkillLayoutDataTable2() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetStatusTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetSystemLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetSystemTouchCollLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.CmpMainActor.GetTutorialTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.DrawCircle
 p3rpc.nativetypes.Interfaces.DrawCircle.Antialiasing -> float
 p3rpc.nativetypes.Interfaces.DrawCircle.Color -> p3rpc.nativetypes.Interfaces.FSprColor
@@ -4746,6 +4894,29 @@ p3rpc.nativetypes.Interfaces.FWeakObjectPtr
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.FWeakObjectPtr() -> void
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.ObjectIndex -> int
 p3rpc.nativetypes.Interfaces.FWeakObjectPtr.ObjectSerialNumber -> int
+p3rpc.nativetypes.Interfaces.GlobalWork
+p3rpc.nativetypes.Interfaces.GlobalWork.GetActiveCharacters() -> System.Collections.Generic.List<short>!
+p3rpc.nativetypes.Interfaces.GlobalWork.GetBitflag(uint id) -> bool
+p3rpc.nativetypes.Interfaces.GlobalWork.GetBustupController() -> p3rpc.nativetypes.Interfaces.UBustupController*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetCalendarInstance() -> p3rpc.nativetypes.Interfaces.UCalendar*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetCldCommonData() -> p3rpc.nativetypes.Interfaces.UCldCommonData*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetCommunityWork() -> p3rpc.nativetypes.Interfaces.UCommunityWork*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetCounter(uint i) -> int
+p3rpc.nativetypes.Interfaces.GlobalWork.GetErrorDialog() -> p3rpc.nativetypes.Interfaces.UErrorDialog*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetEvtDataLoad() -> p3rpc.nativetypes.Interfaces.UEvtDataLoad*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetFileNameData() -> p3rpc.nativetypes.Interfaces.UFileNameManager*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetFldCommonData() -> p3rpc.nativetypes.Interfaces.UFldCommonData*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetItemData() -> p3rpc.nativetypes.Interfaces.UDatItem*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetLeaderBoard() -> p3rpc.nativetypes.Interfaces.ULeaderBoardManager*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetMail() -> p3rpc.nativetypes.Interfaces.Mail*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetSequenceInstance() -> p3rpc.nativetypes.Interfaces.USequence*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetSignedInDialog() -> p3rpc.nativetypes.Interfaces.USignedInDialog*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetTrophy() -> p3rpc.nativetypes.Interfaces.UTrophyManager*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetUnit(int i) -> p3rpc.nativetypes.Interfaces.FDatUnitWork*
+p3rpc.nativetypes.Interfaces.GlobalWork.GlobalWork(p3rpc.nativetypes.Interfaces.UGlobalWork* _Data) -> void
 p3rpc.nativetypes.Interfaces.HashableInt
 p3rpc.nativetypes.Interfaces.HashableInt.Equals(p3rpc.nativetypes.Interfaces.HashableInt other) -> bool
 p3rpc.nativetypes.Interfaces.HashableInt.GetTypeHash() -> uint
@@ -4764,6 +4935,50 @@ p3rpc.nativetypes.Interfaces.HashablePointer.GetTypeHash() -> uint
 p3rpc.nativetypes.Interfaces.HashablePointer.HashablePointer() -> void
 p3rpc.nativetypes.Interfaces.HashablePointer.HashablePointer(nint ptr) -> void
 p3rpc.nativetypes.Interfaces.HashablePointer.Ptr -> nint
+p3rpc.nativetypes.Interfaces.ICmpMainActor
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetAssetLoader() -> p3rpc.nativetypes.Interfaces.UAssetLoader*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetCalendarTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetCaptureInstanceDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetCaptureMaterial() -> p3rpc.nativetypes.Interfaces.UMaterialInstance*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetCommuTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetCurrentMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetDictionaryTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetEquipTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetField288() -> int
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetGlassMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetHelpOthersLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetHologMaskTexAAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetHologMaskTexBAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetHologMaskTexCAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetHologMaskTexDAry() -> p3rpc.nativetypes.Interfaces.UTexture2D*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetHologramMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetHologramMaterial() -> p3rpc.nativetypes.Interfaces.UMaterial*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetItemLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetItemTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetMenuState() -> int
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetNextMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetOkNextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetOkNextMaskLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetOthersLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetOutlineInstanceDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetOutlineMaterial() -> p3rpc.nativetypes.Interfaces.UMaterialInstance*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetPartyPanelLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetPersonaListLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetPrevMenu() -> p3rpc.nativetypes.Interfaces.UCmpMenuBase*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetQuestDateLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetQuestLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetQuestTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetQuestTextPosLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetRootLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetRootTouchCollLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetSimpleCopyMateDynamic() -> p3rpc.nativetypes.Interfaces.UMaterialInstanceDynamic*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetSimpleCopyMaterial() -> p3rpc.nativetypes.Interfaces.UMaterial*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetSkillLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetSkillLayoutDataTable2() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetStatusTextColLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetSystemLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetSystemTouchCollLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
+p3rpc.nativetypes.Interfaces.ICmpMainActor.GetTutorialTextLayoutDataTable() -> p3rpc.nativetypes.Interfaces.UUILayoutDataTable*
 p3rpc.nativetypes.Interfaces.ICommonMethods
 p3rpc.nativetypes.Interfaces.ICommonMethods.FAppCalculationItem_Lerp
 p3rpc.nativetypes.Interfaces.ICommonMethods.FMemory_Free
@@ -4775,6 +4990,28 @@ p3rpc.nativetypes.Interfaces.IContactManagerPayload
 p3rpc.nativetypes.Interfaces.IContactManagerPayload.Base() -> p3rpc.nativetypes.Interfaces.UUIContactManagerPayload*
 p3rpc.nativetypes.Interfaces.IContactManagerPayload.Get<TPayload>() -> TPayload*
 p3rpc.nativetypes.Interfaces.IContactManagerPayload.GetPayloadType() -> p3rpc.nativetypes.Interfaces.EAppActorId
+p3rpc.nativetypes.Interfaces.IGlobalWork
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetActiveCharacters() -> System.Collections.Generic.List<short>!
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetBitflag(uint id) -> bool
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetBustupController() -> p3rpc.nativetypes.Interfaces.UBustupController*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetCalendarInstance() -> p3rpc.nativetypes.Interfaces.UCalendar*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetCldCommonData() -> p3rpc.nativetypes.Interfaces.UCldCommonData*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetCommunityWork() -> p3rpc.nativetypes.Interfaces.UCommunityWork*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetCounter(uint i) -> int
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetErrorDialog() -> p3rpc.nativetypes.Interfaces.UErrorDialog*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetEvtDataLoad() -> p3rpc.nativetypes.Interfaces.UEvtDataLoad*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetFileNameData() -> p3rpc.nativetypes.Interfaces.UFileNameManager*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetFldCommonData() -> p3rpc.nativetypes.Interfaces.UFldCommonData*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetItemData() -> p3rpc.nativetypes.Interfaces.UDatItem*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetLeaderBoard() -> p3rpc.nativetypes.Interfaces.ULeaderBoardManager*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetMail() -> p3rpc.nativetypes.Interfaces.Mail*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetSequenceInstance() -> p3rpc.nativetypes.Interfaces.USequence*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetSignedInDialog() -> p3rpc.nativetypes.Interfaces.USignedInDialog*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetTrophy() -> p3rpc.nativetypes.Interfaces.UTrophyManager*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetUnit(int i) -> p3rpc.nativetypes.Interfaces.FDatUnitWork*
 p3rpc.nativetypes.Interfaces.IMapHashable
 p3rpc.nativetypes.Interfaces.IMapHashable.GetTypeHash() -> uint
 p3rpc.nativetypes.Interfaces.IMemoryMethods

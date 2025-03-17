@@ -124,7 +124,9 @@ public unsafe struct UMsgProcWindow_Mind
 [StructLayout(LayoutKind.Explicit, Size = 0x31E0)]
 public unsafe struct ACmpMainActor
 {
-    [FieldOffset(0x0000)] public AAppActor baseObj;
+    [FieldOffset(0x0)] public AAppActor baseObj;
+    [FieldOffset(0x288)] public int Field288;
+    [FieldOffset(0x290)] public int MenuState;
     [FieldOffset(0x12C8)] public UAssetLoader* pAssetLoader;
     //[FieldOffset(0x12D0)] public TSubclassOf<ACampSceneCapture> SceneCaptureClass;
     //[FieldOffset(0x12D8)] public ACampSceneCapture* pSceneCapture2D;
@@ -263,6 +265,57 @@ public unsafe struct ACmpMainActor
     [FieldOffset(0x31D0)] public UUILayoutDataTable* SystemTouchCollLayoutDataTable;
 }
 
+public unsafe class CmpMainActor : ICmpMainActor
+{
+    private ACmpMainActor* Data;
+    public CmpMainActor(ACmpMainActor* _Data) { Data = _Data; }
+    private ACmpMainActor* Self() => Data;
+    public int GetField288() => Self()->Field288;
+    public int GetMenuState() => Self()->MenuState;
+    public UAssetLoader* GetAssetLoader() => Self()->pAssetLoader;
+    public unsafe UMaterialInstance* GetCaptureMaterial() => Self()->pCaptureMaterial;
+    public unsafe UMaterialInstanceDynamic* GetCaptureInstanceDynamic() => Self()->pCaptureInstanceDynamic;
+    public unsafe UMaterialInstance* GetOutlineMaterial() => Self()->pOutlineMaterial;
+    public unsafe UMaterialInstanceDynamic* GetOutlineInstanceDynamic() => Self()->pOutlineInstanceDynamic;
+    public unsafe UMaterial* GetSimpleCopyMaterial() => Self()->pSimpleCopyMaterial;
+    public unsafe UMaterialInstanceDynamic* GetSimpleCopyMateDynamic() => Self()->pSimpleCopyMateDynamic;
+    public unsafe UMaterial* GetHologramMaterial() => Self()->pHologramMaterial;
+    public unsafe UMaterialInstanceDynamic* GetHologramMateDynamic() => Self()->pHologramMateDynamic;
+    public unsafe UTexture2D* GetHologMaskTexAAry() => Self()->HologMaskTexAAry;
+    public unsafe UTexture2D* GetHologMaskTexBAry() => Self()->HologMaskTexBAry;
+    public unsafe UTexture2D* GetHologMaskTexCAry() => Self()->HologMaskTexCAry;
+    public unsafe UTexture2D* GetHologMaskTexDAry() => Self()->HologMaskTexDAry;
+    public unsafe UMaterialInstanceDynamic* GetGlassMateDynamic() => Self()->pHologramMateDynamic;
+    public unsafe UCmpMenuBase* GetCurrentMenu() => Self()->pCurrentMenu;
+    public unsafe UCmpMenuBase* GetNextMenu() => Self()->pNextMenu;
+    public unsafe UCmpMenuBase* GetPrevMenu() => Self()->pPrevMenu;
+    public unsafe UUILayoutDataTable* GetRootLayoutDataTable() => Self()->RootLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetSystemLayoutDataTable() => Self()->SystemLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetQuestLayoutDataTable() => Self()->QuestLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetQuestDateLayoutDataTable() => Self()->QuestDateLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetOthersLayoutDataTable() => Self()->OthersLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetHelpOthersLayoutDataTable() => Self()->HelpOthersLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetPersonaListLayoutDataTable() => Self()->PersonaListLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetItemLayoutDataTable() => Self()->ItemLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetSkillLayoutDataTable() => Self()->SkillLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetSkillLayoutDataTable2() => Self()->SkillLayoutDataTable2;
+    public unsafe UUILayoutDataTable* GetPartyPanelLayoutDataTable() => Self()->PartyPanelLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetTutorialTextLayoutDataTable() => Self()->TutorialTextLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetDictionaryTextLayoutDataTable() => Self()->DictionaryTextLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetCalendarTextLayoutDataTable() => Self()->CalendarTextLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetEquipTextColLayoutDataTable() => Self()->EquipTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetItemTextColLayoutDataTable() => Self()->ItemTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetQuestTextColLayoutDataTable() => Self()->QuestTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetQuestTextPosLayoutDataTable() => Self()->QuestTextPosLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetCommuTextColLayoutDataTable() => Self()->CommuTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetStatusTextColLayoutDataTable() => Self()->StatusTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetOkNextLayoutDataTable() => Self()->OkNextLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetOkNextMaskLayoutDataTable() => Self()->OkNextMaskLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetRootTouchCollLayoutDataTable() => Self()->RootTouchCollLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetSystemTouchCollLayoutDataTable() => Self()->SystemTouchCollLayoutDataTable;
+
+}
+
 [StructLayout(LayoutKind.Explicit, Size = 0x508)]
 public unsafe struct FKeyHelpButtonBase
 {
@@ -293,4 +346,121 @@ public unsafe struct FKeyHelpButtonFastForward
     [FieldOffset(0x0)] public FKeyHelpButtonBase Super;
     [FieldOffset(0x540)] public FKeyHelpInterpolate Field538;
     [FieldOffset(0x590)] public int ActivationState;
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30A30)]
+public unsafe struct UGlobalWork
+{
+    [FieldOffset(0x0)] public UGameInstance baseObj;
+    //[FieldOffset(0x1b0)] public FDatUnitWork PlayerCharacters[11]; // 10100_3 to 10109_3
+    //[FieldOffset(0x1f6c)] public ushort ActiveCharacters[10]; // 10050_1
+    [FieldOffset(0x1f80)] public ItemBag Items; // 10051_1
+    [FieldOffset(0x3cf8)] public uint Money; // 10052_1
+    //[FieldOffset(0x3cfc)] public byte Section0[384]; // 10000_1
+    //[FieldOffset(0x3e7c)] public byte Section1[384]; // 10001_2
+    //[FieldOffset(0x3ffc)] public byte Section2[640]; // 10002_1
+    //[FieldOffset(0x427c)] public byte Section3[64]; // 10003_1
+    //[FieldOffset(0x42bc)] public byte Section4[64]; // 10004_1
+    //[FieldOffset(0x42fc)] public byte Section5[64]; // 10005_1
+    //[FieldOffset(0x433c)] public int Counters[384]; // 10010_1
+    //[FieldOffset(0x439c)] public FDatUnitPersona Personas[464]; // 10053_1
+    //[FieldOffset(0xa03c)] public byte Analysis[828]; // 10054_1
+    [FieldOffset(0xa378)] public Calendar Calendar; // 10030_1
+    //[FieldOffset(0xa388)] public byte Shop[7424];
+    [FieldOffset(0xc168)] public CharacterName Name; // 10061_4
+    [FieldOffset(0xc2c4)] public Mail Mail; // 10081_2
+    [FieldOffset(0x30068)] public USequence* mSequenceInstance_;
+    [FieldOffset(0x30070)] public UCalendar* mCalendarInstance_;
+    [FieldOffset(0x30078)] public UCldCommonData* mCldCommonData_;
+    // [FieldOffset(0x30080)] public UAstreaProgress* mAstreaProgressInstance_;
+    // [FieldOffset(0x30088)] public UPrgssCommonData* mAstreaPrgssCommonData_;
+    [FieldOffset(0x30090)] public UFileNameManager* mFileNameData_;
+    [FieldOffset(0x30098)] public UFldCommonData* mFldCommonData_;
+    [FieldOffset(0x300A0)] public UDatItem* mItemData_;
+    [FieldOffset(0x300A8)] public UTrophyManager* mTrophy_;
+    [FieldOffset(0x300B0)] public ULeaderBoardManager* mLeaderBoard_;
+    [FieldOffset(0x300B8)] public USignedInDialog* mSignedInDialog_;
+    [FieldOffset(0x300C0)] public UErrorDialog* mErrorDialog_;
+    [FieldOffset(0x300C8)] public UMessageDialog* mMessageDialog_;
+    [FieldOffset(0x300D0)] public UBustupController* pBustupController;
+    [FieldOffset(0x300D8)] public UCommunityWork* pCommunityWork;
+    [FieldOffset(0x300E0)] public UMsgWork* pMsgWork;
+    [FieldOffset(0x300E8)] public UEvtDataLoad* pEvtDataLoad;
+    // [FieldOffset(0x300F0)] public UFrameBufferCapture* pFrameBufferCapture;
+    [FieldOffset(0x300F8)] public UPadRumble* pPadRumble;
+    [FieldOffset(0x301d0)] public UFldCharParamTable* mFldCharParamTable_;
+    // [FieldOffset(0x301d8)] public UAppCharFootstepsTable* mFootstepsTable_;
+    // [FieldOffset(0x301e0)] public UAppCharacterPoolManager* mCharacterPoolManager_;
+    // [FieldOffset(0x301e8)] public UDatSystemText* mSystemTextTable;
+    // [FieldOffset(0x301f0)] public UDatUIUseText* mUIUseTextTable;
+    // [FieldOffset(0x301f8)] public UDatUICalendarText* mUICalendarTextTable;
+    [FieldOffset(0x30200)] public UXrd777SaveManager* mSaveManager_;
+    // [FieldOffset(0x30208)] public UAddContent* mAddContent_;
+    // [FieldOffset(0x30898)] public ULoading* pLoadingInst;
+    [FieldOffset(0x308A0)] public ACmpMainActor* mCmpMainActor_;
+    // [FieldOffset(0x308A8)] public ABtlGuiResourcesBase* mBtlGuiResourcesActor_;
+    // [FieldOffset(0x308B0)] public UBtlEncountWipeLoader* mBtlEncountWipeLoader_;
+    // [FieldOffset(0x308B8)] public ABtlEncountWipeCore* mBtlEncountWipeCore_;
+    // [FieldOffset(0x308C0)] public AFldLevelPoolManager* mLevelPoolManager_;
+    [FieldOffset(0x308C8)] public bool mPoolSetting_;
+    [FieldOffset(0x30918)] public FSaveGameHeadder mTempSaveHeader_;
+    [FieldOffset(0x309E8)] public bool bTempSaveHeaderUsed_;
+    [FieldOffset(0x309F0)] public UGlobalGameData* mGameDataProc_;
+    [FieldOffset(0x309F8)] public AAppActor* mSystemMonitor_;
+    // [FieldOffset(0x30A18)] public AResidentReloadActor* ResidentReloadActor;
+}
+
+public unsafe class GlobalWork : IGlobalWork
+{
+    private UGlobalWork* Data;
+    public GlobalWork(UGlobalWork* _Data) { Data = _Data; }
+    private UGlobalWork* Self() => Data;
+    public FDatUnitWork* GetUnit(int i) => &((FDatUnitWork*)((nint)Self() + 0x1b0))[i];
+
+    public List<short> GetActiveCharacters()
+    {
+        List<short> ids = new();
+        for (int i = 0; i < 10; i++)
+        {
+            var curr_mem = ((short*)((nint)Self() + 0x1f6c))[i];
+            if (curr_mem == 0) break;
+            ids.Add(curr_mem);
+        }
+        return ids;
+    }
+
+    public bool GetBitflag(uint id)
+    {
+        uint section = id >> 0x1c;
+        uint flag_int = (id >> 5 & 0x7fffff);
+        uint flag_bit = (uint)(1 << ((int)id & 0x1f));
+        switch (section)
+        {
+            case 0: return ((int*)((nint)Self() + 0x3cfc))[flag_int] % flag_bit == 1 ? true : false;
+            case 1: return ((int*)((nint)Self() + 0x3e7c))[flag_int] % flag_bit == 1 ? true : false;
+            case 2: return ((int*)((nint)Self() + 0x3ffc))[flag_int] % flag_bit == 1 ? true : false;
+            case 3: return ((int*)((nint)Self() + 0x427c))[flag_int] % flag_bit == 1 ? true : false;
+            case 4: return ((int*)((nint)Self() + 0x42bc))[flag_int] % flag_bit == 1 ? true : false;
+            case 5: return ((int*)((nint)Self() + 0x42fc))[flag_int] % flag_bit == 1 ? true : false;
+            default: return false;
+        }
+    }
+    public int GetCounter(uint i) => ((int*)((nint)Self() + 0x433c))[i];
+    public FDatUnitPersonaEntry* GetPersona(uint i) => &((FDatUnitPersonaEntry*)((nint)Self() + 0x439c))[i];
+    public Mail* GetMail() => &Self()->Mail;
+    public unsafe USequence* GetSequenceInstance() => Self()->mSequenceInstance_;
+    public unsafe UCalendar* GetCalendarInstance() => Self()->mCalendarInstance_;
+    public unsafe UCldCommonData* GetCldCommonData() => Self()->mCldCommonData_;
+    public unsafe UFileNameManager* GetFileNameData() => Self()->mFileNameData_;
+    public unsafe UFldCommonData* GetFldCommonData() => Self()->mFldCommonData_;
+    public unsafe UDatItem* GetItemData() => Self()->mItemData_;
+    public unsafe UTrophyManager* GetTrophy() => Self()->mTrophy_;
+    public unsafe ULeaderBoardManager* GetLeaderBoard() => Self()->mLeaderBoard_;
+    public unsafe USignedInDialog* GetSignedInDialog() => Self()->mSignedInDialog_;
+    public unsafe UErrorDialog* GetErrorDialog() => Self()->mErrorDialog_;
+    public unsafe UMessageDialog* GetMessageDialog() => Self()->mMessageDialog_;
+    public unsafe UBustupController* GetBustupController() => Self()->pBustupController;
+    public unsafe UCommunityWork* GetCommunityWork() => Self()->pCommunityWork;
+    public unsafe UMsgWork* GetMsgWork() => Self()->pMsgWork;
+    public unsafe UEvtDataLoad* GetEvtDataLoad() => Self()->pEvtDataLoad;
 }

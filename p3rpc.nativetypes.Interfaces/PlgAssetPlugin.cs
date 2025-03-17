@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 namespace p3rpc.nativetypes.Interfaces;
 #pragma warning disable CS1591
+#pragma warning disable CS0169
 
 // GENERATED FROM UE4SS CXX HEADER DUMP
 public struct FPlgData

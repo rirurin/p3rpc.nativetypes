@@ -14,6 +14,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace p3rpc.nativetypes.Interfaces;
 
 #pragma warning disable CS1591
+#pragma warning disable CS0169
 
 // Copied from Hi-Fi RUSH Research project
 
@@ -302,8 +303,8 @@ public class TBitArray : IList<bool>, IDisposable
     private bool bIsDisposed = false;
     private int InlineAllocatorSize;
     private static int BITS_PER_BYTE = 0x8;
-    private static uint ALLOC_DEFAULT = 0x4;
     private const int DEFAULT_ALLOCATOR_SIZE = 0x10;
+    private int GetInlineBitCount() => InlineAllocatorSize * BITS_PER_BYTE;
     private unsafe byte* GetAllocation() => *(byte**)(InlineBitArray + InlineAllocatorSize);
     private unsafe void SetAllocation(byte* alloc) => *(byte**)(InlineBitArray + InlineAllocatorSize) = alloc;
     private unsafe int GetArrayCount() => *(int*)(InlineBitArray + InlineAllocatorSize + sizeof(nint));
@@ -330,7 +331,7 @@ public class TBitArray : IList<bool>, IDisposable
     {
         NativeMemory.Clear(InlineBitArray, (nuint)GetStructSize());
         SetArrayCount(0);
-        SetArrayMax(InlineAllocatorSize * BITS_PER_BYTE);
+        SetArrayMax(GetInlineBitCount());
     }
 
     // Impl IList<byte>
@@ -339,11 +340,11 @@ public class TBitArray : IList<bool>, IDisposable
         get
         {
             // Get bit from inline allocation
-            if (index < InlineAllocatorSize * BITS_PER_BYTE)
+            if (index < GetInlineBitCount())
                 return (byte)(InlineBitArray[index / 8] & 1 << (index << 8)) == 1 ? true : false;
             // Get bit from TArray
             if (GetAllocation() == null) return false;
-            return (GetAllocation()[(index - InlineAllocatorSize * BITS_PER_BYTE) / 8] & 1 << (index & 8)) == 1 ? true : false;
+            return (GetAllocation()[(index - GetInlineBitCount()) / 8] & 1 << (index & 8)) == 1 ? true : false;
         }
         set
         {
@@ -357,11 +358,21 @@ public class TBitArray : IList<bool>, IDisposable
             // Add to TArray
             if (GetAllocation() == null)
             {
-                SetAllocation(MemoryMethods.FMemory_MallocMultiple<byte>(ALLOC_DEFAULT));
-                SetArrayMax((int)(InlineAllocatorSize * BITS_PER_BYTE + ALLOC_DEFAULT * BITS_PER_BYTE));
+                SetAllocation(MemoryMethods.FMemory_MallocMultiple<byte>(DEFAULT_ALLOCATOR_SIZE));
+                NativeMemory.Clear(GetAllocation(), DEFAULT_ALLOCATOR_SIZE);
+                SetArrayMax(GetInlineBitCount() + (DEFAULT_ALLOCATOR_SIZE * BITS_PER_BYTE));
+            } else if (index == GetArrayMax())
+            {
+                var oldAllocSize = (uint)(GetArrayMax() - GetInlineBitCount());
+                var newAlloc = MemoryMethods.FMemory_MallocMultiple<byte>(oldAllocSize * 2);
+                NativeMemory.Clear(newAlloc + oldAllocSize, oldAllocSize);
+                NativeMemory.Copy(GetAllocation(), newAlloc, oldAllocSize);
+                MemoryMethods.FMemory_Free((nint)GetAllocation());
+                SetAllocation(newAlloc);
+                SetArrayMax((GetInlineBitCount()) + (int)(oldAllocSize * 2));
             }
-            if (value) GetAllocation()[index - (InlineAllocatorSize * BITS_PER_BYTE) / 8] |= (byte)(1 << (index % 8));
-            else GetAllocation()[index - (InlineAllocatorSize * BITS_PER_BYTE) / 8] &= (byte)(0x7f ^ 1 << (index % 8));
+            if (value) GetAllocation()[(index - GetInlineBitCount()) / 8] |= (byte)(1 << (index % 8));
+            else GetAllocation()[(index - GetInlineBitCount()) / 8] &= (byte)(0x7f ^ 1 << (index % 8));
         }
     }
 
@@ -436,7 +447,13 @@ public class TBitArray : IList<bool>, IDisposable
         {
             //if (disposing) { } // For managed components
             if (bOwnsAllocation)
-                unsafe { MemoryMethods.FMemory_Free(InlineBitArray); }
+            {
+                unsafe 
+                { 
+                    if (GetAllocation() != null) MemoryMethods.FMemory_Free(GetAllocation());
+                    MemoryMethods.FMemory_Free(InlineBitArray); 
+                }
+            }
             bIsDisposed = true;
         }
     }

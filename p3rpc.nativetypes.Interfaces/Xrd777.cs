@@ -2,6 +2,7 @@
 namespace p3rpc.nativetypes.Interfaces;
 
 #pragma warning disable CS1591
+#pragma warning disable CS0169
 
 // ===================================
 // GENERATED FROM UE4SS CXX HEADER DUMP
@@ -165,6 +166,7 @@ public unsafe struct UCmpMenuBase //: public UObject
 [StructLayout(LayoutKind.Explicit, Size = 0x30F0)]
 public unsafe struct ACmpMainActor //: public AAppActor
 {
+    [FieldOffset(0x0)] public AAppActor baseObj;
     [FieldOffset(0x288)] public int Field288;
     [FieldOffset(0x290)] public int MenuState;
     [FieldOffset(0x12C8)] public nint pAssetLoader;
@@ -295,6 +297,105 @@ public unsafe struct ACmpMainActor //: public AAppActor
     [FieldOffset(0x30D8)] public UUILayoutDataTable* RootTouchCollLayoutDataTable;
     [FieldOffset(0x30E0)] public UUILayoutDataTable* SystemTouchCollLayoutDataTable;
 };
+
+public unsafe class CmpMainActor : ICmpMainActor
+{
+    private ACmpMainActor* Data;
+    public CmpMainActor(ACmpMainActor* _Data) { Data = _Data; }
+    private ACmpMainActor* Self() => Data;
+    public int GetField288() => Self()->Field288;
+    public int GetMenuState() => Self()->MenuState;
+    public UAssetLoader* GetAssetLoader() => (UAssetLoader*)Self()->pAssetLoader;
+    public unsafe UMaterialInstance* GetCaptureMaterial() => (UMaterialInstance*)Self()->pCaptureMaterial;
+    public unsafe UMaterialInstanceDynamic* GetCaptureInstanceDynamic() => (UMaterialInstanceDynamic*)Self()->pCaptureInstanceDynamic;
+    public unsafe UMaterialInstance* GetOutlineMaterial() => (UMaterialInstance*)Self()->pOutlineMaterial;
+    public unsafe UMaterialInstanceDynamic* GetOutlineInstanceDynamic() => (UMaterialInstanceDynamic*)Self()->pOutlineInstanceDynamic;
+    public unsafe UMaterial* GetSimpleCopyMaterial() => (UMaterial*)Self()->pSimpleCopyMaterial;
+    public unsafe UMaterialInstanceDynamic* GetSimpleCopyMateDynamic() => (UMaterialInstanceDynamic*)Self()->pSimpleCopyMateDynamic;
+    public unsafe UMaterial* GetHologramMaterial() => (UMaterial*)Self()->pHologramMaterial;
+    public unsafe UMaterialInstanceDynamic* GetHologramMateDynamic() => (UMaterialInstanceDynamic*)Self()->pHologramMateDynamic;
+    public unsafe UTexture2D* GetHologMaskTexAAry() => Self()->HologMaskTexAAry;
+    public unsafe UTexture2D* GetHologMaskTexBAry() => Self()->HologMaskTexBAry;
+    public unsafe UTexture2D* GetHologMaskTexCAry() => Self()->HologMaskTexCAry;
+    public unsafe UTexture2D* GetHologMaskTexDAry() => Self()->HologMaskTexDAry;
+    public unsafe UMaterialInstanceDynamic* GetGlassMateDynamic() => (UMaterialInstanceDynamic*)Self()->pHologramMateDynamic;
+    public unsafe UCmpMenuBase* GetCurrentMenu() => Self()->pCurrentMenu;
+    public unsafe UCmpMenuBase* GetNextMenu() => Self()->pNextMenu;
+    public unsafe UCmpMenuBase* GetPrevMenu() => Self()->pPrevMenu;
+    public unsafe UUILayoutDataTable* GetRootLayoutDataTable() => Self()->RootLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetSystemLayoutDataTable() => Self()->SystemLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetQuestLayoutDataTable() => Self()->QuestLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetQuestDateLayoutDataTable() => Self()->QuestDateLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetOthersLayoutDataTable() => Self()->OthersLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetHelpOthersLayoutDataTable() => Self()->HelpOthersLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetPersonaListLayoutDataTable() => Self()->PersonaListLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetItemLayoutDataTable() => Self()->ItemLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetSkillLayoutDataTable() => Self()->SkillLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetSkillLayoutDataTable2() => Self()->SkillLayoutDataTable2;
+    public unsafe UUILayoutDataTable* GetPartyPanelLayoutDataTable() => Self()->PartyPanelLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetTutorialTextLayoutDataTable() => Self()->TutorialTextLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetDictionaryTextLayoutDataTable() => Self()->DictionaryTextLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetCalendarTextLayoutDataTable() => Self()->CalendarTextLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetEquipTextColLayoutDataTable() => Self()->EquipTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetItemTextColLayoutDataTable() => Self()->ItemTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetQuestTextColLayoutDataTable() => Self()->QuestTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetQuestTextPosLayoutDataTable() => Self()->QuestTextPosLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetCommuTextColLayoutDataTable() => Self()->CommuTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetStatusTextColLayoutDataTable() => Self()->StatusTextColLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetOkNextLayoutDataTable() => Self()->OkNextLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetOkNextMaskLayoutDataTable() => Self()->OkNextMaskLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetRootTouchCollLayoutDataTable() => Self()->RootTouchCollLayoutDataTable;
+    public unsafe UUILayoutDataTable* GetSystemTouchCollLayoutDataTable() => Self()->SystemTouchCollLayoutDataTable;
+
+}
+
+public interface ICmpMainActor
+{
+    public int GetField288();
+    public int GetMenuState();
+    public unsafe UAssetLoader* GetAssetLoader();
+    public unsafe UMaterialInstance* GetCaptureMaterial();
+    public unsafe UMaterialInstanceDynamic* GetCaptureInstanceDynamic();
+    public unsafe UMaterialInstance* GetOutlineMaterial();
+    public unsafe UMaterialInstanceDynamic* GetOutlineInstanceDynamic();
+    public unsafe UMaterial* GetSimpleCopyMaterial();
+    public unsafe UMaterialInstanceDynamic* GetSimpleCopyMateDynamic();
+    public unsafe UMaterial* GetHologramMaterial();
+    public unsafe UMaterialInstanceDynamic* GetHologramMateDynamic();
+    public unsafe UTexture2D* GetHologMaskTexAAry();
+    public unsafe UTexture2D* GetHologMaskTexBAry();
+    public unsafe UTexture2D* GetHologMaskTexCAry();
+    public unsafe UTexture2D* GetHologMaskTexDAry();
+    public unsafe UCmpMenuBase* GetCurrentMenu();
+    public unsafe UCmpMenuBase* GetNextMenu();
+    public unsafe UCmpMenuBase* GetPrevMenu();
+    public unsafe UMaterialInstanceDynamic* GetGlassMateDynamic();
+    public unsafe UUILayoutDataTable* GetRootLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetSystemLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetQuestLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetQuestDateLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetOthersLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetHelpOthersLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetPersonaListLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetItemLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetSkillLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetSkillLayoutDataTable2();
+    public unsafe UUILayoutDataTable* GetPartyPanelLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetTutorialTextLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetDictionaryTextLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetCalendarTextLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetEquipTextColLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetItemTextColLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetQuestTextColLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetQuestTextPosLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetCommuTextColLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetStatusTextColLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetOkNextLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetOkNextMaskLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetRootTouchCollLayoutDataTable();
+    public unsafe UUILayoutDataTable* GetSystemTouchCollLayoutDataTable();
+
+}
 
 public enum EOneAnimType : byte
 {
@@ -1849,9 +1950,87 @@ public unsafe struct UGlobalWork //: public UGameInstance
     public int GetCounter(uint i) { fixed (UGlobalWork* self = &this) { return ((int*)((nint)self + 0x433c))[i]; } }
 
     public FDatUnitPersonaEntry* GetPersona(uint i) { fixed (UGlobalWork* self = &this) { return &((FDatUnitPersonaEntry*)((nint)self + 0x439c))[i]; } }
-
-    // public bool HasAnalysisDataForPersonaElement(uint persona, uint element)
 };
+
+public unsafe class GlobalWork : IGlobalWork
+{
+    private UGlobalWork* Data;
+    public GlobalWork(UGlobalWork* _Data) { Data = _Data; }
+    private UGlobalWork* Self() => Data;
+    public FDatUnitWork* GetUnit(int i) => &((FDatUnitWork*)((nint)Self() + 0x1b0))[i];
+
+    public List<short> GetActiveCharacters()
+    {
+        List<short> ids = new();
+        for (int i = 0; i < 10; i++)
+        {
+            var curr_mem = ((short*)((nint)Self() + 0x1f6c))[i];
+            if (curr_mem == 0) break;
+            ids.Add(curr_mem);
+        }
+        return ids;
+    }
+
+    public bool GetBitflag(uint id)
+    {
+        uint section = id >> 0x1c;
+        uint flag_int = (id >> 5 & 0x7fffff);
+        uint flag_bit = (uint)(1 << ((int)id & 0x1f));
+        switch (section)
+        {
+            case 0: return ((int*)((nint)Self() + 0x3cfc))[flag_int] % flag_bit == 1 ? true : false;
+            case 1: return ((int*)((nint)Self() + 0x3e7c))[flag_int] % flag_bit == 1 ? true : false;
+            case 2: return ((int*)((nint)Self() + 0x3ffc))[flag_int] % flag_bit == 1 ? true : false;
+            case 3: return ((int*)((nint)Self() + 0x427c))[flag_int] % flag_bit == 1 ? true : false;
+            case 4: return ((int*)((nint)Self() + 0x42bc))[flag_int] % flag_bit == 1 ? true : false;
+            case 5: return ((int*)((nint)Self() + 0x42fc))[flag_int] % flag_bit == 1 ? true : false;
+            default: return false;
+        }
+    }
+    public int GetCounter(uint i) => ((int*)((nint)Self() + 0x433c))[i];
+    public FDatUnitPersonaEntry* GetPersona(uint i) => &((FDatUnitPersonaEntry*)((nint)Self() + 0x439c))[i];
+    public Mail* GetMail() => &Self()->Mail;
+    public unsafe USequence* GetSequenceInstance() => Self()->mSequenceInstance_;
+    public unsafe UCalendar* GetCalendarInstance() => Self()->mCalendarInstance_;
+    public unsafe UCldCommonData* GetCldCommonData() => Self()->mCldCommonData_;
+    public unsafe UFileNameManager* GetFileNameData() => Self()->mFileNameData_;
+    public unsafe UFldCommonData* GetFldCommonData() => Self()->mFldCommonData_;
+    public unsafe UDatItem* GetItemData() => Self()->mItemData_;
+    public unsafe UTrophyManager* GetTrophy() => Self()->mTrophy_;
+    public unsafe ULeaderBoardManager* GetLeaderBoard() => Self()->mLeaderBoard_;
+    public unsafe USignedInDialog* GetSignedInDialog() => Self()->mSignedInDialog_;
+    public unsafe UErrorDialog* GetErrorDialog() => Self()->mErrorDialog_;
+    public unsafe UMessageDialog* GetMessageDialog() => Self()->mMessageDialog_;
+    public unsafe UBustupController* GetBustupController() => Self()->pBustupController;
+    public unsafe UCommunityWork* GetCommunityWork() => Self()->pCommunityWork;
+    public unsafe UMsgWork* GetMsgWork() => Self()->pMsgWork;
+    public unsafe UEvtDataLoad* GetEvtDataLoad() => Self()->pEvtDataLoad;
+}
+
+public interface IGlobalWork
+{
+    public unsafe FDatUnitWork* GetUnit(int i);
+    public List<short> GetActiveCharacters();
+    public bool GetBitflag(uint id);
+    public int GetCounter(uint i);
+    public unsafe FDatUnitPersonaEntry* GetPersona(uint i);
+    public unsafe Mail* GetMail();
+    public unsafe USequence* GetSequenceInstance();
+    public unsafe UCalendar* GetCalendarInstance();
+    public unsafe UCldCommonData* GetCldCommonData();
+    public unsafe UFileNameManager* GetFileNameData();
+    public unsafe UFldCommonData* GetFldCommonData();
+    public unsafe UDatItem* GetItemData();
+    public unsafe UTrophyManager* GetTrophy();
+    public unsafe ULeaderBoardManager* GetLeaderBoard();
+    public unsafe USignedInDialog* GetSignedInDialog();
+    public unsafe UErrorDialog* GetErrorDialog();
+    public unsafe UMessageDialog* GetMessageDialog();
+    public unsafe UBustupController* GetBustupController();
+    public unsafe UCommunityWork* GetCommunityWork();
+    public unsafe UMsgWork* GetMsgWork();
+    public unsafe UEvtDataLoad* GetEvtDataLoad();
+}
 
 [StructLayout(LayoutKind.Explicit, Size = 0x64)]
 public unsafe struct SprDefStruct1
