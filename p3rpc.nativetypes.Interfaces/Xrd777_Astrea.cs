@@ -464,3 +464,120 @@ public unsafe class GlobalWork : IGlobalWork
     public unsafe UMsgWork* GetMsgWork() => Self()->pMsgWork;
     public unsafe UEvtDataLoad* GetEvtDataLoad() => Self()->pEvtDataLoad;
 }
+
+[StructLayout(LayoutKind.Explicit, Size = 0x30A50)]
+public unsafe struct UGlobalWorkUWP
+{
+    [FieldOffset(0x0)] public UGameInstance baseObj;
+    //[FieldOffset(0x1b0)] public FDatUnitWork PlayerCharacters[11]; // 10100_3 to 10109_3
+    //[FieldOffset(0x1f6c)] public ushort ActiveCharacters[10]; // 10050_1
+    [FieldOffset(0x1f80)] public ItemBag Items; // 10051_1
+    [FieldOffset(0x3cf8)] public uint Money; // 10052_1
+    //[FieldOffset(0x3cfc)] public byte Section0[384]; // 10000_1
+    //[FieldOffset(0x3e7c)] public byte Section1[384]; // 10001_2
+    //[FieldOffset(0x3ffc)] public byte Section2[640]; // 10002_1
+    //[FieldOffset(0x427c)] public byte Section3[64]; // 10003_1
+    //[FieldOffset(0x42bc)] public byte Section4[64]; // 10004_1
+    //[FieldOffset(0x42fc)] public byte Section5[64]; // 10005_1
+    //[FieldOffset(0x433c)] public int Counters[384]; // 10010_1
+    //[FieldOffset(0x439c)] public FDatUnitPersona Personas[464]; // 10053_1
+    //[FieldOffset(0xa03c)] public byte Analysis[828]; // 10054_1
+    [FieldOffset(0xa378)] public Calendar Calendar; // 10030_1
+    //[FieldOffset(0xa388)] public byte Shop[7424];
+    [FieldOffset(0xc168)] public CharacterName Name; // 10061_4
+    [FieldOffset(0xc2c4)] public Mail Mail; // 10081_2
+    [FieldOffset(0x30088)] public USequence* mSequenceInstance_;
+    [FieldOffset(0x30090)] public UCalendar* mCalendarInstance_;
+    [FieldOffset(0x30098)] public UCldCommonData* mCldCommonData_;
+    // [FieldOffset(0x300A0)] public UAstreaProgress* mAstreaProgressInstance_;
+    // [FieldOffset(0x300A8)] public UPrgssCommonData* mAstreaPrgssCommonData_;
+    [FieldOffset(0x300B0)] public UFileNameManager* mFileNameData_;
+    [FieldOffset(0x300B8)] public UFldCommonData* mFldCommonData_;
+    [FieldOffset(0x300C0)] public UDatItem* mItemData_;
+    [FieldOffset(0x300C8)] public UTrophyManager* mTrophy_;
+    [FieldOffset(0x300D0)] public ULeaderBoardManager* mLeaderBoard_;
+    [FieldOffset(0x300D8)] public USignedInDialog* mSignedInDialog_;
+    [FieldOffset(0x300E0)] public UErrorDialog* mErrorDialog_;
+    [FieldOffset(0x300E8)] public UMessageDialog* mMessageDialog_;
+    [FieldOffset(0x300F0)] public UBustupController* pBustupController;
+    [FieldOffset(0x300F8)] public UCommunityWork* pCommunityWork;
+    [FieldOffset(0x30100)] public UMsgWork* pMsgWork;
+    [FieldOffset(0x30108)] public UEvtDataLoad* pEvtDataLoad;
+    // [FieldOffset(0x30110)] public UFrameBufferCapture* pFrameBufferCapture;
+    [FieldOffset(0x30118)] public UPadRumble* pPadRumble;
+    [FieldOffset(0x301F0)] public UFldCharParamTable* mFldCharParamTable_;
+    // [FieldOffset(0x301F8)] public UAppCharFootstepsTable* mFootstepsTable_;
+    // [FieldOffset(0x30200)] public UAppCharacterPoolManager* mCharacterPoolManager_;
+    // [FieldOffset(0x30208)] public UDatSystemText* mSystemTextTable;
+    // [FieldOffset(0x30210)] public UDatUIUseText* mUIUseTextTable;
+    // [FieldOffset(0x30218)] public UDatUICalendarText* mUICalendarTextTable;
+    [FieldOffset(0x30220)] public UXrd777SaveManager* mSaveManager_;
+    // [FieldOffset(0x30228)] public UAddContent* mAddContent_;
+    // [FieldOffset(0x308B8)] public ULoading* pLoadingInst;
+    [FieldOffset(0x308C0)] public ACmpMainActor* mCmpMainActor_;
+    // [FieldOffset(0x308C8)] public ABtlGuiResourcesBase* mBtlGuiResourcesActor_;
+    // [FieldOffset(0x308D0)] public UBtlEncountWipeLoader* mBtlEncountWipeLoader_;
+    // [FieldOffset(0x308D8)] public ABtlEncountWipeCore* mBtlEncountWipeCore_;
+    // [FieldOffset(0x308E0)] public AFldLevelPoolManager* mLevelPoolManager_;
+    [FieldOffset(0x308E8)] public bool mPoolSetting_;
+    [FieldOffset(0x30938)] public FSaveGameHeadder mTempSaveHeader_;
+    [FieldOffset(0x30A08)] public bool bTempSaveHeaderUsed_;
+    [FieldOffset(0x30A10)] public UGlobalGameData* mGameDataProc_;
+    [FieldOffset(0x30A18)] public AAppActor* mSystemMonitor_;
+    // [FieldOffset(0x30A38)] public AResidentReloadActor* ResidentReloadActor;
+}
+
+public unsafe class GlobalWorkUWP : IGlobalWork
+{
+    private UGlobalWorkUWP* Data;
+    public GlobalWorkUWP(UGlobalWorkUWP* _Data) { Data = _Data; }
+    private UGlobalWorkUWP* Self() => Data;
+    public FDatUnitWork* GetUnit(int i) => &((FDatUnitWork*)((nint)Self() + 0x1b0))[i];
+
+    public List<short> GetActiveCharacters()
+    {
+        List<short> ids = new();
+        for (int i = 0; i < 10; i++)
+        {
+            var curr_mem = ((short*)((nint)Self() + 0x1f6c))[i];
+            if (curr_mem == 0) break;
+            ids.Add(curr_mem);
+        }
+        return ids;
+    }
+
+    public bool GetBitflag(uint id)
+    {
+        uint section = id >> 0x1c;
+        uint flag_int = (id >> 5 & 0x7fffff);
+        uint flag_bit = (uint)(1 << ((int)id & 0x1f));
+        switch (section)
+        {
+            case 0: return ((int*)((nint)Self() + 0x3cfc))[flag_int] % flag_bit == 1 ? true : false;
+            case 1: return ((int*)((nint)Self() + 0x3e7c))[flag_int] % flag_bit == 1 ? true : false;
+            case 2: return ((int*)((nint)Self() + 0x3ffc))[flag_int] % flag_bit == 1 ? true : false;
+            case 3: return ((int*)((nint)Self() + 0x427c))[flag_int] % flag_bit == 1 ? true : false;
+            case 4: return ((int*)((nint)Self() + 0x42bc))[flag_int] % flag_bit == 1 ? true : false;
+            case 5: return ((int*)((nint)Self() + 0x42fc))[flag_int] % flag_bit == 1 ? true : false;
+            default: return false;
+        }
+    }
+    public int GetCounter(uint i) => ((int*)((nint)Self() + 0x433c))[i];
+    public FDatUnitPersonaEntry* GetPersona(uint i) => &((FDatUnitPersonaEntry*)((nint)Self() + 0x439c))[i];
+    public Mail* GetMail() => &Self()->Mail;
+    public unsafe USequence* GetSequenceInstance() => Self()->mSequenceInstance_;
+    public unsafe UCalendar* GetCalendarInstance() => Self()->mCalendarInstance_;
+    public unsafe UCldCommonData* GetCldCommonData() => Self()->mCldCommonData_;
+    public unsafe UFileNameManager* GetFileNameData() => Self()->mFileNameData_;
+    public unsafe UFldCommonData* GetFldCommonData() => Self()->mFldCommonData_;
+    public unsafe UDatItem* GetItemData() => Self()->mItemData_;
+    public unsafe UTrophyManager* GetTrophy() => Self()->mTrophy_;
+    public unsafe ULeaderBoardManager* GetLeaderBoard() => Self()->mLeaderBoard_;
+    public unsafe USignedInDialog* GetSignedInDialog() => Self()->mSignedInDialog_;
+    public unsafe UErrorDialog* GetErrorDialog() => Self()->mErrorDialog_;
+    public unsafe UMessageDialog* GetMessageDialog() => Self()->mMessageDialog_;
+    public unsafe UBustupController* GetBustupController() => Self()->pBustupController;
+    public unsafe UCommunityWork* GetCommunityWork() => Self()->pCommunityWork;
+    public unsafe UMsgWork* GetMsgWork() => Self()->pMsgWork;
+    public unsafe UEvtDataLoad* GetEvtDataLoad() => Self()->pEvtDataLoad;
+}
