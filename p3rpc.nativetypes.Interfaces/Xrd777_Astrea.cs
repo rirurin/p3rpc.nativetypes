@@ -365,7 +365,7 @@ public unsafe struct UGlobalWork
     //[FieldOffset(0x433c)] public int Counters[384]; // 10010_1
     //[FieldOffset(0x439c)] public FDatUnitPersona Personas[464]; // 10053_1
     //[FieldOffset(0xa03c)] public byte Analysis[828]; // 10054_1
-    [FieldOffset(0xa378)] public Calendar Calendar; // 10030_1
+    [FieldOffset(0xa8e0)] public Calendar Calendar; // 10030_1
     //[FieldOffset(0xa388)] public byte Shop[7424];
     [FieldOffset(0xc168)] public CharacterName Name; // 10061_4
     [FieldOffset(0xc2c4)] public Mail Mail; // 10081_2
