@@ -869,6 +869,7 @@ p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetFldCommonData() -> p3rpc.nativ
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetItemData() -> p3rpc.nativetypes.Interfaces.UDatItem*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetLeaderBoard() -> p3rpc.nativetypes.Interfaces.ULeaderBoardManager*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetMail() -> p3rpc.nativetypes.Interfaces.Mail*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetCalendar() -> p3rpc.nativetypes.Interfaces.Calendar*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
@@ -892,6 +893,7 @@ p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetFldCommonData() -> p3rpc.na
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetItemData() -> p3rpc.nativetypes.Interfaces.UDatItem*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetLeaderBoard() -> p3rpc.nativetypes.Interfaces.ULeaderBoardManager*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetMail() -> p3rpc.nativetypes.Interfaces.Mail*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetCalendar() -> p3rpc.nativetypes.Interfaces.Calendar*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
@@ -4964,6 +4966,7 @@ p3rpc.nativetypes.Interfaces.GlobalWork.GetFldCommonData() -> p3rpc.nativetypes.
 p3rpc.nativetypes.Interfaces.GlobalWork.GetItemData() -> p3rpc.nativetypes.Interfaces.UDatItem*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetLeaderBoard() -> p3rpc.nativetypes.Interfaces.ULeaderBoardManager*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetMail() -> p3rpc.nativetypes.Interfaces.Mail*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetCalendar() -> p3rpc.nativetypes.Interfaces.Calendar*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
@@ -5060,6 +5063,7 @@ p3rpc.nativetypes.Interfaces.IGlobalWork.GetFldCommonData() -> p3rpc.nativetypes
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetItemData() -> p3rpc.nativetypes.Interfaces.UDatItem*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetLeaderBoard() -> p3rpc.nativetypes.Interfaces.ULeaderBoardManager*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetMail() -> p3rpc.nativetypes.Interfaces.Mail*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetCalendar() -> p3rpc.nativetypes.Interfaces.Calendar*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
