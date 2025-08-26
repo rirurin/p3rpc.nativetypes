@@ -1990,6 +1990,7 @@ public unsafe class GlobalWork : IGlobalWork
     public int GetCounter(uint i) => ((int*)((nint)Self() + 0x433c))[i];
     public FDatUnitPersonaEntry* GetPersona(uint i) => &((FDatUnitPersonaEntry*)((nint)Self() + 0x439c))[i];
     public Mail* GetMail() => &Self()->Mail;
+    public Calendar* GetCalendar() => &Self()->Calendar;
     public unsafe USequence* GetSequenceInstance() => Self()->mSequenceInstance_;
     public unsafe UCalendar* GetCalendarInstance() => Self()->mCalendarInstance_;
     public unsafe UCldCommonData* GetCldCommonData() => Self()->mCldCommonData_;
@@ -2015,6 +2016,7 @@ public interface IGlobalWork
     public int GetCounter(uint i);
     public unsafe FDatUnitPersonaEntry* GetPersona(uint i);
     public unsafe Mail* GetMail();
+    public unsafe Calendar* GetCalendar();
     public unsafe USequence* GetSequenceInstance();
     public unsafe UCalendar* GetCalendarInstance();
     public unsafe UCldCommonData* GetCldCommonData();
