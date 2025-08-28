@@ -3,6 +3,7 @@ namespace p3rpc.nativetypes.Interfaces;
 
 #pragma warning disable CS1591
 #pragma warning disable CS0169
+// #pragma warning disable RS0016
 
 // ===================================
 // GENERATED FROM UE4SS CXX HEADER DUMP
@@ -1794,16 +1795,87 @@ public unsafe struct FDatUnitWork
 [StructLayout(LayoutKind.Explicit, Size = 0x1d78)]
 public unsafe struct ItemBag
 {
-    public byte GetWeaponCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self))[i]; } } // 1024 entries
-    public byte GetArmorCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x400)[i]; } } // 1024 entries
-    public byte GetArmorFootwearCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x800)[i]; } } // 1024 entries
-    public byte GetAccessoryCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0xc00)[i]; } } // 512 entries
-    public byte GetConsumableCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0xe00)[i]; } } // 1024 entries
-    public byte GetMiscItemCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x1200)[i]; } } // 256 entries
-    public byte GetMaterialCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x1300)[i]; } } // 1024 entries
-    public byte GetSkillCardCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x1700)[i]; } } // 1024 entries
-    public byte GetOutfitCount(int i) { fixed (ItemBag* self = &this) { return ((byte*)((nint)self) + 0x1b00)[i]; } } // 512 entries
-    public uint GetItemFlag(int i) { fixed (ItemBag* self = &this) { return ((uint*)((nint)self) + 0x1d00)[i]; } } // 30 entries
+    [FieldOffset(0x0)] public fixed byte WeaponCount[1024];
+    [FieldOffset(0x400)] public fixed byte ArmorCount[1024];
+    [FieldOffset(0x800)] public fixed byte ArmorFootwearCount[1024];
+    [FieldOffset(0xc00)] public fixed byte AccessoryCount[512];
+    [FieldOffset(0xe00)] public fixed byte ConsumableCount[1024];
+    [FieldOffset(0x1200)] public fixed byte MiscItemCount[256];
+    [FieldOffset(0x1300)] public fixed byte MaterialCount[1024];
+    [FieldOffset(0x1700)] public fixed byte SkillCardCount[1024];
+    [FieldOffset(0x1b00)] public fixed byte OutfitCount[512];
+    [FieldOffset(0x1d00)] public fixed uint ItemFlags[30];
+    
+    public byte GetWeaponCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return WeaponCount[i];
+        }
+    } // 1024 entries
+    public byte GetArmorCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return ArmorCount[i];
+        }
+    } // 1024 entries
+    public byte GetArmorFootwearCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return ArmorFootwearCount[i];
+        }
+    } // 1024 entries
+    public byte GetAccessoryCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return AccessoryCount[i];
+        }
+    } // 512 entries
+    public byte GetConsumableCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return ConsumableCount[i];
+        }
+    } // 1024 entries
+    public byte GetMiscItemCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return MiscItemCount[i];
+        }
+    } // 256 entries
+    public byte GetMaterialCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return MaterialCount[i];
+        }
+    } // 1024 entries
+    public byte GetSkillCardCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return SkillCardCount[i];
+        }
+    } // 1024 entries
+    public byte GetOutfitCount(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return OutfitCount[i];
+        }
+    } // 512 entries
+    public uint GetItemFlag(int i)
+    {
+        fixed (ItemBag* self = &this)
+        {
+            return ItemFlags[i];
+        }
+    } // 30 entries
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x8)]
@@ -1856,16 +1928,16 @@ public unsafe struct UGlobalWork //: public UGameInstance
 {
     [FieldOffset(0x0)] public UGameInstance Super;
     //[FieldOffset(0x1b0)] public FDatUnitWork PlayerCharacters[11]; // 10100_3 to 10109_3
-    //[FieldOffset(0x1f6c)] public ushort ActiveCharacters[10]; // 10050_1
+    [FieldOffset(0x1f6c)] public fixed ushort ActiveCharacters[10]; // 10050_1
     [FieldOffset(0x1f80)] public ItemBag Items; // 10051_1
     [FieldOffset(0x3cf8)] public uint Money; // 10052_1
-    //[FieldOffset(0x3cfc)] public byte Section0[384]; // 10000_1
-    //[FieldOffset(0x3e7c)] public byte Section1[384]; // 10001_2
-    //[FieldOffset(0x3ffc)] public byte Section2[640]; // 10002_1
-    //[FieldOffset(0x427c)] public byte Section3[64]; // 10003_1
-    //[FieldOffset(0x42bc)] public byte Section4[64]; // 10004_1
-    //[FieldOffset(0x42fc)] public byte Section5[64]; // 10005_1
-    //[FieldOffset(0x433c)] public int Counters[384]; // 10010_1
+    [FieldOffset(0x3cfc)] public fixed byte Section0[384]; // 10000_1
+    [FieldOffset(0x3e7c)] public fixed byte Section1[384]; // 10001_2
+    [FieldOffset(0x3ffc)] public fixed byte Section2[640]; // 10002_1
+    [FieldOffset(0x427c)] public fixed byte Section3[64]; // 10003_1
+    [FieldOffset(0x42bc)] public fixed byte Section4[64]; // 10004_1
+    [FieldOffset(0x42fc)] public fixed byte Section5[64]; // 10005_1
+    [FieldOffset(0x433c)] public fixed int Counters[384]; // 10010_1
     //[FieldOffset(0x439c)] public FDatUnitPersona Personas[464]; // 10053_1
     //[FieldOffset(0xa03c)] public byte Analysis[828]; // 10054_1
     [FieldOffset(0xa378)] public Calendar Calendar; // 10030_1
@@ -1919,7 +1991,7 @@ public unsafe struct UGlobalWork //: public UGameInstance
         {
             for (int i = 0; i < 10; i++)
             {
-                var curr_mem = ((short*)((nint)self + 0x1f6c))[i];
+                var curr_mem = (short)self->ActiveCharacters[i];
                 if (curr_mem == 0) break;
                 ids.Add(curr_mem);
             }
@@ -1932,22 +2004,18 @@ public unsafe struct UGlobalWork //: public UGameInstance
         uint section = id >> 0x1c;
         uint flag_int = (id >> 5 & 0x7fffff);
         uint flag_bit = (uint)(1 << ((int)id & 0x1f));
-        fixed (UGlobalWork* self = &this)
+        switch (section)
         {
-            switch (section)
-            {
-                case 0: return ((int*)((nint)self + 0x3cfc))[flag_int] % flag_bit == 1 ? true : false;
-                case 1: return ((int*)((nint)self + 0x3e7c))[flag_int] % flag_bit == 1 ? true : false;
-                case 2: return ((int*)((nint)self + 0x3ffc))[flag_int] % flag_bit == 1 ? true : false;
-                case 3: return ((int*)((nint)self + 0x427c))[flag_int] % flag_bit == 1 ? true : false;
-                case 4: return ((int*)((nint)self + 0x42bc))[flag_int] % flag_bit == 1 ? true : false;
-                case 5: return ((int*)((nint)self + 0x42fc))[flag_int] % flag_bit == 1 ? true : false;
-                default: return false;
-            }
+            case 0: return Section0[flag_int] % flag_bit == 1 ? true : false;
+            case 1: return Section1[flag_int] % flag_bit == 1 ? true : false;
+            case 2: return Section2[flag_int] % flag_bit == 1 ? true : false;
+            case 3: return Section3[flag_int] % flag_bit == 1 ? true : false;
+            case 4: return Section4[flag_int] % flag_bit == 1 ? true : false;
+            case 5: return Section5[flag_int] % flag_bit == 1 ? true : false;
+            default: return false;
         }
     }
-
-    public int GetCounter(uint i) { fixed (UGlobalWork* self = &this) { return ((int*)((nint)self + 0x433c))[i]; } }
+    public int GetCounter(uint i) => Counters[i];
 
     public FDatUnitPersonaEntry* GetPersona(uint i) { fixed (UGlobalWork* self = &this) { return &((FDatUnitPersonaEntry*)((nint)self + 0x439c))[i]; } }
 };
@@ -1959,12 +2027,14 @@ public unsafe class GlobalWork : IGlobalWork
     private UGlobalWork* Self() => Data;
     public FDatUnitWork* GetUnit(int i) => &((FDatUnitWork*)((nint)Self() + 0x1b0))[i];
 
+    public byte* GetPtr() => (byte*)Self();
+
     public List<short> GetActiveCharacters()
     {
         List<short> ids = new();
-        for (int i = 0; i < 10; i++)
+        for (int i = 1; i < 10; i++)
         {
-            var curr_mem = ((short*)((nint)Self() + 0x1f6c))[i];
+            var curr_mem = (short)Self()->ActiveCharacters[i];
             if (curr_mem == 0) break;
             ids.Add(curr_mem);
         }
@@ -1978,38 +2048,39 @@ public unsafe class GlobalWork : IGlobalWork
         uint flag_bit = (uint)(1 << ((int)id & 0x1f));
         switch (section)
         {
-            case 0: return ((int*)((nint)Self() + 0x3cfc))[flag_int] % flag_bit == 1 ? true : false;
-            case 1: return ((int*)((nint)Self() + 0x3e7c))[flag_int] % flag_bit == 1 ? true : false;
-            case 2: return ((int*)((nint)Self() + 0x3ffc))[flag_int] % flag_bit == 1 ? true : false;
-            case 3: return ((int*)((nint)Self() + 0x427c))[flag_int] % flag_bit == 1 ? true : false;
-            case 4: return ((int*)((nint)Self() + 0x42bc))[flag_int] % flag_bit == 1 ? true : false;
-            case 5: return ((int*)((nint)Self() + 0x42fc))[flag_int] % flag_bit == 1 ? true : false;
+            case 0: return Self()->Section0[flag_int] % flag_bit == 1 ? true : false;
+            case 1: return Self()->Section1[flag_int] % flag_bit == 1 ? true : false;
+            case 2: return Self()->Section2[flag_int] % flag_bit == 1 ? true : false;
+            case 3: return Self()->Section3[flag_int] % flag_bit == 1 ? true : false;
+            case 4: return Self()->Section4[flag_int] % flag_bit == 1 ? true : false;
+            case 5: return Self()->Section5[flag_int] % flag_bit == 1 ? true : false;
             default: return false;
         }
     }
-    public int GetCounter(uint i) => ((int*)((nint)Self() + 0x433c))[i];
+    public int GetCounter(uint i) => Self()->Counters[i];
     public FDatUnitPersonaEntry* GetPersona(uint i) => &((FDatUnitPersonaEntry*)((nint)Self() + 0x439c))[i];
     public Mail* GetMail() => &Self()->Mail;
     public Calendar* GetCalendar() => &Self()->Calendar;
-    public unsafe USequence* GetSequenceInstance() => Self()->mSequenceInstance_;
-    public unsafe UCalendar* GetCalendarInstance() => Self()->mCalendarInstance_;
-    public unsafe UCldCommonData* GetCldCommonData() => Self()->mCldCommonData_;
-    public unsafe UFileNameManager* GetFileNameData() => Self()->mFileNameData_;
-    public unsafe UFldCommonData* GetFldCommonData() => Self()->mFldCommonData_;
-    public unsafe UDatItem* GetItemData() => Self()->mItemData_;
-    public unsafe UTrophyManager* GetTrophy() => Self()->mTrophy_;
-    public unsafe ULeaderBoardManager* GetLeaderBoard() => Self()->mLeaderBoard_;
-    public unsafe USignedInDialog* GetSignedInDialog() => Self()->mSignedInDialog_;
-    public unsafe UErrorDialog* GetErrorDialog() => Self()->mErrorDialog_;
-    public unsafe UMessageDialog* GetMessageDialog() => Self()->mMessageDialog_;
-    public unsafe UBustupController* GetBustupController() => Self()->pBustupController;
-    public unsafe UCommunityWork* GetCommunityWork() => Self()->pCommunityWork;
-    public unsafe UMsgWork* GetMsgWork() => Self()->pMsgWork;
-    public unsafe UEvtDataLoad* GetEvtDataLoad() => Self()->pEvtDataLoad;
+    public USequence* GetSequenceInstance() => Self()->mSequenceInstance_;
+    public UCalendar* GetCalendarInstance() => Self()->mCalendarInstance_;
+    public UCldCommonData* GetCldCommonData() => Self()->mCldCommonData_;
+    public UFileNameManager* GetFileNameData() => Self()->mFileNameData_;
+    public UFldCommonData* GetFldCommonData() => Self()->mFldCommonData_;
+    public UDatItem* GetItemData() => Self()->mItemData_;
+    public UTrophyManager* GetTrophy() => Self()->mTrophy_;
+    public ULeaderBoardManager* GetLeaderBoard() => Self()->mLeaderBoard_;
+    public USignedInDialog* GetSignedInDialog() => Self()->mSignedInDialog_;
+    public UErrorDialog* GetErrorDialog() => Self()->mErrorDialog_;
+    public UMessageDialog* GetMessageDialog() => Self()->mMessageDialog_;
+    public UBustupController* GetBustupController() => Self()->pBustupController;
+    public UCommunityWork* GetCommunityWork() => Self()->pCommunityWork;
+    public UMsgWork* GetMsgWork() => Self()->pMsgWork;
+    public UEvtDataLoad* GetEvtDataLoad() => Self()->pEvtDataLoad;
 }
 
 public interface IGlobalWork
 {
+    public unsafe byte* GetPtr();
     public unsafe FDatUnitWork* GetUnit(int i);
     public List<short> GetActiveCharacters();
     public bool GetBitflag(uint id);
