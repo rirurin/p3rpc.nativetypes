@@ -879,6 +879,7 @@ p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetCalendar() -> p3rpc.nativetype
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetPtr() -> byte*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetSequenceInstance() -> p3rpc.nativetypes.Interfaces.USequence*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetSignedInDialog() -> p3rpc.nativetypes.Interfaces.USignedInDialog*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWork.GetTrophy() -> p3rpc.nativetypes.Interfaces.UTrophyManager*
@@ -903,6 +904,7 @@ p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetCalendar() -> p3rpc.nativet
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
+p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetPtr() -> byte*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetSequenceInstance() -> p3rpc.nativetypes.Interfaces.USequence*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetSignedInDialog() -> p3rpc.nativetypes.Interfaces.USignedInDialog*
 p3rpc.nativetypes.Interfaces.Astrea.GlobalWorkUWP.GetTrophy() -> p3rpc.nativetypes.Interfaces.UTrophyManager*
@@ -928,9 +930,12 @@ p3rpc.nativetypes.Interfaces.Astrea.UAgePanel._readMatInst -> p3rpc.nativetypes.
 p3rpc.nativetypes.Interfaces.Astrea.UAgePanel._readSpr -> p3rpc.nativetypes.Interfaces.USprAsset*
 p3rpc.nativetypes.Interfaces.Astrea.UAgePanel._readSprAstrea -> p3rpc.nativetypes.Interfaces.USprAsset*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.ActiveCharacters -> ushort*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Analysis -> byte*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.baseObj -> p3rpc.nativetypes.Interfaces.UGameInstance
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.bTempSaveHeaderUsed_ -> bool
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Calendar -> p3rpc.nativetypes.Interfaces.Calendar
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Counters -> int*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Items -> p3rpc.nativetypes.Interfaces.ItemBag
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Mail -> p3rpc.nativetypes.Interfaces.Mail
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.mCalendarInstance_ -> p3rpc.nativetypes.Interfaces.UCalendar*
@@ -958,11 +963,20 @@ p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pCommunityWork -> p3rpc.nativety
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pEvtDataLoad -> p3rpc.nativetypes.Interfaces.UEvtDataLoad*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pMsgWork -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.pPadRumble -> p3rpc.nativetypes.Interfaces.UPadRumble*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Section0 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Section1 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Section2 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Section3 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Section4 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.Section5 -> byte*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWork.UGlobalWork() -> void
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.ActiveCharacters -> ushort*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Analysis -> byte*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.baseObj -> p3rpc.nativetypes.Interfaces.UGameInstance
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.bTempSaveHeaderUsed_ -> bool
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Calendar -> p3rpc.nativetypes.Interfaces.Calendar
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Counters -> int*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Items -> p3rpc.nativetypes.Interfaces.ItemBag
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Mail -> p3rpc.nativetypes.Interfaces.Mail
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.mCalendarInstance_ -> p3rpc.nativetypes.Interfaces.UCalendar*
@@ -990,6 +1004,12 @@ p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.pCommunityWork -> p3rpc.nativ
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.pEvtDataLoad -> p3rpc.nativetypes.Interfaces.UEvtDataLoad*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.pMsgWork -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.pPadRumble -> p3rpc.nativetypes.Interfaces.UPadRumble*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Section0 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Section1 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Section2 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Section3 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Section4 -> byte*
+p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.Section5 -> byte*
 p3rpc.nativetypes.Interfaces.Astrea.UGlobalWorkUWP.UGlobalWorkUWP() -> void
 p3rpc.nativetypes.Interfaces.Astrea.UMsgProcWindow_Mind
 p3rpc.nativetypes.Interfaces.Astrea.UMsgProcWindow_Mind.baseObj -> p3rpc.nativetypes.Interfaces.UMsgProcWindowBase
@@ -4976,6 +4996,7 @@ p3rpc.nativetypes.Interfaces.GlobalWork.GetCalendar() -> p3rpc.nativetypes.Inter
 p3rpc.nativetypes.Interfaces.GlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
+p3rpc.nativetypes.Interfaces.GlobalWork.GetPtr() -> byte*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetSequenceInstance() -> p3rpc.nativetypes.Interfaces.USequence*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetSignedInDialog() -> p3rpc.nativetypes.Interfaces.USignedInDialog*
 p3rpc.nativetypes.Interfaces.GlobalWork.GetTrophy() -> p3rpc.nativetypes.Interfaces.UTrophyManager*
@@ -5073,6 +5094,7 @@ p3rpc.nativetypes.Interfaces.IGlobalWork.GetCalendar() -> p3rpc.nativetypes.Inte
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetMessageDialog() -> p3rpc.nativetypes.Interfaces.UMessageDialog*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetMsgWork() -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetPersona(uint i) -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry*
+p3rpc.nativetypes.Interfaces.IGlobalWork.GetPtr() -> byte*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetSequenceInstance() -> p3rpc.nativetypes.Interfaces.USequence*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetSignedInDialog() -> p3rpc.nativetypes.Interfaces.USignedInDialog*
 p3rpc.nativetypes.Interfaces.IGlobalWork.GetTrophy() -> p3rpc.nativetypes.Interfaces.UTrophyManager*
@@ -5107,6 +5129,10 @@ p3rpc.nativetypes.Interfaces.IMemoryMethods.TArray_InsertShift<TArrayType>(p3rpc
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TMap_Insert<KeyType, ValueType>(p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>* map, KeyType key, ValueType val) -> bool
 p3rpc.nativetypes.Interfaces.IMemoryMethods.TMap_InsertNoInit<KeyType, ValueType>(p3rpc.nativetypes.Interfaces.TMap<KeyType, ValueType>* map, KeyType key, ValueType val) -> bool
 p3rpc.nativetypes.Interfaces.ItemBag
+p3rpc.nativetypes.Interfaces.ItemBag.AccessoryCount -> byte*
+p3rpc.nativetypes.Interfaces.ItemBag.ArmorCount -> byte*
+p3rpc.nativetypes.Interfaces.ItemBag.ArmorFootwearCount -> byte*
+p3rpc.nativetypes.Interfaces.ItemBag.ConsumableCount -> byte*
 p3rpc.nativetypes.Interfaces.ItemBag.GetAccessoryCount(int i) -> byte
 p3rpc.nativetypes.Interfaces.ItemBag.GetArmorCount(int i) -> byte
 p3rpc.nativetypes.Interfaces.ItemBag.GetArmorFootwearCount(int i) -> byte
@@ -5118,6 +5144,12 @@ p3rpc.nativetypes.Interfaces.ItemBag.GetOutfitCount(int i) -> byte
 p3rpc.nativetypes.Interfaces.ItemBag.GetSkillCardCount(int i) -> byte
 p3rpc.nativetypes.Interfaces.ItemBag.GetWeaponCount(int i) -> byte
 p3rpc.nativetypes.Interfaces.ItemBag.ItemBag() -> void
+p3rpc.nativetypes.Interfaces.ItemBag.ItemFlags -> uint*
+p3rpc.nativetypes.Interfaces.ItemBag.MaterialCount -> byte*
+p3rpc.nativetypes.Interfaces.ItemBag.MiscItemCount -> byte*
+p3rpc.nativetypes.Interfaces.ItemBag.OutfitCount -> byte*
+p3rpc.nativetypes.Interfaces.ItemBag.SkillCardCount -> byte*
+p3rpc.nativetypes.Interfaces.ItemBag.WeaponCount -> byte*
 p3rpc.nativetypes.Interfaces.IUIMethods
 p3rpc.nativetypes.Interfaces.IUIMethods.AUIDrawBaseActor_DrawPlg
 p3rpc.nativetypes.Interfaces.IUIMethods.AUIDrawBaseActor_DrawRect
@@ -5863,8 +5895,10 @@ p3rpc.nativetypes.Interfaces.UGlobalGameData.mFlags_ANY_ -> p3rpc.nativetypes.In
 p3rpc.nativetypes.Interfaces.UGlobalGameData.mNotInheritanceItems_ -> p3rpc.nativetypes.Interfaces.TArray<ushort>
 p3rpc.nativetypes.Interfaces.UGlobalGameData.UGlobalGameData() -> void
 p3rpc.nativetypes.Interfaces.UGlobalWork
+p3rpc.nativetypes.Interfaces.UGlobalWork.ActiveCharacters -> ushort*
 p3rpc.nativetypes.Interfaces.UGlobalWork.bTempSaveHeaderUsed_ -> bool
 p3rpc.nativetypes.Interfaces.UGlobalWork.Calendar -> p3rpc.nativetypes.Interfaces.Calendar
+p3rpc.nativetypes.Interfaces.UGlobalWork.Counters -> int*
 p3rpc.nativetypes.Interfaces.UGlobalWork.GetActiveCharacters() -> System.Collections.Generic.List<short>
 p3rpc.nativetypes.Interfaces.UGlobalWork.GetBitflag(uint id) -> bool
 p3rpc.nativetypes.Interfaces.UGlobalWork.GetCounter(uint i) -> int
@@ -5897,6 +5931,12 @@ p3rpc.nativetypes.Interfaces.UGlobalWork.pCommunityWork -> p3rpc.nativetypes.Int
 p3rpc.nativetypes.Interfaces.UGlobalWork.pEvtDataLoad -> p3rpc.nativetypes.Interfaces.UEvtDataLoad*
 p3rpc.nativetypes.Interfaces.UGlobalWork.pMsgWork -> p3rpc.nativetypes.Interfaces.UMsgWork*
 p3rpc.nativetypes.Interfaces.UGlobalWork.pPadRumble -> p3rpc.nativetypes.Interfaces.UPadRumble*
+p3rpc.nativetypes.Interfaces.UGlobalWork.Section0 -> byte*
+p3rpc.nativetypes.Interfaces.UGlobalWork.Section1 -> byte*
+p3rpc.nativetypes.Interfaces.UGlobalWork.Section2 -> byte*
+p3rpc.nativetypes.Interfaces.UGlobalWork.Section3 -> byte*
+p3rpc.nativetypes.Interfaces.UGlobalWork.Section4 -> byte*
+p3rpc.nativetypes.Interfaces.UGlobalWork.Section5 -> byte*
 p3rpc.nativetypes.Interfaces.UGlobalWork.Super -> p3rpc.nativetypes.Interfaces.UGameInstance
 p3rpc.nativetypes.Interfaces.UGlobalWork.UGlobalWork() -> void
 p3rpc.nativetypes.Interfaces.UHeroParameterDataAsset
