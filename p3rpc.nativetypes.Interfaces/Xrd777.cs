@@ -3916,6 +3916,11 @@ public unsafe struct APersonaStatusDraw
     [FieldOffset(0x0484)] public int Edit_LevelUp_SlideIn_Frame;
     [FieldOffset(0x0488)] public int Edit_LevelUp_Plate_FadeOut_Frame;
     [FieldOffset(0x48e)] public byte Field48E;
+    [FieldOffset(0x0598)] public byte CombineStrengthStatGrowth;
+    [FieldOffset(0x0599)] public byte CombineMagicStatGrowth;
+    [FieldOffset(0x059A)] public byte CombineEnduranceStatGrowth;
+    [FieldOffset(0x059B)] public byte CombineAgilityStatGrowth;
+    [FieldOffset(0x059C)] public byte CombineLuckStatGrowth;
     [FieldOffset(0x05A0)] public int Edit_SkillAdd_Next_Skill_Start_Delay;
     [FieldOffset(0x05A4)] public float Edit_SkillAdd_Next_Skill_Plate_Color_Fade_Wait;
     [FieldOffset(0x05A8)] public float Edit_SkillAdd_Next_Skill_Plate_Color_Fade_Time;
@@ -4050,6 +4055,7 @@ public unsafe struct APersonaStatusDraw
     public float GetParamDisplayValueFrom(int i) { fixed (APersonaStatusDraw* self = &this) { return *(float*)((nint)self + 0x45C + i * 4); } }
     public float GetParamDisplayValueTo(int i) { fixed (APersonaStatusDraw* self = &this) { return *(float*)((nint)self + 0x448 + i * 4); } }
     public void SetParamDisplayValueTo(int i, float v) { fixed (APersonaStatusDraw* self = &this) { *(float*)((nint)self + 0x448 + i * 4) = v; } }
+    public byte GetCombinePersonaStatGrowth(int i) { fixed (APersonaStatusDraw* self = &this) { return *(byte*)((nint)self + 0x598 + i); } }
 }
 
 // EVENTS

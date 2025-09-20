@@ -394,6 +394,11 @@ p3rpc.nativetypes.Interfaces.APersonaStatusDraw.BaseLuckStat -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.BaseMagicStat -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.baseObj -> p3rpc.nativetypes.Interfaces.AUIDrawBaseActor
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.BaseStrengthStat -> int
+p3rpc.nativetypes.Interfaces.APersonaStatusDraw.CombineAgilityStatGrowth -> byte
+p3rpc.nativetypes.Interfaces.APersonaStatusDraw.CombineEnduranceStatGrowth -> byte
+p3rpc.nativetypes.Interfaces.APersonaStatusDraw.CombineLuckStatGrowth -> byte
+p3rpc.nativetypes.Interfaces.APersonaStatusDraw.CombineMagicStatGrowth -> byte
+p3rpc.nativetypes.Interfaces.APersonaStatusDraw.CombineStrengthStatGrowth -> byte
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.CurrentPersona -> p3rpc.nativetypes.Interfaces.FDatUnitPersonaEntry
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Edit_AffinityCheck_Font_1_FadeIn_Delay -> int
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Edit_AffinityCheck_Font_1_Move_Delay -> int
@@ -543,6 +548,7 @@ p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Field5C4 -> float
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Field7BC -> float
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.Field7C0 -> float
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.GetBasePersonaStat(int i) -> int
+p3rpc.nativetypes.Interfaces.APersonaStatusDraw.GetCombinePersonaStatGrowth(int i) -> byte
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.GetParamDisplayValueFrom(int i) -> float
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.GetParamDisplayValueTo(int i) -> float
 p3rpc.nativetypes.Interfaces.APersonaStatusDraw.IsMemoryCheckPersonaModel -> bool
