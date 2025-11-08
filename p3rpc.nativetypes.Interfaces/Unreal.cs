@@ -1679,8 +1679,15 @@ public unsafe struct FName : IEquatable<FName>, IMapHashable
 public unsafe struct FString : IEquatable<FString>
 {
     public TArray<nint> text;
-    public override string ToString() => Marshal.PtrToStringUni((nint)text.allocator_instance, text.arr_num - 1);
+
+    public override string ToString()
+        => (text.allocator_instance != null) switch
+        {
+            true => Marshal.PtrToStringUni((nint)text.allocator_instance, text.arr_num - 1),
+            false => string.Empty
+        };
     public bool Equals(FString other) => ToString().Equals(other.ToString());
+    public bool NotNull() => text.allocator_instance != null;
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x2)]

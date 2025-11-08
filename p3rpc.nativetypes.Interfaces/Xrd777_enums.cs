@@ -211,6 +211,7 @@ public enum EAtlEvtEventCategoryType : byte
     QEST = 2,
     EXTR = 3,
     FILD = 4,
+    NULL = 255
 };
 
 public enum EAppActorId : uint

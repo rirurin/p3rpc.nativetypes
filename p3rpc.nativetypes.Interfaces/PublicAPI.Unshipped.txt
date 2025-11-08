@@ -1492,6 +1492,7 @@ p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.CMMU = 1 -> p3rpc.nativety
 p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.EXTR = 3 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
 p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.FILD = 4 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
 p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.MAIN = 0 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
+p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.NULL = 255 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
 p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType.QEST = 2 -> p3rpc.nativetypes.Interfaces.EAtlEvtEventCategoryType
 p3rpc.nativetypes.Interfaces.EAutoReceiveInputType
 p3rpc.nativetypes.Interfaces.EAutoReceiveInputType.Disabled = 0 -> p3rpc.nativetypes.Interfaces.EAutoReceiveInputType
@@ -4875,6 +4876,7 @@ p3rpc.nativetypes.Interfaces.FStaticConstructObjectParameters.Template -> p3rpc.
 p3rpc.nativetypes.Interfaces.FString
 p3rpc.nativetypes.Interfaces.FString.Equals(p3rpc.nativetypes.Interfaces.FString other) -> bool
 p3rpc.nativetypes.Interfaces.FString.FString() -> void
+p3rpc.nativetypes.Interfaces.FString.NotNull() -> bool
 p3rpc.nativetypes.Interfaces.FString.text -> p3rpc.nativetypes.Interfaces.TArray<nint>
 p3rpc.nativetypes.Interfaces.FStructProperty
 p3rpc.nativetypes.Interfaces.FStructProperty.FStructProperty() -> void
