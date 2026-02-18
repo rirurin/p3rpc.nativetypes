@@ -5020,3 +5020,62 @@ public unsafe struct FAppCharBagData
     [FieldOffset(0x0030)] public FName SetAnimSlotName;
     //[FieldOffset(0x0038)] public TMap<EAppCharBagAnimType, TSoftObjectPtr<UAnimSequenceBase>> AnimSeqs;
 }
+
+[StructLayout(LayoutKind.Explicit, Pack = 8, Size = 0x368C0)]
+public unsafe struct UGWFlagWork
+{
+    [FieldOffset(0x0)] public UObject Super; // Size: 0x28
+    [FieldOffset(0x28)] public UDataTable* pBattleDataTable; // Size: 0x8
+    [FieldOffset(0x30)] public UDataTable* pCommuDataTable; // Size: 0x8
+    [FieldOffset(0x38)] public UDataTable* pEventDataTable; // Size: 0x8
+    [FieldOffset(0x40)] public UDataTable* pFieldDataTable; // Size: 0x8
+    [FieldOffset(0x48)] public UDataTable* pProgramDataTable; // Size: 0x8
+    [FieldOffset(0x50)] public UDataTable* pSystemDataTable; // Size: 0x8
+    [FieldOffset(0x58)] public UDataTable* pCounterDataTable; // Size: 0x8
+    [FieldOffset(0x60)] public FGWHashBase BattleDataHashArry; // Size: 0x10
+    [FieldOffset(0x2060)] public FGWHashBase CommuDataHashArry; // Size: 0x10
+    [FieldOffset(0xE060)] public FGWHashBase EventDataHashArry; // Size: 0x10
+    [FieldOffset(0x1A060)] public FGWHashBase FieldDataHashArry; // Size: 0x10
+    [FieldOffset(0x2E060)] public FGWHashBase ProgramDataHashArry; // Size: 0x10
+    [FieldOffset(0x30060)] public FGWHashBase SystemDataHashArry; // Size: 0x10
+    [FieldOffset(0x32060)] public FGWHashBase CounterDataHashArry; // Size: 0x10
+    [FieldOffset(0x33870)] public int BattleDataHashNum; // Size: 0x4
+    [FieldOffset(0x33874)] public int CommuDataHashNum; // Size: 0x4
+    [FieldOffset(0x33878)] public int EventDataHashNum; // Size: 0x4
+    [FieldOffset(0x3387C)] public int FieldDataHashNum; // Size: 0x4
+    [FieldOffset(0x33880)] public int ProgramDataHashNum; // Size: 0x4
+    [FieldOffset(0x33884)] public int SystemDataHashNum; // Size: 0x4
+    [FieldOffset(0x33888)] public int CounterDataHashNum; // Size: 0x4
+    [FieldOffset(0x33890)] public UDataTable* mFldLocalFlagDataTable_; // Size: 0x8
+    [FieldOffset(0x33898)] public FGWHashBase mFldLocalFlagDataHashArry_; // Size: 0x10
+    [FieldOffset(0x34898)] public int mFldLocalFlagDataHashNum_; // Size: 0x4
+    [FieldOffset(0x348A0)] public UDataTable* mFldLocalCounterDataTable_; // Size: 0x8
+    [FieldOffset(0x348A8)] public FGWHashBase mFldLocalCounterDataHashArry_; // Size: 0x10
+    [FieldOffset(0x358A8)] public int mFldLocalCounterDataHashNum_; // Size: 0x4
+    [FieldOffset(0x358B0)] public UDataTable* mFldNpcFlagDataTable_; // Size: 0x8
+    [FieldOffset(0x358B8)] public FGWHashBase mFldNpcFlagDataHashArry_; // Size: 0x10
+    [FieldOffset(0x368B8)] public int mFldNpcFlagDataHashNum_; // Size: 0x4
+}
+
+[StructLayout(LayoutKind.Explicit, Pack = 4, Size = 0x10)]
+public unsafe struct FGWHashBase
+{
+    [FieldOffset(0x0)] public FName Name; // Size: 0x8
+    [FieldOffset(0x8)] public uint hash; // Size: 0x4
+    [FieldOffset(0xC)] public uint Value; // Size: 0x4
+}
+
+[StructLayout(LayoutKind.Explicit, Pack = 8, Size = 0x28)]
+public unsafe struct FGWFlagType
+{
+    [FieldOffset(0x0)] public FTableRowBase Super; // Size: 0x8
+    [FieldOffset(0x8)] public uint Value; // Size: 0x4
+    [FieldOffset(0xC)] public uint Offset; // Size: 0x4
+    [FieldOffset(0x10)] public FText Comment; // Size: 0x18
+}
+
+[StructLayout(LayoutKind.Explicit, Size = 0x18)]
+public struct FText
+{
+    
+}

@@ -3648,6 +3648,17 @@ p3rpc.nativetypes.Interfaces.FGuid.B -> uint
 p3rpc.nativetypes.Interfaces.FGuid.C -> uint
 p3rpc.nativetypes.Interfaces.FGuid.D -> uint
 p3rpc.nativetypes.Interfaces.FGuid.FGuid() -> void
+p3rpc.nativetypes.Interfaces.FGWFlagType
+p3rpc.nativetypes.Interfaces.FGWFlagType.Comment -> p3rpc.nativetypes.Interfaces.FText
+p3rpc.nativetypes.Interfaces.FGWFlagType.FGWFlagType() -> void
+p3rpc.nativetypes.Interfaces.FGWFlagType.Offset -> uint
+p3rpc.nativetypes.Interfaces.FGWFlagType.Super -> p3rpc.nativetypes.Interfaces.FTableRowBase
+p3rpc.nativetypes.Interfaces.FGWFlagType.Value -> uint
+p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.FGWHashBase.FGWHashBase() -> void
+p3rpc.nativetypes.Interfaces.FGWHashBase.hash -> uint
+p3rpc.nativetypes.Interfaces.FGWHashBase.Name -> p3rpc.nativetypes.Interfaces.FName
+p3rpc.nativetypes.Interfaces.FGWHashBase.Value -> uint
 p3rpc.nativetypes.Interfaces.FHeroParameterTable
 p3rpc.nativetypes.Interfaces.FHeroParameterTable.FHeroParameterTable() -> void
 p3rpc.nativetypes.Interfaces.FHeroParameterTable.Points -> p3rpc.nativetypes.Interfaces.TArray<int>
@@ -4909,6 +4920,8 @@ p3rpc.nativetypes.Interfaces.FSupportBustupParam
 p3rpc.nativetypes.Interfaces.FSupportBustupParam.FSupportBustupParam() -> void
 p3rpc.nativetypes.Interfaces.FTableRowBase
 p3rpc.nativetypes.Interfaces.FTableRowBase.FTableRowBase() -> void
+p3rpc.nativetypes.Interfaces.FText
+p3rpc.nativetypes.Interfaces.FText.FText() -> void
 p3rpc.nativetypes.Interfaces.FTextureParameterValue
 p3rpc.nativetypes.Interfaces.FTextureParameterValue.ExpressionGUID -> p3rpc.nativetypes.Interfaces.FGuid
 p3rpc.nativetypes.Interfaces.FTextureParameterValue.FTextureParameterValue() -> void
@@ -5941,6 +5954,39 @@ p3rpc.nativetypes.Interfaces.UGlobalWork.Section4 -> byte*
 p3rpc.nativetypes.Interfaces.UGlobalWork.Section5 -> byte*
 p3rpc.nativetypes.Interfaces.UGlobalWork.Super -> p3rpc.nativetypes.Interfaces.UGameInstance
 p3rpc.nativetypes.Interfaces.UGlobalWork.UGlobalWork() -> void
+p3rpc.nativetypes.Interfaces.UGWFlagWork
+p3rpc.nativetypes.Interfaces.UGWFlagWork.BattleDataHashArry -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.BattleDataHashNum -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.CommuDataHashArry -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.CommuDataHashNum -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.CounterDataHashArry -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.CounterDataHashNum -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.EventDataHashArry -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.EventDataHashNum -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.FieldDataHashArry -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.FieldDataHashNum -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldLocalCounterDataHashArry_ -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldLocalCounterDataHashNum_ -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldLocalCounterDataTable_ -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldLocalFlagDataHashArry_ -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldLocalFlagDataHashNum_ -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldLocalFlagDataTable_ -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldNpcFlagDataHashArry_ -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldNpcFlagDataHashNum_ -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.mFldNpcFlagDataTable_ -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.pBattleDataTable -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.pCommuDataTable -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.pCounterDataTable -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.pEventDataTable -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.pFieldDataTable -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.pProgramDataTable -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.ProgramDataHashArry -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.ProgramDataHashNum -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.pSystemDataTable -> p3rpc.nativetypes.Interfaces.UDataTable*
+p3rpc.nativetypes.Interfaces.UGWFlagWork.Super -> p3rpc.nativetypes.Interfaces.UObject
+p3rpc.nativetypes.Interfaces.UGWFlagWork.SystemDataHashArry -> p3rpc.nativetypes.Interfaces.FGWHashBase
+p3rpc.nativetypes.Interfaces.UGWFlagWork.SystemDataHashNum -> int
+p3rpc.nativetypes.Interfaces.UGWFlagWork.UGWFlagWork() -> void
 p3rpc.nativetypes.Interfaces.UHeroParameterDataAsset
 p3rpc.nativetypes.Interfaces.UHeroParameterDataAsset.Tables -> p3rpc.nativetypes.Interfaces.TArray<p3rpc.nativetypes.Interfaces.FHeroParameterTable>
 p3rpc.nativetypes.Interfaces.UHeroParameterDataAsset.UHeroParameterDataAsset() -> void
