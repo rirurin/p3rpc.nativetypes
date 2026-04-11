@@ -2468,8 +2468,9 @@ public struct FSupportBustupParam
 }; // Size: 0x30
 
 [StructLayout(LayoutKind.Explicit, Size = 0x128)]
-public unsafe struct UBustupObject //: public UObject
+public unsafe struct UBustupObject
 {
+    [FieldOffset(0x0000)] public UObject Super;
     [FieldOffset(0x0028)] public UMaterialInterface* BaseMaterial_;
     [FieldOffset(0x0030)] public UMaterialInstanceDynamic* DrawableMaterial_;
     [FieldOffset(0x0038)] public UMaterialInstanceDynamic* ShadowMaterial;
@@ -2483,11 +2484,38 @@ public unsafe struct UBustupObject //: public UObject
     [FieldOffset(0x0098)] public UTexture* BaseMask_;
     [FieldOffset(0x00A0)] public UTexture* DropMask_;
     [FieldOffset(0x00A8)] public UAssetLoader* Loader_;
-    [FieldOffset(0xb0)] public byte FieldB0;
+    [FieldOffset(0x00B0)] public int FieldB0;
+    [FieldOffset(0x00B8)] public int CharacterId;
+    [FieldOffset(0x00BC)] public int ExpressionId;
+    [FieldOffset(0x00C0)] public int OutfitId;
+    [FieldOffset(0x00C8)] public int HasBlush;
+    [FieldOffset(0x00CC)] public int HasSweat;
+    [FieldOffset(0x0108)] public FBustupParts* BustupParts;
     [FieldOffset(0x0118)] public UBustupAnimDataAsset* BustupAnim_;
     [FieldOffset(0x0120)] public USupportBustupDataAsset* SupportBustupOffset_;
 
-}; // Size: 0x128
+};
+
+[StructLayout(LayoutKind.Explicit, Pack = 8, Size = 0x40)]
+public unsafe struct FBustupParts
+{
+    [FieldOffset(0x0)] public FString Pose; // Size: 0x10
+    [FieldOffset(0x10)] public ushort EyePartsID; // Size: 0x2
+    [FieldOffset(0x12)] public ushort MouthPartsID; // Size: 0x2
+    [FieldOffset(0x14)] public bool bEyeAnim; // Size: 0x1
+    [FieldOffset(0x14)] public bool bMouthAnim; // Size: 0x1
+    [FieldOffset(0x15)] public byte InBetween; // Size: 0x1
+    [FieldOffset(0x18)] public float EyeX; // Size: 0x4
+    [FieldOffset(0x1C)] public float EyeY; // Size: 0x4
+    [FieldOffset(0x20)] public float MouthX; // Size: 0x4
+    [FieldOffset(0x24)] public float MouthY; // Size: 0x4
+    [FieldOffset(0x28)] public float BlushX; // Size: 0x4
+    [FieldOffset(0x2C)] public float BlushY; // Size: 0x4
+    [FieldOffset(0x30)] public float SweatX; // Size: 0x4
+    [FieldOffset(0x34)] public float SweatY; // Size: 0x4
+    [FieldOffset(0x38)] public float OffsetX; // Size: 0x4
+    [FieldOffset(0x3C)] public float OffsetY; // Size: 0x4
+}
 
 [StructLayout(LayoutKind.Explicit, Size = 0x1D8)]
 public unsafe struct UMsgProcWindow_Assist //: public UMsgProcWindowBase
