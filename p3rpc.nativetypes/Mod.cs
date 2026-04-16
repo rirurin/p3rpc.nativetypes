@@ -7,43 +7,17 @@ using Reloaded.Memory.SigScan.ReloadedII.Interfaces;
 using Reloaded.Mod.Interfaces;
 using SharedScans.Interfaces;
 using System.Diagnostics;
+using riri.commonmodutils;
 
 namespace p3rpc.nativetypes
 {
-    /// <summary>
-    /// Your mod logic goes here.
-    /// </summary>
-    public class Mod : ModBase, IExports // <= Do not Remove.
+    public class Mod : ModBase, IExports
     {
-        /// <summary>
-        /// Provides access to the mod loader API.
-        /// </summary>
         private readonly IModLoader _modLoader;
-
-        /// <summary>
-        /// Provides access to the Reloaded.Hooks API.
-        /// </summary>
-        /// <remarks>This is null if you remove dependency on Reloaded.SharedLib.Hooks in your mod.</remarks>
         private readonly IReloadedHooks? _hooks;
-
-        /// <summary>
-        /// Provides access to the Reloaded logger.
-        /// </summary>
         private readonly ILogger _logger;
-
-        /// <summary>
-        /// Entry point into the mod, instance that created this class.
-        /// </summary>
         private readonly IMod _owner;
-
-        /// <summary>
-        /// Provides access to this mod's configuration.
-        /// </summary>
         private Config _configuration;
-
-        /// <summary>
-        /// The configuration of the currently executing mod.
-        /// </summary>
         private readonly IModConfig _modConfig;
 
         private UIMethods _uiMethods;
@@ -69,8 +43,9 @@ namespace p3rpc.nativetypes
             if (_hooks == null) throw new Exception($"[{_modConfig.ModName}] Could not get Reloaded hooks");
             if (sharedScans == null) throw new Exception($"[{_modConfig.ModName}] Could not get controller for Shared Scans");
             if (startupScanner == null) throw new Exception($"[{_modConfig.ModName}] Could not get controller for Startup Scanner");
+            var utils = Utils.Create(_modLoader, startupScanner, _logger, _hooks, baseAddress, _modConfig.ModName, System.Drawing.Color.Aquamarine, _configuration.LogLevel);
             _commonMethods = new(sharedScans);
-            _uiMethods = new(sharedScans);
+            _uiMethods = new(sharedScans, utils);
             _memoryMethods = new(startupScanner, baseAddress, _logger, _hooks, _modConfig.ModName);
             _modLoader.AddOrReplaceController<IMemoryMethods>(_owner, _memoryMethods);
         }
@@ -91,7 +66,6 @@ namespace p3rpc.nativetypes
 #pragma warning restore CS8618
         #endregion
 
-        //public Type[] GetTypes() => new[] { typeof(ICommonMethods), typeof(IUIMethods) };
-        public Type[] GetTypes() => new[] { typeof(IMemoryMethods) };
+        public Type[] GetTypes() => [typeof(IMemoryMethods)];
     }
 }

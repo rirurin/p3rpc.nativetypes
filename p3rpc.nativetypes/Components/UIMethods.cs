@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using riri.commonmodutils;
 
 namespace p3rpc.nativetypes.Components
 {
@@ -16,7 +17,13 @@ namespace p3rpc.nativetypes.Components
         private string UPlgAsset_FUN_14131f0d0_SIG = "48 8B C4 48 89 58 ?? 4C 89 40 ?? 48 89 50 ?? 55 56 57 41 54 41 55 41 56 41 57 48 81 EC 00 01 00 00";
         private string UIDraw_SetBlendState_SIG = "48 89 5C 24 ?? 48 89 6C 24 ?? 48 89 74 24 ?? 57 41 56 41 57 48 83 EC 20 48 8D 99 ?? ?? ?? ?? 4C 8B F9 48 8B CB 41 8B E9";
         private string DrawComponentMask_FUN_140cb27f0_SIG = "E8 ?? ?? ?? ?? 48 63 87 ?? ?? ?? ?? 45 0F 28 D0";
-        private string DrawComponentMask_FUN_14bffbdd0_SIG = "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC 50 31 F6";
+        private string[] DrawComponentMask_FUN_14bffbdd0_SIG =
+        [
+            "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC 50 31 F6",
+            "48 89 5C 24 ?? 48 89 74 24 ?? 57 48 83 EC 50 33 F6 41 8B F8"
+        ];
+
+        private MultiSignature DrawComponentMask_FUN_14bffbdd0_MS;
         private string DrawComponentMask_FUN_140cc8760_SIG = "E8 ?? ?? ?? ?? C7 44 24 ?? 23 00 00 00 45 33 E4";
         private string SpriteMaskType_ActiveDrawTypeId_SIG = "89 0D ?? ?? ?? ?? 41 8B CF"; // 0x141118a1f
         private string DrawSingleLineText_SIG = "E8 ?? ?? ?? ?? 0F 28 05 ?? ?? ?? ?? 48 8D 8D ?? ?? ?? ?? F3 44 0F 58 0D ?? ?? ?? ??";
@@ -26,15 +33,23 @@ namespace p3rpc.nativetypes.Components
         private string AUIDrawBaseActor_DrawRect_SIG = "4C 8B DC 48 81 EC C8 00 00 00 0F B6 84 24 ?? ?? ?? ??";
         private string AUIDrawBaseActor_DrawRectV4_SIG = "48 8B C4 48 89 58 ?? 48 89 70 ?? 48 89 78 ?? 55 41 56 41 57 48 8D 68 ?? 48 81 EC 30 01 00 00 48 8B 9D ?? ?? ?? ??";
 
-        public UIMethods(ISharedScans scans)
+        private Utils _utils;
+
+        public UIMethods(ISharedScans scans, Utils utils)
         {
+            _utils = utils;
             scans.AddScan<IUIMethods.GetSpriteItemMaskInstance>(GetSpriteItemMaskInstance_SIG);
             scans.AddScan<IUIMethods.UIDraw_SetPresetBlendState>(UIDraw_SetPresetBlendState_SIG);
             scans.AddScan<IUIMethods.USprAsset_FUN_141323540>(USprAsset_FUN_141323540_SIG);
             scans.AddScan<IUIMethods.UPlgAsset_FUN_14131f0d0>(UPlgAsset_FUN_14131f0d0_SIG);
             scans.AddScan<IUIMethods.UIDraw_SetBlendState>(UIDraw_SetBlendState_SIG);
             scans.AddScan<IUIMethods.DrawComponentMask_FUN_140cb27f0>(DrawComponentMask_FUN_140cb27f0_SIG);
-            scans.AddScan<IUIMethods.DrawComponentMask_FUN_14bffbdd0>(DrawComponentMask_FUN_14bffbdd0_SIG);
+            DrawComponentMask_FUN_14bffbdd0_MS = new();
+            _utils.MultiSigScan(DrawComponentMask_FUN_14bffbdd0_SIG,
+                "FUN_14bffbdd0", _utils.GetDirectAddress,
+                addr => scans.Broadcast<IUIMethods.DrawComponentMask_FUN_14bffbdd0>((nint)addr),
+                DrawComponentMask_FUN_14bffbdd0_MS
+            );
             scans.AddScan<IUIMethods.DrawComponentMask_FUN_140cc8760>(DrawComponentMask_FUN_140cc8760_SIG);
             scans.AddScan("DrawComponentMask_ActiveDrawTypeId", SpriteMaskType_ActiveDrawTypeId_SIG);
             scans.AddScan<IUIMethods.DrawSingleLineText>(DrawSingleLineText_SIG);

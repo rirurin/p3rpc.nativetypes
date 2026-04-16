@@ -2502,8 +2502,8 @@ public unsafe struct FBustupParts
     [FieldOffset(0x0)] public FString Pose; // Size: 0x10
     [FieldOffset(0x10)] public ushort EyePartsID; // Size: 0x2
     [FieldOffset(0x12)] public ushort MouthPartsID; // Size: 0x2
-    [FieldOffset(0x14)] public bool bEyeAnim; // Size: 0x1
-    [FieldOffset(0x14)] public bool bMouthAnim; // Size: 0x1
+    //[FieldOffset(0x14)] public bool bEyeAnim; // Size: 0x1
+    //[FieldOffset(0x14)] public bool bMouthAnim; // Size: 0x1
     [FieldOffset(0x15)] public byte InBetween; // Size: 0x1
     [FieldOffset(0x18)] public float EyeX; // Size: 0x4
     [FieldOffset(0x1C)] public float EyeY; // Size: 0x4
@@ -2515,6 +2515,50 @@ public unsafe struct FBustupParts
     [FieldOffset(0x34)] public float SweatY; // Size: 0x4
     [FieldOffset(0x38)] public float OffsetX; // Size: 0x4
     [FieldOffset(0x3C)] public float OffsetY; // Size: 0x4
+
+    public bool bEyeAnim
+    {
+        get {
+            fixed (FBustupParts* self = &this)
+            {
+                return (*(byte*)((nint)self + 0x14) & (1 << 0)) != 0;
+            }
+        }
+        set {
+            fixed (FBustupParts* self = &this)
+            {
+                var pFlags = (int*)((nint)self + 0x14);
+                *pFlags = value switch
+                {
+                    true => *pFlags | (1 << 0),
+                    false => *pFlags & ~(1 << 0)
+                };
+            }
+        }
+    }
+
+    public bool bMouthAnim
+    {
+        get
+        {
+            fixed (FBustupParts* self = &this)
+            {
+                return (*(byte*)((nint)self + 0x14) & (1 << 1)) != 0;
+            }
+        }
+        set
+        {
+            fixed (FBustupParts* self = &this)
+            {
+                var pFlags = (int*)((nint)self + 0x14);
+                *pFlags = value switch
+                {
+                    true => *pFlags | (1 << 1),
+                    false => *pFlags & ~(1 << 1)
+                };
+            }
+        }
+    }
 }
 
 [StructLayout(LayoutKind.Explicit, Size = 0x1D8)]
