@@ -2328,17 +2328,19 @@ p3rpc.nativetypes.Interfaces.FBustupMouthAnim.FBustupMouthAnim() -> void
 p3rpc.nativetypes.Interfaces.FBustupObjectBuffer
 p3rpc.nativetypes.Interfaces.FBustupObjectBuffer.FBustupObjectBuffer() -> void
 p3rpc.nativetypes.Interfaces.FBustupParts
-p3rpc.nativetypes.Interfaces.FBustupParts.bEyeAnim.get -> bool
-p3rpc.nativetypes.Interfaces.FBustupParts.bEyeAnim.set -> void
+p3rpc.nativetypes.Interfaces.FBustupParts.bEyeAnim -> bool
 p3rpc.nativetypes.Interfaces.FBustupParts.BlushX -> float
 p3rpc.nativetypes.Interfaces.FBustupParts.BlushY -> float
-p3rpc.nativetypes.Interfaces.FBustupParts.bMouthAnim.get -> bool
-p3rpc.nativetypes.Interfaces.FBustupParts.bMouthAnim.set -> void
+p3rpc.nativetypes.Interfaces.FBustupParts.bMouthAnim -> bool
+p3rpc.nativetypes.Interfaces.FBustupParts.EyeAnim.get -> bool
+p3rpc.nativetypes.Interfaces.FBustupParts.EyeAnim.set -> void
 p3rpc.nativetypes.Interfaces.FBustupParts.EyePartsID -> ushort
 p3rpc.nativetypes.Interfaces.FBustupParts.EyeX -> float
 p3rpc.nativetypes.Interfaces.FBustupParts.EyeY -> float
 p3rpc.nativetypes.Interfaces.FBustupParts.FBustupParts() -> void
 p3rpc.nativetypes.Interfaces.FBustupParts.InBetween -> byte
+p3rpc.nativetypes.Interfaces.FBustupParts.MouthAnim.get -> bool
+p3rpc.nativetypes.Interfaces.FBustupParts.MouthAnim.set -> void
 p3rpc.nativetypes.Interfaces.FBustupParts.MouthPartsID -> ushort
 p3rpc.nativetypes.Interfaces.FBustupParts.MouthX -> float
 p3rpc.nativetypes.Interfaces.FBustupParts.MouthY -> float
@@ -5617,7 +5619,8 @@ p3rpc.nativetypes.Interfaces.UBustupObject.DrawableMaterial_ -> p3rpc.nativetype
 p3rpc.nativetypes.Interfaces.UBustupObject.DropMask_ -> p3rpc.nativetypes.Interfaces.UTexture*
 p3rpc.nativetypes.Interfaces.UBustupObject.ExpressionId -> int
 p3rpc.nativetypes.Interfaces.UBustupObject.EyeTex_ -> p3rpc.nativetypes.Interfaces.UTexture*
-p3rpc.nativetypes.Interfaces.UBustupObject.FieldB0 -> int
+p3rpc.nativetypes.Interfaces.UBustupObject.FieldB0 -> byte
+p3rpc.nativetypes.Interfaces.UBustupObject.FieldB0_U32 -> int
 p3rpc.nativetypes.Interfaces.UBustupObject.HasBlush -> int
 p3rpc.nativetypes.Interfaces.UBustupObject.HasSweat -> int
 p3rpc.nativetypes.Interfaces.UBustupObject.Loader_ -> p3rpc.nativetypes.Interfaces.UAssetLoader*

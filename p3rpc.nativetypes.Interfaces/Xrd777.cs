@@ -2484,7 +2484,8 @@ public unsafe struct UBustupObject
     [FieldOffset(0x0098)] public UTexture* BaseMask_;
     [FieldOffset(0x00A0)] public UTexture* DropMask_;
     [FieldOffset(0x00A8)] public UAssetLoader* Loader_;
-    [FieldOffset(0x00B0)] public int FieldB0;
+    [FieldOffset(0x00B0)] public byte FieldB0;
+    [FieldOffset(0x00B0)] public int FieldB0_U32;
     [FieldOffset(0x00B8)] public int CharacterId;
     [FieldOffset(0x00BC)] public int ExpressionId;
     [FieldOffset(0x00C0)] public int OutfitId;
@@ -2502,8 +2503,8 @@ public unsafe struct FBustupParts
     [FieldOffset(0x0)] public FString Pose; // Size: 0x10
     [FieldOffset(0x10)] public ushort EyePartsID; // Size: 0x2
     [FieldOffset(0x12)] public ushort MouthPartsID; // Size: 0x2
-    //[FieldOffset(0x14)] public bool bEyeAnim; // Size: 0x1
-    //[FieldOffset(0x14)] public bool bMouthAnim; // Size: 0x1
+    [FieldOffset(0x14)] public bool bEyeAnim; // Size: 0x1
+    [FieldOffset(0x14)] public bool bMouthAnim; // Size: 0x1
     [FieldOffset(0x15)] public byte InBetween; // Size: 0x1
     [FieldOffset(0x18)] public float EyeX; // Size: 0x4
     [FieldOffset(0x1C)] public float EyeY; // Size: 0x4
@@ -2516,7 +2517,7 @@ public unsafe struct FBustupParts
     [FieldOffset(0x38)] public float OffsetX; // Size: 0x4
     [FieldOffset(0x3C)] public float OffsetY; // Size: 0x4
 
-    public bool bEyeAnim
+    public bool EyeAnim
     {
         get {
             fixed (FBustupParts* self = &this)
@@ -2537,7 +2538,7 @@ public unsafe struct FBustupParts
         }
     }
 
-    public bool bMouthAnim
+    public bool MouthAnim
     {
         get
         {
